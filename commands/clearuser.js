@@ -73,14 +73,27 @@ exports.run = (bot, message, args) => {
       });
     };
 
+    var targetuser = message.mentions.members.first();
+
+    if (targetuser == undefined) {
+      return message.channel.send({
+          embed: {
+              color: bot.settings.red,
+              description: `Error! You need to include someone to clear the messages from.`
+          }
+      });
+    };
+
     message.channel.fetchMessages({
         limit: amount,
       }).then((messages) => {
         message.delete();
+        const filterBy = targetuser ? targetuser.id : bot.user.id;
+        messages = messages.filter(m => m.author.id === filterBy).array().slice(0, amount);
         message.channel.bulkDelete(messages).catch(error => console.log(error.stack));
       });
 
-    message.channel.send({embed: {color: bot.settings.green, description: `Successfully cleared **${amount}** messages in **${message.channel.name}**`}});
+    message.channel.send({embed: {color: bot.settings.green, description: `Successfully cleared **${amount}** messages from **${targetuser.user.tag}**`}});
 
 
 

@@ -1,45 +1,82 @@
-const Discord = require("discord.js")
+exports.run = (bot, message, args) => {
 
-module.exports.run = async (bot, message, args) => {
+    const Discord = require("discord.js");
+    const fs = require("fs");
 
-  let banHelp = new Discord.RichEmbed()
-      .setColor("#a905fc")
-      .setTitle("Command: Ban")
-      .addField("Description:", "Ban a member forever", true)
-      .addField("Usage", ".ban <user> <reason>", true)
-      .addField("Example", ".ban @Stentorian#1202 Being a Noob")
-      .addField("Note", "To unban the user you have banned, you need to navigate to Server Settings > Bans");
+    var config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
 
-  let bUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-  if (!bUser) return message.channel.send(banHelp);
-  let bReason = args.join(" ").slice(22);
-  if (!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send("Insufficient Permissions!");
-  if (bUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person cannot be banned!");
+    if (config.staffrole == false) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! A staff role has not been set. Ask an administrator or the server owner to set one.`
+            }
+        });
+    };
 
-  let banEmbed = new Discord.RichEmbed()
-      .setDescription("User Banned")
-      .setColor("#ff0400")
-      .addField("Banned User", `${bUser} with ID: ${bUser.id}`)
-      .addField("Banned By", `<@${message.author.id}> with ID: ${message.author.id}`)
-      .addField("Banned In", message.channel)
-      .addField("Banned on", message.createdAt)
-      .addField("Reason", bReason || "Unspecified");
+    let staffrole = message.guild.roles.get(config.staffrole);
 
-  let banResponseEmbed = new Discord.RichEmbed()
-      .setColor("#21ff00")
-      .setDescription(`${bUser} has successfully been banned from the server!`);
+    if (staffrole == undefined) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! The staff role set is invalid. Ask an administrator or the server owner to set a new one.`
+            }
+        });
+    };
+
+    if (!message.member.roles.has(config.staffrole)) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! You do not have permission to do that!`
+            }
+        });
+    };
+
+    var targetuser = message.mentions.members.first();
+
+    if (targetuser == undefined) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! You forgot to mention a user!`
+            }
+        });
+
+    };
+
+    var reason = args.slice(1).join(" ");
+
+    if (reason.length < 1) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! You forgot to include a reason!`
+            }
+        });
+    };
+
+    if (!targetuser.bannable) {
+      return message.channel.send({
+          embed: {
+              color: bot.settings.red,
+              description: `Error! I am unable to ban this user.`
+          }
+      });
+    };
+
+    
 
 
-  let banChannel = message.guild.channels.find(`name`, "logs")
-  if (!banChannel) return message.channel.send("Can't find log channel! Please create a channel called #logs")
 
+    targetuser.ban(`By ${message.author.id}`);
 
-  message.delete().catch(O_o => {});
-  message.guild.member(bUser).ban(bReason);
-  banChannel.send(banEmbed);
-  message.channel.send(banResponseEmbed);
-}
+    message.channel.send({
+        embed: {
+            color: bot.settings.green,
+            description: `Successfully banned **${targetuser.user.tag}** for **${reason}**`
+        }
+    });
 
-module.exports.help = {
-  name: "ban"
-}
+};

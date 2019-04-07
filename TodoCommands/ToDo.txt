@@ -1,5 +1,0 @@
-Ticketing System - Semi Complete
-Update Help.js
-Change args0 on commands to help embed
-Economy System
-Translate Command

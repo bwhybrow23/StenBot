@@ -1,67 +1,150 @@
-const Discord = require("discord.js");
-const ms = require("ms");
+exports.run = (bot, message, args) => {
 
-module.exports.run = async (bot, message, args) => {
+    const Discord = require("discord.js");
+    const fs = require("fs");
 
-  let muteHelpEmbed = new Discord.RichEmbed()
-  .setColor("#a905fc")
-  .setTitle("Command: Tempmute")
-  .addField("Description", "Temporarily restrics aformentioned user from talking for the specified time!", true)
-  .addField("Usage", ".tempmute @<user> <time> <reason>", true)
-  .addField("Example", ".tempmute @Stentorian#1202 10m Noob")
-  .addField("Note", "This command requires a muted role that the bot creates if one is not there!");
+    var config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
 
-  if(!args[0]) return message.channel.send(muteHelpEmbed);
+    if (config.staffrole == false) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! A staff role has not been set. Ask an administrator or the server owner to set one.`
+            }
+        });
+    };
 
-  let tempMuteEmbed = new Discord.RichEmbed()
-      .setDescription("User Temp Muted")
-      .setColor("#e59937")
-      .addField("Muted User", `${mute} with ID: ${mute.id}`)
-      .addField("Muted By", `<@${message.author.id}> with ID: ${message.author.id}`)
-      .addField("Muted In", message.channel)
-      .addField("Muted on", message.createdAt)
+    let staffrole = message.guild.roles.get(config.staffrole);
 
-  let mute = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+    if (staffrole == undefined) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! The staff role set is invalid. Ask an administrator or the server owner to set a new one.`
+            }
+        });
+    };
 
-  if(mute.hasPermission("KICK_MEMBERS")) return message.reply("Can't mute this person!");
+    if (!message.member.roles.has(config.staffrole)) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! You do not have permission to do that!`
+            }
+        });
+    };
 
-  let muterole = message.guild.roles.find(`name`, "muted");
+    var targetuser = message.mentions.members.first();
 
-//start of createrole
-  if(!muterole){
-    try{
-      muterole = await message.guild.createRole({
-        name: "muted",
-        color: "#000000"
-      })
-      message.guild.channels.forEach(async (channel, id) => {
-        await channel.overwritePermissions(muterole, {
-          SEND_MESSAGES: false,
-          ADD_REACTIONS: false,
-        })
-      })
-    }catch (e){
-      console.log(e.stack);
-    }
-  }
-//end of createrole
-  let mutetime = args[1];
-  if(!mutetime) return message.channel.send(muteHelpEmbed);
+    if (targetuser == undefined) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! You forgot to mention a user!`
+            }
+        });
 
-  await(mute.addRole(muterole.id));
-  message.reply(`<@${mute.id}> has been muted for ${ms(ms(mutetime))}`);
+    };
 
-  await(mute.addRole(muterole.id));
-  message.channel.send(tempMuteEmbed);
+    var reason = args.slice(2).join(" ");
 
-  setTimeout(function(){
-    mute.removeRole(muterole.id);
-    message.channel.send(`<@${mute.id}> has recieved their full mute time. They have now been unmuted!`);
-  }, ms(mutetime));
+    if (reason.length < 1) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! You forgot to include a reason!`
+            }
+        });
+    };
 
-  //end of module
-}
+    var time = args[1];
+    if (time == undefined) {
+      return message.channel.send({
+          embed: {
+              color: bot.settings.red,
+              description: `Error! You forgot to include a time in the minutes!`
+          }
+      });
+    };
 
-module.exports.help = {
-  name: "tempmute"
-}
+    if(isNaN(time)) {
+      return message.channel.send({
+          embed: {
+              color: bot.settings.red,
+              description: `Error! The time has to a number.`
+          }
+      });
+    };
+
+    if (time < 1) {
+      return message.channel.send({
+          embed: {
+              color: bot.settings.red,
+              description: `Error! The time has to be bigger that **1 minute**!`
+          }
+      });
+    };
+
+    if (time > 1440) {
+      return message.channel.send({
+          embed: {
+              color: bot.settings.red,
+              description: `Error! The time cannot be longer than **1 day**!`
+          }
+      });
+    };
+
+    if (targetuser.hasPermission("ADMINISTRATOR")) {
+      return message.channel.send({
+          embed: {
+              color: bot.settings.red,
+              description: `Error! That user is an admin!`
+          }
+      });
+    };
+
+    let muterole = message.guild.roles.find(`name`, `Mute`);
+    let botasmember = message.guild.members.get(bot.user.id);
+
+
+
+    if (muterole == undefined) {
+
+      message.guild.createRole({
+        name: `Mute`,
+        reason: `Kewl Bot Mute Role Auto-create`
+      }).then(role => {
+        message.guild.channels.forEach(function(channel) {
+            channel.overwritePermissions(role, {
+              SEND_MESSAGES: false
+            });
+        let muterole = role;
+        });
+
+        role.setPosition(botasmember.highestRole.position - 1);
+
+
+      });
+    };
+
+    if (targetuser.roles.has(muterole.id) == true) {
+      return message.channel.send({
+          embed: {
+              color: bot.settings.red,
+              description: `Error! That user is already muted!`
+          }
+      });
+    };
+
+    targetuser.addRole(muterole.id);
+
+    message.channel.send({embed: {color: bot.settings.green, description: `Successfully muted **${targetuser.user.tag}** for **${time}** minutes.`}})
+
+    let ms = time * 60 * 1000;
+
+    bot.setTimeout(function(){
+      targetuser.removeRole(muterole.id);
+
+    }, ms);
+
+};

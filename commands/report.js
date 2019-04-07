@@ -1,41 +1,98 @@
-const Discord = require("discord.js");
+exports.run = (bot, message, args) => {
 
-module.exports.run = async (bot, message, args) => {
+    const Discord = require("discord.js");
+    const colors = require("colors");
 
-  let reportHelpEmbed = new Discord.RichEmbed()
-      .setColor("#a905fc")
-      .setTitle("Command: Report")
-      .addField("Description:", "Report a bad player", true)
-      .addField("Usage", ".report @<user> <reason>", true)
-      .addField("Example", ".report @Stentorian#1202 Too OP")
-      .addField("Note", "The staff are instantly notified and you might not be notified of any punishments made to that player.");
+    var reporttype = args[0];
+
+    let thedate = new Date();
 
 
-  let rUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-  if (!rUser) return message.channel.send(reportHelpEmbed);
-  let reason = args.join(" ").slice(22);
 
-  let reportEmbed = new Discord.RichEmbed()
-      .setDescription("A new report has came in!")
-      .setColor("#a905fc")
-      .addField("Reported User", `${rUser} with ID: ${rUser.id}`)
-      .addField("Reported By", `${message.author} with ID: ${message.author.id}`)
-      .addField("Channel", message.channel)
-      .addField("Time", message.createdAt)
-      .addField("Reason", reason || "Unspecified");
+    //Check if they included a report type.
 
-  let reportResponseEmbed = new Discord.RichEmbed()
-      .setColor("#21ff00")
-      .setDescription("Your report has successfully been submitted! It will be overlooked as soon as possible!")
+    switch (reporttype) {
+        //BUG REPORT
+        case 'bug':
 
-  let reportschannel = message.guild.channels.find(`name`, "reports");
-  if (!reportschannel) return message.channel.send("Couldn't find reports channel. Create a new text channel called #reports")
+            let report = args.slice(1).join(" ");
+            if (report.length < 1) {
+                return message.channel.send({
+                    embed: {
+                        color: bot.settings.red,
+                        description: 'Error! You need to include the report message!'
+                    }
+                });
+            };
+            //Bug report message
+            const bugreport = new Discord.RichEmbed()
+                .setTitle("New Bug Report.")
+                .setColor(bot.settings.yellow)
+                .setDescription(`Platform: **Discord**\n\nUsername: **${message.author}**\nUser Id: **${message.author.id}**\nFrom Server: **${message.guild.name} | ${message.guild.id}**\nTime: **${thedate}**\n\nThe Bug: \n**${report}**`)
 
-  message.delete().catch(O_o => {});
-  reportschannel.send(reportEmbed);
-  message.channel.send(reportResponseEmbed);
-}
+            console.log(`[SYSTEM]`.grey, ` A bug report has been created by ${message.author.tag} | ${message.author.id}`.yellow);
+            bot.channels.get('451797630054301696').send(bugreport);
 
-module.exports.help = {
-  name: "report"
-}
+            message.channel.send({
+                embed: {
+                    color: bot.settings.green,
+                    description: 'Your **bug** report has been created.'
+                }
+            })
+            break;
+            //PLAYER REPORT
+        case 'player':
+
+            //Check if they have mentioned a user
+            let member = message.mentions.members.first();
+            if (member === undefined) {
+                return message.channel.send({
+                    embed: {
+                        color: bot.settings.red,
+                        description: 'Error! You forgot to mention a user to report!'
+                    }
+                });
+            };
+
+            //Check if they included the reprot message
+            let playerreportmsg = args.slice(2).join(" ");
+            if (playerreportmsg.length < 1) {
+                return message.channel.send({
+                    embed: {
+                        color: bot.settings.red,
+                        description: 'Error! You need to include the report message!'
+                    }
+                });
+            };
+
+            //PLayer report message
+            const playerreport = new Discord.RichEmbed()
+                .setTitle("New Player Report.")
+                .setColor(bot.settings.yellow)
+                .setDescription(`Platform: **Discord**\n\nReporter Username: **${message.author}**\nReporter User Id: **${message.author.id}**\nFrom Server: **${message.guild.name} | ${message.guild.id}**\nTime: **${thedate}**\n\nReported User: **${member.user}**\nReported Users Id: **${member.id}**\nReport: \n**${playerreportmsg}**`)
+
+            bot.channels.get('460096340374847499').send(playerreport);
+            console.log(`[SYSTEM]`.grey, `A player report has been created by ${message.author.tag} | ${message.author.id}`.yellow);
+
+            message.channel.send({
+                embed: {
+                    color: bot.settings.green,
+                    description: 'Your **player** report has been created.'
+                }
+            });
+            break;
+
+        default:
+            message.channel.send({
+                embed: {
+                    color: bot.settings.red,
+                    description: 'Error! Invalid report type!'
+                }
+            });
+            break;
+    };
+
+
+
+
+};

@@ -1,43 +1,80 @@
-const Discord = require("discord.js")
+exports.run = (bot, message, args) => {
 
-module.exports.run = async (bot, message, args) => {
+    const Discord = require("discord.js");
+    const fs = require("fs");
 
-  let kickHelp = new Discord.RichEmbed()
-      .setColor("#a905fc")
-      .setTitle("Command: Kick")
-      .addField("Description:", "Kicks a member from the server", true)
-      .addField("Usage", ".kick <user> <reason>", true)
-      .addField("Example", ".kick @Stentorian#1202 Being a Noob")
-      .addField("Note", "The user can join back if they are invited back.");
+    var config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
 
-  let kUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
-  if (!kUser) return message.channel.send(kickHelp);
-  let kReason = args.join(" ").slice(22);
-  if (!message.member.hasPermission("KICK_MEMBERS")) return message.channel.send("Insufficient Permissions!");
-  if (kUser.hasPermission("MANAGE_MESSAGES")) return message.channel.send("That person cannot be kicked!");
+    if (config.staffrole == false) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! A staff role has not been set. Ask an administrator or the server owner to set one.`
+            }
+        });
+    };
 
-  let kickEmbed = new Discord.RichEmbed()
-      .setDescription("User Kicked")
-      .setColor("#e59937")
-      .addField("Kicked User", `${kUser} with ID: ${kUser.id}`)
-      .addField("Kicked By", `<@${message.author.id}> with ID: ${message.author.id}`)
-      .addField("Kicked In", message.channel)
-      .addField("Kicked on", message.createdAt)
-      .addField("Reason", kReason || "Unspecified");
+    let staffrole = message.guild.roles.get(config.staffrole);
 
-  let kickResponseEmbed = new Discord.RichEmbed()
-          .setColor("#21ff00")
-          .setDescription(`${kUser} has successfully been kicked from the server!`);
+    if (staffrole == undefined) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! The staff role set is invalid. Ask an administrator or the server owner to set a new one.`
+            }
+        });
+    };
 
-  let kickChannel = message.guild.channels.find(`name`, "logs")
-  if (!kickChannel) return message.channel.send("Can't find log channel! Please create a channel called #logs")
+    if (!message.member.roles.has(config.staffrole)) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! You do not have permission to do that!`
+            }
+        });
+    };
 
-  message.delete().catch(O_o => {});
-  message.guild.member(kUser).kick(kReason);
-  kickChannel.send(kickEmbed);
-  message.channel.send(kickResponseEmbed);
-}
+    var targetuser = message.mentions.members.first();
 
-module.exports.help = {
-  name: "kick"
-}
+    if (targetuser == undefined) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! You forgot to mention a user!`
+            }
+        });
+
+    };
+
+    var reason = args.slice(1).join(" ");
+
+    if (reason.length < 1) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! You forgot to include a reason!`
+            }
+        });
+    };
+
+    if (!targetuser.kickable) {
+      return message.channel.send({
+          embed: {
+              color: bot.settings.red,
+              description: `Error! I am unable to kick this user.`
+          }
+      });
+    };
+
+
+
+    targetuser.kick(`By ${message.author.id}`);
+
+    message.channel.send({
+        embed: {
+            color: bot.settings.green,
+            description: `Successfully kicked **${targetuser.user.tag}** for **${reason}**`
+        }
+    });
+
+};
