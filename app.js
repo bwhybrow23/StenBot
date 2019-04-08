@@ -10,7 +10,7 @@ const colors = require("colors");
 const schedule = require("node-schedule");
 var utils = require('bot-utils');
 
-//Lets make le settings file available everywhere :D
+//Lets make the settings file available everywhere :D
 bot.settings = settings;
 
 //Add another command to total amount of commands executed function
@@ -117,4 +117,4 @@ bot.setInterval(function() {
 
 
 
-bot.login(settings.token);
+bot.login(settings.devtoken);
