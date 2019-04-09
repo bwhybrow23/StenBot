@@ -26,7 +26,7 @@ exports.run = (bot, message, args) => {
         });
     };
 
-    if (targetserver == 346246641595973633) {
+    if (targetserver == 455782308293771264) {
         return message.channel.send({
             embed: {
                 color: bot.settings.red,
@@ -68,7 +68,7 @@ exports.run = (bot, message, args) => {
     });
 
     //Log message
-    bot.channels.get('460910822722502658').send({
+    bot.channels.get('565273737201713153').send({
         embed: {
             color: bot.settings.yellow,
             description: `Server **${targetguild.name} | ${targetguild.id}** has been blacklisted by **${message.author.tag}**`
