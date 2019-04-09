@@ -5,7 +5,7 @@ exports.run = (bot, message, args) => {
     const colors = require("colors");
 
     //Check if the command was sent in the team guild
-    if (message.guild.id != 346246641595973633) {
+    if (message.guild.id != 455782308293771264) {
         return message.channel.send({
             embed: {
                 color: bot.settings.red,
