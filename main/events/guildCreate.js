@@ -15,11 +15,12 @@ module.exports = async (bot, guild) => {
         if (serverstats != undefined) {
             if (serverstats.blacklisted === true) {
                 guild.leave();
+                console.log("[System]".grey + `Left guild: ${guildname} | ${guild.id} because this server was blacklisted!`);
             } else {
                 return;
             };
         };
-        console.log(`[SYSTEM] Joined guild ${guild.name} | ${guild.id}`);
+        console.log("[SYSTEM]".grey + `Joined guild ${guild.name} | ${guild.id}`);
 
         //Create the servers root dir
         fs.mkdir(`./data/servers/server-${guild.id}`, err => {
