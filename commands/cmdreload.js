@@ -1,16 +1,16 @@
-const Discord = require('discord.js');
-const fs = require('fs');
-const config = require("../config.json");
-
 module.exports.run = async (bot, message, args) => {
-if(message.member.id != "346246641595973633") {message.reply(`Only the owner of the bot can execute this command!`)}
+
+  const Discord = require('discord.js');
+  const fs = require('fs');
+
+  if(message.member.id != "346246641595973633") {message.reply(`Only the owner of the bot can execute this command!`)}
 else {
 if(!args[0]) return message.channel.send('Give me a command to reload!');
 
 message.delete().catch(err => {})
 bot.loadCommand = (commandName) => {
     try {
-      const props = require(`../commands/${commandName}`);
+      const props = require(`./${commandName}`);
       if (props.init) {
         props.init(bot);
       }
@@ -30,7 +30,7 @@ bot.loadCommand = (commandName) => {
     }
     if (!command) return message.channel.send('Woops, Cant load that cmd!')
   
-    delete require.cache[require.resolve(`../commands/${commandName}.js`)];
+    delete require.cache[require.resolve(`./${commandName}.js`)];
     return false;
   };
 
@@ -46,8 +46,4 @@ bot.loadCommand = (commandName) => {
 
   message.channel.send(doneEmbed)
 
-}}
-
-module.exports.help = {
-    name: 'cmdreload'
-  }
+}};
