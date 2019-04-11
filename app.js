@@ -72,9 +72,7 @@ ehandler();
 var presences = [
     "StenDevelopment",
     "@StenBot prefix",
-    "Alone",
     "With Code",
-    ".help",
     `On ${bot.guilds.size} servers!`,
     `Version ${settings.version}`
 ]
