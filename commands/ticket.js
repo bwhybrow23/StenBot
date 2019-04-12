@@ -23,7 +23,7 @@ exports.run = (bot, message, args) => {
 
     //Check if supplied sufficient reason
     if (reason.length < 1) { return errsend("Make sure you include a reason for creating this ticket.") };
-    if (reason.length > 200) { return errsend("Your reason is to long! Make sure its less than **200** characters.") };
+    if (reason.length > 200) { return errsend("Your reason is too long! Make sure its less than **200** characters.") };
 
     //Check for a category called tickets, if it does not exist create one
     function isCatTickets(element) {
@@ -33,6 +33,8 @@ exports.run = (bot, message, args) => {
     };
     if(!message.guild.channels.some(isCatTickets)) {
         message.guild.createChannel("Tickets", "category");
+
+        message.reply("An error occured. Please try again.");
     };
 
     //Create channel into ticket category

@@ -65,6 +65,16 @@ exports.run = (bot, message, args) => {
                 if (err) return;
             });
 
+            //Check for a category called tickets, if it does not exist create one
+            function isCatTickets(element) {
+                if (element.constructor.name != "CategoryChannel") { return false };
+                if (element.name != "Tickets") { return false };
+                return true;
+            };
+            if(!message.guild.channels.some(isCatTickets)) {
+                message.guild.createChannel("Tickets", "category");
+            };
+
             message.channel.send({
                 embed: {
                     color: bot.settings.green,
@@ -87,6 +97,16 @@ exports.run = (bot, message, args) => {
             fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
                 if (err) return;
             });
+
+            //Check for a category called tickets, if it does not exist create one
+            function isCatTickets(element) {
+                if (element.constructor.name = "CategoryChannel") { return false };
+                if (element.name = "Tickets") { return false };
+                return true;
+            };
+            if(message.guild.channels.some(isCatTickets)) {
+                message.guild.channel.delete("Tickets", "category");
+            };
 
             message.channel.send({
                 embed: {

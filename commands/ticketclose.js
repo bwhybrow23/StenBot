@@ -5,7 +5,11 @@ exports.run = (bot, message, args) => {
     
     if (message.channel.parent.name === "Tickets"){
         if (message.channel.name.startsWith("ticket-")) {
-            message.guild.channels.get(config.loggingchannel).send({embed: {color: bot.settings.yellow, description: `**Ticket Closed**\n**Channel:** ${message.channel.name}\n**ID:** ${message.channel.id}`}})
+            if(config.loggingenabled) {
+                if(checkChannel(config.loggingchannel)) {
+                message.guild.channels.get(config.loggingchannel).send({embed: {color: bot.settings.yellow, description: `**Ticket Closed**\n**Channel:** ${message.channel.name}\n**ID:** ${message.channel.id}`}})
+                };
+            };
             message.channel.delete()
         }
     }

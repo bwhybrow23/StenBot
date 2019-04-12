@@ -68,12 +68,14 @@ const ehandler = async () => {
 };
 ehandler();
 
+let guildSize = bot.guilds.size;
+
 //playing statuses
 var presences = [
     "StenDevelopment",
-    "@StenBot prefix",
+    ".help",
     "With Code",
-    `On ${bot.guilds.size} servers!`,
+    `On ${guildSize} servers!`,
     `Version ${settings.version}`
 ]
 
