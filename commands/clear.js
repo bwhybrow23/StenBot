@@ -60,7 +60,7 @@ exports.run = (bot, message, args) => {
           embed: {
               color: bot.settings.red,
               description: `Error! You cant clear more than 100 messsages at a time!`
-        }     
+          }
       });
     };
 

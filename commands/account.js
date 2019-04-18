@@ -16,7 +16,7 @@ exports.run = (bot, message, args) => {
         if (ownersid == message.author.id) {
             var access = true;
         };
-    };
+    };  
     if (access == false) {
         return message.channel.send({
             embed: {
@@ -37,14 +37,25 @@ exports.run = (bot, message, args) => {
     };
     //Get the server config
     const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
+
+    //if no args
+    let noEmbed = new Discord.RichEmbed()
+    .setTitle('Bot Information')
+    .addField('Bot Name', bot.user.username)
+    .addField('Founded By', 'Stentorian')
+    .addField('Created On', )
+    .setFooter(userTag, userImage);
+
+    if(!args[0]) return message.channel.send(no);
+
     //actions library
     switch (setting) {
         case "create":
-            //Creating a Kewl Account Command
+            //Creating a StenBot Account Command
             //Check if an account already exists
             let accountexists = fs.existsSync(`./data/accounts/${message.author.id}.json`);
             if (accountexists == true) {
-                return message.channel.send({embed: {color: bot.settings.red, description: `You already have Kewl Account.`}});
+                return message.channel.send({embed: {color: bot.settings.red, description: `You already have StenBot Account.`}});
             };
 
             //Create new account file since it doesnt exist!
@@ -68,7 +79,7 @@ exports.run = (bot, message, args) => {
             });
 
             //And return..
-            message.channel.send({embed: {color: bot.settings.green, description: `Your Kewl Account has been created! :white_check_mark:`}});
+            message.channel.send({embed: {color: bot.settings.green, description: `Your StenBot Account has been created! :white_check_mark:`}});
 
             break;
 
@@ -77,11 +88,11 @@ exports.run = (bot, message, args) => {
             var galleryaction = args[1];
             switch (galleryaction) {
                 case "info":
-                    //kewl Account and gallery information command
+                    //StenBot Account and gallery information command
                     //Check if they have an account.
                     let accountexists = fs.existsSync(`./data/accounts/${message.author.id}.json`);
                     if (accountexists == false) {
-                        return message.channel.send({embed: {color: bot.settings.red, description: `Please create a Kewl Account first!`}});
+                        return message.channel.send({embed: {color: bot.settings.red, description: `Please create a StenBot Account first!`}});
                     };
 
                     //Get account information
@@ -107,7 +118,7 @@ exports.run = (bot, message, args) => {
                     //Check if they have an account.
                     let accountexistant = fs.existsSync(`./data/accounts/${message.author.id}.json`);
                     if (accountexistant == false) {
-                        return message.channel.send({embed: {color: bot.settings.red, description: `Please create a Kewl Account first!`}});
+                        return message.channel.send({embed: {color: bot.settings.red, description: `Please create a StenBot Account first!`}});
                     };
 
                     //Get account information

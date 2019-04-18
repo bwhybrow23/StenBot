@@ -10,7 +10,7 @@ const colors = require("colors");
 const schedule = require("node-schedule");
 var utils = require('bot-utils');
 
-//Lets make the settings file available everywhere :D
+//Lets make le settings file available everywhere :D
 bot.settings = settings;
 
 //Add another command to total amount of commands executed function
@@ -68,14 +68,14 @@ const ehandler = async () => {
 };
 ehandler();
 
-let guildSize = bot.guilds.size;
-
 //playing statuses
 var presences = [
     "StenDevelopment",
-    ".help",
+    "@StenBot prefix",
+    "Alone",
     "With Code",
-    `On ${guildSize} servers!`,
+    ".help",
+    `On ${bot.guilds.size} servers!`,
     `Version ${settings.version}`
 ]
 
@@ -117,4 +117,4 @@ bot.setInterval(function() {
 
 
 
-bot.login(settings.devtoken);
+bot.login(settings.token);

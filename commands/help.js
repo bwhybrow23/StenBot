@@ -69,10 +69,6 @@ exports.run = (bot, message, args) => {
 
             message.channel.send(createEmbed('Admin Commands', '`.say [message]` - Sends a message in embed.\n`.delchannel [#channel]` - Delete a channel quickly\n`.delrole [@role]` - Delete a role quickly\n`.txtcreate [name] [Optional: Topic]` - Quickly create a text channel\n`.vccreate [name] [Optional: User limit]` - Quickly create a voice channel\n\n*Coming Soon!*\n`.gcreate  [time in minutes(m) or time in hours (h)] [#channel] [prize/name]` - Create a giveaway'));
             break;
-        case 'account':
-
-            message.channel.send(createEmbed('Account Commands', '`.account create` - Creates a Kewl Account for your discord account\n`.account gallery info` - Shows your account gallery information\n`.account gallery upload [alias/name]` - Upload an image to your gallery.\n`.account gallery remove [name]` - Removes photo from your gallery\n`.gallery [name of photo]` - Quickly post a photo from your gallery'))
-            break;
         case 'dev':
 
             if (message.guild.id != 451793622430646272) {

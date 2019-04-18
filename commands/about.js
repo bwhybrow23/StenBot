@@ -3,16 +3,21 @@ exports.run = (bot, message, args) => {
     //const settings = require('../main/settings.json');
     const Discord = require("discord.js");
 
-    let userimage = message.author.avatarURL;
-    let usertag = message.author.tag;
+    let userImage = message.author.displayAvatarURL;
+    let userTag = message.author.tag;
 
-    let aboutEmbed = new Discord.RichEmbed()
-    .setColor(bot.settings.yellow)
-    .setTitle("About StenBot")
-    .setDescription("**StenBot** is a multi-purpose bot designed to make your life easier and your server better. StenBot is coded in JavaScript and uses the Discord.JS library to make coding it easier for the developers.")
-    .addField("Documentation", "At this current moment in time, no documentation has been created for StenBot. Eventually we do hope to have documentation!")
-    .setFooter(usertag, userimage);
+    let embed = new Discord.RichEmbed()
+    .setColor(bot.settings.blue)
+    .setThumbnail(bot.user.displayAvatarURL)
+    .setTitle('Bot Information')
+    .addField('Bot Name', bot.user.username)
+    .addField('Founded By', 'Stentorian')
+    .addField('Created On', bot.user.createdAt)
+    .addField('Why was StenBot created?', 'It was mainly created as a save for me having to create multiple bots for people. I also didn\'t like some of the features included with major Discord bots. It started as a bot that could easily be copied and pasted to make new ones and then eventually (with help from Samb8104) I was able to add per server configs and cool features that you\'re seeing today!')
+    .setFooter(userTag, userImage);
 
-    message.channel.send(aboutEmbed);
+    message.channel.send({
+        embed: embed
+    });
 
 };

@@ -69,7 +69,7 @@ exports.run = (bot, message, args) => {
         .addField(`Logging`, `Enabled: **${serverconfigfile.loggingenabled ? "Yes" : "No"}**\nLogging Channel: **${logchannel}**\nLevel: **${serverconfigfile.logginglevel}**`)
         .addField(`Tickets`, `Enabled: **${serverconfigfile.ticketsenabled ? "Yes" : "No"}**\nTicket Message: **${ticketmessage}**`)
         .addField(`Economy`, `Enabled: **${serverconfigfile.economyenabled ? "Yes" : "No"}**\nRobbing: **${serverconfigfile.economyrobbing ? "Enabled" : "Disabled"}**\nPayments: **${serverconfigfile.economypay ? "Enabled" : "Disabled"}**\nSymbol: **${ecosymbol}**`)
-        .addField(`Music`, `Enabled: **${serverconfigfile.musicenabled ? "Yes" : "No"}**`)
+        //.addField(`Music`, `Enabled: **${serverconfigfile.musicenabled ? "Yes" : "No"}**`)
         .setFooter(servertag)
 
 
