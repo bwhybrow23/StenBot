@@ -7,11 +7,15 @@ exports.run = (bot, message, args) => {
     let usertag = message.author.tag;
 
     let aboutEmbed = new Discord.RichEmbed()
-    .setColor(bot.settings.yellow)
-    .setTitle("About StenBot")
-    .setDescription("**StenBot** is a multi-purpose bot designed to make your life easier and your server better. StenBot is coded in JavaScript and uses the Discord.JS library to make coding it easier for the developers.")
-    .addField("Documentation", "At this current moment in time, no documentation has been created for StenBot. Eventually we do hope to have documentation!")
-    .setFooter(usertag, userimage);
+    .setThumbnail(bot.user.displayAvatarURL)
+    .setColor(bot.settings.blue)
+    .setTitle('Bot Information')
+    .addField('Bot Name', bot.user.tag)
+    .addField('Founded By', 'Stentorian')
+    .addField('Created On', bot.user.createdAt)
+    .addField('Why was StenBot created?', 'It was mainly created to save me from the pain of creating multiple bots for clients. I also don\'t like some of the features that are included with major Discord bots. It started as a copy and paste bot that i was going to publish "Open Source" on Github. Then I recieved some help from a friend called Samb8104 who gave me some old code from a bot he was working on and I was able to add per server configs and cool features that you\'re seeing today!')
+    .setFooter(usertag, userimage)
+    .setTimestamp();
 
     message.channel.send(aboutEmbed);
 
