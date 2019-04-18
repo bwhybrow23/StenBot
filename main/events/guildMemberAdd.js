@@ -28,13 +28,12 @@ module.exports = async (bot, member) => {
                         date: new Date()
                     });
 
+                    let welcomeEmbed = new Discord.RichEmbed()
+                    .setColor(bot.settings.yellow)
+                    .setDescription(themsg);
+
                     //Send the message.
-                    bot.channels.get(config.welcomerchannel).send({
-                        embed: {
-                            color: bot.settings.yellow,
-                            description: themsg
-                        }
-                    });
+                    bot.channels.get(config.welcomerchannel).send(welcomeEmbed);
                 };
             };
         };
