@@ -51,7 +51,7 @@ bot.on("message", message => {
         addCmdToTotal();
     } catch (err) {
         //Only enable these two for development puposes or else spam
-        console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
+        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
         console.log('[SYSTEM]'.grey, err);
     };
 });

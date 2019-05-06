@@ -7,7 +7,6 @@ module.exports = async (bot, oldChannel, newChannel) => {
         if (config.logginglevel == "high") {
             if (efunctions.checkChannel(config.loggingchannel, bot)) {
                 let lchannel = bot.channels.get(config.loggingchannel);
-								if (newChannel.parent.name === "Tickets" && newChannel.name.startsWith("ticket-")) return;
                 if (oldChannel.name !== newChannel.name) {
                     lchannel.send({embed: {color: bot.settings.yellow, description: `**Channel Name Changed**\n**Before:** ${oldChannel.name}\n**After:** ${newChannel.name}\n**ID:** ${newChannel.id}`, footer: {text: 'Channel name changed'}, timestamp: new Date()}})
                 } else if (oldChannel.topic !== newChannel.topic) {
