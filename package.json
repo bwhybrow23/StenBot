@@ -23,7 +23,7 @@
     "os": "^0.1.1",
     "request": "^2.88.0",
     "string-template": "^1.0.0",
-    "superagent": "^4.0.0-beta.5",
+    "superagent": "^4.1.0",
     "typechecker": "^4.5.0"
   }
 }
