@@ -40,7 +40,7 @@ exports.run = (bot, message, args) => {
                 let bot = false;
                 const reaction = collected.first();
                 collected.forEach(reaction => {
-                    if (reaction.message.users[0].bot == true) {
+                    if (reaction.users.id === "564390475918868492") {
                         bot = true
                     }
                 });

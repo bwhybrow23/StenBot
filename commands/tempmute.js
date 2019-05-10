@@ -112,7 +112,7 @@ exports.run = (bot, message, args) => {
 
       message.guild.createRole({
         name: `Mute`,
-        reason: `Kewl Bot Mute Role Auto-create`
+        reason: `StenBot Mute Role Auto-create`
       }).then(role => {
         message.guild.channels.forEach(function(channel) {
             channel.overwritePermissions(role, {

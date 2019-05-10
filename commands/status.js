@@ -16,7 +16,7 @@ exports.run = (bot, message, args) => {
     message.channel.send({
         embed: {
             color: bot.settings.green,
-            title: 'Kewl Bot Status',
+            title: 'StenBot Status',
             description: `**Bot Statistics**\n\n**Ping:** ${ping}\n**Ping History:** ${pinghistory}\n**Total Commands Used:** ${cmdtotal}\n**Memory Usage:** ${memused}MB/2GB\n**Total Guilds:** ${totalguilds}\n**Version:** ${bot.settings.version}`
         }
     });

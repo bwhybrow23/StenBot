@@ -199,7 +199,7 @@ exports.run = (bot, message, args) => {
                     color: bot.settings.red,
                     description: `You can't add the number 8 to the filter.`,
                     footer: {
-                      text: 'Kewl Bot Word Filter  :)'
+                      text: 'StenBot Word Filter  :)'
                     }
                 }
             });

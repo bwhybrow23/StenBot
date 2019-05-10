@@ -9,7 +9,7 @@ exports.run = (bot, message, args) => {
     let helpembed = new Discord.RichEmbed()
         .setTitle('Hey! What\'s up?')
         .setColor(bot.settings.green)
-        .setDescription(`\nTo learn more about KewlBot enter one of the following menus after the help command.\n\n**config**\n**config-2**\n**info**\n**gaming**\n**fun**\n**economy**\n**support**\n**music**\n**roles**\n**staff**\n**admin**\n**account**`)
+        .setDescription(`\nTo learn more about StenBot enter one of the following menus after the help command.\n\n**config**\n**config-2**\n**info**\n**gaming**\n**fun**\n**economy**\n**support**\n**music**\n**roles**\n**staff**\n**admin**\n**account**`)
         .setFooter(usertag, userimage)
 
     //Create embed function:
@@ -18,7 +18,7 @@ exports.run = (bot, message, args) => {
             .setTitle(title)
             .setColor(bot.settings.green)
             .setDescription(description)
-            .setFooter(usertag + " Learn More - docs.kewls.net", userimage)
+            .setFooter(usertag + " Learn More - docs.benwhybrow.xyz", userimage)
         return embed;
     };
 
@@ -35,7 +35,7 @@ exports.run = (bot, message, args) => {
             break;
         case 'info':
 
-            message.channel.send(createEmbed('Informational Commands', '`.help [Optional: menu]` - Shows the help menu list or a help menu\n`.user [Optional: @user]` - Show information about you or the mentioned user\n\n`.server` - View information about the server your in\n`.status` - Displays Kewl Bot statistics\n`.about` - View additional information about Kewl Bot\n'));
+            message.channel.send(createEmbed('Informational Commands', '`.help [Optional: menu]` - Shows the help menu list or a help menu\n`.user [Optional: @user]` - Show information about you or the mentioned user\n\n`.server` - View information about the server your in\n`.status` - Displays StenBot statistics\n`.about` - View additional information about StenBot\n'));
             break;
         case 'gaming':
 
@@ -71,7 +71,7 @@ exports.run = (bot, message, args) => {
             break;
         case 'account':
 
-            message.channel.send(createEmbed('Account Commands', '`.account create` - Creates a Kewl Account for your discord account\n`.account gallery info` - Shows your account gallery information\n`.account gallery upload [alias/name]` - Upload an image to your gallery.\n`.account gallery remove [name]` - Removes photo from your gallery\n`.gallery [name of photo]` - Quickly post a photo from your gallery'))
+            message.channel.send(createEmbed('Account Commands', '`.account create` - Creates a StenBot Account for your discord account\n`.account gallery info` - Shows your account gallery information\n`.account gallery upload [alias/name]` - Upload an image to your gallery.\n`.account gallery remove [name]` - Removes photo from your gallery\n`.gallery [name of photo]` - Quickly post a photo from your gallery'))
             break;
         case 'dev':
 

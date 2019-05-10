@@ -86,7 +86,7 @@ exports.run = (bot, message, args) => {
 
           var level = args[1];
           if (level == undefined) {
-            return message.channel.send({embed: {color: bot.settings.red, descriptions: `Error! You didn't mention a logging level. Choose between low, medium or high. For more information check our docs at **docs.kewls.pw**`}});
+            return message.channel.send({embed: {color: bot.settings.red, descriptions: `Error! You didn't mention a logging level. Choose between low, medium or high. For more information check our docs at **docs.benwhybrow.xyz**`}});
           };
 
             switch (level) {
