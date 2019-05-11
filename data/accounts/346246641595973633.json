@@ -1,13 +1,10 @@
 {
-    "accountcreated": "2019-05-10T21:49:28.907Z",
+    "accountcreated": "2019-05-11T08:44:37.762Z",
     "accounttype": "normal",
     "accountid": "346246641595973633",
     "accountname": "Stentorian",
     "accountdiscrim": "9524",
     "gallerycap": 5,
-    "galleryused": 1,
-    "gallerynames": [
-        "dp.png"
-    ],
-    "coins": 0
+    "galleryused": 0,
+    "gallerynames": []
 }

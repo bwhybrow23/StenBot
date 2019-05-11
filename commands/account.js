@@ -58,8 +58,7 @@ exports.run = (bot, message, args) => {
                 accountdiscrim: message.author.discriminator,
                 gallerycap: 5,
                 galleryused: 0,
-                gallerynames: [],
-                coins: 0
+                gallerynames: []
             };
 
             fs.writeFileSync(`./data/accounts/${message.author.id}.json`, JSON.stringify(userconfigfile, null, 4), (err) => {
