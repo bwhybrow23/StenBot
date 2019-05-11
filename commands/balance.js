@@ -5,6 +5,6 @@ exports.run = async (bot, message, args) => {
     const eco = require("discord-economy");
 
     var output = await eco.FetchBalance(message.author.id)
-    message.channel.reply(`You have a balance of **${output.balance} coins.`);
+    message.reply(`You have a balance of **${output.balance}** coins.`);
 
 }
