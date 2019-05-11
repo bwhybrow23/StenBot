@@ -12,7 +12,7 @@
     "bot-utils": "^1.2.1",
     "colors": "^1.3.2",
     "currency-formatter": "^1.5.3",
-    "discord-anti-spam": "^1.1.2",
+    "discord-anti-spam": "^2.0.0",
     "discord-economy": "^1.1.6",
     "discord.js": "^11.4.2",
     "fortnite": "^4.1.1",
@@ -30,7 +30,7 @@
     "snekfetch": "^4.0.4",
     "sqlite3": "^4.0.8",
     "string-template": "^1.0.0",
-    "superagent": "^4.1.0",
+    "superagent": "^5.0.5",
     "table": "^5.3.3",
     "typechecker": "^4.5.0",
     "zalgolize": "^1.2.4"
