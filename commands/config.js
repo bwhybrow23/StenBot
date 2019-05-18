@@ -52,11 +52,6 @@ exports.run = (bot, message, args) => {
     if (ticketmessage == 0) {
         var ticketmessage = "Default";
     };
-    //Economy symbol by default is 0
-    var ecosymbol = serverconfigfile.economysymbol;
-    if (serverconfigfile.economysymbol == 0) {
-        var ecosymbol = "$";
-    };
 
     //ugly
     const configmsg = new Discord.RichEmbed()
@@ -68,7 +63,6 @@ exports.run = (bot, message, args) => {
         .addField(`Staff`, `Staff Role: **${staffrole}**\nAdmin Commands: **${serverconfigfile.staffadminenabled ? "Enabled" : "Disabled"}**\nLink Blocker: **${serverconfigfile.stafflinkblocker ? "Enabled" : "Disabled"}**\nWord Filter: **${stafffilter}**\nAutoBan: **${staffban}**`)
         .addField(`Logging`, `Enabled: **${serverconfigfile.loggingenabled ? "Yes" : "No"}**\nLogging Channel: **${logchannel}**\nLevel: **${serverconfigfile.logginglevel}**`)
         .addField(`Tickets`, `Enabled: **${serverconfigfile.ticketsenabled ? "Yes" : "No"}**\nTicket Message: **${ticketmessage}**`)
-        .addField(`Economy`, `Enabled: **${serverconfigfile.economyenabled ? "Yes" : "No"}**\nRobbing: **${serverconfigfile.economyrobbing ? "Enabled" : "Disabled"}**\nPayments: **${serverconfigfile.economypay ? "Enabled" : "Disabled"}**\nSymbol: **${ecosymbol}**`)
         .addField(`Music`, `Enabled: **${serverconfigfile.musicenabled ? "Yes" : "No"}**`)
         .setFooter(servertag)
 
