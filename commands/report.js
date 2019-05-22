@@ -30,8 +30,8 @@ exports.run = (bot, message, args) => {
                 .setColor(bot.settings.yellow)
                 .setDescription(`Platform: **Discord**\n\nUsername: **${message.author}**\nUser Id: **${message.author.id}**\nFrom Server: **${message.guild.name} | ${message.guild.id}**\nTime: **${thedate}**\n\nThe Bug: \n**${report}**`)
 
-            console.log(`[SYSTEM]`.grey, ` A bug report has been created by ${message.author.tag} | ${message.author.id}`.yellow);
-            bot.channels.get('451797630054301696').send(bugreport);
+            console.log(`[SYSTEM]`.grey, `A bug report has been created by ${message.author.tag} | ${message.author.id}`.yellow);
+            bot.channels.get('518729627586527232').send(bugreport);
 
             message.channel.send({
                 embed: {
@@ -71,7 +71,7 @@ exports.run = (bot, message, args) => {
                 .setColor(bot.settings.yellow)
                 .setDescription(`Platform: **Discord**\n\nReporter Username: **${message.author}**\nReporter User Id: **${message.author.id}**\nFrom Server: **${message.guild.name} | ${message.guild.id}**\nTime: **${thedate}**\n\nReported User: **${member.user}**\nReported Users Id: **${member.id}**\nReport: \n**${playerreportmsg}**`)
 
-            bot.channels.get('460096340374847499').send(playerreport);
+            bot.channels.get('518729627586527232').send(playerreport);
             console.log(`[SYSTEM]`.grey, `A player report has been created by ${message.author.tag} | ${message.author.id}`.yellow);
 
             message.channel.send({
