@@ -58,12 +58,12 @@ exports.run = (bot, message, args) => {
     };
 
     if (!targetuser.kickable) {
-      return message.channel.send({
-          embed: {
-              color: bot.settings.red,
-              description: `Error! I am unable to kick this user.`
-          }
-      });
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! I am unable to kick this user.`
+            }
+        });
     };
 
 

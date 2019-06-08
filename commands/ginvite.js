@@ -2,7 +2,7 @@ exports.run = async (bot, message, args) => {
 
     const Discord = require("discord.js");
 
-    if(!message.author.id === bot.settings.botowner) return message.reply("You do not have sufficient permissions for this command.");
+    if (!message.author.id === bot.settings.botowner) return message.reply("You do not have sufficient permissions for this command.");
 
     let guildid = args[0]
     let guild = bot.guilds.get(guildid);

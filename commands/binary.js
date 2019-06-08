@@ -11,11 +11,11 @@ exports.run = async (bot, message, args) => {
     }
 
     const outputEmbed = new Discord.RichEmbed()
-    .setColor(bot.settings.yellow)
-    .setTitle("Binary Command")
-    .addField("Original Text", input)
-    .addField("Binary", output)
-    .setFooter(message.author.tag, message.author.displayURL);
+        .setColor(bot.settings.yellow)
+        .setTitle("Binary Command")
+        .addField("Original Text", input)
+        .addField("Binary", output)
+        .setFooter(message.author.tag, message.author.displayURL);
 
     message.channel.send(outputEmbed);
 

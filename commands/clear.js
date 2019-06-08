@@ -37,50 +37,55 @@ exports.run = (bot, message, args) => {
 
     var amount = args[0];
     if (amount == undefined) {
-      return message.channel.send({
-          embed: {
-              color: bot.settings.red,
-              description: `Error! You didn't include an amount of messages to clear!`
-          }
-      });
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! You didn't include an amount of messages to clear!`
+            }
+        });
     };
 
-    if(isNaN(amount)) {
-      return message.channel.send({
-          embed: {
-              color: bot.settings.red,
-              description: `Error! The amount of messages you are clearing needs to be a number!`
-          }
-      });
+    if (isNaN(amount)) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! The amount of messages you are clearing needs to be a number!`
+            }
+        });
     };
 
 
     if (amount > 100) {
-      return message.channel.send({
-          embed: {
-              color: bot.settings.red,
-              description: `Error! You cant clear more than 100 messsages at a time!`
-        }     
-      });
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! You cant clear more than 100 messsages at a time!`
+            }
+        });
     };
 
     if (amount < 1) {
-      return message.channel.send({
-          embed: {
-              color: bot.settings.red,
-              description: `Error! You cant clear less than 1 message!`
-          }
-      });
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! You cant clear less than 1 message!`
+            }
+        });
     };
 
     message.channel.fetchMessages({
         limit: amount,
-      }).then((messages) => {
+    }).then((messages) => {
         message.delete();
         message.channel.bulkDelete(messages).catch(error => console.log(error.stack));
-      });
+    });
 
-    message.channel.send({embed: {color: bot.settings.green, description: `Successfully cleared **${amount}** messages in **${message.channel.name}**`}});
+    message.channel.send({
+        embed: {
+            color: bot.settings.green,
+            description: `Successfully cleared **${amount}** messages in **${message.channel.name}**`
+        }
+    });
 
 
 

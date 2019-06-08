@@ -18,10 +18,10 @@ exports.run = (bot, message, args) => {
         "No.",
         "I don't know.",
         "Ask again later.",
-        "Umm...", 
+        "Umm...",
         "Questionable.",
-        "Maybe.", 
-        "Ask someone else.", 
+        "Maybe.",
+        "Ask someone else.",
         "There's a possibility.",
         "Never."
     ]
@@ -37,12 +37,12 @@ exports.run = (bot, message, args) => {
         .setFooter(`${message.author.tag}`, `${message.author.avatarURL}`);
 
     message.channel.send("The 8ball is working it's magic! :tada:").then(m => {
-        setTimeout(() => {
-            m.edit(ballEmbed)
+            setTimeout(() => {
+                m.edit(ballEmbed)
             }, 1000)
-    })
-    .catch(e => {
-        console.log(e);
-    });
+        })
+        .catch(e => {
+            console.log(e);
+        });
 
 };

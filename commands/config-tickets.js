@@ -67,11 +67,15 @@ exports.run = (bot, message, args) => {
 
             //Check for a category called tickets, if it does not exist create one
             function isCatTickets(element) {
-                if (element.constructor.name != "CategoryChannel") { return false };
-                if (element.name != "Tickets") { return false };
+                if (element.constructor.name != "CategoryChannel") {
+                    return false
+                };
+                if (element.name != "Tickets") {
+                    return false
+                };
                 return true;
             };
-            if(!message.guild.channels.some(isCatTickets)) {
+            if (!message.guild.channels.some(isCatTickets)) {
                 message.guild.createChannel("Tickets", "category");
             };
 
@@ -100,11 +104,15 @@ exports.run = (bot, message, args) => {
 
             //Check for a category called tickets, if it does not exist create one
             function isCatTickets(element) {
-                if (element.constructor.name = "CategoryChannel") { return false };
-                if (element.name = "Tickets") { return false };
+                if (element.constructor.name = "CategoryChannel") {
+                    return false
+                };
+                if (element.name = "Tickets") {
+                    return false
+                };
                 return true;
             };
-            if(message.guild.channels.some(isCatTickets)) {
+            if (message.guild.channels.some(isCatTickets)) {
                 message.guild.channel.delete("Tickets", "category");
             };
 

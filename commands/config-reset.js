@@ -6,7 +6,7 @@ exports.run = (bot, message, args) => {
     const ownersid = message.guild.ownerID;
     const adminperm = message.member.hasPermission("ADMINISTRATOR");
 
-    
+
     //Check if they have required permissions
     if (adminperm != true) {
         return message.channel.send({
@@ -46,6 +46,11 @@ exports.run = (bot, message, args) => {
         if (err) return;
     });
 
-    message.channel.send({embed: {color: bot.settings.green, description: "Server config has been reset."}});
+    message.channel.send({
+        embed: {
+            color: bot.settings.green,
+            description: "Server config has been reset."
+        }
+    });
 
 };

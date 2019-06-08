@@ -16,7 +16,7 @@ exports.run = (bot, message, args) => {
         }
         return true;
     }
-    
+
     let achievementHelp = new Discord.RichEmbed()
         .setColor("#a905fc")
         .setTitle("Command: Achievement")

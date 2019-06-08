@@ -1,26 +1,36 @@
 exports.run = async (bot, message, args) => {
 
-const Discord = require("discord.js");
-const Fortnite = require('fortnite');
-const ft = new Fortnite('426e69f9-770d-4df7-8853-7d7d64a0e524');
-// There goes my API-Key xD
-
-//Get createEmbed from help.js
-const helpCMD = require("./help.js");
-
-let createEmbed = helpCMD.createEmbed;
-
-let game = args[0]
-    //Check if the user has given a game or no
-    if (!game) {
-        return message.channel.send(createEmbed('Gaming Commands', '`.gamestats fortnite [your account]` - Shows your fortnite account stats\n`.gamestats overwatch [your account]` - Shows your overwatch account stats\n`.mcping [server ip] [Optional: port]` - Pings a minecraft server and shows the results'));
-    }
-
-    switch (game) {
-        case 'fortnite':
-            let platform = args[1] || 'pc'
-            let user = args[2]
-            let data = await ft.user(user, platform)
-            console.log(data)
-    }
-};
+        const Discord = require("discord.js");
+        const Fortnite = require('fortnite');
+        const ft = new Fortnite(bot.settings.fortnitetoken);
+    
+        let game = args[0]
+        //Check if the user has given a game or no
+        if (!game) {
+            message.reply("Wrong Args");
+        } else if (game === "fortnite") {
+            let platform = args[1] || 'pc';
+            let user = args[2];
+            let data = await ft.user(user, platform);
+    
+            let embed = new Discord.RichEmbed()
+                .setColor(bot.settings.blue)
+                .setTitle("Fortnite Stats")
+                .setDescription(`You can find all of your stats [here](${data.url})`)
+                .addField("Username", data.username, true)
+                .addField("Platform", data.platform, true)
+                .addBlankField(true)
+                .addField("Solo Wins", data.stats.solo.wins, true)
+                .addField("Solo Kills", data.stats.solo.kills, true)
+                .addField("Solo KD", data.stats.solo.kd, true)
+                .addField("Duos Wins", data.stats.duo.wins, true)
+                .addField("Duo Kills", data.stats.duo.kills, true)
+                .addField("Duo KD", data.stats.duo.kd, true)
+                .addField("Squad Wins", data.stats.squad.wins, true)
+                .addField("Squad Kills", data.stats.squad.kills, true)
+                .addField("Squad KD", data.stats.squad.kd, true)
+                .setFooter(message.author.tag, message.author.avatarURL);
+    
+            message.channel.send(embed);
+        }
+    };

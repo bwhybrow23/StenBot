@@ -51,29 +51,49 @@ exports.run = (bot, message, args) => {
     switch (setting) {
         case "enable":
 
-        if (config.musicenabled==true) {
-          return message.channel.send({embed: {color: bot.settings.yellow, description: `Oh no. Looks like music is already enabled!`}});
-        };
-        config.musicenabled =true;
+            if (config.musicenabled == true) {
+                return message.channel.send({
+                    embed: {
+                        color: bot.settings.yellow,
+                        description: `Oh no. Looks like music is already enabled!`
+                    }
+                });
+            };
+            config.musicenabled = true;
 
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
-            if (err) return;
-        });
+            fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
+                if (err) return;
+            });
 
-        message.channel.send({embed: {color: bot.settings.green, description: `Music has been enabled!`}});
+            message.channel.send({
+                embed: {
+                    color: bot.settings.green,
+                    description: `Music has been enabled!`
+                }
+            });
             break;
-       case "disable":
+        case "disable":
 
-        if (config.musicenabled==false) {
-              return message.channel.send({embed: {color: bot.settings.yellow, description: `Oh no. Looks like music is already disabled!`}});
-        };
-        config.musicenabled =false;
+            if (config.musicenabled == false) {
+                return message.channel.send({
+                    embed: {
+                        color: bot.settings.yellow,
+                        description: `Oh no. Looks like music is already disabled!`
+                    }
+                });
+            };
+            config.musicenabled = false;
 
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
-            if (err) return;
-        });
+            fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
+                if (err) return;
+            });
 
-        message.channel.send({embed: {color: bot.settings.green, description: `Music has been disabled!`}});
+            message.channel.send({
+                embed: {
+                    color: bot.settings.green,
+                    description: `Music has been disabled!`
+                }
+            });
             break;
 
         default:

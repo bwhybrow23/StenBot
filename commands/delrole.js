@@ -40,12 +40,22 @@ exports.run = (bot, message, args) => {
     console.log(r.position);
     console.log(bm.highestRole.position);
 
-    if(r.position > bm.highestRole.position) {
-      return message.channel.send({embed: {color: bot.settings.red, description: `Error! I am unable to delete this role!`}});
+    if (r.position > bm.highestRole.position) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! I am unable to delete this role!`
+            }
+        });
     } else {
-      var name = r.name;
-      r.delete()
-      return message.channel.send({embed: {color: bot.settings.green, description: `Deleted role **${name}** requested by **${message.author.tag}**`}});
+        var name = r.name;
+        r.delete()
+        return message.channel.send({
+            embed: {
+                color: bot.settings.green,
+                description: `Deleted role **${name}** requested by **${message.author.tag}**`
+            }
+        });
     };
 
 

@@ -43,13 +43,16 @@ exports.run = (bot, message, args) => {
                 });
                 break;
                 message.channel.send("Bot set to maintenance mode.");
-                bot.user.setPresence({ game: { name: 'Under Maintenance.' }, status: 'dnd' });
+                bot.user.setPresence({
+                    game: {
+                        name: 'Under Maintenance.'
+                    },
+                    status: 'dnd'
+                });
             default:
                 break;
         }
     }
-
-
 
 
 

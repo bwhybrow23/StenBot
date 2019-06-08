@@ -3,7 +3,7 @@ exports.run = async (bot, message, args) => {
     const Discord = require("discord.js");
     const fs = require("fs");
     const eco = require("discord-economy");
-    
+
     var output = await eco.Daily(message.author.id);
     console.log(output);
 

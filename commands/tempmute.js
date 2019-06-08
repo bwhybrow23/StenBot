@@ -59,48 +59,48 @@ exports.run = (bot, message, args) => {
 
     var time = args[1];
     if (time == undefined) {
-      return message.channel.send({
-          embed: {
-              color: bot.settings.red,
-              description: `Error! You forgot to include a time in the minutes!`
-          }
-      });
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! You forgot to include a time in the minutes!`
+            }
+        });
     };
 
-    if(isNaN(time)) {
-      return message.channel.send({
-          embed: {
-              color: bot.settings.red,
-              description: `Error! The time has to a number.`
-          }
-      });
+    if (isNaN(time)) {
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! The time has to a number.`
+            }
+        });
     };
 
     if (time < 1) {
-      return message.channel.send({
-          embed: {
-              color: bot.settings.red,
-              description: `Error! The time has to be bigger that **1 minute**!`
-          }
-      });
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! The time has to be bigger that **1 minute**!`
+            }
+        });
     };
 
     if (time > 1440) {
-      return message.channel.send({
-          embed: {
-              color: bot.settings.red,
-              description: `Error! The time cannot be longer than **1 day**!`
-          }
-      });
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! The time cannot be longer than **1 day**!`
+            }
+        });
     };
 
     if (targetuser.hasPermission("ADMINISTRATOR")) {
-      return message.channel.send({
-          embed: {
-              color: bot.settings.red,
-              description: `Error! That user is an admin!`
-          }
-      });
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! That user is an admin!`
+            }
+        });
     };
 
     let muterole = message.guild.roles.find(`name`, `Mute`);
@@ -110,40 +110,45 @@ exports.run = (bot, message, args) => {
 
     if (muterole == undefined) {
 
-      message.guild.createRole({
-        name: `Mute`,
-        reason: `StenBot Mute Role Auto-create`
-      }).then(role => {
-        message.guild.channels.forEach(function(channel) {
-            channel.overwritePermissions(role, {
-              SEND_MESSAGES: false
+        message.guild.createRole({
+            name: `Mute`,
+            reason: `StenBot Mute Role Auto-create`
+        }).then(role => {
+            message.guild.channels.forEach(function(channel) {
+                channel.overwritePermissions(role, {
+                    SEND_MESSAGES: false
+                });
+                let muterole = role;
             });
-        let muterole = role;
+
+            role.setPosition(botasmember.highestRole.position - 1);
+
+
         });
-
-        role.setPosition(botasmember.highestRole.position - 1);
-
-
-      });
     };
 
     if (targetuser.roles.has(muterole.id) == true) {
-      return message.channel.send({
-          embed: {
-              color: bot.settings.red,
-              description: `Error! That user is already muted!`
-          }
-      });
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! That user is already muted!`
+            }
+        });
     };
 
     targetuser.addRole(muterole.id);
 
-    message.channel.send({embed: {color: bot.settings.green, description: `Successfully muted **${targetuser.user.tag}** for **${time}** minutes.`}})
+    message.channel.send({
+        embed: {
+            color: bot.settings.green,
+            description: `Successfully muted **${targetuser.user.tag}** for **${time}** minutes.`
+        }
+    })
 
     let ms = time * 60 * 1000;
 
-    bot.setTimeout(function(){
-      targetuser.removeRole(muterole.id);
+    bot.setTimeout(function() {
+        targetuser.removeRole(muterole.id);
 
     }, ms);
 

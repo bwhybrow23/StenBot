@@ -52,7 +52,7 @@ exports.run = async (bot, message, args) => {
                     body
                 } = await superagent
                     .get(`https://nekos.life/api/v2/img/hug`);
-                
+
                 let embed = new Discord.RichEmbed()
                     .setTitle("Action: Hug")
                     .setDescription(`**${message.author.username}** hugged **${message.mentions.users.first().username}**!`)

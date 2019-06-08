@@ -1,4 +1,4 @@
-exports.run = (bot, message, args) => { 
+exports.run = (bot, message, args) => {
     const zalgo = require("zalgolize");
 
     const sayMessage = args.join(" ");

@@ -9,6 +9,6 @@ exports.run = (bot, message, args) => {
     let gayembed = new Discord.RichEmbed()
         .setColor("#f442d4")
         .setTitle(`:gay_pride_flag: **I think ${person} is ${gay}% gay!** :gay_pride_flag:`);
-        
+
     return message.channel.send(gayembed);
 };

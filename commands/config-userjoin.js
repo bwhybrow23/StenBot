@@ -91,53 +91,93 @@ exports.run = (bot, message, args) => {
             break;
         case "role":
 
-          var targetrole = message.mentions.roles.first();
+            var targetrole = message.mentions.roles.first();
 
-          if (!config.userjoinenabled) {
-            return message.channel.send({embed: {color: bot.settings.red, description: `Error! User join is not enabled! You can enable it with **.config-userjoin enable**`}});
-          };
-          if (targetrole == undefined) {
-            return message.channel.send({embed: {color: bot.settings.red, description: `Error! You forgot to mention a role to set!`}});
-          };
+            if (!config.userjoinenabled) {
+                return message.channel.send({
+                    embed: {
+                        color: bot.settings.red,
+                        description: `Error! User join is not enabled! You can enable it with **.config-userjoin enable**`
+                    }
+                });
+            };
+            if (targetrole == undefined) {
+                return message.channel.send({
+                    embed: {
+                        color: bot.settings.red,
+                        description: `Error! You forgot to mention a role to set!`
+                    }
+                });
+            };
 
-          let botmember = message.guild.members.get(bot.user.id);
-          let comparedpos = targetrole.comparePositionTo(botmember.highestRole);
+            let botmember = message.guild.members.get(bot.user.id);
+            let comparedpos = targetrole.comparePositionTo(botmember.highestRole);
 
 
-          if (comparedpos > 0) {
-             return message.channel.send({embed: {color: bot.settings.red, description: `Error! I will be unable to add that role to people!`}});
-          };
+            if (comparedpos > 0) {
+                return message.channel.send({
+                    embed: {
+                        color: bot.settings.red,
+                        description: `Error! I will be unable to add that role to people!`
+                    }
+                });
+            };
 
-          if (targetrole.id == config.userjoinedrole) {
-               return message.channel.send({embed: {color: bot.settings.red, description: `Error! That role is already set as the auto-role!`}});
-          };
+            if (targetrole.id == config.userjoinedrole) {
+                return message.channel.send({
+                    embed: {
+                        color: bot.settings.red,
+                        description: `Error! That role is already set as the auto-role!`
+                    }
+                });
+            };
 
-          config.userjoinedrole = targetrole.id;
+            config.userjoinedrole = targetrole.id;
 
-          fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
-              if (err) return;
-          });
+            fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
+                if (err) return;
+            });
 
-          message.channel.send({embed: {color: bot.settings.green, description: `Auto-role is set to **${targetrole.name}**`}});
-          break;
+            message.channel.send({
+                embed: {
+                    color: bot.settings.green,
+                    description: `Auto-role is set to **${targetrole.name}**`
+                }
+            });
+            break;
         case "name":
 
-          var name = args.slice(1).join(" ");
+            var name = args.slice(1).join(" ");
 
-          if (name == undefined) {
-            return message.channel.send({embed: {color: bot.settings.red, description: `Error! You didnt include a name!`}});
-          };
+            if (name == undefined) {
+                return message.channel.send({
+                    embed: {
+                        color: bot.settings.red,
+                        description: `Error! You didnt include a name!`
+                    }
+                });
+            };
 
-          if (name.length > 32) {
-            return message.channel.send({embed: {color: bot.settings.red, description: `Error! The name you have written is too long! It has to be less than **32** characters!`}});
-          };
+            if (name.length > 32) {
+                return message.channel.send({
+                    embed: {
+                        color: bot.settings.red,
+                        description: `Error! The name you have written is too long! It has to be less than **32** characters!`
+                    }
+                });
+            };
 
-          config.userjoinedname = name;
-          fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
-              if (err) return;
-          });
-          message.channel.send({embed: {color: bot.settings.green, description: `Auto-name is set to **${name}**`}});
-          break;
+            config.userjoinedname = name;
+            fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
+                if (err) return;
+            });
+            message.channel.send({
+                embed: {
+                    color: bot.settings.green,
+                    description: `Auto-name is set to **${name}**`
+                }
+            });
+            break;
         default:
             message.channel.send({
                 embed: {

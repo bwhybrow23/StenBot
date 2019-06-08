@@ -93,12 +93,12 @@ exports.run = (bot, message, args) => {
             var targetchannel = message.mentions.channels.first();
 
             if (targetchannel == undefined) {
-              return message.channel.send({
-                  embed: {
-                    color: bot.settings.red,
-                    description: `Error! You didnt mention a channel!`
-                  }
-              })
+                return message.channel.send({
+                    embed: {
+                        color: bot.settings.red,
+                        description: `Error! You didnt mention a channel!`
+                    }
+                })
             };
 
             if (targetchannel.id == config.welcomerchannel) {

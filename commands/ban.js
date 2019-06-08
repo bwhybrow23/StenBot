@@ -58,15 +58,14 @@ exports.run = (bot, message, args) => {
     };
 
     if (!targetuser.bannable) {
-      return message.channel.send({
-          embed: {
-              color: bot.settings.red,
-              description: `Error! I am unable to ban this user.`
-          }
-      });
+        return message.channel.send({
+            embed: {
+                color: bot.settings.red,
+                description: `Error! I am unable to ban this user.`
+            }
+        });
     };
 
-    
 
 
 

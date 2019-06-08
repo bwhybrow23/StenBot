@@ -53,12 +53,12 @@ exports.run = (bot, message, args) => {
             var targetchannel = message.mentions.channels.first();
 
             if (targetchannel == undefined) {
-              return message.channel.send({
-                  embed: {
-                    color: bot.settings.red,
-                    description: `Error! You didnt mention a channel!`
-                  }
-              })
+                return message.channel.send({
+                    embed: {
+                        color: bot.settings.red,
+                        description: `Error! You didnt mention a channel!`
+                    }
+                })
             };
 
             if (targetchannel.id == config.loggingchannel) {
@@ -84,74 +84,134 @@ exports.run = (bot, message, args) => {
             break;
         case "level":
 
-          var level = args[1];
-          if (level == undefined) {
-            return message.channel.send({embed: {color: bot.settings.red, descriptions: `Error! You didn't mention a logging level. Choose between low, medium or high. For more information check our docs at **docs.benwhybrow.xyz**`}});
-          };
+            var level = args[1];
+            if (level == undefined) {
+                return message.channel.send({
+                    embed: {
+                        color: bot.settings.red,
+                        descriptions: `Error! You didn't mention a logging level. Choose between low, medium or high. For more information check our docs at **docs.benwhybrow.xyz**`
+                    }
+                });
+            };
 
             switch (level) {
-              case "low":
-                  if (config.logginglevel == "low") {
-                    return message.channel.send({embed: {color: bot.settings.red, description: `Error! Logging is already set to that level.`}});
-                  };
+                case "low":
+                    if (config.logginglevel == "low") {
+                        return message.channel.send({
+                            embed: {
+                                color: bot.settings.red,
+                                description: `Error! Logging is already set to that level.`
+                            }
+                        });
+                    };
 
-                  config.logginglevel = "low";
-                  fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
-                      if (err) return;
-                  });
-                  message.channel.send({embed: {color: bot.settings.green, description: `Logging level has been set to **low**`}});
-                break;
-              case "medium":
-                  if (config.logginglevel == "medium") {
-                    return message.channel.send({embed: {color: bot.settings.red, description: `Error! Logging is already set to t hat level.`}});
-                  };
+                    config.logginglevel = "low";
+                    fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
+                        if (err) return;
+                    });
+                    message.channel.send({
+                        embed: {
+                            color: bot.settings.green,
+                            description: `Logging level has been set to **low**`
+                        }
+                    });
+                    break;
+                case "medium":
+                    if (config.logginglevel == "medium") {
+                        return message.channel.send({
+                            embed: {
+                                color: bot.settings.red,
+                                description: `Error! Logging is already set to t hat level.`
+                            }
+                        });
+                    };
 
-                  config.logginglevel = "medium";
-                  fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
-                      if (err) return;
-                  });
-                  message.channel.send({embed: {color: bot.settings.green, description: `Logging level has been set to **medium**`}});
-                break;
-              case "high":
-                  if (config.logginglevel == "high") {
-                    return message.channel.send({embed: {color: bot.settings.red, description: `Error! Logging is already set to that level.`}});
-                  };
+                    config.logginglevel = "medium";
+                    fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
+                        if (err) return;
+                    });
+                    message.channel.send({
+                        embed: {
+                            color: bot.settings.green,
+                            description: `Logging level has been set to **medium**`
+                        }
+                    });
+                    break;
+                case "high":
+                    if (config.logginglevel == "high") {
+                        return message.channel.send({
+                            embed: {
+                                color: bot.settings.red,
+                                description: `Error! Logging is already set to that level.`
+                            }
+                        });
+                    };
 
-                  config.logginglevel = "high";
-                  fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
-                      if (err) return;
-                  });
-                  message.channel.send({embed: {color: bot.settings.green, description: `Logging level has been set to **high**`}});
-                break;
-              default:
-                return message.channel.send({embed: {color: bot.settings.red, description: `Error! There is no logging level called **${level}**`}});
+                    config.logginglevel = "high";
+                    fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
+                        if (err) return;
+                    });
+                    message.channel.send({
+                        embed: {
+                            color: bot.settings.green,
+                            description: `Logging level has been set to **high**`
+                        }
+                    });
+                    break;
+                default:
+                    return message.channel.send({
+                        embed: {
+                            color: bot.settings.red,
+                            description: `Error! There is no logging level called **${level}**`
+                        }
+                    });
             };
             break;
         case "enable":
 
-          if (config.loggingenabled == true) {
-              return message.channel.send({embed: {color: bot.settings.red, description: `Error! Logging is already enabled.`}});
-          };
+            if (config.loggingenabled == true) {
+                return message.channel.send({
+                    embed: {
+                        color: bot.settings.red,
+                        description: `Error! Logging is already enabled.`
+                    }
+                });
+            };
 
-          config.loggingenabled = true;
-          fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
-              if (err) return;
-          });
-          message.channel.send({embed: {color: bot.settings.green, description: `Logging has now been enabled.`}});
+            config.loggingenabled = true;
+            fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
+                if (err) return;
+            });
+            message.channel.send({
+                embed: {
+                    color: bot.settings.green,
+                    description: `Logging has now been enabled.`
+                }
+            });
             break;
 
         case "disable":
 
-          if (config.loggingenabled == false) {
-              return message.channel.send({embed: {color: bot.settings.red, description: `Error! Logging is already disabled.`}});
-          };
+            if (config.loggingenabled == false) {
+                return message.channel.send({
+                    embed: {
+                        color: bot.settings.red,
+                        description: `Error! Logging is already disabled.`
+                    }
+                });
+            };
 
-          config.loggingenabled = false;
-          fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
-              if (err) return;
-          });
-          message.channel.send({embed: {color: bot.settings.green, description: `Logging has now been disabled.`}});
-          break;
+            config.loggingenabled = false;
+            fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
+                if (err) return;
+            });
+            message.channel.send({
+                embed: {
+                    color: bot.settings.green,
+                    description: `Logging has now been disabled.`
+                }
+            });
+            break;
 
         default:
             message.channel.send({

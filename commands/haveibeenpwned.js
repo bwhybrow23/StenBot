@@ -1,7 +1,7 @@
 exports.run = async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    const superagent = require("superagent");  
+    const superagent = require("superagent");
 
     await message.delete(300);
     let {
