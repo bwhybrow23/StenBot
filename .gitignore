@@ -15,3 +15,4 @@ package-lock.json
 # usage
 data/global/command-usage.json
 data/global/memory-usage.json
+data/global/memory-usage.json

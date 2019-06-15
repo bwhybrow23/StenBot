@@ -1,7 +1,9 @@
 //Define
 const Discord = require("discord.js");
 const bot = new Discord.Client();
-const { promisify } = require("util");
+const {
+    promisify
+} = require("util");
 const readdir = promisify(require("fs").readdir);
 const settings = require("./main/settings.json");
 const fs = require("fs");
@@ -10,7 +12,7 @@ const colors = require("colors");
 const schedule = require("node-schedule");
 var utils = require('bot-utils');
 
-//Lets make the settings file available everywhere :D
+//Lets make the settings file available everywhere
 bot.settings = settings;
 
 //Add another command to total amount of commands executed function
@@ -89,7 +91,7 @@ bot.on("ready", () => {
         setTimeout(() => {
             bot.user.setActivity(utils.randItemFromArray(presences))
         }, 600000)
-    })
+    });
 });
 
 //Usage Statistics
@@ -112,9 +114,5 @@ bot.setInterval(function() {
 }, 300000);
 
 
-
-
-
-
-
-bot.login(settings.devtoken);
+//bot.login(settings.devtoken);
+bot.login(settings.token);

@@ -7,7 +7,7 @@ exports.run = async (bot, message, args) => {
     var flip = args[0];
     var amount = args[1];
 
-    if (!flip || !['heads', 'tails'].includes(flip)) return message.reply(`You need to specify if it's heads of tails.`);
+    if (!flip || !['heads', 'tails'].includes(flip)) return message.reply(`You need to specify if it's heads or tails.`);
     if (!amount) return message.reply(`You need to specify the amount of money you want to bet.`);
 
     var output = await eco.FetchBalance(message.author.id);
