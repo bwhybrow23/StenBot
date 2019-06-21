@@ -3,6 +3,17 @@ exports.run = async (bot, message, args) => {
     const Discord = require("discord.js");
     const superagent = require("superagent");
 
+    let helpE = new Discord.RichEmbed()
+    .setColor(bot.settings.blue)
+    .setTitle("Command: Haveibeenpwned")
+    .addField("Description:", "Check with secure servers at [haveibeenpwned.com](https://haveibeenpwned.com) to see if your email has been leaked.", true)
+    .addField("Usage", "`.haveibeenpwned <email>`", true)
+    .addField("Example", "`.haveibeenpwned info@benwhybrow.xyz`")
+    .setFooter(message.author.tag, message.author.avatarURL)
+    .setTimestamp();
+
+    if (!args[0]) return message.channel.send(helpE);
+
     await message.delete(300);
     let {
         body

@@ -3,7 +3,16 @@ exports.run = async (bot, message, args) => {
     var output = "";
     const Discord = require("discord.js");
 
-    //HELP EMBED HERE
+    let helpE = new Discord.RichEmbed()
+    .setColor(bot.settings.blue)
+    .setTitle("Command: Binary")
+    .addField("Description:", "Convert any message into binary.", true)
+    .addField("Usage", "`.binary <text>`", true)
+    .addField("Example", "`.binary This is a top secret message from Discord HQ.`")
+    .setFooter(message.author.tag, message.author.avatarURL)
+    .setTimestamp();
+
+    if (!args[0]) return message.channel.send(helpE);
 
     var input = args.join(" ");
     for (var i = 0; i < input.length; i++) {

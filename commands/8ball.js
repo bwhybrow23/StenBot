@@ -1,17 +1,17 @@
 exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js");
+    
+    let helpE = new Discord.RichEmbed()
+    .setColor(bot.settings.blue)
+    .setTitle("Command: 8ball")
+    .addField("Description:", "Predict your future with questions!", true)
+    .addField("Usage", "`.8ball <question>`", true)
+    .addField("Example", "`.8ball Is StenBot a good bot?`")
+    .setFooter(message.author.tag, message.author.avatarURL)
+    .setTimestamp();
 
-    let ballHelp = new Discord.RichEmbed()
-        .setColor("#a905fc")
-        .setTitle("Command: 8ball")
-        .addField("Description:", "Predict your future with questions!", true)
-        .addField("Usage", "`.8ball <question>`", true)
-        .addField("Example", "`.8ball Is StenBot a good bot?`")
-        .addField("Note", "The responses are completely random and this is only a game!")
-        .setFooter(`${message.author.tag}`, `${message.author.avatarURL}`);
-
-    if (!args[0]) return message.channel.send(ballHelp);
+    if (!args[0]) return message.channel.send(helpE);
 
     var replies = [
         "Yes.",

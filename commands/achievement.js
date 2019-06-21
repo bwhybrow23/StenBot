@@ -17,16 +17,16 @@ exports.run = (bot, message, args) => {
         return true;
     }
 
-    let achievementHelp = new Discord.RichEmbed()
-        .setColor("#a905fc")
-        .setTitle("Command: Achievement")
-        .addField("Description:", "Make yourself a Minecraft Achievement!", true)
-        .addField("Usage", "`.achievement <achievement>`", true)
-        .addField("Example", "`.achievement Mining All the Diamonds`")
-        .addField("Note", "Please do not spam this command and it may be a bit slow due to how it makes the image.")
-        .setFooter(`${message.author.tag}`, `${message.author.avatarURL}`);
+    let helpE = new Discord.RichEmbed()
+    .setColor(bot.settings.blue)
+    .setTitle("Command: Achievement")
+    .addField("Description:", "Insert your own messgae into a Minecraft achievement text box.", true)
+    .addField("Usage", "`.achievement <text>`", true)
+    .addField("Example", "`.achievement You can spell!`")
+    .setFooter(message.author.tag, message.author.avatarURL)
+    .setTimestamp();
 
-    if (isEmpty(achievement)) return message.channel.send(achievementHelp);
+    if (isEmpty(achievement)) return message.channel.send(helpE);
     var download = function(uri, filename, callback) {
         request.head(uri, function(err, res, body) {
             //console.log('content-type:', res.headers['content-type']);

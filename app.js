@@ -25,8 +25,6 @@ var addCmdToTotal = () => {
 //Command handler
 bot.on("message", message => {
     if (message.author.bot) return;
-    //Gotta make sure we thank tod for his hard work
-    if (message.content == "tod") return message.channel.send("sucks");
     if (message.content.indexOf(settings.prefix) !== 0) {
         const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
         //Check if its an url
@@ -70,9 +68,8 @@ const ehandler = async () => {
 };
 ehandler();
 
-let guildSize = bot.guilds.size;
-
 //playing statuses
+let guildSize = bot.guilds.size;
 var presences = [
     "StenDevelopment",
     ".help",
