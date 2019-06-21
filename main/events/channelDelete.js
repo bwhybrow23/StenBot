@@ -1,5 +1,6 @@
 module.exports = async (bot, channel) => {
 
+  const Discord = require("discord.js");
     const efunctions = require("../functions/eventfunctions.js");
 
     

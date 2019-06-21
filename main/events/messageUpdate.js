@@ -1,4 +1,6 @@
 module.exports = async (bot, oldMessage, newMessage) => {
+
+  const Discord = require("discord.js");
 	const efunctions = require("../functions/eventfunctions.js")
 	const checker = require("is-url");
 	

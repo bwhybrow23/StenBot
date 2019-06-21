@@ -121,7 +121,7 @@ exports.run = (bot, message, args) => {
                         return message.channel.send({
                             embed: {
                                 color: bot.settings.red,
-                                description: `Error! Logging is already set to t hat level.`
+                                description: `Error! Logging is already set to that level.`
                             }
                         });
                     };

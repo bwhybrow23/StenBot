@@ -1,5 +1,6 @@
 module.exports = async (bot, member) => {
 
+    const Discord = require("discord.js");
     const fs = require("fs");
     const config = JSON.parse(fs.readFileSync(`./data/servers/server-${member.guild.id}/serverconfig.json`, "utf8"));
     var format = require("string-template");

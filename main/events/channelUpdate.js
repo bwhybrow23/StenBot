@@ -1,4 +1,6 @@
 module.exports = async (bot, oldChannel, newChannel) => {
+
+    const Discord = require("discord.js");
     const efunctions = require("../functions/eventfunctions.js")
 
     const config = efunctions.getConfig(newChannel.guild.id)

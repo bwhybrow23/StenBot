@@ -1,5 +1,6 @@
 module.exports = async (bot, guild) => {
 
+    const Discord = require("discord.js");
     const fs = require("fs");
 
     //When bot joins new server, create that servers file system.

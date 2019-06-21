@@ -1,4 +1,6 @@
 module.exports = async (bot, guild, user) => {
+
+  const Discord = require("discord.js");
 	const efunctions = require("../functions/eventfunctions.js")
 	
   let config = efunctions.getConfig(guild.id)

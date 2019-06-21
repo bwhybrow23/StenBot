@@ -1,4 +1,5 @@
 const fs = require("fs");
+const Discord = require("discord.js");
 
 //Functions to be used by the events and the event handler
 

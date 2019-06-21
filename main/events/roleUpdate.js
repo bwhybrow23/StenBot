@@ -1,4 +1,6 @@
 module.exports = async (bot, oldRole, newRole) => {
+	
+	const Discord = require("discord.js");
 	const efunctions = require("../functions/eventfunctions.js")
 	const ColorAPIURL = "http://thecolorapi.com/id?format=json&hex="
 	const request = require('superagent')
