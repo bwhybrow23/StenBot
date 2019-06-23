@@ -10,11 +10,11 @@ exports.run = async (bot, message, args) => {
     .setColor(bot.settings.blue)
     .setTitle("Command: Balance")
     .addField("Description:", "Find out yours or another user's balance.", true)
-    .addField("Usage", "`.balance {@user}`", true)
+    .addField("Usage", "`.bal {@user}`", true)
     .setFooter(message.author.tag, message.author.avatarURL)
     .setTimestamp();
 
-    if (!args[0]) return message.channel.send(helpE);
+    if (!person) return message.channel.send(helpE);
 
     if (person.id === message.author.id) {
     var output = await eco.FetchBalance(message.author.id)

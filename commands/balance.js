@@ -14,7 +14,7 @@ exports.run = async (bot, message, args) => {
     .setFooter(message.author.tag, message.author.avatarURL)
     .setTimestamp();
 
-    if (!args[0]) return message.channel.send(helpE);
+    if (!person) return message.channel.send(helpE);
 
     if (person.id === message.author.id) {
     var output = await eco.FetchBalance(message.author.id)
