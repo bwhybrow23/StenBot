@@ -16,7 +16,7 @@ module.exports = async (bot, message) => {
         if (files.includes(possiblefilename)) return;
 
         let lchannel = bot.channels.get(config.loggingchannel);
-        lchannel.send({embed: {color: bot.settings.yellow, description:`**Message Deleted**\n**Message:**\n${message}\n**Sent by:** ${message.author}\n**Deleted in:** ${message.channel}`, footer: {icon_url: message.author.avatarURL, text: 'Message Deleted'}, timestamp: new Date()}})
+        lchannel.send({embed: {color: bot.settings.color.yellow, description:`**Message Deleted**\n**Message:**\n${message}\n**Sent by:** ${message.author}\n**Deleted in:** ${message.channel}`, footer: {icon_url: message.author.avatarURL, text: 'Message Deleted'}, timestamp: new Date()}})
       }
     }
   }

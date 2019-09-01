@@ -13,7 +13,7 @@ module.exports = async (bot, channel) => {
       if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
 
         let lchannel=bot.channels.get(config.loggingchannel);
-        lchannel.send({embed: {color: bot.settings.yellow, description:`**Channel Created**\n**Name:** ${channel.name}\n**Id:** ${channel.id}`, footer: {text: 'Channel Created'}, timestamp: new Date()}});
+        lchannel.send({embed: {color: bot.settings.color.yellow, description:`**Channel Created**\n**Name:** ${channel.name}\n**Id:** ${channel.id}`, footer: {text: 'Channel Created'}, timestamp: new Date()}});
         
       };
     };

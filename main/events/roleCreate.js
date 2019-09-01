@@ -7,7 +7,7 @@ module.exports = async (bot, role) => {
     if (config.loggingenabled == true) {
       if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
         let lchannel=bot.channels.get(config.loggingchannel);
-        lchannel.send({embed: {color: bot.settings.yellow, description:`**Role Created**\n**Name:** ${role.name}\n**Id:** ${role.id}`, footer: {text: 'Role Created'}, timestamp: new Date()}})
+        lchannel.send({embed: {color: bot.settings.color.yellow, description:`**Role Created**\n**Name:** ${role.name}\n**Id:** ${role.id}`, footer: {text: 'Role Created'}, timestamp: new Date()}})
     };
   };
 };

@@ -30,7 +30,7 @@ module.exports = async (bot, member) => {
                     });
 
                     let welcomeEmbed = new Discord.RichEmbed()
-                    .setColor(bot.settings.yellow)
+                    .setColor(bot.settings.color.yellow)
                     .setDescription(themsg);
 
                     //Send the message.
@@ -61,7 +61,7 @@ module.exports = async (bot, member) => {
     if (config.loggingenabled==true) {
       if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
         let lchannel=bot.channels.get(config.loggingchannel);
-        lchannel.send({embed: {color: bot.settings.yellow, description:`**Member Joined**\n**Name:** ${member.user.tag}\n**Id:** ${member.id}`, footer: {icon_url: member.user.avatarURL, text: 'Member Joined'}, timestamp: new Date()}})
+        lchannel.send({embed: {color: bot.settings.color.yellow, description:`**Member Joined**\n**Name:** ${member.user.tag}\n**Id:** ${member.id}`, footer: {icon_url: member.user.avatarURL, text: 'Member Joined'}, timestamp: new Date()}})
       };
     };
 };

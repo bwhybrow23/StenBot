@@ -8,7 +8,7 @@ module.exports = async (bot, emoji) => {
     if (config.logginglevel == "high") {
       if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
         let lchannel = bot.channels.get(config.loggingchannel);
-        lchannel.send({embed: {color: bot.settings.yellow, description: `**Emoji Deleted**\n**Name:** ${emoji.name}\n**Created at:** ${emoji.createdAt}`, footer: {icon_url: emoji.url, text: 'Emoji Deleted'}, timestamp: new Date()}})
+        lchannel.send({embed: {color: bot.settings.color.yellow, description: `**Emoji Deleted**\n**Name:** ${emoji.name}\n**Created at:** ${emoji.createdAt}`, footer: {icon_url: emoji.url, text: 'Emoji Deleted'}, timestamp: new Date()}})
       }
     }
   }

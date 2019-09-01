@@ -13,7 +13,7 @@ module.exports = async (bot, oldMessage, newMessage) => {
         //AHem
         if (oldMessage.content == newMessage.content) return;
         let lchannel = bot.channels.get(config.loggingchannel);
-        lchannel.send({embed: {color: bot.settings.yellow, description:`**Message Edited**\n**Before:**\n${oldMessage}\n**After:**\n${newMessage}\n**Sent in:** ${newMessage.channel}`, footer: {icon_url: newMessage.author.avatarURL, text: 'Message Edited'}, timestamp: new Date()}})
+        lchannel.send({embed: {color: bot.settings.color.yellow, description:`**Message Edited**\n**Before:**\n${oldMessage}\n**After:**\n${newMessage}\n**Sent in:** ${newMessage.channel}`, footer: {icon_url: newMessage.author.avatarURL, text: 'Message Edited'}, timestamp: new Date()}})
       }
     }
   }

@@ -8,7 +8,7 @@ module.exports = async (bot, guild, user) => {
     if (config.logginglevel == "medium" || config.logginglevel == "high") {
       if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
         let lchannel = bot.channels.get(config.loggingchannel);
-        lchannel.send({embed: {color: bot.settings.yellow, description: `**Member Banned**\n**User tag:** ${user.tag}\n**User ID:** ${user.id}\n**Ban Date:** ${new Date()}`, footer: {icon_url: user.avatarURL, text: 'Member Banned'}, timestamp: new Date()}})
+        lchannel.send({embed: {color: bot.settings.color.yellow, description: `**Member Banned**\n**User tag:** ${user.tag}\n**User ID:** ${user.id}\n**Ban Date:** ${new Date()}`, footer: {icon_url: user.avatarURL, text: 'Member Banned'}, timestamp: new Date()}})
       }
     }
   }

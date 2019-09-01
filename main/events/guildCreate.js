@@ -75,9 +75,15 @@ module.exports = async (bot, guild) => {
             economypay: true,
             economysymbol: 0,
             musicenabled: false,
-            selfroleslist: []
+            selfroleslist: [],
+            levellingenabled: false
         };
         fs.writeFileSync(`./data/servers/server-${guild.id}/serverconfig.json`, JSON.stringify(defaultContent, null, 4), (err) => {
             if (err) return;
         });
-};
+
+        //levelling system
+        let levelDefault = {};
+            fs.writeFileSync(`./data/servers/server-${guild.id}/levelling.json`, JSON.stringify(levelDefault, null, 4), (err) => {
+            if (err) return;
+        })};

@@ -5,7 +5,7 @@
     "userjoinenabled": false,
     "userjoinedrole": 0,
     "userjoinedname": 0,
-    "staffrole": "452032956769370113",
+    "staffrole": false,
     "staffadminenabled": false,
     "stafflinkblocker": false,
     "stafffilter": [],
@@ -20,5 +20,6 @@
     "economypay": true,
     "economysymbol": 0,
     "musicenabled": false,
-    "selfroleslist": []
+    "selfroleslist": [],
+    "levellingenabled": false
 }

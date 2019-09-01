@@ -10,22 +10,79 @@ const fs = require("fs");
 const os = require("os");
 const colors = require("colors");
 const schedule = require("node-schedule");
-var utils = require('bot-utils');
+// const Sequelize = require('sequelize');
+// require('sqlite3');
+
+//FUNCTIONS
+const logger = require("./main/functions/console.js");
+const utils = require("./main/functions/utilities.js");
+const reactionFunctions = require("./main/functions/reactions.js");
 
 //Lets make the settings file available everywhere
 bot.settings = settings;
 
-//Add another command to total amount of commands executed function
+//COMMAND-USAGE.JSON UPDATES
 const cmdusage = JSON.parse(fs.readFileSync("./data/global/command-usage.json", "utf8"));
+//TOTAL
 var addCmdToTotal = () => {
     cmdusage.total = parseInt(cmdusage.total) + 1;
     fs.writeFileSync('./data/global/command-usage.json', JSON.stringify(cmdusage))
 };
+//ADMIN
+var addCmdToAdmin = () => {
+    cmdusage.sub.admin = parseInt(cmdusage.sub.admin) + 1;
+    fs.writeFileSync('./data/global/command-usage.json', JSON.stringify(cmdusage))
+};
+//BOT
+var addCmdToBot = () => {
+    cmdusage.sub.bot = parseInt(cmdusage.sub.bot) + 1;
+    fs.writeFileSync('./data/global/command-usage.json', JSON.stringify(cmdusage))
+};
+//CONFIG
+var addCmdToConfig = () => {
+    cmdusage.sub.config = parseInt(cmdusage.sub.config) + 1;
+    fs.writeFileSync('./data/global/command-usage.json', JSON.stringify(cmdusage))
+};
+//CUSTOM
+var addCmdToCustom = () => {
+    cmdusage.sub.custom = parseInt(cmdusage.sub.custom) + 1;
+    fs.writeFileSync('./data/global/command-usage.json', JSON.stringify(cmdusage))
+};
+//ECO
+var addCmdToEco = () => {
+    cmdusage.sub.eco = parseInt(cmdusage.sub.eco) + 1;
+    fs.writeFileSync('./data/global/command-usage.json', JSON.stringify(cmdusage))
+};
+//FUN
+var addCmdToFun = () => {
+    cmdusage.sub.fun = parseInt(cmdusage.sub.fun) + 1;
+    fs.writeFileSync('./data/global/command-usage.json', JSON.stringify(cmdusage))
+};
+//GENERAL
+var addCmdToGeneral = () => {
+    cmdusage.sub.general = parseInt(cmdusage.sub.general) + 1;
+    fs.writeFileSync('./data/global/command-usage.json', JSON.stringify(cmdusage))
+};
+//MOD
+var addCmdToMod = () => {
+    cmdusage.sub.mod = parseInt(cmdusage.sub.mod) + 1;
+    fs.writeFileSync('./data/global/command-usage.json', JSON.stringify(cmdusage))
+};
+//TICKETING
+var addCmdToTicketing = () => {
+    cmdusage.sub.ticketing = parseInt(cmdusage.sub.ticketing) + 1;
+    fs.writeFileSync('./data/global/command-usage.json', JSON.stringify(cmdusage))
+};
+//SUPPORT DISCORD
+var addCmdTosupportDiscord = () => {
+    cmdusage.sub.supportDiscord = parseInt(cmdusage.sub.supportDiscord) + 1;
+    fs.writeFileSync('./data/global/command-usage.json', JSON.stringify(cmdusage))
+}
 
 //Command handler
 bot.on("message", message => {
     if (message.author.bot) return;
-    if (message.content.indexOf(settings.prefix) !== 0) {
+    if (message.content.indexOf(bot.settings.prefix) !== 0) {
         const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
         //Check if its an url
         if (config.stafflinkblocker) {
@@ -42,18 +99,127 @@ bot.on("message", message => {
         };
         return;
     };
-    const args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
+    const args = message.content.slice(bot.settings.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
     try {
-        let commandFile = require(`./commands/${command}.js`);
-        commandFile.run(bot, message, args);
-        //Add to cmd used total
+        let adminFile = require(`./commands/admin/${command}.js`);
+        adminFile.run(bot, message, args);
+
+        //Command-usage.json updates
         addCmdToTotal();
+        addCmdToAdmin();
     } catch (err) {
         //Only enable these two for development puposes or else spam
         //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
-        console.log('[SYSTEM]'.grey, err);
+        // console.log('[SYSTEM]'.grey, err);
     };
+    try {
+        let botFile = require(`./commands/bot/${command}.js`);
+        botFile.run(bot, message, args);
+
+        //Command-usage.json updates
+        addCmdToTotal();
+        addCmdToBot();
+    } catch (err) {
+        //Only enable these two for development puposes or else spam
+        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
+        // console.log('[SYSTEM]'.grey, err);
+    }
+    try {
+        let configFile = require(`./commands/config/${command}.js`);
+        configFile.run(bot, message, args);
+
+        //Command-usage.json updates
+        addCmdToTotal();
+        addCmdToConfig();
+    } catch (err) {
+        //Only enable these two for development puposes or else spam
+        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
+        // console.log('[SYSTEM]'.grey, err);
+    }
+    try {
+        let customFile = require(`./commands/custom/${command}.js`);
+        customFile.run(bot, message, args);
+
+        //Command-usage.json updates
+        addCmdToTotal();
+        addCmdToCustom();
+    } catch (err) {
+        //Only enable these two for development puposes or else spam
+        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
+        // console.log('[SYSTEM]'.grey, err);
+    }
+    try {
+        let ecoFile = require(`./commands/eco/${command}.js`);
+        ecoFile.run(bot, message, args);
+
+        //Command-usage.json updates
+        addCmdToTotal();
+        addCmdToEco();
+    } catch (err) {
+        //Only enable these two for development puposes or else spam
+        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
+        // console.log('[SYSTEM]'.grey, err);
+    }
+    try {
+        let funFile = require(`./commands/fun/${command}.js`);
+        funFile.run(bot, message, args);
+
+        //Command-usage.json updates
+        addCmdToTotal();
+        addCmdToFun();
+    } catch (err) {
+        //Only enable these two for development puposes or else spam
+        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
+        // console.log('[SYSTEM]'.grey, err);
+    }
+    try {
+        let generalFile = require(`./commands/general/${command}.js`);
+        generalFile.run(bot, message, args);
+
+        //Command-usage.json updates
+        addCmdToTotal();
+        addCmdToGeneral();
+    } catch (err) {
+        //Only enable these two for development puposes or else spam
+        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
+    }
+    try {
+        let modFile = require(`./commands/mod/${command}.js`);
+        modFile.run(bot, message, args);
+
+        //Command-usage.json updates
+        addCmdToTotal();
+        addCmdToMod();
+    } catch (err) {
+        //Only enable these two for development puposes or else spam
+        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
+        // console.log('[SYSTEM]'.grey, err);
+    }
+    try {
+        let ticketingFile = require(`./commands/ticketing/${command}.js`);
+        ticketingFile.run(bot, message, args);
+
+        //Command-usage.json updates
+        addCmdToTotal();
+        addCmdToTicketing();
+    } catch (err) {
+        //Only enable these two for development puposes or else spam
+        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
+        // console.log('[SYSTEM]'.grey, err);
+    }
+    try {
+        let supportDiscordFile = require(`./commands/supportDiscord/${command}.js`)
+        supportDiscordFile.run(bot, message, args);
+
+        //Command-usage.json updates
+        addCmdToTotal();
+        addCmdTosupportDiscord();
+    } catch (err) {
+        //Only enable these two for development puposes or else spam
+        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
+        // console.log('[SYSTEM]'.grey, err);
+    }
 });
 
 //Event Handler (O)
@@ -68,27 +234,42 @@ const ehandler = async () => {
 };
 ehandler();
 
-//playing statuses
-let guildSize = bot.guilds.size;
-var presences = [
-    "StenDevelopment",
-    ".help",
-    "With Code",
-    `On ${guildSize} servers!`,
-    `Version ${settings.version}`
-]
-
 //Ready event
 bot.on("ready", () => {
     let date = new Date;
-    console.log('[SYSTEM]'.grey, `StenBot Started Successfully. Version: ${settings.version}`.green);
+    console.log('[SYSTEM]'.grey, `StenBot Started Successfully. Version: ${bot.settings.version}`.green);
+
+    //playing statuses
+    let guildSize = bot.guilds.size;
+    var presences = [
+        "StenDevelopment",
+        ".help",
+        "With Code",
+        `On ${guildSize} servers!`,
+        `Version ${bot.settings.version}`
+    ]
 
     //changes playing status every X seconds
-    bot.user.setActivity(utils.randItemFromArray(presences)).then(() => {
-        setTimeout(() => {
-            bot.user.setActivity(utils.randItemFromArray(presences))
-        }, 600000)
+    //    bot.user.setActivity(utils.randItemFromArray(presences)).then(() => {
+    //        setTimeout(() => {
+    //            bot.user.setActivity(utils.randItemFromArray(presences))
+    //        }, 600000)
+    //    });
+
+    //filler for playing status (if above errors)
+    bot.user.setActivity(`On ${guildSize} servers!`, {
+        type: 'PLAYING'
     });
+
+    //LOAD ECO DATABASE
+    const eco = require('stenbot-economy');
+    console.log('[SYSTEM]'.grey, 'The economy database has been successfully loaded'.green);
+
+    //VERIFICATION FOR SUPPORT DISCORD
+    if (bot.settings.options.verifEnabled) {
+        utils.resetVerif(bot)
+    };
+
 });
 
 //Usage Statistics
@@ -111,5 +292,6 @@ bot.setInterval(function() {
 }, 300000);
 
 
-//bot.login(settings.devtoken);
-bot.login(settings.token);
+//TOKENS FOR CONNECTING
+// bot.login(bot.settings.connections.devToken);
+bot.login(bot.settings.connections.token);

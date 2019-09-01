@@ -9,7 +9,7 @@ module.exports = async (bot, emoji) => {
       if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
         let lchannel = bot.channels.get(config.loggingchannel);
         let author = await emoji.fetchAuthor()
-        lchannel.send({embed: {color: bot.settings.yellow, description: `**Emoji Created**\n**Name:** ${emoji.name}\n**Identifier:** ${emoji.identifier}\n**Created by:** ${author}`, footer: {icon_url: emoji.url, text: 'Emoji Created'}, timestamp: new Date()}})
+        lchannel.send({embed: {color: bot.settings.color.yellow, description: `**Emoji Created**\n**Name:** ${emoji.name}\n**Identifier:** ${emoji.identifier}\n**Created by:** ${author}`, footer: {icon_url: emoji.url, text: 'Emoji Created'}, timestamp: new Date()}})
       }
     }
   }

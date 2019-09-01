@@ -1,14 +1,23 @@
 {
-  "token": "NDUyMDUzNjA3MzgzMzAyMTQ1.XKnFCw.EaKrLKqBTkR7uZksmuEpGyIFYEg",
-  "devtoken": "NTY0MzkwNDc1OTE4ODY4NDky.XKtJOA.x5VPD8Mh8sdYNcrCDVV21a-qrZg",
-  "fortnitetoken": "c5022499-a018-49c6-9b66-0c8a221e18e6",
+  "version": "1.1.0 PUBLIC BETA",
   "prefix": ".",
-  "version": "1.0.3 PRIVATE BETA",
-  "botowner": "346246641595973633",
-  "mainguild": "455782308293771264",
-  "testguild": "452032825311363072",
-  "red": 14165566,
-  "green": 1295876,
-  "yellow": 14672927,
-  "blue": 4886754
+  "connections": {
+      "token": "NDUyMDUzNjA3MzgzMzAyMTQ1.XKnFCw.EaKrLKqBTkR7uZksmuEpGyIFYEg",
+      "devToken": "NTY0MzkwNDc1OTE4ODY4NDky.XKtJOA.x5VPD8Mh8sdYNcrCDVV21a-qrZg",
+      "fortniteToken": "c5022499-a018-49c6-9b66-0c8a221e18e6"
+  },
+  "ids": {
+      "botOwner": "346246641595973633",
+      "mainGuild": "455782308293771264",
+      "testGuild": "452032825311363072"
+  },
+  "color": {
+      "red": 14165566,
+      "green": 1295876,
+      "yellow": 14672927,
+      "blue": 4886754
+  },
+  "options": {
+      "verifEnabled": true
+  }
 }
