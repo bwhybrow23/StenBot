@@ -2,22 +2,27 @@ const fs = require("fs");
 const logger = require("./console.js");
 const utils = require("./utilities.js");
 
-/*
-  Verified Role
-*/
-const verifiedRole = (message, reaction, user) => {
-    reaction.remove(user);
-    
-    //CHECK IF USER HAS ROLE
-    let roleName = "Member";
-    var roleObj = message.guild.roles.find(r => r.name === roleName);
-    var userObj = message.guild.members.get(user.id);
+/**
+ * 
+ * @param {*} reaction 
+ * @param {*} user 
+ */
+const verifiedRole = (reaction, user) => {
+  reaction.remove(user);
 
-    if(userObj.hasRole(roleObj)) {
-      user.send("You already have already verified yourself on the StenBot Discord. If you still see this channel then please contact support.")
-    } else {    
-    userObj.addRole(roleObj);
+  const role = reaction.message.guild.roles.find(r => r.name === 'Member');
+  
+  // TODO: Tidy up
+  reaction.message.guild.fetchMember(user).then(u => {
+    if (u.roles.has(role.id)) {
+      console.log(`${user.username} already verified.`);
+    } else {
+      u.addRole(role);
+      console.log(`Verified ${user.username}.`)
     }
+  }).catch(err => console.error(err));
+
+  
 }
 
 module.exports = {
