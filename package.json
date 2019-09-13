@@ -4,7 +4,8 @@
   "description": "StenBot is a free to use public Discord bot made by Ben Whybrow (Stentorian#9524)",
   "main": "app.js",
   "scripts": {
-    "test": "node app.js"
+    "run": "node app.js",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -37,11 +38,12 @@
     "nekos.life": "^2.0.4",
     "node-schedule": "^1.3.2",
     "number-abbreviate": "^2.0.0",
+    "parse-ms": "^2.1.0",
+    "quick.db": "^7.0.0-b22",
     "request": "^2.88.0",
     "sequelize": "^5.10.1",
     "snekfetch": "^4.0.4",
     "sqlite3": "^4.0.9",
-    "stenbot-economy": "^1.0.5",
     "string-template": "^1.0.0",
     "superagent": "^5.1.0",
     "table": "^5.4.4",

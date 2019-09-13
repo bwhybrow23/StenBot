@@ -1,6 +1,9 @@
 module.exports.run = async (bot, message, args) => {
 
     const Discord = require('discord.js');
+
+    //COMMENTED OUT DUE TO COMMAND NOT FUNCTIONING WITH NEW HANDLER
+    /*
     const fs = require('fs');
   
     if (message.member.id != "346246641595973633") {
@@ -45,7 +48,11 @@ module.exports.run = async (bot, message, args) => {
             .setColor(bot.settings.color.green)
             .setDescription(`Command ${args[0]} has been reloaded successfully!`);
   
-        message.channel.send(doneEmbed)
-  
+        message.channel.send(doneEmbed);
     }
+    */
+
+    //Temporary Message as command as broken
+    message.reply(`This command doesn't work at the moment.`);
+    
   };

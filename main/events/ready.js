@@ -27,10 +27,6 @@ module.exports = (bot) => {
         type: 'PLAYING'
     });
 
-    //LOAD ECO DATABASE
-    const eco = require('stenbot-economy');
-    console.log('[SYSTEM]'.grey, 'The economy database has been successfully loaded'.green);
-
     //VERIFICATION FOR SUPPORT DISCORD
     if (bot.settings.options.verifEnabled) {
         utils.resetVerif(bot)

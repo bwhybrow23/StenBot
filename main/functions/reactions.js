@@ -12,7 +12,6 @@ const verifiedRole = (reaction, user) => {
 
   const role = reaction.message.guild.roles.find(r => r.name === 'Member');
   
-  // TODO: Tidy up
   reaction.message.guild.fetchMember(user).then(u => {
     if (u.roles.has(role.id)) {
       console.log(`${user.username} already verified.`);

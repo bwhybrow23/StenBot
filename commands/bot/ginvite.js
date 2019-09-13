@@ -12,6 +12,6 @@ exports.run = async (bot, message, args) => {
     if (!invitechannels) return message.channel.send('I don\'t have permissions to create an invite link :/ ')
    
     invitechannels.random().createInvite()
-     .then(invite => message.channel.send(`Found Invite: **https://discord.gg/${invite.code}** , Server name: **${guild.name}**`))
+     .then(invite => message.channel.send(`Found Invite: **https://discord.gg/${invite.code}**, Server name: **${guild.name}**`))
    
    }

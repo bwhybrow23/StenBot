@@ -2,26 +2,36 @@ exports.run = async (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
-    const eco = require("stenbot-economy");
+    const db = require('quick.db');
+    const ms = require('parse-ms');
 
-    var output = await eco.Daily(message.author.id);
+    let timeout = 86400000; //24 hours
+    let amount = Math.floor(Math.random() * 1000) + 1; //Random number 1-1000
 
-    if (output.updated) {
-        const embed = new Discord.RichEmbed()
-        .setColor(bot.settings.color.green)
-        .setDescription(`Daily reward claimed for today! You can claim again tomorrow!`)
-        .setFooter(message.author.tag, message.author.avatarURL)
-        .setTimestamp();
+    let daily = await db.fetch(`daily_${message.author.id}`);
 
-        var profile = await eco.AddToBalance(message.author.id, 50)
+    if (daily !== null && timeout - (Date.now() - daily) > 0) {
+        let time = ms(timeout - (Date.now() - daily));
+
+        let embed = new Discord.RichEmbed()
+        .setColor(bot.settings.color.red)
+        .setTitle(`Daily Reward`)
+        .setDescription(`Unfortunately you have already redeemed your daily reward for today. \nYou can redeem it again in **${time.hours}h ${time.minutes}m and ${time.seconds}s**!`)
+        .setTimestamp()
+        .setFooter(message.author.tag, message.author.displayURL);
         message.channel.send(embed);
     } else {
-        const embed1 = new Discord.RichEmbed()
+        let embed1 = new Discord.RichEmbed()
         .setColor(bot.settings.color.green)
-        .setDescription(`Your daily reward has already been claimed for today! You can claim again in ${output.timetowait}`)
-        .setFooter(message.author.tag, message.author.avatarURL)
+        .setTitle(`Daily Reward`)
+        .setDescription(`Congrats, you just won ${amount} coins for today's daily reward. Come back tomorrow for more!`)
+        .setFooter(message.author.tag, message.author.displayURL)
         .setTimestamp();
+
         message.channel.send(embed1);
+        db.add(`money_${message.author.id}`, amount);
+        db.set(`daily_${message.author.id}`, Date.now());
+
     }
 
 }
