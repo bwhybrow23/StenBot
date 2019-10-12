@@ -43,7 +43,7 @@ const resetVerif = (bot) => {
     serverChannel.send({
         "embed": {
             "title": "SERVER VERIFICATION",
-            "description": "Make sure to read <#526078002153521182> and then click the ✅ to get access to the rest of the discord.",
+            "description": "Make sure to read <#624316687537405954> and then click the ✅ to get access to the rest of the discord.",
             "color": bot.settings.color.yellow,
             "footer": {
                 "icon_url": "https://cdn.discordapp.com/icons/455782308293771264/f1b9f8fab440a16edb3c4cabc5904e17.webp?size=256",

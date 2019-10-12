@@ -23,8 +23,12 @@ module.exports = (bot) => {
     //    });
 
     //filler for playing status (if above errors)
-    bot.user.setActivity(`On ${guildSize} servers!`, {
-        type: 'PLAYING'
+    bot.user.setPresence({
+        game: {
+            name: `On ${guildSize} servers!`,
+            type: 'STREAMING',
+            url: 'https://www.twitch.tv/stentorianyt'
+        }
     });
 
     //VERIFICATION FOR SUPPORT DISCORD
