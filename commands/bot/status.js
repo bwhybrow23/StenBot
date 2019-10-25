@@ -1,4 +1,10 @@
-exports.run = (bot, message, args) => {
+module.exports = {
+    name: "status",
+    category: "bot",
+    description: "Find out about all information related to the bot's connection to Discord.",
+    example: ".status",
+    permission: "BOT OWNER",
+    run: async (bot, message, args) => {
 
     const fs = require('fs');
     const cmdusage = JSON.parse(fs.readFileSync("./data/global/command-usage.json", "utf8"));
@@ -21,4 +27,4 @@ exports.run = (bot, message, args) => {
      }
     });
    
-   };
+   }};

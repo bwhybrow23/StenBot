@@ -1,4 +1,10 @@
-exports.run = (bot, message, args) => {
+module.exports = {
+    name: "help",
+    category: "general",
+    description: "List all commands that you can use with StenBot.",
+    example: ".help",
+    permission: "EVERYONE",
+    run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     const zalgo = require("zalgolize");
@@ -79,4 +85,4 @@ exports.run = (bot, message, args) => {
         message.channel.send(mainE);
     }
 
-};
+}};

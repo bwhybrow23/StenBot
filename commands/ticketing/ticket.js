@@ -1,4 +1,10 @@
-exports.run = (bot, message, args) => {
+module.exports = {
+    name: "ticket",
+    category: "ticketing",
+    description: "Create a ticket (if enabled)",
+    example: ".ticket I have a problem",
+    permission: "EVERYONE",
+    run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -134,4 +140,4 @@ exports.run = (bot, message, args) => {
 
 
 
-};
+}};

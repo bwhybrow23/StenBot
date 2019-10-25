@@ -1,4 +1,10 @@
-exports.run = (bot, message, args) => {
+module.exports = {
+    name: "config-tickets",
+    category: "config",
+    description: "Change all config variables related to tickets.",
+    example: ".config-tickets enable",
+    permission: "ADMIN",
+    run: (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -166,4 +172,4 @@ exports.run = (bot, message, args) => {
                 }
             });
     };
-};
+}};

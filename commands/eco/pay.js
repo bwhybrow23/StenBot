@@ -1,4 +1,10 @@
-exports.run = async (bot, message, args) => {
+module.exports = {
+    name: "pay",
+    category: "eco",
+    description: "Give some money to another user.",
+    example: ".pay @Steve 100",
+    permission: "EVERYONE",
+    run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -23,4 +29,4 @@ exports.run = async (bot, message, args) => {
     db.add(`money_${user.id}`, args[1])
     db.subtract(`money_${message.author.id}`, args[1])
 
-}
+}};

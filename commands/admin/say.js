@@ -1,4 +1,10 @@
-exports.run = (bot, message, args) => {
+module.exports = {
+    name: "say",
+    category: "admin",
+    description: "Gets the bot to say something in an embed.",
+    example: ".say StenBot is the Best",
+    permission: "ADMINS",
+    run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     const ownersid = message.guild.ownerID;
@@ -54,4 +60,4 @@ exports.run = (bot, message, args) => {
      }
     });
     message.delete();
-   };
+   }};

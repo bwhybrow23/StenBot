@@ -1,4 +1,10 @@
-exports.run = async (bot, message, args) => {
+module.exports = {
+    name: "rob",
+    category: "eco",
+    description: "Try and rob a user of their money.",
+    example: ".rob @Steve",
+    permission: "EVERYONE",
+    run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -55,4 +61,4 @@ exports.run = async (bot, message, args) => {
         db.set(`robTimeout_${message.author.id}`, Date.now());
     }
 
-}
+}};

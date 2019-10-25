@@ -1,4 +1,10 @@
-exports.run = async (bot, message, args) => {
+module.exports = {
+    name: "binary",
+    category: "fun",
+    description: "Convert text into binary.",
+    example: ".binary StenBot is great!",
+    permission: "EVERYONE",
+    run: async (bot, message, args) => {
 
     var output = "";
     const Discord = require("discord.js");
@@ -28,4 +34,4 @@ exports.run = async (bot, message, args) => {
 
     message.channel.send(outputEmbed);
 
-}
+}};

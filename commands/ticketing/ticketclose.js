@@ -1,4 +1,11 @@
-exports.run = (bot, message, args) => {
+module.exports = {
+    name: "ticketclose",
+    category: "ticketing",
+    description: "Close an ongoing ticket.",
+    example: ".ticketclose",
+    permission: "STAFF",
+    run: async (bot, message, args) => {
+        
     const Discord = require("discord.js");
     const fs = require('fs')
     const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
@@ -18,4 +25,4 @@ exports.run = (bot, message, args) => {
             message.channel.delete()
         }
     }
-}
+}};

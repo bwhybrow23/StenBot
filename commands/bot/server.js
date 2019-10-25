@@ -1,4 +1,10 @@
-exports.run = (bot, message, args) => {
+module.exports = {
+    name: "server",
+    category: "bot",
+    description: "Gain information about the server the command is ran in..",
+    example: ".serverinfo",
+    permission: "BOT OWNER",
+    run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
    
@@ -17,4 +23,4 @@ exports.run = (bot, message, args) => {
     });
    
    
-   };
+   }};
