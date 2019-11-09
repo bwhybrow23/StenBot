@@ -1,3 +1,0 @@
-class DelChannel extends Command {
-    
-}

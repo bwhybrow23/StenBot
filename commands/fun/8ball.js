@@ -1,10 +1,4 @@
-module.exports = {
-    name: "8ball",
-    category: "fun",
-    description: "Ask a question to the magic ball and it will answer.",
-    example: ".8ball Is StenBot a good bot?",
-    permission: "EVERYONE",
-    run: async (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js");
     
@@ -51,4 +45,4 @@ module.exports = {
             console.log(e);
         });
 
-}};
+};

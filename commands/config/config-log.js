@@ -1,10 +1,4 @@
-module.exports = {
-    name: "config-log",
-    category: "config",
-    description: "Change all config variables related to logging.",
-    example: ".config-log enable",
-    permission: "ADMIN",
-    run: (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -227,4 +221,4 @@ module.exports = {
                 }
             });
     };
-}};
+};

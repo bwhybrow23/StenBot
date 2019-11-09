@@ -1,10 +1,4 @@
-module.exports = {
-    name: "blacklist",
-    category: "bot",
-    description: "Blacklist a server from using the bot.",
-    example: ".blacklist 0110100001101001",
-    permission: "BOT OWNER",
-    run: async (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -85,4 +79,4 @@ module.exports = {
     targetguild.leave();
 
 
-}};
+};

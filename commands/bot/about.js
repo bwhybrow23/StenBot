@@ -1,10 +1,4 @@
-module.exports = {
-    name: "about",
-    category: "bot",
-    description: "Gives all the information about the bot.",
-    example: ".about",
-    permission: "EVERYONE",
-    run: async (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     //const settings = require('../main/settings.json');
     const Discord = require("discord.js");
@@ -25,4 +19,4 @@ module.exports = {
 
     message.channel.send(aboutEmbed);
 
-}};
+};

@@ -1,10 +1,4 @@
-module.exports = {
-    name: "report",
-    category: "general",
-    description: "Report a bug, user or server for things like abuse or general concern and it will be investigated..",
-    example: ".report @Steve#6942 Abusing the bot.",
-    permission: "EVERYONE",
-    run: async (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js");
     const colors = require("colors");
@@ -101,4 +95,4 @@ module.exports = {
 
 
 
-}};
+};

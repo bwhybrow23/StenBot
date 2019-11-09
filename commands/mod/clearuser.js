@@ -1,11 +1,5 @@
-module.exports = {
-    name: "clearuser",
-    category: "mod",
-    description: "Clear all messages from a specific user.",
-    example: ".clearuser @Danny 100",
-    permission: "STAFF",
-    run: async (bot, message, args) => {
-        
+exports.run = (bot, message, args) => {
+
     const Discord = require("discord.js");
     const fs = require("fs");
 
@@ -108,4 +102,4 @@ module.exports = {
 
 
 
-}};
+};

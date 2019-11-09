@@ -1,10 +1,4 @@
-module.exports = {
-  name: "gsay",
-  category: "bot",
-  description: "Sends a message to all the guild's owners that the bot is in.",
-  example: ".gsay Hey y'all.",
-  permission: "BOT OWNER",
-  run: async (bot, message, args) => {
+exports.run = async (bot, message, args) => {
 
     const Discord = require("discord.js");
    
@@ -12,8 +6,8 @@ module.exports = {
      message.reply("You do not have permission to do this command.")
     }
    
-    let message1 = args.slice(0).join(" ");
-    if (!message1) return message.reply(`You have not included your message you want to send to all guild owners.`);
+    let message = args.slice(0).join(" ");
+    if (!message) return message.reply(`You have not included your message you want to send to all guild owners.`);
    
     const date = new Date();
     const timestamp = date.getTime();
@@ -34,7 +28,7 @@ module.exports = {
        },
        {
         "name": "Message",
-        "value": message1
+        "value": message
        }
       ]
      };
@@ -45,4 +39,4 @@ module.exports = {
    
     })
    
-   }};
+   }

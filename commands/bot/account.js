@@ -1,10 +1,4 @@
-module.exports = {
-    name: "account",
-    category: "bot",
-    description: "Command to manage your StenBot account.",
-    example: ".account create",
-    permission: "EVERYONE",
-    run: async (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -96,4 +90,4 @@ module.exports = {
                 }
             });
     };
-}};
+};

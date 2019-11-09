@@ -1,10 +1,4 @@
-module.exports = {
-    name: "me",
-    category: "fun",
-    description: "Steal a user's avatar.",
-    example: ".stealpic @Dave",
-    permission: "EVERYONE",
-    run: async (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js");
 
@@ -21,4 +15,4 @@ module.exports = {
 
     message.channel.send(embed);
 
-}};
+}

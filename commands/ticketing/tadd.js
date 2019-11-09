@@ -1,10 +1,4 @@
-module.exports = {
-    name: "tadd",
-    category: "ticketing",
-    description: "Add a user to an ongoing ticket.",
-    example: ".tadd @Dave",
-    permission: "STAFF",
-    run: async (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -57,4 +51,4 @@ module.exports = {
 
     message.channel.send(embed);
 
-}};
+}

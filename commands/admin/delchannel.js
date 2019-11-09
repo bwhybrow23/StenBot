@@ -1,10 +1,4 @@
-module.exports = {
-    name: "delchannel",
-    category: "admin",
-    description: "Deletes mentioned channel.",
-    example: ".delchannel #dead-channel",
-    permission: "ADMINS",
-    run: async (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -60,4 +54,4 @@ module.exports = {
             }
         })
     );
-}};
+};

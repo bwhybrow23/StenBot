@@ -1,10 +1,4 @@
-module.exports = {
-    name: "server",
-    category: "bot",
-    description: "Gain information about the server the command is ran in..",
-    example: ".serverinfo",
-    permission: "BOT OWNER",
-    run: async (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js");
    
@@ -23,4 +17,4 @@ module.exports = {
     });
    
    
-   }};
+   };

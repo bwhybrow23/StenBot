@@ -1,10 +1,4 @@
-module.exports = {
-    name: "gamestats",
-    category: "fun",
-    description: "Find out information about a player on a certain game.",
-    example: ".gamestats fortnite pc Ninja",
-    permission: "EVERYONE",
-    run: async (bot, message, args) => {
+exports.run = async (bot, message, args) => {
 
         const Discord = require("discord.js");
         const Fortnite = require('fortnite');
@@ -39,4 +33,4 @@ module.exports = {
     
             message.channel.send(embed);
         }
-    }};
+    };

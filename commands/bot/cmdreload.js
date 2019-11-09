@@ -1,10 +1,4 @@
-module.exports = {
-    name: "cmdreload",
-    category: "bot",
-    description: "Reload a command without restarting the bot.",
-    example: ".cmdreload ban",
-    permission: "BOT OWNER",
-    run: async (bot, message, args) => {
+module.exports.run = async (bot, message, args) => {
 
     const Discord = require('discord.js');
 
@@ -61,4 +55,4 @@ module.exports = {
     //Temporary Message as command as broken
     message.reply(`This command doesn't work at the moment.`);
     
-  }};
+  };

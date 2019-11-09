@@ -1,10 +1,4 @@
-module.exports = {
-    name: "action",
-    category: "fun",
-    description: "Do various actions such a hug or kiss.",
-    example: ".action hug @Steve",
-    permission: "EVERYONE",
-    run: async (bot, message, args) => {
+exports.run = async (bot, message, args) => {
 
     const Discord = require("discord.js");
     const superagent = require("superagent");
@@ -189,4 +183,4 @@ module.exports = {
 
         }
     }
-}};
+}

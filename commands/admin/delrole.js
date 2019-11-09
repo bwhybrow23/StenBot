@@ -1,10 +1,4 @@
-module.exports = {
-    name: "delrole",
-    category: "admin",
-    description: "Deletes mentioned role.",
-    example: ".delrole @CoolRole",
-    permission: "ADMINS",
-    run: async (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -65,4 +59,4 @@ module.exports = {
     };
    
    
-   }};
+   };

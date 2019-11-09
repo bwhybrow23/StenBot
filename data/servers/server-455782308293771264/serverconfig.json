@@ -5,7 +5,7 @@
     "userjoinenabled": false,
     "userjoinedrole": 0,
     "userjoinedname": 0,
-    "staffrole": "455794355567984641",
+    "staffrole": false,
     "staffadminenabled": false,
     "stafflinkblocker": false,
     "stafffilter": [],

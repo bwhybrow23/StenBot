@@ -1,11 +1,5 @@
-module.exports = {
-    name: "ban",
-    category: "mod",
-    description: "Permanently Ban a user from your server.",
-    example: ".ban @Danny Being an idiot",
-    permission: "STAFF",
-    run: async (bot, message, args) => {
-        
+exports.run = (bot, message, args) => {
+
     const Discord = require("discord.js");
     const fs = require("fs");
 
@@ -84,4 +78,4 @@ module.exports = {
         }
     });
 
-}};
+};

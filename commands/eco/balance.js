@@ -1,10 +1,4 @@
-module.exports = {
-    name: "balanace",
-    category: "eco",
-    description: "Check your balance.",
-    example: ".balance",
-    permission: "EVERYONE",
-    run: async (bot, message, args) => {
+exports.run = async (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -44,4 +38,4 @@ module.exports = {
         message.channel.send(embed2);
     }
 
-}};
+}

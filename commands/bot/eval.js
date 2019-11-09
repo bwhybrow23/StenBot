@@ -1,10 +1,4 @@
-module.exports = {
-    name: "eval",
-    category: "bot",
-    description: "Run Node.JS code from within the bot",
-    example: ".eval 69*420-71",
-    permission: "BOT OWNER",
-    run: async (bot, message, args) => {
+exports.run = async (bot, message, args) => {
 
     const Discord = require("discord.js");
    
@@ -27,4 +21,4 @@ module.exports = {
     } catch (e) {
      message.channel.send(`\`\`\`js\n${e}\n\`\`\``);
     }
-   }};
+   };

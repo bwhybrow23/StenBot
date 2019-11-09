@@ -1,10 +1,4 @@
-module.exports = {
-    name: "sponsors",
-    category: "bot",
-    description: "View all of StenBot's Sponsors.",
-    example: ".sponsors kewlhost",
-    permission: "BOT OWNER",
-    run: async (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js");
    
@@ -103,4 +97,4 @@ module.exports = {
     //             };
     //         });
     // });
-}};
+   }

@@ -1,10 +1,4 @@
-module.exports = {
-    name: "sync",
-    category: "bot",
-    description: "Sync all servers to replace missing files.",
-    example: ".sync",
-    permission: "BOT OWNER",
-    run: async (bot, message, args) => {
+exports.run = (bot, message, args, ) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -155,4 +149,4 @@ module.exports = {
    
    
    
-   }};
+   };

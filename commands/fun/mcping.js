@@ -1,14 +1,8 @@
-module.exports = {
-    name: "haveibeenpwned",
-    category: "fun",
-    description: "haveibeenpwned",
-    example: ".haveibeenpwned steve@doe.com",
-    permission: "EVERYONE",
-    run: async (bot, message, args) => {
+const Discord = require('discord.js');
+const fetch = require('superagent');
+const url = "https://mcapi.us/server/status?ip="
 
-    const Discord = require('discord.js');
-    const fetch = require('superagent');
-    const url = "https://mcapi.us/server/status?ip="
+exports.run = async (bot, message, args) => {
 
     if (!args.length) {
         return message.channel.send({
@@ -73,4 +67,4 @@ module.exports = {
         message.channel.send(offlineEmbed);
     }
 
-    }};
+}

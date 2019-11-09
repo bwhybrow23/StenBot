@@ -1,10 +1,4 @@
-module.exports = {
-    name: "config-userjoin",
-    category: "config",
-    description: "Change all config variables related to when users join your server.",
-    example: ".config-userjoin enable",
-    permission: "ADMIN",
-    run: (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -192,4 +186,4 @@ module.exports = {
                 }
             });
     };
-}};
+};

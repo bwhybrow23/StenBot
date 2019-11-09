@@ -1,10 +1,4 @@
-module.exports = {
-    name: "clear",
-    category: "mod",
-    description: "Clear a certain amount of messages from chat.",
-    example: ".clear 100",
-    permission: "STAFF",
-    run: async (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -95,4 +89,4 @@ module.exports = {
 
 
 
-}};
+};

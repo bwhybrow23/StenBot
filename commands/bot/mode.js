@@ -1,10 +1,4 @@
-module.exports = {
-  name: "mode",
-  category: "bot",
-  description: "Switch the bot between various modes.",
-  example: ".mode normal",
-  permission: "BOT OWNER",
-  run: async (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -63,4 +57,4 @@ module.exports = {
    
    
    
-   }};
+   };

@@ -1,10 +1,4 @@
-module.exports = {
-    name: "config-staff",
-    category: "config",
-    description: "Change all config variables related to staff.",
-    example: ".config-staff role @Staff",
-    permission: "ADMIN",
-    run: (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -339,4 +333,4 @@ module.exports = {
                 }
             });
     };
-}};
+};

@@ -1,10 +1,4 @@
-module.exports = {
-    name: "eco",
-    category: "eco",
-    description: "Adjust a user's economy balance.",
-    example: ".eco set @Steve 100",
-    permission: "BOT OWNER",
-    run: async (bot, message, args) => {
+exports.run = (bot, message, args) => {
 
     const Discord = require("discord.js")
     const db = require('quick.db');
@@ -36,4 +30,4 @@ module.exports = {
         message.reply(`Available Commands:\nGive, Take.`);
     }
 
-}};
+}
