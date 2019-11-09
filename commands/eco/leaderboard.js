@@ -1,4 +1,10 @@
-exports.run = async(bot, message, args) => {
+module.exports = {
+    name: "leaderboard",
+    category: "eco",
+    description: "Check your place on the global leaderboard.",
+    example: ".leaderboard",
+    permission: "EVERYONE",
+    run: async (bot, message, args) => {
 
 	const Discord = require("discord.js");
 	const fs = require("fs");
@@ -44,4 +50,5 @@ exports.run = async(bot, message, args) => {
 // 10 - ${tenth && tenth.tag || 'Nobody Yet'} : ${users[9] && users[9].balance || 'None'} \`\`\` `)
 // 		})
 // 	}
-}
+
+}};

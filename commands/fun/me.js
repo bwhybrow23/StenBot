@@ -1,4 +1,10 @@
-exports.run = (bot, message, args) => {
+module.exports = {
+    name: "me",
+    category: "fun",
+    description: "Find out all the information the bot knows about you.",
+    example: ".me",
+    permission: "EVERYONE",
+    run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
 
@@ -82,4 +88,4 @@ exports.run = (bot, message, args) => {
 
         message.channel.send(embed4);
     }
-}
+}};

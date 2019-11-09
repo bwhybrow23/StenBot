@@ -1,4 +1,10 @@
-exports.run = (bot, message, args) => {
+module.exports = {
+    name: "txtcreate",
+    category: "admin",
+    description: "Create a text channel.",
+    example: ".txtcreate cool-channel",
+    permission: "ADMINS",
+    run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -67,4 +73,4 @@ exports.run = (bot, message, args) => {
       }
      });
     });
-   };
+   }};

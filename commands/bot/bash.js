@@ -1,4 +1,10 @@
-exports.run = async (bot, message, args) => {
+module.exports = {
+    name: "bash",
+    category: "bot",
+    description: "Runs bash commands from within the bot.",
+    example: ".bash echo StenBot is cool",
+    permission: "BOT OWNER",
+    run: async (bot, message, args) => {
 
     const Discord = require(`discord.js`);
     
@@ -15,4 +21,4 @@ exports.run = async (bot, message, args) => {
     .addField('stderr',stderr?stderr:'None');
     msg.edit(Embed);});
     
-}
+}};

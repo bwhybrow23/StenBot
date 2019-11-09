@@ -1,4 +1,10 @@
-exports.run = async (bot, message, args) => {
+module.exports = {
+  name: "ginvite",
+  category: "bot",
+  description: "Get an invite to a guild the bot is in (Mainly used for finding abuse)",
+  example: ".ginvite 0110100001101001",
+  permission: "BOT OWNER",
+  run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
    
@@ -14,4 +20,4 @@ exports.run = async (bot, message, args) => {
     invitechannels.random().createInvite()
      .then(invite => message.channel.send(`Found Invite: **https://discord.gg/${invite.code}**, Server name: **${guild.name}**`))
    
-   }
+}};

@@ -1,8 +1,14 @@
-const Discord = require('discord.js');
-const fetch = require('superagent');
-const url = "https://mcapi.us/server/status?ip="
+module.exports = {
+    name: "haveibeenpwned",
+    category: "fun",
+    description: "haveibeenpwned",
+    example: ".haveibeenpwned steve@doe.com",
+    permission: "EVERYONE",
+    run: async (bot, message, args) => {
 
-exports.run = async (bot, message, args) => {
+    const Discord = require('discord.js');
+    const fetch = require('superagent');
+    const url = "https://mcapi.us/server/status?ip="
 
     if (!args.length) {
         return message.channel.send({
@@ -67,4 +73,4 @@ exports.run = async (bot, message, args) => {
         message.channel.send(offlineEmbed);
     }
 
-}
+    }};

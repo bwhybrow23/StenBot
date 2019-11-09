@@ -1,4 +1,10 @@
-exports.run = (bot, message, args) => {
+module.exports = {
+    name: "vccreate",
+    category: "admin",
+    description: "Create a voice channel.",
+    example: ".vccreate Cool VC",
+    permission: "ADMINS",
+    run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -54,4 +60,4 @@ exports.run = (bot, message, args) => {
       }
      });
     });
-   };
+   }};

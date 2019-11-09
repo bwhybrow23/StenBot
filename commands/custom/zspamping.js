@@ -1,4 +1,10 @@
-exports.run = (bot, message, args) => {
+module.exports = {
+  name: "zspamping",
+  category: "custom",
+  description: "Custom spam command for Zeuser's Discord",
+  example: ".zspamping",
+  permission: "BOT OWNER",
+  run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
 
@@ -15,4 +21,4 @@ exports.run = (bot, message, args) => {
       
     setInterval(intervalFunc, 5000);
 
-}
+}};

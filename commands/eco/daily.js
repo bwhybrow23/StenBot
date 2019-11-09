@@ -1,4 +1,10 @@
-exports.run = async (bot, message, args) => {
+module.exports = {
+    name: "daily",
+    category: "eco",
+    description: "Recieve a daily prize. Redeemable every 24 hours.",
+    example: ".daily",
+    permission: "EVERYONE",
+    run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -34,4 +40,4 @@ exports.run = async (bot, message, args) => {
 
     }
 
-}
+}};

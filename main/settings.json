@@ -2,8 +2,8 @@
   "version": "1.1.2",
   "prefix": ".",
   "connections": {
-      "token": "NDUyMDUzNjA3MzgzMzAyMTQ1.XKnFCw.EaKrLKqBTkR7uZksmuEpGyIFYEg",
-      "devToken": "NTY0MzkwNDc1OTE4ODY4NDky.XKtJOA.x5VPD8Mh8sdYNcrCDVV21a-qrZg",
+      "token": "NDUyMDUzNjA3MzgzMzAyMTQ1.XcckTA.TKZleJkSIn1vF7v7yLiTmqEnRq0",
+      "devToken": "NTY0MzkwNDc1OTE4ODY4NDky.XccjxA.MXbLvpeiD2D-zWSq-jUQJEdki4o",
       "fortniteToken": "c5022499-a018-49c6-9b66-0c8a221e18e6"
   },
   "ids": {
@@ -19,5 +19,17 @@
   },
   "options": {
       "verifEnabled": true
-  }
+  },
+  "regions": [
+    "Africa",
+    "America",
+    "Antarctica",
+    "Arctic",
+    "Asia",
+    "Atlantic",
+    "Australia",
+    "Europe",
+    "Indian",
+    "Pacific"
+  ]
 }

@@ -1,0 +1,32 @@
+{
+    "welcomerenabled": true,
+    "welcomerchannel": "639122454593142804",
+    "welcomermessage": "Welcome {user} to {server}! If you have any questions feel free to message a Helper or do .ticket <issue> in <#639122869330247731>",
+    "userjoinenabled": true,
+    "userjoinedrole": "639121108460634115",
+    "userjoinedname": 0,
+    "staffrole": "639123298164408321",
+    "staffadminenabled": false,
+    "stafflinkblocker": false,
+    "stafffilter": [
+        "nigger",
+        "Owen",
+        "UltimateGamers",
+        "UGUK",
+        "nigga",
+        "fortnite"
+    ],
+    "staffautoban": 0,
+    "loggingenabled": true,
+    "loggingchannel": "639123817582821386",
+    "logginglevel": "high",
+    "ticketsenabled": true,
+    "ticketsmsg": 0,
+    "economyenabled": false,
+    "economyrobbing": false,
+    "economypay": true,
+    "economysymbol": 0,
+    "musicenabled": true,
+    "selfroleslist": [],
+    "levellingenabled": false
+}

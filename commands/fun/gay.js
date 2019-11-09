@@ -1,4 +1,10 @@
-exports.run = (bot, message, args) => {
+module.exports = {
+    name: "gay",
+    category: "fun",
+    description: "The bot will tell you how gay you are.",
+    example: ".gay",
+    permission: "EVERYONE",
+    run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
 
@@ -11,4 +17,5 @@ exports.run = (bot, message, args) => {
         .setTitle(`:gay_pride_flag: **I think ${person} is ${gay}% gay!** :gay_pride_flag:`);
 
     return message.channel.send(gayembed);
-};
+    
+}};

@@ -1,4 +1,10 @@
-exports.run = (bot, message, args) => {
+module.exports = {
+    name: "config-levelling",
+    category: "config",
+    description: "Change all config variables related to levelling.",
+    example: ".config-levelling enable",
+    permission: "ADMIN",
+    run: (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -103,4 +109,4 @@ exports.run = (bot, message, args) => {
                 }
             });
     };
-};
+}};

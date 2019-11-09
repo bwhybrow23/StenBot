@@ -1,4 +1,10 @@
-exports.run = async (bot, message, args) => {
+module.exports = {
+    name: "haveibeenpwned",
+    category: "fun",
+    description: "haveibeenpwned",
+    example: ".haveibeenpwned steve@doe.com",
+    permission: "EVERYONE",
+    run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     const superagent = require("superagent");
@@ -30,4 +36,4 @@ exports.run = async (bot, message, args) => {
         out += `\n${po}.   ${i.Name}   breached on:   ${i.BreachDate}`
     })
     message.author.send(out);
-};
+}};

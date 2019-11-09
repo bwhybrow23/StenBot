@@ -1,5 +1,11 @@
-exports.run = async (bot, message, args) => {
-
+module.exports = {
+    name: "invite",
+    category: "general",
+    description: "Information on how to invite the bot to your Discord.",
+    example: ".invite",
+    permission: "EVERYONE",
+    run: async (bot, message, args) => {
+        
     const Discord = require("discord.js");
 
     let bicon = bot.user.avatarURL;
@@ -15,4 +21,4 @@ exports.run = async (bot, message, args) => {
         .setFooter(`${message.author.tag}`, `${message.author.avatarURL}`);
 
     message.channel.send(inviteEmbed);
-};
+}};

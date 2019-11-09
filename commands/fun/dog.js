@@ -1,4 +1,10 @@
-exports.run = async (bot, message, args) => {
+module.exports = {
+    name: "dog",
+    category: "fun",
+    description: "Get a random image of a dog.",
+    example: ".dog",
+    permission: "EVERYONE",
+    run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     const superagent = require("superagent");
@@ -17,4 +23,4 @@ exports.run = async (bot, message, args) => {
 
     message.channel.send(dogEmbed);
 
-};
+}};

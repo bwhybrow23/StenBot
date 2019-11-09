@@ -1,6 +1,5 @@
 //Define
-const Discord = require("discord.js");
-const bot = new Discord.Client();
+const { Client , Collection } = require("discord.js");
 const {
     promisify
 } = require("util");
@@ -12,6 +11,9 @@ const colors = require("colors");
 const schedule = require("node-schedule");
 // const Sequelize = require('sequelize');
 // require('sqlite3');
+
+//CREATE DISCORD BOT
+const bot = new Client();
 
 //FUNCTIONS
 const logger = require("./main/functions/console.js");
@@ -79,7 +81,7 @@ var addCmdTosupportDiscord = () => {
     fs.writeFileSync('./data/global/command-usage.json', JSON.stringify(cmdusage))
 }
 
-//Command handler
+//Link Blocker & Filter
 bot.on("message", message => {
     if (message.author.bot) return;
     if (message.content.indexOf(bot.settings.prefix) !== 0) {
@@ -99,128 +101,38 @@ bot.on("message", message => {
         };
         return;
     };
-    const args = message.content.slice(bot.settings.prefix.length).trim().split(/ +/g);
-    const command = args.shift().toLowerCase();
-    try {
-        let adminFile = require(`./commands/admin/${command}.js`);
-        adminFile.run(bot, message, args);
-
-        //Command-usage.json updates
-        addCmdToTotal();
-        addCmdToAdmin();
-    } catch (err) {
-        //Only enable these two for development puposes or else spam
-        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
-        // console.log('[SYSTEM]'.grey, err);
-    };
-    try {
-        let botFile = require(`./commands/bot/${command}.js`);
-        botFile.run(bot, message, args);
-
-        //Command-usage.json updates
-        addCmdToTotal();
-        addCmdToBot();
-    } catch (err) {
-        //Only enable these two for development puposes or else spam
-        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
-        // console.log('[SYSTEM]'.grey, err);
-    }
-    try {
-        let configFile = require(`./commands/config/${command}.js`);
-        configFile.run(bot, message, args);
-
-        //Command-usage.json updates
-        addCmdToTotal();
-        addCmdToConfig();
-    } catch (err) {
-        //Only enable these two for development puposes or else spam
-        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
-        // console.log('[SYSTEM]'.grey, err);
-    }
-    try {
-        let customFile = require(`./commands/custom/${command}.js`);
-        customFile.run(bot, message, args);
-
-        //Command-usage.json updates
-        addCmdToTotal();
-        addCmdToCustom();
-    } catch (err) {
-        //Only enable these two for development puposes or else spam
-        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
-        // console.log('[SYSTEM]'.grey, err);
-    }
-    try {
-        let ecoFile = require(`./commands/eco/${command}.js`);
-        ecoFile.run(bot, message, args);
-
-        //Command-usage.json updates
-        addCmdToTotal();
-        addCmdToEco();
-    } catch (err) {
-        //Only enable these two for development puposes or else spam
-        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
-        // console.log('[SYSTEM]'.grey, err);
-    }
-    try {
-        let funFile = require(`./commands/fun/${command}.js`);
-        funFile.run(bot, message, args);
-
-        //Command-usage.json updates
-        addCmdToTotal();
-        addCmdToFun();
-    } catch (err) {
-        //Only enable these two for development puposes or else spam
-        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
-        // console.log('[SYSTEM]'.grey, err);
-    }
-    try {
-        let generalFile = require(`./commands/general/${command}.js`);
-        generalFile.run(bot, message, args);
-
-        //Command-usage.json updates
-        addCmdToTotal();
-        addCmdToGeneral();
-    } catch (err) {
-        //Only enable these two for development puposes or else spam
-        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
-    }
-    try {
-        let modFile = require(`./commands/mod/${command}.js`);
-        modFile.run(bot, message, args);
-
-        //Command-usage.json updates
-        addCmdToTotal();
-        addCmdToMod();
-    } catch (err) {
-        //Only enable these two for development puposes or else spam
-        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
-        // console.log('[SYSTEM]'.grey, err);
-    }
-    try {
-        let ticketingFile = require(`./commands/ticketing/${command}.js`);
-        ticketingFile.run(bot, message, args);
-
-        //Command-usage.json updates
-        addCmdToTotal();
-        addCmdToTicketing();
-    } catch (err) {
-        //Only enable these two for development puposes or else spam
-        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
-        // console.log('[SYSTEM]'.grey, err);
-    }
-    try {
-        let supportDiscordFile = require(`./commands/supportDiscord/${command}.js`)
-        supportDiscordFile.run(bot, message, args);
-
-        //Command-usage.json updates
-        addCmdToTotal();
-        addCmdTosupportDiscord();
-    } catch (err) {
-        //Only enable these two for development puposes or else spam
-        //console.error('[SYSTEM]'.grey, 'Command Not Found.'.red);
-        // console.log('[SYSTEM]'.grey, err);
-    }
 });
+
+//NEW COMMAND HANDLER
+bot.commands = new Collection();
+bot.aliases = new Collection();
+
+["command"].forEach(handler => {
+    require(`./main/handlers/${handler}`)(bot);
+})
+
+bot.on("message", async message => {
+    
+    const prefix = bot.settings.prefix
+
+    if (message.author.bot) return;
+    if (!message.guild) return;
+    if (!message.content.startsWith(prefix)) return;
+    if (!message.member) message.member = await message.guild.fetchMember(message);
+
+    const args = message.content.slice(prefix.length).trim().split(/ +/g);
+    const cmd = args.shift().toLowerCase();
+
+    if (cmd.length === 0) return;
+
+    let command = bot.commands.get(cmd);
+    if (!command) command = bot.commands.get(bot.aliases.get(cmd));
+
+    if (command) {
+        command.run(bot, message. args);
+    }
+
+})
 
 /**
  * Event Handler
@@ -229,15 +141,14 @@ bot.on("message", message => {
  * on the bot client. Each event will be called with `bot, ...args`, i.e. it's normal
  * parameters preceeded with a reference to the bot client.
  */
-(async () => {
-    let events = await readdir("./main/events/");
-    events.forEach(file => {
-        const name = file.slice(0, -3);
-        const event = require(`./main/events/${file}`);
-        //Stole this line as it was so much better than what I had:
-        bot.on(name, event.bind(null, bot));
-    });
-})();
+// New
+const { readdirSync } = require('fs');
+let events = readdirSync('./main/events/');
+events.forEach(file => {
+  const name = file.slice(0, -3);
+  const event = require(`./main/events/${file}`);
+  bot.on(name, event.bind(null, bot));
+});
 
 //Usage Statistics
 const memusage = JSON.parse(fs.readFileSync("./data/global/memory-usage.json", "utf8"));
@@ -260,5 +171,5 @@ bot.setInterval(function() {
 
 
 //TOKENS FOR CONNECTING
-// bot.login(bot.settings.connections.devToken);
+//bot.login(bot.settings.connections.devToken);
 bot.login(bot.settings.connections.token);

@@ -1,4 +1,10 @@
-exports.run = (bot, message, args) => {
+module.exports = {
+    name: "achievement",
+    category: "fun",
+    description: "Create your own Minecraft achievement",
+    example: ".achievement You've mined a block!",
+    permission: "EVERYONE",
+    run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
 
@@ -40,4 +46,4 @@ exports.run = (bot, message, args) => {
             file: dir
         });
     });
-};
+}};

@@ -1,4 +1,10 @@
-exports.run = (bot, message, args) => {
+module.exports = {
+    name: "config",
+    category: "config",
+    description: "View all config variables.",
+    example: ".config",
+    permission: "ADMIN",
+    run: (bot, message, args) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
@@ -84,4 +90,4 @@ exports.run = (bot, message, args) => {
         }
     });
 
-};
+}};
