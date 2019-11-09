@@ -9,11 +9,12 @@ module.exports = {
     const Discord = require("discord.js");
     const fs = require('fs')
     const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
+    const eventFunctions = require(`../../main/functions/eventfunctions.js`);
 
     if (message.channel.parent.name === "Tickets") {
         if (message.channel.name.startsWith("ticket-")) {
             if (config.loggingenabled) {
-                if (checkChannel(config.loggingchannel)) {
+                if (eventFunctions.checkChannel(config.loggingchannel)) {
                     message.guild.channels.get(config.loggingchannel).send({
                         embed: {
                             color: bot.settings.color.yellow,
@@ -23,6 +24,10 @@ module.exports = {
                 };
             };
             message.channel.delete()
+        } else {
+          message.reply("This channel does not start with \"ticket-\". Please delete the channel manually or change the name of the channel.")
         }
+    } else {
+      message.reply("This channel is not in the \"Tickets\" category. Please delete the channel manually or move it to the correct category.");
     }
 }};

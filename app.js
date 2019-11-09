@@ -125,11 +125,11 @@ bot.on("message", async message => {
 
     if (cmd.length === 0) return;
 
-    let command = client.commands.get(cmd);
-    if (!command) command = client.commands.get(client.aliases.get(cmd));
+    let command = bot.commands.get(cmd);
+    if (!command) command = bot.commands.get(bot.aliases.get(cmd));
 
     if (command) {
-        command.run(client, message. args);
+        command.run(bot, message. args);
     }
 
 })
@@ -141,15 +141,14 @@ bot.on("message", async message => {
  * on the bot client. Each event will be called with `bot, ...args`, i.e. it's normal
  * parameters preceeded with a reference to the bot client.
  */
-(async () => {
-    let events = await readdir("./main/events/");
-    events.forEach(file => {
-        const name = file.slice(0, -3);
-        const event = require(`./main/events/${file}`);
-        //Stole this line as it was so much better than what I had:
-        bot.on(name, event.bind(null, bot));
-    });
-})();
+// New
+const { readdirSync } = require('fs');
+let events = readdirSync('./main/events/');
+events.forEach(file => {
+  const name = file.slice(0, -3);
+  const event = require(`./main/events/${file}`);
+  bot.on(name, event.bind(null, bot));
+});
 
 //Usage Statistics
 const memusage = JSON.parse(fs.readFileSync("./data/global/memory-usage.json", "utf8"));
