@@ -129,7 +129,7 @@ bot.on("message", async message => {
     if (!command) command = bot.commands.get(bot.aliases.get(cmd));
 
     if (command) {
-        command.run(bot, message. args);
+        command.run(bot, message, args);
     }
 
 })
