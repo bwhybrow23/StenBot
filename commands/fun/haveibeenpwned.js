@@ -1,7 +1,7 @@
 module.exports = {
     name: "haveibeenpwned",
     category: "fun",
-    description: "haveibeenpwned",
+    description: "Use HaveIBeenPwned.com's API to check if your email and passwords have been leaked.",
     example: ".haveibeenpwned steve@doe.com",
     permission: "EVERYONE",
     run: async (bot, message, args) => {

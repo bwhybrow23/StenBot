@@ -36,7 +36,7 @@ module.exports = {
     .setColor(bot.settings.color.blue)
     .setTitle("Command: Account")
     .addField("Description:", "Create and manage your StenBot account.", true)
-    .addField("Usage", "`.account <question>`", true)
+    .addField("Usage", "`.account <query>`", true)
     .addField("Example", "`.account create`")
     .setFooter(message.author.tag, message.author.avatarURL)
     .setTimestamp();

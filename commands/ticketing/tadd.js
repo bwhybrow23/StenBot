@@ -34,7 +34,7 @@ module.exports = {
     };
 
     //if channel is in ticket cat
-    if(message.channel.parent(message.guild.channels.some("Tickets"))) {
+    if(message.channel.parent.name !== "Tickets") {
         return errsend("The channel is not in the tickets category.")
     };
 

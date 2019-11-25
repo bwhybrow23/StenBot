@@ -1,8 +1,8 @@
 module.exports = {
-    name: "haveibeenpwned",
+    name: "mcping",
     category: "fun",
-    description: "haveibeenpwned",
-    example: ".haveibeenpwned steve@doe.com",
+    description: "Ping a Minecraft Server",
+    example: ".mcping hypixel.net",
     permission: "EVERYONE",
     run: async (bot, message, args) => {
 

@@ -14,7 +14,7 @@ module.exports = {
     if (message.channel.parent.name === "Tickets") {
         if (message.channel.name.startsWith("ticket-")) {
             if (config.loggingenabled) {
-                if (eventFunctions.checkChannel(config.loggingchannel)) {
+                if (eventFunctions.checkChannel(config.loggingchannel, bot)) {
                     message.guild.channels.get(config.loggingchannel).send({
                         embed: {
                             color: bot.settings.color.yellow,

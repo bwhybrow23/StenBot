@@ -107,6 +107,8 @@ bot.on("message", message => {
 bot.commands = new Collection();
 bot.aliases = new Collection();
 
+bot.categories = fs.readdirSync("./commands/");
+
 ["command"].forEach(handler => {
     require(`./main/handlers/${handler}`)(bot);
 })

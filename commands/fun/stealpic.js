@@ -1,5 +1,5 @@
 module.exports = {
-    name: "me",
+    name: "stealpic",
     category: "fun",
     description: "Steal a user's avatar.",
     example: ".stealpic @Dave",

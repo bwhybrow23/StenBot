@@ -1,9 +1,9 @@
 module.exports = {
     name: "tempmute",
-    category: "admin",
+    category: "mod",
     description: "Temporarily mute someone from talking in chat.",
     example: ".tempmute @Steve#1010 10m Being an Idiot",
-    permission: "ADMINS",
+    permission: "STAFF",
     run: async (bot, message, args) => {
 
     const Discord = require("discord.js");

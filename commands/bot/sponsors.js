@@ -23,7 +23,7 @@ module.exports = {
      .setTitle("Sponsor - KewlHost")
      .setURL(`https://discord.kewlhost.co.uk/`)
      .setDescription("KewlHost is a cheap hosting company founded by Samb8104. Ranging from Minecraft server hosting to Application Hosting, KewlHost has it all. With prices from $1.50, you wont wanna miss out!\nCheck out the Discord here: https://discord.kewlhost.co.uk/")
-     .addField("Offer Code", "Use code `StenBot` for 15% off your first order with KewlHost!")
+     .addField("Offer Code", "Use code `BEN` for 15% off your first order with KewlHost!")
      .setFooter(message.author.tag, message.author.displayAvatarURL);
    
     let shadowEmbed = new Discord.RichEmbed()

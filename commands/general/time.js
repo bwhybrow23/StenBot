@@ -9,12 +9,14 @@ module.exports = {
     const Discord = require("discord.js");
     const tz = require("moment-timezone");
 
-    let subc = args[0]
+    let subc = args[0];
 
-    if(!subc) {
-        //HELP EMBED
-    } else if(subc === "SOMETHING") {
+    message.reply("This command is still in the works, sorry. :/")
 
-    }
+    // if(!subc) {
+    //     //HELP EMBED
+    // } else if(subc === "SOMETHING") {
+
+    // }
 
 }};

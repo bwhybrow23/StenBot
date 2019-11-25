@@ -1,5 +1,5 @@
-const RichEmbed = require("discord.js")
-const getMember = require("../../main/functions/utilities.js");
+const Discord = require("discord.js");
+const utils = require("../../main/functions/utilities.js");
 
 module.exports = {
     name: "love",
@@ -8,7 +8,7 @@ module.exports = {
     description: "Calculate the love between you and someone else.",
     usage: ".love {@user}",
     run: async (bot, message, args) => {
-        let person = getMember(message, args[0]);
+        let person = utils.getMember(message, args[0]);
 
         if (!person || message.author.id === person.id) {
             person = message.guild.members
@@ -20,7 +20,7 @@ module.exports = {
         const loveIndex = Math.floor(love / 10);
         const loveLevel = "💓".repeat(loveIndex) + "💔".repeat(10 - loveIndex);
 
-        const embed = new RichEmbed()
+        const embed = new Discord.RichEmbed()
             .setColor(bot.settings.color.green)
             .addField(`**${person.displayName}** loves **${message.member.displayName}** this much:`,
             `💟${Math.floor(love)}%\n\n${loveLevel}`)

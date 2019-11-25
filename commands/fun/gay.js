@@ -10,7 +10,7 @@ module.exports = {
 
     let gay = Math.round(Math.random() * 100);
 
-    let person = message.mentions.users.first().username || message.author.username;
+    let person = message.mentions.users.first().username || message.author.user.username;
 
     let gayembed = new Discord.RichEmbed()
         .setColor("#f442d4")
