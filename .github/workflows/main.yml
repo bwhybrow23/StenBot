@@ -11,5 +11,5 @@ jobs:
     - uses: actions/checkout@v1
     - name: Boot Server
       run: |
-        npm install,
-        node app.js.
+        npm install
+        node app.js
