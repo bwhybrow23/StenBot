@@ -10,12 +10,12 @@ There's currently no documentation files made for StenBot as of yet but when the
 
 ## Features
 
-A whole list of features can be found over at [StenBot's website](https://sb.benwhybrow.xyz)! 
+A whole list of features can be found over at [StenBot's website](https://sb.benwhybrow.com)! 
 
 ## Inviting The Bot
 
-To invite the bot, head over to the bot's page [here](https://sbinvite.benwhybrow.xyz) and choose your server from the dropdown. Be sure to allow the bot **administrator permissions** otherwise it cannot work functionally. 
+To invite the bot, head over to the bot's page [here](https://sbinvite.benwhybrow.com) and choose your server from the dropdown. Be sure to allow the bot **administrator permissions** otherwise it cannot work functionally. 
 
 ## Support Discord
 
-StenBot's support Discord can be found over at [https://discord.benwhybrow.xyz/](https://discord.benwhybrow.xyz/) where you can get all the assistance you need with StenBot!
+StenBot's support Discord can be found over at [https://discord.benwhybrow.xyz/](https://discord.benwhybrow.com/) where you can get all the assistance you need with StenBot!
