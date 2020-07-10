@@ -1,68 +1,79 @@
 module.exports = {
-    name: "delrole",
-    category: "admin",
-    description: "Deletes mentioned role.",
-    example: ".delrole @CoolRole",
-    permission: "ADMINS",
-    run: async (bot, message, args) => {
-
+  name: "delrole",
+  category: "admin",
+  description: "Deletes the mentioned role.",
+  usage: "sb!delrole <@ROLE>",
+  permission: "ADMINS",
+  run: async (bot, message, args) => {
     const Discord = require("discord.js");
     const fs = require("fs");
     var r = message.mentions.roles.first();
-   
+
     const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
-   
+
     if (config.staffadminenabled == false) {
-     return message.channel.send({
-      embed: {
-       color: bot.settings.color.red,
-       description: `Error! Admin commands are disabled. To use them, enable them with **.config-staff admin enable**`
-      }
-     });
-    };
-   
-   
-   
+      bot
+        .createEmbed(
+          "error",
+          "",
+          `Error! Admin commands are disabled. To use them, enable them with **sb!config-staff admin enable**`,
+          [],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
+    }
+
     if (r == undefined) {
-     return message.channel.send({
-      embed: {
-       color: bot.settings.color.red,
-       description: `Error! You forgot to mention a role to remove!`
-      }
-     });
-    };
-   
+      bot
+        .createEmbed(
+          "error",
+          "",
+          `Error! You forgot to mention a role to remove!`,
+          [],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
+    }
+
     if (message.member.hasPermission("ADMINISTRATOR") == false) {
-     return message.channel.send({
-      embed: {
-       color: bot.settings.color.red,
-       description: `Error! You do not have permission to issue this command!`
-      }
-     });
-    };
-   
+      bot
+        .noPermsEmbed(`${message.guild.name}`, bot)
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
+    }
+
     var bm = message.guild.members.get(bot.user.id);
-   
-    console.log(r.position);
-    console.log(bm.highestRole.position);
-   
+
     if (r.position > bm.highestRole.position) {
-     return message.channel.send({
-      embed: {
-       color: bot.settings.color.red,
-       description: `Error! I am unable to delete this role!`
-      }
-     });
+      bot
+        .createEmbed(
+          "error",
+          "",
+          `Error! I am unable to delete this role!`,
+          [],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
     } else {
-     var name = r.name;
-     r.delete()
-     return message.channel.send({
-      embed: {
-       color: bot.settings.color.green,
-       description: `Deleted role **${name}** requested by **${message.author.tag}**`
-      }
-     });
-    };
-   
-   
-   }};
+      var name = r.name;
+      r.delete();
+      return bot
+        .createEmbed(
+          "success",
+          "",
+          `Deleted role **${name}** requested by **${message.author.tag}**`,
+          [],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
+    }
+  },
+};

@@ -1,11 +1,10 @@
 module.exports = {
-    name: "config-music",
-    category: "config",
-    description: "Change all config variables related to music.",
-    example: ".config-music enable",
-    permission: "ADMIN",
-    run: (bot, message, args) => {
-
+  name: "config-music",
+  category: "config",
+  description: "Change all config variables related to music.",
+  usage: "sb!config-music <SUBCOMMAND>",
+  permission: "ADMIN",
+  run: (bot, message, args) => {
     const Discord = require("discord.js");
     const fs = require("fs");
     const checker = require("typechecker");
@@ -15,99 +14,97 @@ module.exports = {
     const ownersid = message.guild.ownerID;
     const adminperm = message.member.hasPermission("ADMINISTRATOR");
 
-
     var access = true;
 
     if (adminperm == false) {
-        var access = false;
-    };
+      var access = false;
+    }
 
     if (access == false) {
-        if (ownersid == message.author.id) {
-            var access = true;
-        };
-    };
+      if (ownersid == message.author.id) {
+        var access = true;
+      }
+    }
 
     if (access == false) {
-        return message.channel.send({
-            embed: {
-                color: bot.bot.settings.color.red,
-                description: `Error! You are not the owner or an admin!`
-            }
-        });
-    };
+      return bot
+        .createEmbed(
+          "error",
+          "",
+          `Error! You are not the owner or admin of this guild.`,
+          [],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
+    }
 
-    //Check if they included a setting
-    let setting = args[0];
+    bot
+      .createEmbed(
+        "error",
+        "",
+        `Error! The music section of the bot is not completed yet therefore it cannot be configured. Sorry :/`,
+        [],
+        `${message.guild.name}`,
+        bot
+      )
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => console.error(error));
 
-    if (setting == undefined) {
-        return message.channel.send({
-            embed: {
-                color: bot.bot.settings.color.red,
-                description: `Error! You forgot to include a music setting.`
-            }
-        });
-    };
+    // //Check if they included a setting
+    // let setting = args[0];
 
-    //Get the server config
-    const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
+    // if (setting == undefined) {
+    //     bot.createEmbed("error", "", `Error! You forgot to include a config setting to change.`, [], `${message.guild.name}`, bot)
+    //         .then(embed => message.channel.send(embed))
+    //         .catch(error => console.error(error))
+    // };
 
+    // //Get the server config
+    // const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
 
-    //Settings library
-    switch (setting) {
-        case "enable":
+    // //Settings library
+    // switch (setting) {
+    //     case "enable":
 
-            if (config.musicenabled == true) {
-                return message.channel.send({
-                    embed: {
-                        color: bot.settings.color.yellow,
-                        description: `Oh no. Looks like music is already enabled!`
-                    }
-                });
-            };
-            config.musicenabled = true;
+    //         if (config.musicenabled == true) {
+    //             return bot.createEmbed("error", "", `Error! Music is already enabled.`, [], `${message.guild.name}`, bot)
+    //                 .then(embed => message.channel.send(embed))
+    //                 .catch(error => console.error(error))
+    //         };
+    //         config.musicenabled = true;
 
-            fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
-                if (err) return;
-            });
+    //         fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
+    //             if (err) return;
+    //         });
 
-            message.channel.send({
-                embed: {
-                    color: bot.settings.color.green,
-                    description: `Music has been enabled!`
-                }
-            });
-            break;
-        case "disable":
+    //         bot.createEmbed("success", "", `Music has been enabled.`, [], `${message.guild.name}`, bot)
+    //             .then(embed => message.channel.send(embed))
+    //             .catch(error => console.error(error))
+    //         break;
+    //     case "disable":
 
-            if (config.musicenabled == false) {
-                return message.channel.send({
-                    embed: {
-                        color: bot.settings.color.yellow,
-                        description: `Oh no. Looks like music is already disabled!`
-                    }
-                });
-            };
-            config.musicenabled = false;
+    //         if (config.musicenabled == false) {
+    //             return bot.createEmbed("error", "", `Error! Music is already disabled.`, [], `${message.guild.name}`, bot)
+    //                 .then(embed => message.channel.send(embed))
+    //                 .catch(error => console.error(error))
+    //         };
+    //         config.musicenabled = false;
 
-            fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
-                if (err) return;
-            });
+    //         fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(config, null, 4), (err) => {
+    //             if (err) return;
+    //         });
 
-            message.channel.send({
-                embed: {
-                    color: bot.settings.color.green,
-                    description: `Music has been disabled!`
-                }
-            });
-            break;
+    //         bot.createEmbed("success", "", `Music has been disabled!`, [], `${message.guild.name}`, bot)
+    //             .then(embed => message.channel.send(embed))
+    //             .catch(error => console.error(error))
+    //         break;
 
-        default:
-            message.channel.send({
-                embed: {
-                    color: bot.settings.color.red,
-                    description: `Error! No music setting called **${setting}**`
-                }
-            });
-    };
-}};
+    //     default:
+    //         bot.createEmbed("error", "", `Error! No config setting called **${setting}**`, [], `${message.guild.name}`, bot)
+    //             .then(embed => message.channel.send(embed))
+    //             .catch(error => console.error(error))
+    // };
+  },
+};

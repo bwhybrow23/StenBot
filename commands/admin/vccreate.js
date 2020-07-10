@@ -1,63 +1,78 @@
 module.exports = {
-    name: "vccreate",
-    category: "admin",
-    description: "Create a voice channel.",
-    example: ".vccreate Cool VC",
-    permission: "ADMINS",
-    run: async (bot, message, args) => {
-
+  name: "vccreate",
+  category: "admin",
+  description: "Creates a voice channel.",
+  usage: "sb!vccreate <NAME>",
+  permission: "ADMINS",
+  run: async (bot, message, args) => {
     const Discord = require("discord.js");
     const fs = require("fs");
-   
+
     const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
-   
+
     if (config.staffadminenabled == false) {
-     return message.channel.send({
-      embed: {
-       color: bot.settings.color.red,
-       description: `Error! Admin commands are disabled. To use them, enable them with **.config-staff admin enable**`
-      }
-     });
-    };
-   
+      bot
+        .createEmbed(
+          "error",
+          "",
+          `Error! Admin commands are disabled. To use them, enable them with **sb!config-staff admin enable**`,
+          [],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
+    }
+
     var n = args.slice(0).join(" ");
-   
-   
+
     if (n.length < 1) {
-     return message.channel.send({
-      embed: {
-       color: bot.settings.color.red,
-       description: `Error! You forgot to include a name for the channel!`
-      }
-     });
-    };
-   
-   
-   
+      bot
+        .createEmbed(
+          "error",
+          "",
+          `Error! You forgot to include a name for the channel!`,
+          [],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
+    }
+
     if (message.member.hasPermission("ADMINISTRATOR") == false) {
-     return message.channel.send({
-      embed: {
-       color: bot.settings.color.red,
-       description: `Error! You do not have permission to issue this command!`
-      }
-     });
-    };
-   
+      bot
+        .noPermsEmbed(`${message.guild.name}`, bot)
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
+    }
+
     if (n.length > 100) {
-     return message.channel.send({
-      embed: {
-       color: bot.settings.color.red,
-       description: `The voice channel name has to be between 1 and 100 in **length**`
-      }
-     })
-    };
-   
-    message.guild.createChannel(`${n}`, "voice").then(channel => {
-     message.channel.send({
-      embed: {
-       color: bot.settings.color.green,
-       description: `The voice channel **${channel.name}** has been created.`
-      }
-     });
+      bot
+        .createEmbed(
+          "error",
+          "",
+          `The voice channel name has to be between 1 and 100 in **length**`,
+          [],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
+    }
+
+    message.guild.createChannel(`${n}`, "voice").then((channel) => {
+      bot
+        .createEmbed(
+          "success",
+          "",
+          `The voice channel **${channel.name}** has been created.`,
+          [],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
     });
-   }};
+  },
+};

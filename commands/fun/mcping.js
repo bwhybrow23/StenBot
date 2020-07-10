@@ -1,76 +1,81 @@
 module.exports = {
-    name: "mcping",
-    category: "fun",
-    description: "Ping a Minecraft Server",
-    example: ".mcping hypixel.net",
-    permission: "EVERYONE",
-    run: async (bot, message, args) => {
-
-    const Discord = require('discord.js');
-    const fetch = require('superagent');
-    const url = "https://mcapi.us/server/status?ip="
+  name: "mcping",
+  category: "fun",
+  description: "Ping a Minecraft Server",
+  usage: "sb!mcping <SERVER IP>{:PORT}",
+  permission: "EVERYONE",
+  run: async (bot, message, args) => {
+    const Discord = require("discord.js");
+    const fetch = require("superagent");
+    const url = "https://mcapi.us/server/status?ip=";
 
     if (!args.length) {
-        return message.channel.send({
-            embed: {
-                color: bot.settings.color.green,
-                description: "**Usage:** `.mcping [server ip] [Optional: port]`\n**__Note:__** Its better to only add a port if its different than `25565`",
-                footer: {
-                    icon_url: message.author.avatarURL
-                }
-            }
-        })
+      return message.channel.send("help embed not done");
     }
 
     const ip = args[0];
     if (args[1]) {
-        const port = args[1]
+      const port = args[1];
     }
 
-    let request = await fetch.get(args[1] ? url + `&port=${port}` : url + ip)
-    let res = request.body
+    let request = await fetch.get(args[1] ? url + `&port=${port}` : url + ip);
+    let res = request.body;
     if (res.status !== "success") {
-        return message.channel.send({
-            embed: {
-                color: bot.settings.color.red,
-                description: `Something was wrong! Probably an invalid ip or port.`,
-                footer: {
-                    icon_url: message.author.avatarURL
-                }
-            }
-        })
+      bot
+        .createEmbed(
+          "error",
+          "",
+          `Error! The status couldn't be fetched, perhaps an invalid IP or Port.`,
+          [],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
     }
 
-    var players = 0
+    var players = 0;
     if (res.players.now) {
-        players += res.players.now;
+      players += res.players.now;
     } else {
-        players += 0
-    };
+      players += 0;
+    }
 
     if (res.online) {
-        let onlineEmbed = new Discord.RichEmbed()
-            .setColor(bot.settings.color.green)
-            .setTitle("Server Status:")
-            .addField("IP:", ip)
-            .addField("Status:", "Online")
-            .addField("Player Count:", `${players}/${res.players.max}`)
-            .addField("Server Version:", res.server.name)
-            .addField("MOTD:", res.motd)
-            .setFooter(message.author.tag, message.author.avatarURL);
-
-        message.channel.send(onlineEmbed);
-    };
-
-    if (!res.online) {
-        let offlineEmbed = new Discord.RichEmbed()
-            .setColor(bot.settings.color.red)
-            .setTitle("Server Status:")
-            .addField("IP:", ip)
-            .addField("Status:", "Offline")
-            .setFooter(message.author.tag, message.author.avatarURL);
-
-        message.channel.send(offlineEmbed);
+      bot
+        .createEmbed(
+          "success",
+          "Server Status:",
+          ``,
+          [
+            { name: "IP", value: `${ip}` },
+            { name: `Status`, value: `Online` },
+            { name: `Player Count`, value: `${players}/${res.players.max}` },
+            { name: `Server Version`, value: `${res.server.name}` },
+            { name: `MOTD`, value: `${res.motd}` },
+          ],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
     }
 
-    }};
+    if (!res.online) {
+      bot
+        .createEmbed(
+          "success",
+          "Server Status:",
+          ``,
+          [
+            { name: "IP", value: `${ip}` },
+            { name: `Status`, value: `Offline` },
+          ],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
+    }
+  },
+};

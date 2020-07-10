@@ -1,26 +1,50 @@
 module.exports = {
-    name: "server",
-    category: "bot",
-    description: "Gain information about the server the command is ran in..",
-    example: ".serverinfo",
-    permission: "BOT OWNER",
-    run: async (bot, message, args) => {
-
+  name: "server",
+  category: "bot",
+  description: "Gain information about the server the command is ran in..",
+  usage: "sb!serverinfo",
+  permission: "BOT OWNER",
+  run: async (bot, message, args) => {
     const Discord = require("discord.js");
-   
-    let channelcount = message.guild.channels.size;
-    let gcreated = message.guild.createdAt;
-    let gid = message.guild.id;
-    let totalmembers = message.guild.memberCount;
-    let gname = message.guild.name;
-    let rolecount = message.guild.roles.size;
-   
-    message.channel.send({
-     embed: {
-      color: bot.settings.color.green,
-      description: '**' + gname + ' Information**\n\nGuild Id **' + gid + '**\nGuild Channels: **' + channelcount + '**\nCreated: **' + gcreated + '**\nTotal Members: **' + totalmembers + '**\nTotal Roles: **' + rolecount + '**'
-     }
-    });
-   
-   
-   }};
+
+    let channelCount = message.guild.channels.size;
+    let gCreated = message.guild.createdAt;
+    let gID = message.guild.id;
+    let totalMembers = message.guild.memberCount;
+    let gName = message.guild.name;
+    let roleCount = message.guild.roles.size;
+
+    bot
+      .createEmbed(
+        "success",
+        `${gName} Information`,
+        ``,
+        [
+          {
+            name: `Guild ID`,
+            value: `${gID}`,
+          },
+          {
+            name: `Date Created`,
+            value: `${gCreated}`,
+          },
+          {
+            name: `Number of Channels`,
+            value: `${channelCount}`,
+          },
+          {
+            name: `Number of Roles`,
+            value: `${roleCount}`,
+          },
+          {
+            name: `Total Members`,
+            value: `${totalMembers}`,
+          },
+        ],
+        `${message.guild.name}`,
+        bot
+      )
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => console.error(error));
+  },
+};

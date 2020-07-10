@@ -2,65 +2,141 @@ module.exports = {
   name: "mode",
   category: "bot",
   description: "Switch the bot between various modes.",
-  example: ".mode normal",
+  usage: "sb!mode <MODE>",
   permission: "BOT OWNER",
   run: async (bot, message, args) => {
-
     const Discord = require("discord.js");
     const fs = require("fs");
-    const colors = require("colors");
-   
-    //Check if the command was sent in the team guild
-    if (message.guild.id != bot.settings.ids.MainGuild && message.author.id !== bot.settings.ids.botOwner) {
-     return message.channel.send({
-      embed: {
-       color: bot.settings.color.red,
-       description: 'Error! You do not have permission to do that!'
-      }
-     });
-    };
-   
-    const targetmode = args[0];
-   
-    //Check if args have been included
-    if (targetmode == undefined) {
-     return message.channel.send({
-      embed: {
-       color: bot.settings.color.red,
-       description: 'Error! You need to include the name of the mode to set the bot into.'
-      }
-     });
-    };
-   
-   
-    //Get bot data
-    var botdata = JSON.parse(fs.readFileSync(`./data/global/bot-data.json`, "utf8"));
-   
-    //Check if arg is correct
-    if (targetmode == "normal" || targetmode == "maintenance") {
-     switch (targetmode) {
-      case "normal":
-       if (botdata.mode == "normal") {
-        return message.channel.send("The bot is already in that mode.");
-       };
-       botdata.mode = "maintenance";
-       fs.writeFileSync(`./data/global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => {
-        if (err) return console.log("[SYSTEM]".grey + err);
-       });
-       break;
-       message.channel.send("Bot set to maintenance mode.");
-       bot.user.setPresence({
-        game: {
-         name: 'Under Maintenance.'
-        },
-        status: 'dnd'
-       });
-      default:
-       break;
-     }
+
+    //Perm Checker
+    const ownersid = message.guild.ownerID;
+    if (message.author.id != ownersid) {
+      bot
+        .createEmbed(
+          "error",
+          "",
+          `Error! You are not permitted to run this command as you are not the bot owner.`,
+          [],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
     }
-   
-   
-   
-   
-   }};
+
+    //Check for Arg
+    let newMode = args[0];
+
+    let date = new Date();
+
+    //Subcommand Stuff
+    if (newMode == "production" || newMode == "development") {
+      switch (newMode) {
+        //Production
+        case "production":
+          //Check if bot is already in Production mode
+          if (bot.settings.mode == "production") {
+            return message.channel.send("The bot is already in that mode.");
+          }
+          //Change Setting
+          bot.settings.mode = "production";
+          fs.writeFileSync(
+            `./main/settings.json`,
+            JSON.stringify(bot.settings, null, 4),
+            (err) => {
+              if (err) return console.log("[SYSTEM]".grey + err);
+            }
+          );
+          //Change Status
+          let guilds = bot.guilds.size;
+          bot.user.setPresence({
+            game: {
+              name: `sb!help on ${guilds} servers!`,
+              type: "WATCHING",
+            },
+            status: "online",
+          });
+          //Console Log
+          console.log(
+            "[SYSTEM]".grey,
+            `StenBot has been converted to Production Mode. Running version: ${bot.settings.version} | Changed at ${date}`
+              .green
+          );
+          //Reply Message
+          bot
+            .createEmbed(
+              "success",
+              "",
+              `Bot Mode has been Sucessfully Updated to **Production**.`,
+              [],
+              `${message.guild.name}`,
+              bot
+            )
+            .then((embed) => message.channel.send(embed))
+            .catch((error) => console.error(error));
+
+          break;
+
+        //Development
+        case "development":
+          //Check if bot is already in Development mode
+          if (bot.settings.mode == "development") {
+            return message.channel.send("The bot is already in that mode.");
+          }
+          //Change Setting
+          bot.settings.mode = "development";
+          fs.writeFileSync(
+            `./main/settings.json`,
+            JSON.stringify(bot.settings, null, 4),
+            (err) => {
+              if (err) return console.log("[SYSTEM]".grey + err);
+            }
+          );
+          //Change Status
+          bot.user.setPresence({
+            game: {
+              name: `In Development Mode`,
+              type: "PLAYING",
+            },
+            status: "dnd",
+          });
+          //Console Log
+          console.log(
+            "[SYSTEM]".grey,
+            `StenBot has been converted to Development Mode. | Changed at ${date}`
+              .green
+          );
+          //Reply Message
+          bot
+            .createEmbed(
+              "success",
+              "",
+              `Bot Mode has been Sucessfully Updated to **Development**.`,
+              [],
+              `${message.guild.name}`,
+              bot
+            )
+            .then((embed) => message.channel.send(embed))
+            .catch((error) => console.error(error));
+
+          break;
+
+        default:
+          if (newMode == undefined) {
+            bot
+              .createEmbed(
+                "error",
+                "",
+                `Error! You haven't included a new mode for the bot to be switched to.`,
+                [],
+                `${message.guild.name}`,
+                bot
+              )
+              .then((embed) => message.channel.send(embed))
+              .catch((error) => console.error(error));
+          }
+          break;
+      }
+    }
+  },
+};

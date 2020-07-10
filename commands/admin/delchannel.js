@@ -1,11 +1,10 @@
 module.exports = {
-    name: "delchannel",
-    category: "admin",
-    description: "Deletes mentioned channel.",
-    example: ".delchannel #dead-channel",
-    permission: "ADMINS",
-    run: async (bot, message, args) => {
-
+  name: "delchannel",
+  category: "admin",
+  description: "Deletes the mentioned channel.",
+  usage: "sb!delchannel <#CHANNEL>",
+  permission: "ADMINS",
+  run: async (bot, message, args) => {
     const Discord = require("discord.js");
     const fs = require("fs");
     var c = message.mentions.channels.first();
@@ -13,51 +12,66 @@ module.exports = {
     const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
 
     if (config.staffadminenabled == false) {
-        return message.channel.send({
-            embed: {
-                color: bot.settings.color.red,
-                description: `Error! Admin commands are disabled. To use them, enable them with **.config-staff admin enable**`
-            }
-        });
-    };
-
-
+      bot
+        .createEmbed(
+          "error",
+          "",
+          `Error! Admin commands are disabled. To use them, enable them with **sb!config-staff admin enable**`,
+          [],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
+    }
 
     if (c == undefined) {
-        return message.channel.send({
-            embed: {
-                color: bot.settings.color.red,
-                description: `Error! You forgot to mention a channel to remove!`
-            }
-        });
-    };
+      bot
+        .createEmbed(
+          "error",
+          "",
+          "Error! You forgot to mention a channel to remove!",
+          [],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
+    }
 
     if (message.member.hasPermission("ADMINISTRATOR") == false) {
-        return message.channel.send({
-            embed: {
-                color: bot.settings.color.red,
-                description: `Error! You do not have permission to issue this command!`
-            }
-        });
-    };
-
-
+      bot
+        .noPermsEmbed(`${message.guild.name}`, bot)
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
+    }
 
     if (c.deletable == false) {
-        return message.channel.send({
-            embed: {
-                color: bot.settings.color.red,
-                description: `Error! I am unable to delete that channel!`
-            }
-        });
-    };
+      bot
+        .createEmbed(
+          "error",
+          "",
+          "Error! I am unable to delete that channel!",
+          [],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
+    }
 
-    c.delete().then(deleted =>
-        message.channel.send({
-            embed: {
-                color: bot.settings.color.yellow,
-                description: `The channel **${deleted.name}** has been removed by administrator **${message.author}**`
-            }
-        })
+    c.delete().then((deleted) =>
+      bot
+        .createEmbed(
+          "success",
+          "",
+          `The channel **${deleted.name}** has been removed by administrator **${message.author}**`,
+          [],
+          `${message.guild.name}`,
+          bot
+        )
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error))
     );
-}};
+  },
+};

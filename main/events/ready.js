@@ -1,38 +1,50 @@
 module.exports = (bot) => {
-	
-	const utils = require("../functions/utilities.js");
-	
-    let date = new Date;
-    console.log('[SYSTEM]'.grey, `StenBot Started Successfully. Version: ${bot.settings.version}`.green);
+  const utils = require("../functions/utilities.js");
 
-    //playing statuses
-    let guildSize = bot.guilds.size;
-    var presences = [
-        "StenDevelopment",
-        ".help",
-        "With Code",
-        `On ${guildSize} servers!`,
-        `Version ${bot.settings.version}`
-    ]
+  //Mode Checker
+  const fs = require("fs");
 
-    //changes playing status every X seconds
-    //    bot.user.setActivity(utils.randItemFromArray(presences)).then(() => {
-    //        setTimeout(() => {
-    //            bot.user.setActivity(utils.randItemFromArray(presences))
-    //        }, 600000)
-    //    });
-
-    //filler for playing status (if above errors)
+  //Production Mode
+  if (bot.settings.mode === "production") {
+    //Status
+    let guilds = bot.guilds.size;
     bot.user.setPresence({
-        game: {
-            name: `On ${guildSize} servers!`,
-            type: 'STREAMING',
-            url: 'https://www.twitch.tv/stentorianyt'
-        }
+      game: {
+        name: `sb!help on ${guilds} servers!`,
+        type: "WATCHING",
+      },
+      status: "online",
     });
 
-    //VERIFICATION FOR SUPPORT DISCORD
-    if (bot.settings.options.verifEnabled) {
-        utils.resetVerif(bot)
-    };
-}
+    //Console Log
+    let date = new Date();
+    console.log(
+      "[SYSTEM]".grey,
+      `StenBot Started Successfully in Production Mode. Version: ${bot.settings.version}`
+        .green
+    );
+  }
+
+  if (bot.settings.mode === "development") {
+    //Status
+    date = new Date();
+    bot.user.setPresence({
+      game: {
+        name: `In Development Mode`,
+        type: "PLAYING",
+      },
+      status: "dnd",
+    });
+
+    //Console Log
+    console.log(
+      "[SYSTEM]".grey,
+      `StenBot Started Successfully in Development Mode | Date: ${date}`.green
+    );
+  }
+
+  //VERIFICATION FOR SUPPORT DISCORD
+  if (bot.settings.options.verifEnabled) {
+    utils.resetVerif(bot);
+  }
+};
