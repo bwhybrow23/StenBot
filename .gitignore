@@ -14,6 +14,8 @@ build/Release
 # dotenv environment variables file
 .env
 .env.test
+
+# Stuff
 Todo.txt
 Tested Commands.txt
 Template.txt

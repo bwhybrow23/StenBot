@@ -10,7 +10,7 @@ module.exports = {
 
     //Check if its sent in the admin server
     if (message.author.id != 346246641595973633) {
-      bot
+      return bot
         .noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));

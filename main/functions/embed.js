@@ -5,22 +5,23 @@ const colours = {
   blue: 4886754,
 };
 
-let embedTemplate = {
-  embed: {
-    title: "",
-    description: "",
-    color: 0,
-    timestamp: Date.now(),
-    footer: {
-      icon_url: "https://i.imgur.com/BkZY6H8.png",
-      text: ``,
-    },
-    fields: [],
-  },
-};
-
 const createEmbed = (type, title, desc, fields, footer, bot) => {
   return new Promise((resolve, reject) => {
+
+    let embedTemplate = {
+      embed: {
+        title: "",
+        description: "",
+        color: 0,
+        timestamp: Date.now(),
+        footer: {
+          icon_url: "https://i.imgur.com/BkZY6H8.png",
+          text: ``,
+        },
+        fields: [],
+      },
+    };
+
     //Colour
     switch (type) {
       case "error":
@@ -76,6 +77,21 @@ const createEmbed = (type, title, desc, fields, footer, bot) => {
 
 const noPermsEmbed = (footer, bot) => {
   return new Promise((resolve, reject) => {
+
+    let embedTemplate = {
+      embed: {
+        title: "",
+        description: "",
+        color: 0,
+        timestamp: Date.now(),
+        footer: {
+          icon_url: "https://i.imgur.com/BkZY6H8.png",
+          text: ``,
+        },
+        fields: [],
+      },
+    };
+
     //Color
     embedTemplate.embed.color = colours.red;
     //Desc
