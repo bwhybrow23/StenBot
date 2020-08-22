@@ -1,0 +1,35 @@
+{
+    "version": "1.4.0",
+    "prefix": "sb!",
+    "mode": "production",
+    "connections": {
+        "token": "",
+        "devToken": "",
+        "fortniteToken": ""
+    },
+    "ids": {
+        "botOwner": "",
+        "mainGuild": ""
+    },
+    "color": {
+        "red": 14165566,
+        "green": 1295876,
+        "yellow": 14672927,
+        "blue": 4886754
+    },
+    "options": {
+        "verifEnabled": false
+    },
+    "regions": [
+        "Africa",
+        "America",
+        "Antarctica",
+        "Arctic",
+        "Asia",
+        "Atlantic",
+        "Australia",
+        "Europe",
+        "Indian",
+        "Pacific"
+    ]
+}
