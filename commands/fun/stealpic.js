@@ -8,14 +8,11 @@ module.exports = {
     const Discord = require("discord.js");
 
     let stolen = message.mentions.users.first();
-    let stolenPic = stolen.avatarURL;
+    let stolenPic = stolen.avatarURL();
 
-    let embed = new Discord.RichEmbed()
+    let embed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.yellow)
-      .setDescription(
-        `**${message.author.username}** has stolen **${stolen.username}**'s profile picture!`
-      )
-      .addField("Here's their avatar anyways", stolenPic)
+      .setDescription(`**${message.author.username}** has stolen **${stolen.username}**'s profile picture!\n\nFind it here: [${stolen.username}'s Profile Picture](${stolenPic})`)
       .setImage(stolenPic)
       .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png`);
 

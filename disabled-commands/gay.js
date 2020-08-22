@@ -12,7 +12,7 @@ module.exports = {
     let person =
       message.mentions.users.first().username || message.author.user.username;
 
-    let gayembed = new Discord.RichEmbed()
+    let gayembed = new Discord.MessageEmbed()
       .setColor("#f442d4")
       .setTitle(
         `:gay_pride_flag: **I think ${person} is ${gay}% gay!** :gay_pride_flag:`

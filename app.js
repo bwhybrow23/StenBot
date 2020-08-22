@@ -31,82 +31,13 @@ bot.createEmbed = createEmbed;
 bot.noPermsEmbed = noPermsEmbed;
 bot.helpEmbed = helpEmbed;
 
-//COMMAND-USAGE.JSON UPDATES
-const cmdusage = JSON.parse(
-  fs.readFileSync("./data/global/command-usage.json", "utf8")
-);
-//TOTAL
-var addCmdToTotal = () => {
-  cmdusage.total = parseInt(cmdusage.total) + 1;
-  fs.writeFileSync(
-    "./data/global/command-usage.json",
-    JSON.stringify(cmdusage)
-  );
-};
-//ADMIN
-var addCmdToAdmin = () => {
-  cmdusage.sub.admin = parseInt(cmdusage.sub.admin) + 1;
-  fs.writeFileSync(
-    "./data/global/command-usage.json",
-    JSON.stringify(cmdusage)
-  );
-};
-//BOT
-var addCmdToBot = () => {
-  cmdusage.sub.bot = parseInt(cmdusage.sub.bot) + 1;
-  fs.writeFileSync(
-    "./data/global/command-usage.json",
-    JSON.stringify(cmdusage)
-  );
-};
-//CONFIG
-var addCmdToConfig = () => {
-  cmdusage.sub.config = parseInt(cmdusage.sub.config) + 1;
-  fs.writeFileSync(
-    "./data/global/command-usage.json",
-    JSON.stringify(cmdusage)
-  );
-};
-//ECO
-var addCmdToEco = () => {
-  cmdusage.sub.eco = parseInt(cmdusage.sub.eco) + 1;
-  fs.writeFileSync(
-    "./data/global/command-usage.json",
-    JSON.stringify(cmdusage)
-  );
-};
-//FUN
-var addCmdToFun = () => {
-  cmdusage.sub.fun = parseInt(cmdusage.sub.fun) + 1;
-  fs.writeFileSync(
-    "./data/global/command-usage.json",
-    JSON.stringify(cmdusage)
-  );
-};
-//GENERAL
-var addCmdToGeneral = () => {
-  cmdusage.sub.general = parseInt(cmdusage.sub.general) + 1;
-  fs.writeFileSync(
-    "./data/global/command-usage.json",
-    JSON.stringify(cmdusage)
-  );
-};
-//MOD
-var addCmdToMod = () => {
-  cmdusage.sub.mod = parseInt(cmdusage.sub.mod) + 1;
-  fs.writeFileSync(
-    "./data/global/command-usage.json",
-    JSON.stringify(cmdusage)
-  );
-};
-//TICKETING
-var addCmdToTicketing = () => {
-  cmdusage.sub.ticketing = parseInt(cmdusage.sub.ticketing) + 1;
-  fs.writeFileSync(
-    "./data/global/command-usage.json",
-    JSON.stringify(cmdusage)
-  );
-};
+//Discord-Moderation Module (For Muting)
+const { Moderator } = require("discord-moderation");
+const moderator = new Moderator(bot, {
+  storage: './data/global/cases.json',
+  updateCountdownEvery: 5000
+});
+bot.moderator = moderator;
 
 //Link Blocker & Filter
 bot.on("message", (message) => {
@@ -190,15 +121,12 @@ var getMemUsage = () => {
 };
 bot.setInterval(function () {
   memusage.memory = getMemUsage();
-  fs.writeFileSync(
-    "./data/global/memory-usage.json",
-    JSON.stringify(memusage, null, 4)
-  );
+  fs.writeFileSync("./data/global/memory-usage.json",JSON.stringify(memusage, null, 4));
 }, 30000);
 bot.setInterval(function () {
   let memoryusage = getMemUsage();
-  let guilds = bot.guilds.size;
-  let ping = Math.floor(bot.ping);
+  let guilds = bot.guilds.cache.size;
+  let ping = Math.floor(bot.ws.ping);
   console.log(
     `[INFO]`.grey,
     `Memory Usage: ${memoryusage}`.yellow,

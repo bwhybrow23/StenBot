@@ -32,7 +32,7 @@ const compare = (a1, a2) => {
 
 //Check channel from channel id to see if it exists
 var checkChannel = (id, client) => {
-  let tchannel = client.channels.get(id);
+  let tchannel = client.channels.cache.get(id);
   if (tchannel == undefined) {
     return false;
   } else {
@@ -44,5 +44,5 @@ module.exports = {
   getConfig,
   saveConfig,
   compare,
-  checkChannel,
+  checkChannel
 };

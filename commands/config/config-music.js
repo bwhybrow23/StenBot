@@ -27,28 +27,12 @@ module.exports = {
     }
 
     if (access == false) {
-      return bot
-        .createEmbed(
-          "error",
-          "",
-          `Error! You are not the owner or admin of this guild.`,
-          [],
-          `${message.guild.name}`,
-          bot
-        )
+      return bot.createEmbed("error","",`Error! You are not the owner or admin of this guild.`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
     }
 
-    bot
-      .createEmbed(
-        "error",
-        "",
-        `Error! The music section of the bot is not completed yet therefore it cannot be configured. Sorry :/`,
-        [],
-        `${message.guild.name}`,
-        bot
-      )
+    bot.createEmbed("error","",`Error! The music section of the bot is not completed yet therefore it cannot be configured. Sorry :/`,[],`${message.guild.name}`,bot)
       .then((embed) => message.channel.send(embed))
       .catch((error) => console.error(error));
 

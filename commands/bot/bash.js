@@ -10,18 +10,26 @@ module.exports = {
     if (message.author.id !== bot.settings.ids.botOwner) {
       bot.noPermsEmbed(`${message.guild.name}`, bot);
     }
+
+    let cmd = args.join(" ");
+    if (!cmd || cmd === undefined) {
+      return message.reply("You haven't put any args.")
+    }
+
     const exec = require("child_process").exec;
     var StartTime = Date.now();
     let msg = await message.channel.send("Getting results...");
-    exec(args.join(" "), {}, (error, stdout, stderr) => {
-      var Embed = new Discord.RichEmbed();
+    exec(cmd, {}, (error, stdout) => {
+      var Embed = new Discord.MessageEmbed();
+      if (!stdout) {
+        return stdout = "None"
+      }
       Embed.setTitle("Bash Results")
-        .addField("Input", args.join(" "), true)
+        .addField("Input", '```' + args.join(" ") + '```')
         .addField("ExecTime", Date.now() - StartTime + "ms", true)
         .addField("Errors", error ? error : "None", true)
-        .addField("stdout", stdout ? stdout : "None")
-        .addField("stderr", stderr ? stderr : "None")
-        .setFooter(`Bash Command`, bot.user.displayURL)
+        .addField("Output", '```' + stdout + '```')
+        .setFooter(`${message.guild.name}`, 'https://i.imgur.com/BkZY6H8.png')
         .setTimestamp();
       msg.edit(Embed);
     });

@@ -16,29 +16,13 @@ module.exports = {
     if (person.id === message.author.id) {
       let bal = db.fetch(`money_${message.author.id}`);
       if (bal === null) bal = 0;
-      bot
-        .createEmbed(
-          "info",
-          "Balance",
-          `You currently have a balance of **${bal}** coins.`,
-          [],
-          `${message.guild.name}`,
-          bot
-        )
+      bot.createEmbed("info","Balance",`You currently have a balance of **${bal}** coins.`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
     } else {
       let bal = db.fetch(`money_${message.author.id}`);
       if (bal === null) bal = 0;
-      bot
-        .createEmbed(
-          "info",
-          `${person.tag}'s Balance`,
-          `${person.tag} currently has a balance of **${bal}** coins.`,
-          [],
-          `${message.guild.name}`,
-          bot
-        )
+      bot.createEmbed("info",`${person.tag}'s Balance`,`${person.tag} currently has a balance of **${bal}** coins.`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
     }

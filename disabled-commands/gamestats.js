@@ -14,7 +14,7 @@ module.exports = {
     switch (game) {
       default:
       case "help":
-        let helpEmbed = new Discord.RichEmbed()
+        let helpEmbed = new Discord.MessageEmbed()
           .setTitle("Help: Action")
           .setDescription(`Below are all the gamestats commands you can use.`)
           .setColor(bot.settings.color.blue)
@@ -31,7 +31,7 @@ module.exports = {
         let user = args[2];
         let data = await ft.user(user, platform);
 
-        let embed = new Discord.RichEmbed()
+        let embed = new Discord.MessageEmbed()
           .setColor(bot.settings.color.blue)
           .setTitle("Fortnite Stats")
           .setDescription(`You can find all of your stats [here](${data.url})`)

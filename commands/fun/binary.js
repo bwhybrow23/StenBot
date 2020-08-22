@@ -8,15 +8,12 @@ module.exports = {
     var output = "";
     const Discord = require("discord.js");
 
-    let helpE = new Discord.RichEmbed()
+    let helpE = new Discord.MessageEmbed()
       .setColor(bot.settings.color.blue)
       .setTitle("Command: Binary")
       .addField("Description:", "Convert any message into binary.", true)
       .addField("Usage", "`sb!binary <text>`", true)
-      .addField(
-        "Example",
-        "`sb!binary This is a top secret message from Discord HQ.`"
-      )
+      .addField("Example", "`sb!binary This is a top secret message from Discord HQ.`")
       .setFooter(message.author.tag, message.author.avatarURL)
       .setTimestamp();
 
@@ -27,18 +24,7 @@ module.exports = {
       output += input[i].charCodeAt(0).toString(2) + " ";
     }
 
-    bot
-      .createEmbed(
-        "success",
-        "",
-        ``,
-        [
-          { name: "Original Text", value: `${input}` },
-          { name: "Binary", value: `${output}` },
-        ],
-        `${message.guild.name}`,
-        bot
-      )
+    bot.createEmbed("success","",``,[{ name: "Original Text", value: `${input}` },{ name: "Binary", value: `${output}` },],`${message.guild.name}`,bot)
       .then((embed) => message.channel.send(embed))
       .catch((error) => console.error(error));
   },

@@ -17,7 +17,7 @@ module.exports = async (bot, oldMessage, newMessage) => {
           return;
         //AHem
         if (oldMessage.content == newMessage.content) return;
-        let lchannel = bot.channels.get(config.loggingchannel);
+        let lchannel = bot.channels.cache.get(config.loggingchannel);
         lchannel.send({
           embed: {
             color: bot.settings.color.yellow,

@@ -7,8 +7,12 @@ module.exports = {
   run: async (bot, message, args) => {
     const Discord = require("discord.js");
 
-    if (message.author.id !== "346246641595973633")
-      return message.reply("You do not have permission to run this command!");
+    if (message.author.id !== bot.settings.ids.botOwner) {
+      return bot.noPermsEmbed(`${message.guild.name}`, bot)
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => console.error(error));
+    };
+
     try {
       let codein = args.join(" ");
       let code = eval(codein);
@@ -17,7 +21,7 @@ module.exports = {
         code = require("util").inspect(code, {
           depth: 0,
         });
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setAuthor("Evaluate")
         .setColor(bot.settings.color.yellow)
         .addField(":inbox_tray: Input", `\`\`\`js\n${codein}\`\`\``)

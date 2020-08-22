@@ -1,4 +1,8 @@
-FROM node:12.18
+FROM node:12.14
+
+# Install Nano
+RUN ["apt-get", "update"]
+RUN ["apt-get", "-y", "install", "nano"]
 
 # App Directory
 WORKDIR /srv/StenBot

@@ -11,15 +11,7 @@ module.exports = {
     //Perm Checker
     const ownersid = message.guild.ownerID;
     if (message.author.id != ownersid) {
-      bot
-        .createEmbed(
-          "error",
-          "",
-          `Error! You are not permitted to run this command as you are not the bot owner.`,
-          [],
-          `${message.guild.name}`,
-          bot
-        )
+      return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
     }
@@ -40,38 +32,14 @@ module.exports = {
           }
           //Change Setting
           bot.settings.mode = "production";
-          fs.writeFileSync(
-            `./main/settings.json`,
-            JSON.stringify(bot.settings, null, 4),
-            (err) => {
-              if (err) return console.log("[SYSTEM]".grey + err);
-            }
-          );
+          fs.writeFileSync(`./main/settings.json`, JSON.stringify(bot.settings, null, 4), (err) => { if (err) return console.log("[SYSTEM]".grey + err); });
           //Change Status
-          let guilds = bot.guilds.size;
-          bot.user.setPresence({
-            game: {
-              name: `sb!help on ${guilds} servers!`,
-              type: "WATCHING",
-            },
-            status: "online",
-          });
+          let guilds = bot.guilds.cache.size;
+          bot.user.setPresence({ activity: { name: `sb!help on ${guilds} servers!`, type: `WATCHING` }, status: 'online' });
           //Console Log
-          console.log(
-            "[SYSTEM]".grey,
-            `StenBot has been converted to Production Mode. Running version: ${bot.settings.version} | Changed at ${date}`
-              .green
-          );
+          console.log("[SYSTEM]".grey, `StenBot has been converted to Production Mode. Running version: ${bot.settings.version} | Changed at ${date}`.green);
           //Reply Message
-          bot
-            .createEmbed(
-              "success",
-              "",
-              `Bot Mode has been Sucessfully Updated to **Production**.`,
-              [],
-              `${message.guild.name}`,
-              bot
-            )
+          bot.createEmbed("success", "", `Bot Mode has been Sucessfully Updated to **Production**.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => console.error(error));
 
@@ -83,39 +51,19 @@ module.exports = {
           if (bot.settings.mode == "development") {
             return message.channel.send("The bot is already in that mode.");
           }
+
           //Change Setting
           bot.settings.mode = "development";
-          fs.writeFileSync(
-            `./main/settings.json`,
-            JSON.stringify(bot.settings, null, 4),
-            (err) => {
-              if (err) return console.log("[SYSTEM]".grey + err);
-            }
-          );
+          fs.writeFileSync(`./main/settings.json`, JSON.stringify(bot.settings, null, 4), (err) => { if (err) return console.log("[SYSTEM]".grey + err); });
+          
           //Change Status
-          bot.user.setPresence({
-            game: {
-              name: `In Development Mode`,
-              type: "PLAYING",
-            },
-            status: "dnd",
-          });
+          bot.user.setPresence({ activity: { name: `In Development Mode`, type: `PLAYING` }, status: 'dnd' });
+
           //Console Log
-          console.log(
-            "[SYSTEM]".grey,
-            `StenBot has been converted to Development Mode. | Changed at ${date}`
-              .green
-          );
+          console.log("[SYSTEM]".grey, `StenBot has been converted to Development Mode. | Changed at ${date}`.green);
+          
           //Reply Message
-          bot
-            .createEmbed(
-              "success",
-              "",
-              `Bot Mode has been Sucessfully Updated to **Development**.`,
-              [],
-              `${message.guild.name}`,
-              bot
-            )
+          bot.createEmbed("success", "", `Bot Mode has been Sucessfully Updated to **Development**.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => console.error(error));
 
@@ -123,15 +71,7 @@ module.exports = {
 
         default:
           if (newMode == undefined) {
-            bot
-              .createEmbed(
-                "error",
-                "",
-                `Error! You haven't included a new mode for the bot to be switched to.`,
-                [],
-                `${message.guild.name}`,
-                bot
-              )
+            bot.createEmbed("error", "", `Error! You haven't included a new mode for the bot to be switched to.`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => console.error(error));
           }

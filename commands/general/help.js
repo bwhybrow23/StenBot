@@ -25,14 +25,11 @@ module.exports = {
         .join("\n");
 
       //Embed to Send
-      const embed = new Discord.RichEmbed()
+      const embed = new Discord.MessageEmbed()
         .setColor(bot.settings.color.blue)
         .setTitle(capitalize(args[0]))
         .setDescription(commandSum)
-        .setFooter(
-          `Help Command | Syntax: <> = required, [] = optional`,
-          bot.user.displayURL
-        )
+        .setFooter(`Help Command | Syntax: <> = required, [] = optional`,bot.user.displayURL)
         .setTimestamp();
 
       message.channel.send(embed);
@@ -40,7 +37,7 @@ module.exports = {
       let prefix = bot.settings.prefix;
 
       //Main Embed
-      let embed = new Discord.RichEmbed()
+      let embed = new Discord.MessageEmbed()
         .setTitle("All Commands")
         .setDescription(`Prefix: \`${prefix}\``)
         .setColor(bot.settings.color.blue)
@@ -59,7 +56,7 @@ module.exports = {
     } else if (bot.commands.filter((cmd) => cmd.name === args[0])) {
       //Command Specific Help
 
-      const embed = new Discord.RichEmbed();
+      const embed = new Discord.MessageEmbed();
 
       let input = args[0];
 
@@ -89,10 +86,7 @@ module.exports = {
       if (cmd.example) info += `\n**Example**: ${cmd.example}`;
 
       return message.channel.send(
-        embed
-          .setColor(bot.settings.color.blue)
-          .setDescription(info)
-          .setTimestamp()
+        embed.setColor(bot.settings.color.blue).setDescription(info).setTimestamp()
       );
     }
   },

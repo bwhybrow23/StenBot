@@ -6,17 +6,10 @@ module.exports = async (bot, guild, user) => {
   if (config.loggingenabled == true) {
     if (config.logginglevel == "medium" || config.logginglevel == "high") {
       if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
-        let lchannel = bot.channels.get(config.loggingchannel);
-        lchannel.send({
-          embed: {
-            color: bot.settings.color.yellow,
-            description: `**Member Unbanned**\n**User:** ${
-              user.tag
-            }\n**Unban Date:** ${new Date()}`,
-            footer: { icon_url: user.avatarURL, text: "Member Unbanned" },
-            timestamp: new Date(),
-          },
-        });
+        let lchannel = bot.channels.cache.get(config.loggingchannel);
+        bot.createEmbed("warning", "", `**Member Unbanned**\n**User:** ${user.tag}\n**Unban Date:** ${new Date()}`, [], `${lchannel.guild.name}`, bot)
+              .then(embed => lchannel.send(embed))
+              .catch(error => console.error(error))
       }
     }
   }

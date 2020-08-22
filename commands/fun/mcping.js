@@ -21,15 +21,7 @@ module.exports = {
     let request = await fetch.get(args[1] ? url + `&port=${port}` : url + ip);
     let res = request.body;
     if (res.status !== "success") {
-      bot
-        .createEmbed(
-          "error",
-          "",
-          `Error! The status couldn't be fetched, perhaps an invalid IP or Port.`,
-          [],
-          `${message.guild.name}`,
-          bot
-        )
+      bot.createEmbed("error","",`Error! The status couldn't be fetched, perhaps an invalid IP or Port.`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
     }
@@ -42,38 +34,13 @@ module.exports = {
     }
 
     if (res.online) {
-      bot
-        .createEmbed(
-          "success",
-          "Server Status:",
-          ``,
-          [
-            { name: "IP", value: `${ip}` },
-            { name: `Status`, value: `Online` },
-            { name: `Player Count`, value: `${players}/${res.players.max}` },
-            { name: `Server Version`, value: `${res.server.name}` },
-            { name: `MOTD`, value: `${res.motd}` },
-          ],
-          `${message.guild.name}`,
-          bot
-        )
+      bot.createEmbed("success","Server Status:",``,[{ name: "IP", value: `${ip}` },{ name: `Status`, value: `Online` },{ name: `Player Count`, value: `${players}/${res.players.max}` },{ name: `Server Version`, value: `${res.server.name}` },{ name: `MOTD`, value: `${res.motd}` },],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
     }
 
     if (!res.online) {
-      bot
-        .createEmbed(
-          "success",
-          "Server Status:",
-          ``,
-          [
-            { name: "IP", value: `${ip}` },
-            { name: `Status`, value: `Offline` },
-          ],
-          `${message.guild.name}`,
-          bot
-        )
+      bot.createEmbed("success","Server Status:",``,[{ name: "IP", value: `${ip}` },{ name: `Status`, value: `Offline` },],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
     }

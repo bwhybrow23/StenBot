@@ -8,10 +8,9 @@ module.exports = {
     const Discord = require("discord.js");
     const fs = require("fs");
 
-    //Check if its sent in the admin server
-    if (message.author.id != 346246641595973633) {
-      return bot
-        .noPermsEmbed(`${message.guild.name}`, bot)
+    //Check Perms
+    if (message.author.id !== bot.settings.ids.botOwner) {
+      return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
     }
@@ -20,7 +19,7 @@ module.exports = {
 
     function syncServers(g) {
       //Loop through all guilds for server root
-      bot.guilds.forEach((g) => {
+      bot.guilds.cache.forEach((g) => {
         //Check if guild  files exist
         let guildexists = fs.existsSync(`./data/servers/server-${g.id}`);
         //If it dont create all the files
@@ -46,13 +45,8 @@ module.exports = {
             created: g.createdAt,
             blacklisted: false,
           };
-          fs.writeFileSync(
-            `./data/servers/server-${g.id}/serverstats.json`,
-            JSON.stringify(stats, null, 4),
-            (err) => {
-              if (err) return;
-            }
-          );
+          fs.writeFileSync(`./data/servers/server-${g.id}/serverstats.json`, JSON.stringify(stats, null, 4), (err) => { if (err) return; });
+          
           //Create server configuration file and set it to default contents
           let defaultContent = {
             welcomerenabled: false,
@@ -79,23 +73,12 @@ module.exports = {
             selfroleslist: [],
             levellingenabled: false,
           };
-          fs.writeFileSync(
-            `./data/servers/server-${g.id}/serverconfig.json`,
-            JSON.stringify(defaultContent, null, 4),
-            (err) => {
-              if (err) return;
-            }
-          );
+
+          fs.writeFileSync(`./data/servers/server-${g.id}/serverconfig.json`, JSON.stringify(defaultContent, null, 4), (err) => { if (err) return; });
 
           //levelling system
           let levelDefault = {};
-          fs.writeFileSync(
-            `./data/servers/server-${g.id}/levelling.json`,
-            JSON.stringify(levelDefault, null, 4),
-            (err) => {
-              if (err) return;
-            }
-          );
+          fs.writeFileSync(`./data/servers/server-${g.id}/levelling.json`, JSON.stringify(levelDefault, null, 4), (err) => { if (err) return; });
 
           //Check if files were generated successfully.
           var locations = [
@@ -154,20 +137,10 @@ module.exports = {
     }
 
     //Round up the goodies
-    console.log(
-      `[SYNC]`.blue,
-      `${amountsynced} servers have been synced in ${attempt} attempts.`.cyan
-    );
-    bot
-      .createEmbed(
-        "success",
-        "",
-        `**${amountsynced}** servers have been synced in ${attempt} attempts.`,
-        [],
-        `${message.guild.name}`,
-        bot
-      )
+    console.log(`[SYNC]`.blue, `${amountsynced} servers have been synced in ${attempt} attempts.`.cyan);
+    bot.createEmbed("success", "", `**${amountsynced}** servers have been synced in ${attempt} attempts.`, [], `${message.guild.name}`, bot)
       .then((embed) => message.channel.send(embed))
       .catch((error) => console.error(error));
-  },
+      
+  }
 };

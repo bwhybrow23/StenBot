@@ -10,9 +10,8 @@ module.exports = {
     const colors = require("colors");
 
     //Check if the command was sent in the team guild
-    if (message.guild.id != 455782308293771264) {
-      bot
-        .noPermsEmbed(`${message.guild.name}`, bot)
+    if (message.author.id != 346246641595973633) {
+      return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
     }
@@ -21,32 +20,16 @@ module.exports = {
 
     //Check if args have been included
     if (targetserver == undefined) {
-      bot
-        .createEmbed(
-          "error",
-          "",
-          `Error! You need to include the ID of the server to blacklist.`,
-          [],
-          `${message.guild.name}`,
-          bot
-        )
+      return bot.createEmbed("error", "", `Error! You need to include the ID of the server to blacklist.`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
     }
 
-    if (targetserver == bot.settings.guilds.mainGuild) {
-      bot
-        .createEmbed(
-          "error",
-          "",
-          `Error! You do not have permission to blacklist the bot's main guild.`,
-          [],
-          `${message.guild.name}`,
-          bot
-        )
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
-    }
+    // if (targetserver == bot.settings.guilds.mainGuild) {
+    //   return bot.createEmbed("error", "", `Error! You do not have permission to blacklist the bot's main guild.`, [], `${message.guild.name}`, bot)
+    //     .then((embed) => message.channel.send(embed))
+    //     .catch((error) => console.error(error));
+    // }
 
     //Attempt to read the servers stats file
     try {
@@ -57,21 +40,13 @@ module.exports = {
         )
       );
     } catch (err) {
-      bot
-        .createEmbed(
-          "error",
-          "",
-          `Error! I cannot find the server for the ID you provided.`,
-          [],
-          `${message.guild.name}`,
-          bot
-        )
+      return bot.createEmbed("error", "", `Error! I cannot find the server for the ID you provided.`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
     }
 
     //Get the target guilds guild object
-    const targetguild = bot.guilds.get(targetserver);
+    const targetguild = bot.guilds.cache.get(targetserver);
 
     //Set blacklist to true
     targetserverfile.blacklisted = true;
@@ -85,41 +60,17 @@ module.exports = {
     );
 
     //Black list success message
-    bot
-      .createEmbed(
-        "success",
-        "",
-        `Success!\nServer: **${targetguild.name} | ${targetguild.id}** has been blacklisted.`,
-        [],
-        `${message.guild.name}`,
-        bot
-      )
+    bot.createEmbed("success", "", `Success!\nServer: **${targetguild.name} | ${targetguild.id}** has been blacklisted.`, [], `${message.guild.name}`, bot)
       .then((embed) => message.channel.send(embed))
       .catch((error) => console.error(error));
 
     //Log message
-    bot
-      .createEmbed(
-        "warning",
-        "",
-        `Server **${targetguild.name} | ${targetguild.id}** has been blacklisted by **${message.author.tag}**`,
-        [],
-        `${message.guild.name}`,
-        bot
-      )
-      .then((embed) => bot.channels.get("565273737201713153").send(embed))
+    bot.createEmbed("warning", "", `Server **${targetguild.name} | ${targetguild.id}** has been blacklisted by **${message.author.tag}**`, [], `${message.guild.name}`, bot)
+      .then((embed) => bot.guilds.cache.get("455782308293771264").channels.cache.get("565273737201713153").send(embed))
       .catch((error) => console.error(error));
 
     //DM Guild Owner
-    bot
-      .createEmbed(
-        "warning",
-        "",
-        `I'm afraid that your server **${targetguild.name} has been blacklisted from StenBot. If you believe this is an error, please contact Stentorian#9524 or join the [Discord](https://discord.benwhybrow.com)`,
-        [],
-        `${message.guild.name}`,
-        bot
-      )
+    bot.createEmbed("error", "", `I'm afraid that your server **${targetguild.name}** has been blacklisted from StenBot. If you believe this is an error, please contact **Stentorian#9524** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${message.guild.name}`, bot)
       .then((embed) => targetguild.owner.send(embed))
       .catch((error) => console.error(error));
 

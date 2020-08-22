@@ -49,7 +49,7 @@ module.exports = {
         response = bot.loadCommand(args[0]);
         if (response) return message.reply(`Error Loading: ${response}`)
   
-        let doneEmbed = new Discord.RichEmbed()
+        let doneEmbed = new Discord.MessageEmbed()
             .setColor(bot.settings.color.green)
             .setDescription(`Command ${args[0]} has been reloaded successfully!`);
   

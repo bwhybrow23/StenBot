@@ -2,13 +2,13 @@ module.exports = {
   getMember: function (message, toFind = "") {
     toFind = toFind.toLowerCase();
 
-    let target = message.guild.members.get(toFind);
+    let target = message.guild.cache.members.get(toFind);
 
     if (!target && message.mentions.members)
       target = message.mentions.members.first();
 
     if (!target && toFind) {
-      target = message.guild.members.find((member) => {
+      target = message.guild.cache.members.find((member) => {
         return (
           member.displayName.toLowerCase().includes(toFind) ||
           member.user.tag.toLowerCase().includes(toFind)
@@ -19,6 +19,24 @@ module.exports = {
     if (!target) target = message.member;
 
     return target;
+  },
+
+  msToTime: function (ms) {
+    days = Math.floor(ms / 86400000); // 24*60*60*1000
+    daysms = ms % 86400000; // 24*60*60*1000
+    hours = Math.floor(daysms / 3600000); // 60*60*1000
+    hoursms = ms % 3600000; // 60*60*1000
+    minutes = Math.floor(hoursms / 60000); // 60*1000
+    minutesms = ms % 60000; // 60*1000
+    sec = Math.floor(minutesms / 1000);
+  
+    let str = "";
+    if (days) str = str + days + "d";
+    if (hours) str = str + hours + "h";
+    if (minutes) str = str + minutes + "m";
+    if (sec) str = str + sec + "s";
+  
+    return str;
   },
 
   formatDate: function (date) {
@@ -51,15 +69,15 @@ module.exports = {
     const logger = require("./console.js");
 
     let botData = JSON.parse(fs.readFileSync("./data/global/bot-data.json"));
-    let serverGuild = bot.guilds.get(bot.settings.ids.mainGuild);
+    let serverGuild = bot.guilds.cache.get(bot.settings.ids.mainGuild);
 
-    let serverChannel = serverGuild.channels.find((channel) => {
+    let serverChannel = serverGuild.channels.cache.find((channel) => {
       if (channel.name == "verification") {
         return channel;
       }
     });
 
-    serverChannel.fetchMessage(botData.verifMsgID).then((message) => {
+    serverChannel.messages.fetch(botData.verifMsgID).then((message) => {
       message.delete();
     });
 
@@ -213,23 +231,3 @@ module.exports = {
       .then((collected) => collected.first() && collected.first().emoji.name);
   },
 };
-
-//   Message counter increase
-// */
-// const messageCounter = (authorId) => {
-//     const messageCount = JSON.parse(fs.readFileSync("./storage/discord/messageCount.json"))
-//     var exist = false
-//     messageCount.records.forEach(record => {
-//       if (record.id == authorId) {
-//         exist = true
-//         record.messages = record.messages + 1
-//       }
-//     })
-//     if (exist === false) {
-//       messageCount.records.push({
-//         id: authorId,
-//         messages: 1
-//       })
-//     }
-//     fs.writeFileSync("./storage/discord/messageCount.json", JSON.stringify(messageCount, null, 4))
-// }

@@ -9,7 +9,7 @@ module.exports = {
     const Discord = require("discord.js");
     const superagent = require("superagent");
 
-    let helpE = new Discord.RichEmbed()
+    let helpE = new Discord.MessageEmbed()
       .setColor(bot.settings.color.blue)
       .setTitle("Command: Haveibeenpwned")
       .addField(

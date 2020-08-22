@@ -10,7 +10,7 @@ module.exports = {
     let subc = args[0];
 
     //TO BE COMPLETED
-    let mainEmbed = new Discord.RichEmbed()
+    let mainEmbed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.blue)
       .setTitle("Sponsors")
       .setDescription(
@@ -20,9 +20,9 @@ module.exports = {
         "Companies:",
         "`sb!sponsors kewlhost` - KewlHost \n`sb!ponsors shadow` - Shadow \n`sb!ponsors honey` - Honey \n`sb!ponsors Brave` - Brave Browser"
       )
-      .setFooter(message.author.tag, message.author.displayAvatarURL);
+      .setFooter(message.author.tag, message.author.displayAvatarURL());
 
-    let khEmbed = new Discord.RichEmbed()
+    let khEmbed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.yellow)
       .setTitle("Sponsor - KewlHost")
       .setURL(`https://discord.kewlhost.co.uk/`)
@@ -33,9 +33,9 @@ module.exports = {
         "Offer Code",
         "Use code `BEN` for 15% off your first order with KewlHost!"
       )
-      .setFooter(message.author.tag, message.author.displayAvatarURL);
+      .setFooter(message.author.tag, message.author.displayAvatarURL());
 
-    let shadowEmbed = new Discord.RichEmbed()
+    let shadowEmbed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.yellow)
       .setTitle("Sponsor - Shadow")
       .setURL(`https://shop.shadow.tech/gben/invite/BENZK7UF`)
@@ -46,9 +46,9 @@ module.exports = {
         "Offer Code",
         "Use code `BENZK7UF` for 10% off your first month of Shadow!"
       )
-      .setFooter(message.author.tag, message.author.displayAvatarURL);
+      .setFooter(message.author.tag, message.author.displayAvatarURL());
 
-    let honeyEmbed = new Discord.RichEmbed()
+    let honeyEmbed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.yellow)
       .setTitle("Sponsor - Honey")
       .setURL(`https://joinhoney.com/ref/28rmyvq`)
@@ -56,9 +56,9 @@ module.exports = {
         "Honey is a browser extension that is supported in most major browsers (Chrome, Firefox, Brave, etc) to apply the latest and greatest of promotion codes automatically when you're at the checkout on your favorite online store. It works on sites such as eBay, Udemy and Microsoft just to name a few. Signup today for FREE and start saving money!"
       )
       .addField("Referral Link", "https://joinhoney.com/ref/28rmyvq")
-      .setFooter(message.author.tag, message.author.displayAvatarURL);
+      .setFooter(message.author.tag, message.author.displayAvatarURL());
 
-    let braveEmbed = new Discord.RichEmbed()
+    let braveEmbed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.yellow)
       .setTitle("Sponsor - Brave Browser")
       .setURL(`https://brave.com/ste252`)
@@ -66,19 +66,19 @@ module.exports = {
         "Brave is a browser focused around creating a safer and faster internet. With its built in ad-blocker, own rewards program and it's Chromium back end, why not check it out. It's free! Download it for 30 days and if you don't like it, then just uninstall it!"
       )
       .addField("Referral Link", "https://brave.com/ste252")
-      .setFooter(message.author.tag, message.author.displayAvatarURL);
+      .setFooter(message.author.tag, message.author.displayAvatarURL());
 
-    let errorEmbed = new Discord.RichEmbed()
+    let errorEmbed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.red)
       .setDescription(`I cannot find a sponsor under the name of \`${subc}\``)
-      .setFooter(message.author.tag, message.author.displayAvatarURL);
+      .setFooter(message.author.tag, message.author.displayAvatarURL());
 
-    let googleEmbed = new Discord.RichEmbed()
+    let googleEmbed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.red)
       .setDescription(
         `I cannot find a sponsor under the name of \`google\`. I wished that was a thing.`
       )
-      .setFooter(message.author.tag, message.author.displayAvatarURL);
+      .setFooter(message.author.tag, message.author.displayAvatarURL());
 
     if (!subc || subc === "help") {
       message.channel.send(mainEmbed);

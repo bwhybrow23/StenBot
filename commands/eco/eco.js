@@ -8,8 +8,8 @@ module.exports = {
     const Discord = require("discord.js");
     const db = require("quick.db");
 
-    if (!message.author.id === bot.settings.ids.botOwner)
-      return message.reply("You do not have permission to run this command.");
+    if (message.author.id !== bot.settings.ids.botOwner)
+      return;
 
     let subc = args[0];
     let user = message.mentions.members.first();

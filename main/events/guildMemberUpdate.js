@@ -6,7 +6,7 @@ module.exports = async (bot, oldMember, newMember) => {
   if (config.loggingenabled == true) {
     if (config.logginglevel == "high") {
       if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
-        let lchannel = bot.channels.get(config.loggingchannel);
+        let lchannel = bot.channels.cache.get(config.loggingchannel);
         if (oldMember.nickname !== newMember.nickname) {
           lchannel.send({
             embed: {
@@ -30,7 +30,7 @@ module.exports = async (bot, oldMember, newMember) => {
             },
           });
         } else if (
-          efunctions.compare(oldMember.roles, newMember.roles) !== [] &&
+          efunctions.compare(oldMember.roles.cache, newMember.roles.cache) !== [] &&
           oldMember.roles.size < newMember.roles.size
         ) {
           let diffarr = efunctions.compare(oldMember.roles, newMember.roles);
@@ -50,7 +50,7 @@ module.exports = async (bot, oldMember, newMember) => {
             },
           });
         } else if (
-          efunctions.compare(oldMember.roles, newMember.roles) !== [] &&
+          efunctions.compare(oldMember.roles.cache, newMember.roles.cache) !== [] &&
           oldMember.roles.size > newMember.roles.size
         ) {
           let diffarr = efunctions.compare(oldMember.roles, newMember.roles);

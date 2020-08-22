@@ -8,12 +8,12 @@ module.exports = {
     const Discord = require("discord.js");
     const superagent = require("superagent");
 
-    let { body } = await superagent.get("https://random.dog/woof.json");
+    let { body } = await superagent.get(`http://api.thedogapi.com/v1/images/search`);
 
-    let dogEmbed = new Discord.RichEmbed()
+    const dogEmbed = new Discord.MessageEmbed()
+      .setTitle("Aww... Doggo!")
       .setColor("#ff9900")
-      .setTitle("Cute Doggo! :dog:")
-      .setImage(body.url)
+      .setImage(body[0].url)
       .setFooter(`${message.guild.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
     message.channel.send(dogEmbed);

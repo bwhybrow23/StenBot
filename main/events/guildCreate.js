@@ -19,17 +19,11 @@ module.exports = async (bot, guild) => {
   //Leave the guild if its blacklisted
   if (serverstats != undefined) {
     if (serverstats.blacklisted === true) {
-      guild.owner.send({
-        embed: {
-          color: bot.settings.color.red,
-          description: `I'm afraid that this bot isn't permitted to join the server ${guildname} because it is blacklisted. If you believe this is an error, please contact Stentorian#9524.`,
-        },
-      });
+      bot.createEmbed("error", "", `I'm afraid that StenBot cannot join your server **${guild.name}** as your server is blacklisted from the bot. If you believe this is an error, please contact **Stentorian#9524** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${guild.name}`, bot)
+              .then(embed => guild.owner.send(embed))
+              .catch(error => console.error(error))
       guild.leave();
-      console.log(
-        "[System]".grey +
-          `Left guild: ${guildname} | ${guild.id} because this server was blacklisted!`
-      );
+      console.log("[System]".grey + `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
     } else {
       return;
     }
@@ -115,7 +109,7 @@ module.exports = async (bot, guild) => {
 
   // Update Status
   if (bot.settings.mode === "production") {
-    let guilds = bot.guilds.size;
+    let guilds = bot.guilds.cache.size;
     bot.user.setPresence({
       game: {
         name: `sb!help on ${guilds} servers!`,

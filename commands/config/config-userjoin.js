@@ -28,15 +28,7 @@ module.exports = {
     }
 
     if (access == false) {
-      return bot
-        .createEmbed(
-          "error",
-          "",
-          `Error! You are not the owner or the admin of this guild.`,
-          [],
-          `${message.guild.name}`,
-          bot
-        )
+      return bot.createEmbed("error","",`Error! You are not the owner or the admin of this guild.`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
     }
@@ -45,15 +37,7 @@ module.exports = {
     let setting = args[0];
 
     if (setting == undefined) {
-      return bot
-        .createEmbed(
-          "error",
-          "",
-          `Error! You forgot to include a userjoin config setting.`,
-          [],
-          `${message.guild.name}`,
-          bot
-        )
+      return bot.createEmbed("error","",`Error! You forgot to include a userjoin config setting.`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
     }
@@ -65,69 +49,33 @@ module.exports = {
     switch (setting) {
       case "enable":
         if (config.userjoinenabled) {
-          return bot
-            .createEmbed(
-              "error",
-              "",
-              `Error! Userjoin is already enabled.`,
-              [],
-              `${message.guild.name}`,
-              bot
-            )
+          return bot.createEmbed("error","",`Error! Userjoin is already enabled.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => console.error(error));
         }
         config.userjoinenabled = true;
-        fs.writeFileSync(
-          `./data/servers/server-${message.guild.id}/serverconfig.json`,
-          JSON.stringify(config, null, 4),
+        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
           (err) => {
             if (err) return;
           }
         );
-        bot
-          .createEmbed(
-            "success",
-            "",
-            `Userjoin has been enabled!`,
-            [],
-            `${message.guild.name}`,
-            bot
-          )
+        bot.createEmbed("success","",`Userjoin has been enabled!`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => console.error(error));
         break;
       case "disable":
         if (!config.userjoinenabled) {
-          return bot
-            .createEmbed(
-              "error",
-              "",
-              `Error! Userjoin is already disabled!`,
-              [],
-              `${message.guild.name}`,
-              bot
-            )
+          return bot.createEmbed("error","",`Error! Userjoin is already disabled!`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => console.error(error));
         }
         config.userjoinenabled = false;
-        fs.writeFileSync(
-          `./data/servers/server-${message.guild.id}/serverconfig.json`,
-          JSON.stringify(config, null, 4),
+        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
           (err) => {
             if (err) return;
           }
         );
-        return bot
-          .createEmbed(
-            "success",
-            "",
-            `Userjoin has been disabled!`,
-            [],
-            `${message.guild.name}`,
-            bot
-          )
+        return bot.createEmbed("success","",`Userjoin has been disabled!`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => console.error(error));
         break;
@@ -135,82 +83,40 @@ module.exports = {
         var targetrole = message.mentions.roles.first();
 
         if (!config.userjoinenabled) {
-          return bot
-            .createEmbed(
-              "error",
-              "",
-              `Error! Userjoin is not enabled. You can enable it with **sb!config-userjoin enable**`,
-              [],
-              `${message.guild.name}`,
-              bot
-            )
+          return bot.createEmbed("error","",`Error! Userjoin is not enabled. You can enable it with **sb!config-userjoin enable**`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => console.error(error));
         }
         if (targetrole == undefined) {
-          return bot
-            .createEmbed(
-              "error",
-              "",
-              `Error! You haven't mentioned a role to set.`,
-              [],
-              `${message.guild.name}`,
-              bot
-            )
+          return bot.createEmbed("error","",`Error! You haven't mentioned a role to set.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => console.error(error));
         }
 
-        let botmember = message.guild.members.get(bot.user.id);
+        let botmember = message.guild.members.cache.get(bot.user.id);
         let comparedpos = targetrole.comparePositionTo(botmember.highestRole);
 
         if (comparedpos > 0) {
-          return bot
-            .createEmbed(
-              "error",
-              "",
-              `Error! That role is higher than the bot, therefore the bot cannot add the role to a user. Please fix this by moving the role below the bot's highest role.`,
-              [],
-              `${message.guild.name}`,
-              bot
-            )
+          return bot.createEmbed("error","",`Error! That role is higher than the bot, therefore the bot cannot add the role to a user. Please fix this by moving the role below the bot's highest role.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => console.error(error));
         }
 
         if (targetrole.id == config.userjoinedrole) {
-          return bot
-            .createEmbed(
-              "error",
-              "",
-              `Error! That role is already set as the auto-role.`,
-              [],
-              `${message.guild.name}`,
-              bot
-            )
+          return bot.createEmbed("error","",`Error! That role is already set as the auto-role.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => console.error(error));
         }
 
         config.userjoinedrole = targetrole.id;
 
-        fs.writeFileSync(
-          `./data/servers/server-${message.guild.id}/serverconfig.json`,
-          JSON.stringify(config, null, 4),
+        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
           (err) => {
             if (err) return;
           }
         );
 
-        bot
-          .createEmbed(
-            "success",
-            "",
-            `Auto-role is set to **${targetrole.name}**.`,
-            [],
-            `${message.guild.name}`,
-            bot
-          )
+        bot.createEmbed("success","",`Auto-role is set to **${targetrole.name}**.`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => console.error(error));
         break;
@@ -218,63 +124,29 @@ module.exports = {
         var name = args.slice(1).join(" ");
 
         if (name == undefined) {
-          return bot
-            .createEmbed(
-              "error",
-              "",
-              `Error! You didn't include a name!`,
-              [],
-              `${message.guild.name}`,
-              bot
-            )
+          return bot.createEmbed("error","",`Error! You didn't include a name!`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => console.error(error));
         }
 
         if (name.length > 32) {
-          return bot
-            .createEmbed(
-              "error",
-              "",
-              `Error! The name is too long! It has to be less than **32** characters!`,
-              [],
-              `${message.guild.name}`,
-              bot
-            )
+          return bot.createEmbed("error","",`Error! The name is too long! It has to be less than **32** characters!`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => console.error(error));
         }
 
         config.userjoinedname = name;
-        fs.writeFileSync(
-          `./data/servers/server-${message.guild.id}/serverconfig.json`,
-          JSON.stringify(config, null, 4),
+        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
           (err) => {
             if (err) return;
           }
         );
-        bot
-          .createEmbed(
-            "success",
-            "",
-            `Auto-name is set to **${name}**`,
-            [],
-            `${message.guild.name}`,
-            bot
-          )
+        bot.createEmbed("success","",`Auto-name is set to **${name}**`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => console.error(error));
         break;
       default:
-        return bot
-          .createEmbed(
-            "error",
-            "",
-            `Error! There isn't a userjoin config setting called **${setting}**`,
-            [],
-            `${message.guild.name}`,
-            bot
-          )
+        return bot.createEmbed("error","",`Error! There isn't a userjoin config setting called **${setting}**`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => console.error(error));
     }

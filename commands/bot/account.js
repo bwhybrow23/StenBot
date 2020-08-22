@@ -31,7 +31,7 @@ module.exports = {
       });
     }
     //Check if they included a setting
-    let helpE = new Discord.RichEmbed()
+    let helpE = new Discord.MessageEmbed()
       .setColor(bot.settings.color.blue)
       .setTitle("Command: Account")
       .addField("Description:", "Create and manage your StenBot account.", true)
@@ -52,15 +52,7 @@ module.exports = {
           `./data/accounts/${message.author.id}.json`
         );
         if (accountexists == true) {
-          bot
-            .createEmbed(
-              "error",
-              "",
-              `You already have a StenBot Account`,
-              [],
-              `${message.guild.name}`,
-              bot
-            )
+          return bot.createEmbed("error", "", `You already have a StenBot Account`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => console.error(error));
         }
@@ -90,29 +82,13 @@ module.exports = {
         });
 
         //And return..
-        bot
-          .createEmbed(
-            "success",
-            "",
-            `Your StenBot Account has been created! :white_check_mark:`,
-            [],
-            `${message.guild.name}`,
-            bot
-          )
+        bot.createEmbed("success", "", `Your StenBot Account has been created! :white_check_mark:`, [], `${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => console.error(error));
 
         break;
       default:
-        bot
-          .createEmbed(
-            "success",
-            "",
-            `Error! No account command called **${setting}**`,
-            [],
-            `${message.guild.name}`,
-            bot
-          )
+        return bot.createEmbed("success", "", `Error! No account command called **${setting}**`, [], `${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => console.error(error));
     }

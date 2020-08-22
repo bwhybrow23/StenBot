@@ -8,9 +8,7 @@ module.exports = {
     const Discord = require("discord.js");
 
     let invites = await message.guild.fetchInvites().catch((error) => {
-      return message.channel.send(
-        "Sorry, I don't have the proper permissions to view invites!"
-      );
+      return message.channel.send("Sorry, I don't have the proper permissions to view invites!");
     });
 
     invites = invites.array();
@@ -20,7 +18,7 @@ module.exports = {
       possibleinvites.push(`${invites.inviter.username} ||  ${invites.uses}`);
     });
 
-    const lbEmbed = new Discord.RichEmbed()
+    const lbEmbed = new Discord.MessageEmbed()
       .setTitle(`**INVITE LIST**`)
       .setColor(bot.settings.color.yellow)
       .addField("Invites", `\`\`\`${possibleinvites.join("\n")}\`\`\``)

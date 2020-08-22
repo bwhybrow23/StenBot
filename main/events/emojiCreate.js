@@ -2,20 +2,18 @@ module.exports = async (bot, emoji) => {
   const Discord = require("discord.js");
   const efunctions = require("../functions/eventfunctions.js");
 
+  //Get Config
   let config = efunctions.getConfig(emoji.guild.id);
+
+  //Check config and stuff
   if (config.loggingenabled == true) {
     if (config.logginglevel == "high") {
       if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
-        let lchannel = bot.channels.get(config.loggingchannel);
+        let lchannel = bot.channels.cache.get(config.loggingchannel);
         let author = await emoji.fetchAuthor();
-        lchannel.send({
-          embed: {
-            color: bot.settings.color.yellow,
-            description: `**Emoji Created**\n**Name:** ${emoji.name}\n**Identifier:** ${emoji.identifier}\n**Created by:** ${author}`,
-            footer: { icon_url: emoji.url, text: "Emoji Created" },
-            timestamp: new Date(),
-          },
-        });
+        bot.createEmbed("warning", "", `**Emoji Created**\n**Name:** ${emoji.name}\n**Identifier:** ${emoji.identifier}\n**Created by:** ${author}`, [], `${channel.guild.name}`, bot)
+              .then(embed => lchannel.send(embed))
+              .catch(error => console.error(error))
       }
     }
   }

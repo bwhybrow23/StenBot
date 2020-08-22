@@ -70,7 +70,7 @@ const createEmbed = (type, title, desc, fields, footer, bot) => {
       }
     });
     //Footer icon
-    // embedTemplate.footer.icon_url = bot.user.displayAvatarURL
+    // embedTemplate.footer.icon_url = bot.user.displayAvatarURL()
     resolve(embedTemplate);
   });
 };

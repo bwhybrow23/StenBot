@@ -65,121 +65,18 @@ module.exports = {
 
     //Check if they have required permissions
     if (adminperm === true) {
-      bot
-        .createEmbed(
-          "warning",
-          `${servertag} Configuration`,
-          `Your Configuration`,
-          [
-            {
-              name: "Welcomer",
-              value: `Enabled: **${
-                serverconfigfile.welcomerenabled ? "Yes" : "No"
-              } **\nWelcomer Channel: **${welcomerchannel}**\nWelcomer Message: **${
-                serverconfigfile.welcomermessage
-              }**`,
-            },
-            {
-              name: "User Join",
-              value: `Enabled: **${
-                serverconfigfile.userjoinenabled ? "Yes" : "No"
-              }**\nAdd Role: **${userjoinrole}**\nSet Nick: **${userjoinnick}**`,
-            },
-            {
-              name: "Staff",
-              value: `Staff Role: **${staffrole}**\nAdmin Commands: **${
-                serverconfigfile.staffadminenabled ? "Enabled" : "Disabled"
-              }**\nLink Blocker: **${
-                serverconfigfile.stafflinkblocker ? "Enabled" : "Disabled"
-              }**\nWord Filter: **${stafffilter}**\nAutoBan: **${staffban}**`,
-            },
-            {
-              name: "Logging",
-              value: `Enabled: **${
-                serverconfigfile.loggingenabled ? "Yes" : "No"
-              }**\nLogging Channel: **${logchannel}**\nLevel: **${
-                serverconfigfile.logginglevel
-              }**`,
-            },
-            {
-              name: "Tickets",
-              value: `Enabled: **${
-                serverconfigfile.ticketsenabled ? "Yes" : "No"
-              }**\nTicket Message: **${ticketmessage}**`,
-            },
-            {
-              name: "Music",
-              value: `Enabled: **${
-                serverconfigfile.musicenabled ? "Yes" : "No"
-              }**`,
-            },
-          ],
-          `${message.guild.name}`,
-          bot
-        )
+      bot.createEmbed("warning",`${servertag} Configuration`,`Your Configuration`,[{name: "Welcomer",value: `Enabled: **${serverconfigfile.welcomerenabled ? "Yes" : "No"} **\nWelcomer Channel: **${welcomerchannel}**\nWelcomer Message: **${serverconfigfile.welcomermessage}**`,},{name: "User Join",value: `Enabled: **${serverconfigfile.userjoinenabled ? "Yes" : "No"}**\nAdd Role: **${userjoinrole}**\nSet Nick: **${userjoinnick}**`,},{name: "Staff",value: `Staff Role: **${staffrole}**\nAdmin Commands: **${serverconfigfile.staffadminenabled ? "Enabled" : "Disabled"}**\nLink Blocker: **${serverconfigfile.stafflinkblocker ? "Enabled" : "Disabled"}**\nWord Filter: **${stafffilter}**\nAutoBan: **${staffban}**`,},{name: "Logging",value: `Enabled: **${serverconfigfile.loggingenabled ? "Yes" : "No"}**\nLogging Channel: **${logchannel}**\nLevel: **${serverconfigfile.logginglevel}**`,},{name: "Tickets",value: `Enabled: **${serverconfigfile.ticketsenabled ? "Yes" : "No"}**\nTicket Message: **${ticketmessage}**`,},{name: "Music",value: `Enabled: **${serverconfigfile.musicenabled ? "Yes" : "No"}**`,},],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
       return;
     }
     if (ownersid == message.author.id) {
-      bot
-        .createEmbed(
-          "warning",
-          `${servertag} Configuration`,
-          `Your Configuration`,
-          [
-            {
-              name: "Welcomer",
-              value: `Enabled: **${
-                serverconfigfile.welcomerenabled ? "Yes" : "No"
-              } **\nWelcomer Channel: **${welcomerchannel}**\nWelcomer Message: **${
-                serverconfigfile.welcomermessage
-              }**`,
-            },
-            {
-              name: "User Join",
-              value: `Enabled: **${
-                serverconfigfile.userjoinenabled ? "Yes" : "No"
-              }**\nAdd Role: **${userjoinrole}**\nSet Nick: **${userjoinnick}**`,
-            },
-            {
-              name: "Staff",
-              value: `Staff Role: **${staffrole}**\nAdmin Commands: **${
-                serverconfigfile.staffadminenabled ? "Enabled" : "Disabled"
-              }**\nLink Blocker: **${
-                serverconfigfile.stafflinkblocker ? "Enabled" : "Disabled"
-              }**\nWord Filter: **${stafffilter}**\nAutoBan: **${staffban}**`,
-            },
-            {
-              name: "Logging",
-              value: `Enabled: **${
-                serverconfigfile.loggingenabled ? "Yes" : "No"
-              }**\nLogging Channel: **${logchannel}**\nLevel: **${
-                serverconfigfile.logginglevel
-              }**`,
-            },
-            {
-              name: "Tickets",
-              value: `Enabled: **${
-                serverconfigfile.ticketsenabled ? "Yes" : "No"
-              }**\nTicket Message: **${ticketmessage}**`,
-            },
-            {
-              name: "Music",
-              value: `Enabled: **${
-                serverconfigfile.musicenabled ? "Yes" : "No"
-              }**`,
-            },
-          ],
-          `${message.guild.name}`,
-          bot
-        )
+      bot.createEmbed("warning",`${servertag} Configuration`,`Your Configuration`,[{name: "Welcomer",value: `Enabled: **${serverconfigfile.welcomerenabled ? "Yes" : "No"} **\nWelcomer Channel: **${welcomerchannel}**\nWelcomer Message: **${serverconfigfile.welcomermessage}**`,},{name: "User Join",value: `Enabled: **${serverconfigfile.userjoinenabled ? "Yes" : "No"}**\nAdd Role: **${userjoinrole}**\nSet Nick: **${userjoinnick}**`,},{name: "Staff",value: `Staff Role: **${staffrole}**\nAdmin Commands: **${serverconfigfile.staffadminenabled ? "Enabled" : "Disabled"}**\nLink Blocker: **${serverconfigfile.stafflinkblocker ? "Enabled" : "Disabled"}**\nWord Filter: **${stafffilter}**\nAutoBan: **${staffban}**`,},{name: "Logging",value: `Enabled: **${serverconfigfile.loggingenabled ? "Yes" : "No"}**\nLogging Channel: **${logchannel}**\nLevel: **${serverconfigfile.logginglevel}**`,},{name: "Tickets",value: `Enabled: **${serverconfigfile.ticketsenabled ? "Yes" : "No"}**\nTicket Message: **${ticketmessage}**`,},{name: "Music",value: `Enabled: **${serverconfigfile.musicenabled ? "Yes" : "No"}**`,},],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
       return;
     }
-    bot
-      .noPermsEmbed(`${message.guild.name}`, bot)
+    bot.noPermsEmbed(`${message.guild.name}`, bot)
       .then((embed) => message.channel.send(embed))
       .catch((error) => console.error(error));
   },

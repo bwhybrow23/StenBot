@@ -16,7 +16,7 @@ module.exports = async (bot, message) => {
           ".js";
         if (files.includes(possiblefilename)) return;
 
-        let lchannel = bot.channels.get(config.loggingchannel);
+        let lchannel = bot.channels.cache.get(config.loggingchannel);
         lchannel.send({
           embed: {
             color: bot.settings.color.yellow,

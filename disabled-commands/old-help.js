@@ -19,7 +19,7 @@ module.exports = {
 };
 
 function getAll(bot, message) {
-  const embed = new Discord.RichEmbed().setColor(bot.settings.color.blue);
+  const embed = new Discord.MessageEmbed().setColor(bot.settings.color.blue);
 
   // Map all the commands
   // with the specific category
@@ -44,7 +44,7 @@ function getAll(bot, message) {
 }
 
 function getCMD(bot, message, input) {
-  const embed = new Discord.RichEmbed();
+  const embed = new Discord.MessageEmbed();
 
   // Get the cmd by the name or alias
   const cmd =

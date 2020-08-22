@@ -5,6 +5,7 @@ module.exports = {
   usage: "sb!daily",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
+    
     const Discord = require("discord.js");
     const fs = require("fs");
     const db = require("quick.db");
@@ -18,27 +19,11 @@ module.exports = {
     if (daily !== null && timeout - (Date.now() - daily) > 0) {
       let time = ms(timeout - (Date.now() - daily));
 
-      bot
-        .createEmbed(
-          "error",
-          "Daily Reward",
-          `Error! You have already redeemed your daily reward for today. \nYou can redeem it again in **${time.hours}h ${time.minutes} and ${time.seconds}s**!`,
-          [],
-          `${message.guild.name}`,
-          bot
-        )
+      bot.createEmbed("error","Daily Reward",`Error! You have already redeemed your daily reward for today. \nYou can redeem it again in **${time.hours}h ${time.minutes} and ${time.seconds}s**!`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
     } else {
-      bot
-        .createEmbed(
-          "success",
-          "",
-          `Congrats, you just won ${amount} coins for today's daily reward. Come back in 24 hours to redeem again!`,
-          [],
-          `${message.guild.name}`,
-          bot
-        )
+      bot.createEmbed("success","",`Congrats, you just won ${amount} coins for today's daily reward. Come back in 24 hours to redeem again!`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => console.error(error));
 

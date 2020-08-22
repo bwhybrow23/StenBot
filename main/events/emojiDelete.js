@@ -6,7 +6,7 @@ module.exports = async (bot, emoji) => {
   if (config.loggingenabled == true) {
     if (config.logginglevel == "high") {
       if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
-        let lchannel = bot.channels.get(config.loggingchannel);
+        let lchannel = bot.channels.cache.get(config.loggingchannel);
         lchannel.send({
           embed: {
             color: bot.settings.color.yellow,
@@ -15,6 +15,9 @@ module.exports = async (bot, emoji) => {
             timestamp: new Date(),
           },
         });
+        bot.createEmbed("warning", "", `**Emoji Deleted**\n**Name:** ${emoji.name}\n**Created at:** ${emoji.createdAt}`, [], `${channel.guild.name}`, bot)
+              .then(embed => lchannel.send(embed))
+              .catch(error => console.error(error))
       }
     }
   }

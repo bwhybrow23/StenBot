@@ -8,7 +8,7 @@ module.exports = async (bot, oldRole, newRole) => {
   if (config.loggingenabled == true) {
     if (config.logginglevel == "high") {
       if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
-        let lchannel = bot.channels.get(config.loggingchannel);
+        let lchannel = bot.channels.cache.get(config.loggingchannel);
         if (oldRole.name !== newRole.name) {
           lchannel.send({
             embed: {

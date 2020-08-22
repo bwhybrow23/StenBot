@@ -31,7 +31,7 @@ module.exports = {
 
     //Check if staff role is valid or set
     if (config.staffrole) {
-      if (message.guild.roles.get(config.staffrole == undefined)) {
+      if (message.guild.roles.cache.get(config.staffrole == undefined)) {
         return errsend("The staff role set is no longer valid.");
       }
     } else {
@@ -46,18 +46,18 @@ module.exports = {
     //add user
     let toBeAdded = message.mentions.members.first();
     try {
-      channel.overwritePermissions(toBeAdded.id, {
+      message.channel.createOverwrite(toBeAdded.id, {
         SEND_MESSAGES: true,
-        READ_MESSAGES: true,
+        VIEW_CHANNEL: true
       });
     } catch (e) {
-      return errsend("Error in adding this user. Please check the console.");
+      errsend("Error in adding this user. Please check the console.");
       console.log("[SYSTEM]".grey, e);
     }
 
-    let embed = new Discord.RichEmbed()
-      .setColor(bot.setting.color.green)
-      .setDescription(`The user ${toBeAdded.tag} has been added to the ticket.`)
+    let embed = new Discord.MessageEmbed()
+      .setColor(bot.settings.color.green)
+      .setDescription(`The user **${toBeAdded.user.tag}** has been added to the ticket.`)
       .setAuthor(message.guild.name, `https://i.imgur.com/BkZY6H8.png`)
       .setTimestamp();
 

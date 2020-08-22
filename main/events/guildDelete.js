@@ -6,7 +6,7 @@ module.exports = async (bot, guild) => {
 
   // Update Status
   if (bot.settings.mode === "production") {
-    let guilds = bot.guilds.size;
+    let guilds = bot.guilds.cache.size;
     bot.user.setPresence({
       game: {
         name: `sb!help on ${guilds} servers!`,

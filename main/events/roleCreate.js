@@ -5,7 +5,7 @@ module.exports = async (bot, role) => {
   let config = efunctions.getConfig(role.guild.id);
   if (config.loggingenabled == true) {
     if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
-      let lchannel = bot.channels.get(config.loggingchannel);
+      let lchannel = bot.channels.cache.get(config.loggingchannel);
       lchannel.send({
         embed: {
           color: bot.settings.color.yellow,

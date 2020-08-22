@@ -25,19 +25,13 @@ module.exports = {
     let result = Math.floor(Math.random() * replies.length);
     let question = args.slice(0).join(" ");
 
-    let ballEmbed = new Discord.RichEmbed()
+    let ballEmbed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.yellow)
       .addField("Question", question)
       .addField("Answer", replies[result])
       .setFooter(`${message.guild.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
-    message.channel
-      .send("The 8ball is working it's magic! :tada:")
-      .then((m) => {
-        setTimeout(() => {
-          m.edit(ballEmbed);
-        }, 1000);
-      })
+    message.channel.send("The 8ball is working it's magic! :tada:").then((m) => {setTimeout(() => {m.edit(ballEmbed);}, 1000);})
       .catch((e) => {
         console.log(e);
       });

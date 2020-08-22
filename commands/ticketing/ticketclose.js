@@ -15,7 +15,7 @@ module.exports = {
       if (message.channel.name.startsWith("ticket-")) {
         if (config.loggingenabled) {
           if (eventFunctions.checkChannel(config.loggingchannel, bot)) {
-            message.guild.channels.get(config.loggingchannel).send({
+            message.guild.channels.cache.get(config.loggingchannel).send({
               embed: {
                 color: bot.settings.color.yellow,
                 description: `**Ticket Closed**\n**Channel:** ${message.channel.name}\n**ID:** ${message.channel.id}`,

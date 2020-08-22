@@ -28,7 +28,7 @@ module.exports = {
           });
         }
         //Bug report message
-        const bugreport = new Discord.RichEmbed()
+        const bugreport = new Discord.MessageEmbed()
           .setTitle("New Bug Report.")
           .setColor(bot.settings.color.yellow)
           .setDescription(
@@ -40,7 +40,7 @@ module.exports = {
           `A bug report has been created by ${message.author.tag} | ${message.author.id}`
             .yellow
         );
-        bot.channels.get("518729627586527232").send(bugreport);
+        bot.channels.cache.get("518729627586527232").send(bugreport);
 
         message.channel.send({
           embed: {
@@ -74,14 +74,14 @@ module.exports = {
         }
 
         //PLayer report message
-        const playerreport = new Discord.RichEmbed()
+        const playerreport = new Discord.MessageEmbed()
           .setTitle("New Player Report.")
           .setColor(bot.settings.color.yellow)
           .setDescription(
             `Platform: **Discord**\n\nReporter Username: **${message.author}**\nReporter User Id: **${message.author.id}**\nFrom Server: **${message.guild.name} | ${message.guild.id}**\nTime: **${thedate}**\n\nReported User: **${member.user}**\nReported Users Id: **${member.id}**\nReport: \n**${playerreportmsg}**`
           );
 
-        bot.channels.get("518729627586527232").send(playerreport);
+        bot.channels.cache.get("518729627586527232").send(playerreport);
         console.log(
           `[SYSTEM]`.grey,
           `A player report has been created by ${message.author.tag} | ${message.author.id}`

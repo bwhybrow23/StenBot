@@ -7,6 +7,7 @@ const utils = require("./utilities.js");
  * @param {*} reaction
  * @param {*} user
  */
+
 const verifiedRole = (reaction, user) => {
   reaction.remove(user);
 

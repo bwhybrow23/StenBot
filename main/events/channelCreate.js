@@ -2,24 +2,20 @@ module.exports = async (bot, channel) => {
   const Discord = require("discord.js");
   const efunctions = require("../functions/eventfunctions.js");
 
-  if ((channel.type = "dm")) return;
+  if ((channel.type === "dm")) return;
 
-  //Get config
+  //Get Config
   let config = efunctions.getConfig(channel.guild.id);
 
-  //Check if logging is enabled
+  //Check config and send message
   if (config.loggingenabled == true) {
-    //Check if channel is valid
-    if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
-      let lchannel = bot.channels.get(config.loggingchannel);
-      lchannel.send({
-        embed: {
-          color: bot.settings.color.yellow,
-          description: `**Channel Created**\n**Name:** ${channel.name}\n**Id:** ${channel.id}`,
-          footer: { text: "Channel Created" },
-          timestamp: new Date(),
-        },
-      });
-    }
+    if (config.logginglevel == "low" || config.logginglevel == "medium" || config.logginglevel == "high") {
+      if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
+        let lchannel = bot.channels.cache.get(config.loggingchannel);
+        bot.createEmbed("warning", "", `**Channel Created**\n**Name:** ${channel.name}\n**Id:** ${channel.id}`, [], `${channel.guild.name}`, bot)
+              .then(embed => lchannel.send(embed))
+              .catch(error => console.error(error))
+      }
+    } 
   }
 };

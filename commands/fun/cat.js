@@ -8,12 +8,12 @@ module.exports = {
     const Discord = require("discord.js");
     const superagent = require("superagent");
 
-    let { body } = await superagent.get(`http://aws.random.cat/meow`);
+    let { body } = await superagent.get(`http://api.thecatapi.com/v1/images/search`);
 
-    const catEmbed = new Discord.RichEmbed()
+    const catEmbed = new Discord.MessageEmbed()
       .setTitle("Aww... Kitty!")
       .setColor("#ff9900")
-      .setImage(body.file)
+      .setImage(body[0].url)
       .setFooter(`${message.guild.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
     message.channel.send(catEmbed);
