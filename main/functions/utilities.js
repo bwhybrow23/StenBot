@@ -89,8 +89,7 @@ module.exports = {
             "Make sure to read <#624316687537405954> and then click the ✅ to get access to the rest of the discord.",
           color: bot.settings.color.yellow,
           footer: {
-            icon_url:
-              "https://cdn.discordapp.com/icons/455782308293771264/f1b9f8fab440a16edb3c4cabc5904e17.webp?size=256",
+            icon_url: bot.user.avatarURL({format:"png"}),
             text: "If you have any issues DM Stentorian#9524 on Discord!",
           },
         },

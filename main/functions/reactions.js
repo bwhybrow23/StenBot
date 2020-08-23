@@ -9,19 +9,18 @@ const utils = require("./utilities.js");
  */
 
 const verifiedRole = (reaction, user) => {
-  reaction.remove(user);
+  reaction.users.remove(user);
 
-  const role = reaction.message.guild.roles.find(
+  const role = reaction.message.guild.roles.cache.find(
     (r) => r.id === "455794398438096896"
   );
 
-  reaction.message.guild
-    .fetchMember(user)
+  reaction.message.guild.members.fetch(user)
     .then((u) => {
-      if (u.roles.has(role.id)) {
+      if (u.roles.cache.has(role.id)) {
         // console.log(`${user.username} already verified.`);
       } else {
-        u.addRole(role);
+        u.roles.add(role);
         // console.log(`Verified ${user.username}.`)
       }
     })
