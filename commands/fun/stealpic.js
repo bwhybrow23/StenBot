@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!stealpic <@USER>",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
 
     let stolen = message.mentions.users.first();
     let stolenPic = stolen.avatarURL();

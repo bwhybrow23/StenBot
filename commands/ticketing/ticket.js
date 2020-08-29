@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!ticket <REASON>",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
+
       const Discord = require("discord.js");
+      if (!message.guild) return;
       const fs = require("fs");
 
       const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
@@ -37,7 +39,7 @@ module.exports = {
       if (config.staffrole == false) {
           return bot.createEmbed("error", "", `Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
-              .catch((error) => console.error(error));
+              .catch((error) => bot.logger("error", error));
       }
 
       let staffrole = message.guild.roles.cache.find(
@@ -47,7 +49,7 @@ module.exports = {
       if (staffrole == undefined) {
           return bot.createEmbed("error", "", `Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`sb!config-staff role <@ROLE>\``, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
-              .catch((error) => console.error(error));
+              .catch((error) => bot.logger("error", error));
       }
 
       //Check if supplied sufficient reason

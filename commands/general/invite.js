@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!invite",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
+    
     const Discord = require("discord.js");
+    if (!message.guild) return;
 
     let bicon = bot.user.avatarURL;
 

@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!8ball <MESSAGE>",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
 
     if (!args[0]) return message.channel.send("Help embed needs doing.");
 
@@ -33,7 +35,7 @@ module.exports = {
 
     message.channel.send("The 8ball is working it's magic! :tada:").then((m) => {setTimeout(() => {m.edit(ballEmbed);}, 1000);})
       .catch((e) => {
-        console.log(e);
+        bot.logger("error", e);
       });
   },
 };

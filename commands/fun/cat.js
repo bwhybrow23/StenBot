@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!cat",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
     const superagent = require("superagent");
 
     let { body } = await superagent.get(`http://api.thecatapi.com/v1/images/search`);

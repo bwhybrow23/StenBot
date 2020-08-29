@@ -5,11 +5,13 @@ module.exports = {
   usage: "sb!ticketclose",
   permission: "STAFF",
   run: async (bot, message, args) => {
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
     const fs = require("fs");
 
     const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
-    const eventFunctions = require(`../../main/functions/eventfunctions.js`);
+    const eventFunctions = require(`../../main/functions/eventUtils.js`);
 
     if (message.channel.parent.name === "Tickets") {
       if (message.channel.name.startsWith("ticket-")) {

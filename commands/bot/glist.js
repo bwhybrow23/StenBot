@@ -7,11 +7,12 @@ module.exports = {
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
+    if (!message.guild) return;
 
     if (message.author.id !== bot.settings.ids.botOwner) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
 
     let guildList = [];
@@ -21,6 +22,6 @@ module.exports = {
 
     bot.createEmbed("info", "**Guild List**", "", [{ name: "Guilds", value: `\`\`\`${guildList.join("\n")}\`\`\``}], `${message.guild.name}`, bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => console.error(error));
+      .catch((error) => bot.logger("error", error));
   }
 };

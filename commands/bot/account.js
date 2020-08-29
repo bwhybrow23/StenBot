@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!account create",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
     const fs = require("fs");
     var format = require("string-template");
     const download = require("image-downloader");
@@ -54,7 +56,7 @@ module.exports = {
         if (accountexists == true) {
           return bot.createEmbed("error", "", `You already have a StenBot Account`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
-            .catch((error) => console.error(error));
+            .catch((error) => bot.logger("error", error));
         }
 
         //Create new account file since it doesnt exist!
@@ -84,13 +86,13 @@ module.exports = {
         //And return..
         bot.createEmbed("success", "", `Your StenBot Account has been created! :white_check_mark:`, [], `${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
-          .catch((error) => console.error(error));
+          .catch((error) => bot.logger("error", error));
 
         break;
       default:
         return bot.createEmbed("success", "", `Error! No account command called **${setting}**`, [], `${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
-          .catch((error) => console.error(error));
+          .catch((error) => bot.logger("error", error));
     }
   },
 };

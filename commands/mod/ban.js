@@ -6,6 +6,7 @@ module.exports = {
   permission: "STAFF",
   run: async (bot, message, args) => {
       const Discord = require("discord.js");
+      if (!message.guild) return;
       const fs = require("fs");
 
       var config = JSON.parse(
@@ -15,7 +16,7 @@ module.exports = {
       if (config.staffrole == false) {
           return bot.createEmbed("error", "", `Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
-              .catch((error) => console.error(error));
+              .catch((error) => bot.logger("error", error));
       }
 
       let staffrole = message.guild.roles.cache.find(
@@ -25,7 +26,7 @@ module.exports = {
       if (staffrole == undefined) {
           return bot.createEmbed("error", "", `Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`sb!config-staff role <@ROLE>\``, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
-              .catch((error) => console.error(error));
+              .catch((error) => bot.logger("error", error));
       }
 
       if (!message.member.roles.cache.has(config.staffrole)) {
@@ -37,7 +38,7 @@ module.exports = {
       if (targetuser == undefined) {
           return bot.createEmbed("error", "", `Error! You forgot to mention a user!`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
-              .catch((error) => console.error(error));
+              .catch((error) => bot.logger("error", error));
       }
 
       var reason = args.slice(1).join(" ");
@@ -45,13 +46,13 @@ module.exports = {
       if (reason.length < 1) {
           return bot.createEmbed("error", "", `Error! You forgot to include a reason!`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
-              .catch((error) => console.error(error));
+              .catch((error) => bot.logger("error", error));
       }
 
       if (!targetuser.bannable) {
           return bot.createEmbed("error", "", `Error! I do not have permission to ban this user!`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
-              .catch((error) => console.error(error));
+              .catch((error) => bot.logger("error", error));
       }
 
       targetuser.ban({
@@ -61,6 +62,6 @@ module.exports = {
           .then(
               bot.createEmbed("success", "", `Succesfully banned **${targetuser.user.tag}** for **${reason}**`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
-              .catch((error) => console.error(error)));
+              .catch((error) => bot.logger("error", error)));
   },
 };

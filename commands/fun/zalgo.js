@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!zalgo <MESSAGE>",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
+
     const zalgo = require("zalgolize");
+    if (!message.guild) return;
 
     const sayMessage = args.join(" ");
     message.channel.send(`\u180E${zalgo(sayMessage, 0.3, [12, 6, 12])}`);

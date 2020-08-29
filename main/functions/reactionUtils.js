@@ -1,5 +1,4 @@
 const fs = require("fs");
-const logger = require("./console.js");
 const utils = require("./utilities.js");
 
 /**

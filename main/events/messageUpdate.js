@@ -1,6 +1,6 @@
 module.exports = async (bot, oldMessage, newMessage) => {
   const Discord = require("discord.js");
-  const efunctions = require("../functions/eventfunctions.js");
+  const efunctions = require("../functions/eventUtils.js");
   const checker = require("is-url");
 
   if ((newMessage.type = "dm")) return;

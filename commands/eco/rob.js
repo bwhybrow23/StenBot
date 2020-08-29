@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!rob <@USER>",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
     const fs = require("fs");
     const db = require("quick.db");
     const ms = require("parse-ms");
@@ -50,7 +52,7 @@ module.exports = {
           bot
         )
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     } else {
       bot
         .createEmbed(
@@ -62,7 +64,7 @@ module.exports = {
           bot
         )
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
 
       db.subtract(`money_${user.id}`, random);
       db.add(`money_${message.author.id}`, random);

@@ -7,6 +7,7 @@ module.exports = {
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
+    if (!message.guild) return;
 
     let inline = true;
     let members = await message.guild.members.fetch();

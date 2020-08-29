@@ -14,19 +14,18 @@ const schedule = require("node-schedule");
 const bot = new Client();
 
 //FUNCTIONS
-const logger = require("./main/functions/console.js");
+const consoleUtils = require("./main/functions/consoleUtils.js");
 const utils = require("./main/functions/utilities.js");
-const reactionFunctions = require("./main/functions/reactions.js");
+const reactionFunctions = require("./main/functions/reactionUtils.js");
+
+//Global logger
+bot.logger = consoleUtils.post;
 
 //Lets make the settings file available everywhere
 bot.settings = settings;
 
 // Embed Function Available Everywhere
-const {
-  createEmbed,
-  noPermsEmbed,
-  helpEmbed,
-} = require("./main/functions/embed.js");
+const { createEmbed, noPermsEmbed, helpEmbed } = require("./main/functions/embedUtils.js");
 bot.createEmbed = createEmbed;
 bot.noPermsEmbed = noPermsEmbed;
 bot.helpEmbed = helpEmbed;
@@ -43,6 +42,7 @@ bot.moderator = moderator;
 bot.on("message", (message) => {
   if (message.author.bot) return;
   if (message.content.indexOf(bot.settings.prefix) !== 0) {
+    if(message.guild) {
     const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
     //Check if its an url
     if (config.stafflinkblocker) {
@@ -58,6 +58,7 @@ bot.on("message", (message) => {
       return;
     }
     return;
+  }
   }
 });
 
@@ -75,10 +76,10 @@ bot.on("message", async (message) => {
   const prefix = bot.settings.prefix;
 
   if (message.author.bot) return;
-  if (!message.guild) return;
+  // if (!message.guild) return;
   if (!message.content.startsWith(prefix)) return;
-  if (!message.member)
-    message.member = await message.guild.fetchMember(message);
+  // if (!message.member)
+  //   message.member = await message.guild.fetchMember(message);
 
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const cmd = args.shift().toLowerCase();
@@ -111,7 +112,7 @@ events.forEach((file) => {
 
 //Usage Statistics
 const memusage = JSON.parse(
-  fs.readFileSync("./data/global/memory-usage.json", "utf8")
+  fs.readFileSync("./data/global/bot-data.json", "utf8")
 );
 var getMemUsage = () => {
   const arr = [1, 2, 3, 4, 5, 6, 9, 7, 8, 9, 10];
@@ -120,23 +121,18 @@ var getMemUsage = () => {
   return Math.round(used * 100) / 100;
 };
 bot.setInterval(function () {
-  memusage.memory = getMemUsage();
-  fs.writeFileSync("./data/global/memory-usage.json",JSON.stringify(memusage, null, 4));
+  memusage.memoryUsage = getMemUsage();
+  fs.writeFileSync("./data/global/bot-data.json",JSON.stringify(memusage, null, 4));
 }, 30000);
 bot.setInterval(function () {
   let memoryusage = getMemUsage();
   let guilds = bot.guilds.cache.size;
   let ping = Math.floor(bot.ws.ping);
-  console.log(
-    `[INFO]`.grey,
-    `Memory Usage: ${memoryusage}`.yellow,
-    `\n[INFO]`.grey,
-    `Ping: ${ping}`.yellow,
-    `\n[INFO]`.grey,
-    `Guilds: ${guilds}`.yellow
-  );
+  bot.logger("info", `Memory Usage: ${memoryusage}`)
+  bot.logger("info", `Ping: ${ping}`)
+  bot.logger("info", `Guilds: ${guilds}`)
 }, 300000);
 
 //TOKENS FOR CONNECTING
-//bot.login(bot.settings.connections.devToken);
-bot.login(bot.settings.connections.token);
+bot.login(bot.settings.connections.devToken);
+// bot.login(bot.settings.connections.token);

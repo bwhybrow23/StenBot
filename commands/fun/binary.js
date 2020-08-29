@@ -5,8 +5,11 @@ module.exports = {
   usage: "sb!binary <MESSAGE>",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
-    var output = "";
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
+
+    var output = "";
 
     let helpE = new Discord.MessageEmbed()
       .setColor(bot.settings.color.blue)
@@ -26,6 +29,6 @@ module.exports = {
 
     bot.createEmbed("success","",``,[{ name: "Original Text", value: `${input}` },{ name: "Binary", value: `${output}` },],`${message.guild.name}`,bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => console.error(error));
+      .catch((error) => bot.logger("error", error));
   },
 };

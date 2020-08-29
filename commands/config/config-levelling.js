@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!config-levelling <SUBCOMMAND>",
   permission: "ADMIN",
   run: (bot, message, args) => {
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
     const fs = require("fs");
     const checker = require("typechecker");
 
@@ -29,7 +31,7 @@ module.exports = {
     if (access == false) {
       bot.createEmbed("error", "", `Error! You are not the owner or admin of this guild!`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
 
     //Check if they included a setting
@@ -38,7 +40,7 @@ module.exports = {
     if (setting == undefined) {
       bot.createEmbed("error","",`Error! You forgot to include a levelling setting.`,[],`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
 
     //Get the server config
@@ -50,14 +52,14 @@ module.exports = {
         if (config.levellingenabled == true) {
           bot.createEmbed("error","",`Error! Levelling is already enabled.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
-            .catch((error) => console.error(error));
+            .catch((error) => bot.logger("error", error));
         }
 
         config.levellingenabled = true;
         fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),(err) => {if (err) return;});
         bot.createEmbed("success","",`Levelling has now been enabled.`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
-          .catch((error) => console.error(error));
+          .catch((error) => bot.logger("error", error));
 
         break;
 
@@ -65,7 +67,7 @@ module.exports = {
         if (config.levellingenabled == false) {
           bot.createEmbed("error","",`Error! Levelling is already disabled. `,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
-            .catch((error) => console.error(error));
+            .catch((error) => bot.logger("error", error));
         }
 
         config.levellingenabled = false;
@@ -76,13 +78,13 @@ module.exports = {
         );
         bot.createEmbed("success","",`Levelling has now been disabled.`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
-          .catch((error) => console.error(error));
+          .catch((error) => bot.logger("error", error));
         break;
 
       default:
         bot.createEmbed("error","",`Error! No levelling setting called **${setting}**`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
-          .catch((error) => console.error(error));
+          .catch((error) => bot.logger("error", error));
     }
   },
 };

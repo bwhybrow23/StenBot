@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!pay <@USER> <VALUE>",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
     const fs = require("fs");
     const db = require("quick.db");
 

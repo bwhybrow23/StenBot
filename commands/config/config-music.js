@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!config-music <SUBCOMMAND>",
   permission: "ADMIN",
   run: (bot, message, args) => {
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
     const fs = require("fs");
     const checker = require("typechecker");
 
@@ -29,12 +31,12 @@ module.exports = {
     if (access == false) {
       return bot.createEmbed("error","",`Error! You are not the owner or admin of this guild.`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
 
     bot.createEmbed("error","",`Error! The music section of the bot is not completed yet therefore it cannot be configured. Sorry :/`,[],`${message.guild.name}`,bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => console.error(error));
+      .catch((error) => bot.logger("error", error));
 
     // //Check if they included a setting
     // let setting = args[0];

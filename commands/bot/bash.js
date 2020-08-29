@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!bash <COMMAND>",
   permission: "BOT OWNER",
   run: async (bot, message, args) => {
+
     const Discord = require(`discord.js`);
+    if (!message.guild) return;
 
     if (message.author.id !== bot.settings.ids.botOwner) {
       bot.noPermsEmbed(`${message.guild.name}`, bot);

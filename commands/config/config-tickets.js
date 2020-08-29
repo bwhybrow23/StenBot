@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!config-tickets <SUBCOMMAND>",
   permission: "ADMIN",
   run: (bot, message, args) => {
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
     const fs = require("fs");
     const checker = require("typechecker");
 
@@ -29,7 +31,7 @@ module.exports = {
     if (access == false) {
       return bot.createEmbed("error","",`Error! You are not the owner or admin of this guild.`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
 
     //Check if they included a setting
@@ -38,7 +40,7 @@ module.exports = {
     if (setting == undefined) {
       return bot.createEmbed("error","",`Error! You forgot to include a ticket setting.`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
 
     //Get the server config
@@ -50,7 +52,7 @@ module.exports = {
         if (config.ticketsenabled == true) {
           return bot.createEmbed("error","",`Error! Tickets are already enabled.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
-            .catch((error) => console.error(error));
+            .catch((error) => bot.logger("error", error));
         }
         config.ticketsenabled = true;
 
@@ -76,13 +78,13 @@ module.exports = {
 
         bot.createEmbed("success","",`Tickets have been enabled.`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
-          .catch((error) => console.error(error));
+          .catch((error) => bot.logger("error", error));
         break;
       case "disable":
         if (config.ticketsenabled == false) {
           return bot.createEmbed("error","",`Error! Tickets are already disabled.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
-            .catch((error) => console.error(error));
+            .catch((error) => bot.logger("error", error));
         }
         config.ticketsenabled = false;
 
@@ -108,7 +110,7 @@ module.exports = {
 
         bot.createEmbed("success","",`Tickets have been disabled.`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
-          .catch((error) => console.error(error));
+          .catch((error) => bot.logger("error", error));
         break;
       case "message":
         var tmessage = args.slice(1).join(" ");
@@ -116,13 +118,13 @@ module.exports = {
         if (tmessage.length < 1) {
           return bot.createEmbed("error","",`Error! You haven't included a message.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
-            .catch((error) => console.error(error));
+            .catch((error) => bot.logger("error", error));
         }
 
         if (tmessage.length > 256) {
           return bot.createEmbed("error","",`Error! The message you have provided is too long! Make sure it is less than **256** characters.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
-            .catch((error) => console.error(error));
+            .catch((error) => bot.logger("error", error));
         }
 
         config.ticketsmsg = tmessage;
@@ -135,7 +137,7 @@ module.exports = {
 
         bot.createEmbed("success","",`Ticket message set!`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
-          .catch((error) => console.error(error));
+          .catch((error) => bot.logger("error", error));
         break;
       default:
         return bot
@@ -148,7 +150,7 @@ module.exports = {
             bot
           )
           .then((embed) => message.channel.send(embed))
-          .catch((error) => console.error(error));
+          .catch((error) => bot.logger("error", error));
     }
   },
 };

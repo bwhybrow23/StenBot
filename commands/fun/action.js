@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!action <ACTION> <@USER>",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
+
       const Discord = require("discord.js");
+      if (!message.guild) return;
       const superagent = require("superagent");
 
       const subc = args[0];

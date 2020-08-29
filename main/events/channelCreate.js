@@ -1,6 +1,6 @@
 module.exports = async (bot, channel) => {
   const Discord = require("discord.js");
-  const efunctions = require("../functions/eventfunctions.js");
+  const efunctions = require("../functions/eventUtils.js");
 
   if ((channel.type === "dm")) return;
 

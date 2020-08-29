@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!achievement <MESSAGE>",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
+
       const Discord = require("discord.js");
+      if (!message.guild) return;
 
       var achievement = args.join(" ");
       var request = require("request");
@@ -34,8 +36,6 @@ module.exports = {
       if (isEmpty(achievement)) return message.channel.send(helpE);
       var download = function(uri, filename, callback) {
           request.head(uri, function(err, res, body) {
-              //console.log('content-type:', res.headers['content-type']);
-              //console.log('content-length:', res.headers['content-length']);
               request(uri).pipe(fs.createWriteStream(filename)).on("close", callback);
           });
       };
@@ -64,7 +64,7 @@ module.exports = {
                   fs.unlink(
                       `././data/images/temp/${message.guild.id}-${message.author.id}.png`,
                       function(err) {
-                          if (err) return console.log(err);
+                          if (err) return bot.logger("error", err);
                       }
                   );
               }

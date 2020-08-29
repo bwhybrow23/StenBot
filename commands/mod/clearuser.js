@@ -6,6 +6,7 @@ module.exports = {
   permission: "STAFF",
   run: async (bot, message, args) => {
     const Discord = require("discord.js");
+    if (!message.guild) return;
     const fs = require("fs");
 
     var config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,"utf8"));
@@ -13,7 +14,7 @@ module.exports = {
     if (config.staffrole == false) {
       return bot.createEmbed("error","",`Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
 
     let staffrole = message.guild.roles.cache.find(
@@ -23,7 +24,7 @@ module.exports = {
     if (staffrole == undefined) {
       return bot.createEmbed("error","",`Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
 
     if (!message.member.roles.cache.has(config.staffrole)) {
@@ -73,7 +74,7 @@ module.exports = {
     if (targetuser == undefined) {
       return bot.createEmbed("error","",`Error! You need to include someone to clear the messages of!`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
 
     message.channel.messages.fetch({
@@ -81,7 +82,7 @@ module.exports = {
   }).then((messages) => {
       const filterBy = targetuser ? targetuser.id : bot.user.id;
       messages = messages.filter(m => m.author.id === filterBy).array().slice(0, amount);
-      message.channel.bulkDelete(messages).catch(error => console.log(error.stack));
+      message.channel.bulkDelete(messages).catch(error => bot.logger("error", error.stack));
   });
 
   message.channel.send({

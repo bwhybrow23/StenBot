@@ -5,14 +5,16 @@ module.exports = {
   usage: "sb!sync",
   permission: "BOT OWNER",
   run: async (bot, message, args) => {
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
     const fs = require("fs");
 
     //Check Perms
     if (message.author.id !== bot.settings.ids.botOwner) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
 
     let amountsynced = 0;
@@ -140,7 +142,7 @@ module.exports = {
     console.log(`[SYNC]`.blue, `${amountsynced} servers have been synced in ${attempt} attempts.`.cyan);
     bot.createEmbed("success", "", `**${amountsynced}** servers have been synced in ${attempt} attempts.`, [], `${message.guild.name}`, bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => console.error(error));
+      .catch((error) => bot.logger("error", error));
       
   }
 };

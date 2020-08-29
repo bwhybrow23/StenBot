@@ -2,8 +2,11 @@ const { promisify } = require("util");
 const readdir = promisify(require("fs").readdir);
 
 module.exports = async (bot, message) => {
+
   const Discord = require("discord.js");
-  const efunctions = require("../functions/eventfunctions.js");
+  const efunctions = require("../functions/eventUtils.js");
+
+  if ((message.channel.type === "dm")) return;
 
   let config = efunctions.getConfig(message.guild.id);
   if (config.loggingenabled == true) {

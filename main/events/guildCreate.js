@@ -23,12 +23,12 @@ module.exports = async (bot, guild) => {
               .then(embed => guild.owner.send(embed))
               .catch(error => console.error(error))
       guild.leave();
-      console.log("[System]".grey + `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
+      bot.logger("info", `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
     } else {
       return;
     }
   }
-  console.log("[SYSTEM]".grey + `Joined guild ${guild.name} | ${guild.id}`);
+  bot.logger("info", `Joined guild ${guild.name} | ${guild.id}`);
 
   //Create the servers root dir
   fs.mkdir(`./data/servers/server-${guild.id}`, (err) => {

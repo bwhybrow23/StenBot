@@ -3,7 +3,7 @@ module.exports = async (bot, member) => {
   const fs = require("fs");
   const config = JSON.parse(fs.readFileSync(`./data/servers/server-${member.guild.id}/serverconfig.json`,"utf8"));
   var format = require("string-template");
-  const efunctions = require("../functions/eventfunctions.js");
+  const efunctions = require("../functions/eventUtils.js");
 
   //Welcomer
   //Check if welcomer is enabled

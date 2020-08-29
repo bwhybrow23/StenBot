@@ -1,6 +1,6 @@
 module.exports = async (bot, guild, user) => {
   const Discord = require("discord.js");
-  const efunctions = require("../functions/eventfunctions.js");
+  const efunctions = require("../functions/eventUtils.js");
 
   let config = efunctions.getConfig(guild.id);
   if (config.loggingenabled == true) {

@@ -66,7 +66,6 @@ module.exports = {
 
   resetVerif: (bot) => {
     const fs = require("fs");
-    const logger = require("./console.js");
 
     let botData = JSON.parse(fs.readFileSync("./data/global/bot-data.json"));
     let serverGuild = bot.guilds.cache.get(bot.settings.ids.mainGuild);
@@ -106,14 +105,13 @@ module.exports = {
         //   message.react("⚙")
         // })
         //   })
-        logger.post("success", "Verification message reset.");
+        bot.logger("success", "Verification message reset.");
       });
   },
 
   hasConfig: (bot) => {
     const fs = require("fs");
     const Discord = require("discord.js");
-    const logger = require("./console.js");
 
     const guild = message.guild;
 

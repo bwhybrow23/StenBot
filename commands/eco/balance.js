@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!balance",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
     const fs = require("fs");
     const db = require("quick.db");
 
@@ -18,13 +20,13 @@ module.exports = {
       if (bal === null) bal = 0;
       bot.createEmbed("info","Balance",`You currently have a balance of **${bal}** coins.`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     } else {
       let bal = db.fetch(`money_${message.author.id}`);
       if (bal === null) bal = 0;
       bot.createEmbed("info",`${person.tag}'s Balance`,`${person.tag} currently has a balance of **${bal}** coins.`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
   },
 };

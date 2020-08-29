@@ -1,11 +1,12 @@
 module.exports = {
   name: "help",
   category: "general",
-  description:
-    "Returns all commands, or information about one specific command.",
+  description: "Returns all commands, or information about one specific command.",
   usage: "sb!help <CATEGORY | COMMAND>",
   run: async (bot, message, args) => {
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
 
     //Capitalize function
     const capitalize = (s) => {

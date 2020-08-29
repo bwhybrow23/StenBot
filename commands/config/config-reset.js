@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!config-reset",
   permission: "ADMIN",
   run: (bot, message, args) => {
+
       const Discord = require("discord.js");
+      if (!message.guild) return;
       const fs = require("fs");
 
       const ownersid = message.guild.ownerID;
@@ -15,7 +17,7 @@ module.exports = {
       if (adminperm != true) {
           return bot.createEmbed("error", "", `Error! You are not the owner or admin of this guild.`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
-              .catch((error) => console.error(error));
+              .catch((error) => bot.logger("error", error));
       }
 
       let defaultContent = {
@@ -63,7 +65,7 @@ module.exports = {
 
                       bot.createEmbed("success", "", `Server Config has been reset.`, [], `${message.guild.name}`, bot)
                           .then((embed) => message.channel.send(embed))
-                          .catch((error) => console.error(error));
+                          .catch((error) => bot.logger("error", error));
                   } 
                 if (collected.first().emoji.name == '❌') {
                       message.reply('Reset Cancelled.');
@@ -72,6 +74,6 @@ module.exports = {
                   message.reply('No reaction after 30 seconds, reset cancelled');
               });
           }))
-          .catch((error) => console.error(error));
+          .catch((error) => bot.logger("error", error));
   },
 };

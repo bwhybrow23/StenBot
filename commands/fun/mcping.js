@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!mcping <SERVER IP>{:PORT}",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
     const fetch = require("superagent");
     const url = "https://mcapi.us/server/status?ip=";
 
@@ -23,7 +25,7 @@ module.exports = {
     if (res.status !== "success") {
       bot.createEmbed("error","",`Error! The status couldn't be fetched, perhaps an invalid IP or Port.`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
 
     var players = 0;
@@ -36,13 +38,13 @@ module.exports = {
     if (res.online) {
       bot.createEmbed("success","Server Status:",``,[{ name: "IP", value: `${ip}` },{ name: `Status`, value: `Online` },{ name: `Player Count`, value: `${players}/${res.players.max}` },{ name: `Server Version`, value: `${res.server.name}` },{ name: `MOTD`, value: `${res.motd}` },],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
 
     if (!res.online) {
       bot.createEmbed("success","Server Status:",``,[{ name: "IP", value: `${ip}` },{ name: `Status`, value: `Offline` },],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
   },
 };

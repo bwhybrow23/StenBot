@@ -5,7 +5,9 @@ module.exports = {
     usage: "sb!mute <@USER> <REASON>",
     permission: "STAFF",
     run: async (bot, message, args) => {
+
       const Discord = require("discord.js");
+      if (!message.guild) return;
 
       //Permission Check
       const fs = require("fs");
@@ -17,7 +19,7 @@ module.exports = {
     if (config.staffrole == false) {
       return bot.createEmbed("error","",`Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
 
     let staffrole = message.guild.roles.cache.find(
@@ -27,7 +29,7 @@ module.exports = {
     if (staffrole == undefined) {
       return bot.createEmbed("error","",`Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
 
     if (!message.member.roles.cache.has(config.staffrole)) {
@@ -40,13 +42,13 @@ module.exports = {
     if (targetuser == undefined) {
       return bot.createEmbed("error","",`Error! You forgot to mention a user!`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
 
     if (targetuser.roles.cache.has(config.staffrole)) {
         return bot.createEmbed("error","",`Error! You are not allowed to mute this person!`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
-          .catch((error) => console.error(error));
+          .catch((error) => bot.logger("error", error));
       }
 
     var reason = args.slice(1).join(" ");
@@ -54,7 +56,7 @@ module.exports = {
     if (reason.length < 1) {
       return bot.createEmbed("error","",`Error! You forgot to include a reason!`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => console.error(error));
+        .catch((error) => bot.logger("error", error));
     }
 
       //Role Check
@@ -77,7 +79,7 @@ module.exports = {
           });
         }catch(e){
             message.reply("Error, check console");
-            console.error(error);
+            bot.logger("error", error);
         }
       }
 
@@ -90,9 +92,9 @@ module.exports = {
         //Response
         bot.createEmbed("success","",`Succesfully muted **${targetuser.user.tag}** for **${reason}**`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
-          .catch((error) => console.error(error));
+          .catch((error) => bot.logger("error", error));
         //Logging
-        const efunctions = require('../../main/functions/eventfunctions.js');
+        const efunctions = require('../../main/functions/eventUtils.js');
         if (config.loggingenabled == true) {
               if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
                 let lchannel = bot.channels.cache.get(config.loggingchannel);

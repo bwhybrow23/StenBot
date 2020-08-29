@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!tadd <@USER>",
   permission: "STAFF",
   run: async (bot, message, args) => {
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
     const fs = require("fs");
 
     const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
@@ -52,7 +54,7 @@ module.exports = {
       });
     } catch (e) {
       errsend("Error in adding this user. Please check the console.");
-      console.log("[SYSTEM]".grey, e);
+      bot.logger("error", e);
     }
 
     let embed = new Discord.MessageEmbed()

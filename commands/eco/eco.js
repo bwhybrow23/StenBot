@@ -5,7 +5,9 @@ module.exports = {
   usage: "sb!eco <GIVE | SET | TAKE> <@USER> <VALUE>",
   permission: "BOT OWNER",
   run: async (bot, message, args) => {
+
     const Discord = require("discord.js");
+    if (!message.guild) return;
     const db = require("quick.db");
 
     if (message.author.id !== bot.settings.ids.botOwner)

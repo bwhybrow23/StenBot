@@ -22,6 +22,6 @@ module.exports = {
 
     bot.createEmbed("success","",``,[{name: `**${person.displayName}** loves **${message.member.displayName}** this much:`,value: `💟${Math.floor(love)}%\n\n${loveLevel}`,},],`${message.guild.name}`,bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => console.error(error));
+      .catch((error) => bot.logger("error", error));
   },
 };
