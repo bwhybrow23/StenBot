@@ -4,7 +4,7 @@ module.exports = {
   description: "Change all config variables related to levelling.",
   usage: "sb!config-levelling <SUBCOMMAND>",
   permission: "ADMIN",
-  run: (bot, message, args) => {
+  run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     if (!message.guild) return;
@@ -44,19 +44,18 @@ module.exports = {
     }
 
     //Get the server config
-    const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
+    const config = await bot.mutils.getGuildById(message.guild.id);
 
     //Settings library
     switch (setting) {
       case "enable":
-        if (config.levellingenabled == true) {
+        if (config.levelling_enabled == true) {
           bot.createEmbed("error","",`Error! Levelling is already enabled.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
 
-        config.levellingenabled = true;
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),(err) => {if (err) return;});
+        bot.mutils.updateGuildById(message.guild.id, { levelling_enabled: true })
         bot.createEmbed("success","",`Levelling has now been enabled.`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
@@ -64,18 +63,13 @@ module.exports = {
         break;
 
       case "disable":
-        if (config.levellingenabled == false) {
+        if (config.levelling_enabled == false) {
           bot.createEmbed("error","",`Error! Levelling is already disabled. `,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
 
-        config.levellingenabled = false;
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
+        bot.mutils.updateGuildById(message.guild.id, { levelling_enabled: false })
         bot.createEmbed("success","",`Levelling has now been disabled.`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));

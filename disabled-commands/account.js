@@ -44,7 +44,7 @@ module.exports = {
 
     if (!args[0]) return message.channel.send(helpE);
     //Get the server config
-    const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
+    const config = await bot.mutils.getGuildById(message.guild.id);
     //actions library
     switch (setting) {
       case "create":

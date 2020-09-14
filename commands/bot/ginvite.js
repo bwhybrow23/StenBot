@@ -1,8 +1,7 @@
 module.exports = {
   name: "ginvite",
   category: "bot",
-  description:
-    "Get an invite to a guild the bot is in. (Mainly used for finding abuse)",
+  description: "Get an invite to a guild the bot is in. (Mainly used for finding abuse)",
   usage: "sb!ginvite <SERVER ID>",
   permission: "BOT OWNER",
   run: async (bot, message, args) => {

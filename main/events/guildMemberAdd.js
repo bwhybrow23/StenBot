@@ -1,25 +1,25 @@
 module.exports = async (bot, member) => {
   const Discord = require("discord.js");
   const fs = require("fs");
-  const config = JSON.parse(fs.readFileSync(`./data/servers/server-${member.guild.id}/serverconfig.json`,"utf8"));
+  const config = await bot.mutils.getGuildById(member.guild.id)
   var format = require("string-template");
   const efunctions = require("../functions/eventUtils.js");
 
   //Welcomer
   //Check if welcomer is enabled
-  if (config.welcomerenabled == true) {
+  if (config.welcomer_enabled == true) {
     //Check if there is a channel set
-    if (config.welcomerchannel != 0) {
+    if (config.welcomer_channel != 0) {
       //Check if channel is valid
-      let welcomerschannel = bot.channels.cache.get(config.welcomerchannel);
+      let welcomerschannel = bot.channels.cache.get(config.welcomer_channel);
       if (welcomerschannel != undefined) {
         //Check if the bot has perms to welcome
         let botasmember = member.guild.members.cache.get(bot.user.id);
         if (
-          botasmember.permissionsIn(member.guild.channels.cache.get("" + config.welcomerchannel + "")).has("SEND_MESSAGES") == true
+          botasmember.permissionsIn(member.guild.channels.cache.get("" + config.welcomer_channel + "")).has("SEND_MESSAGES") == true
         ) {
           //Fill in place holders
-          let themsg = format(config.welcomermessage, {
+          let themsg = format(config.welcomer_message, {
             user: member.user.tag,
             usermention: member.user,
             userdiscrim: member.user.discriminator,
@@ -32,7 +32,7 @@ module.exports = async (bot, member) => {
             .setDescription(themsg);
 
           //Send the message.
-          bot.channels.cache.get(config.welcomerchannel).send(welcomeEmbed);
+          bot.channels.cache.get(config.welcomer_channel).send(welcomeEmbed);
         }
       }
     }
@@ -44,7 +44,7 @@ module.exports = async (bot, member) => {
     if (config.userjoinedrole != 0) {
       //Add the role to the member
       let toaddrole = member.guild.roles.cache.get(config.userjoinedrole);
-      member.addRole(toaddrole).catch();
+      member.roles.add(toaddrole).catch();
     }
   }
 

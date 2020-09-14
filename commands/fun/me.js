@@ -35,7 +35,7 @@ module.exports = {
             .addField("Playing", `${member.user.presence.activities}` ? `${member.user.presence.activities.map((a)=>a.type == "CUSTOM_STATUS" ? a.state : a.name).join(" **|** ")}` : "Not playing", inline, true)
             .addField("Roles", `${member.roles.cache.filter(r => r.id !== message.guild.id).map(roles => `\`${roles.name}\``).join(" **|** ") || "No Roles"}`, true)
             .addField("Joined Discord At", member.user.createdAt)
-	          .addField("Joined this Guild At", member.joinedAt)
+	        .addField("Joined this Guild At", member.joinedAt)
             .setFooter(`Information about ${member.user.username}`)
             .setTimestamp();
 
@@ -53,7 +53,7 @@ module.exports = {
             .addField("Playing", `${member.user.presence.activities}` ? `${member.user.presence.activities.map((a)=>a.type == "CUSTOM_STATUS" ? a.state : a.name).join(" **|** ")}` : "Not playing", inline, true)
             .addField("Roles", `${member.roles.cache.filter(r => r.id !== message.guild.id).map(roles => `\`${roles.name}\``).join(" **|** ") || "No Roles"}`, true)
             .addField("Joined Discord At", member.user.createdAt)
-	          .addField("Joined this Guild At", member.joinedAt)
+	        .addField("Joined this Guild At", member.joinedAt)
             .setFooter(`Information about ${member.user.username}`)
             .setTimestamp();
 
@@ -71,7 +71,7 @@ module.exports = {
             .addField("Playing", `${member.user.presence.activities}` ? `${member.user.presence.activities.map((a)=>a.type == "CUSTOM_STATUS" ? a.state : a.name).join(" **|** ")}` : "Not playing", inline, true)
             .addField("Roles", `${member.roles.cache.filter(r => r.id !== message.guild.id).map(roles => `\`${roles.name}\``).join(" **|** ") || "No Roles"}`, true)
             .addField("Joined Discord At", member.user.createdAt)
-	          .addField("Joined this Guild At", member.joinedAt)
+	        .addField("Joined this Guild At", member.joinedAt)
             .setFooter(`Information about ${member.user.username}`)
             .setTimestamp();
 
@@ -88,7 +88,7 @@ module.exports = {
             .addField("Playing", `${member.user.presence.activities}` ? `${member.user.presence.activities.map((a)=>a.type == "CUSTOM_STATUS" ? a.state : a.name).join(" **|** ")}` : "Not playing", inline, true)
             .addField("Roles", `${member.roles.cache.filter(r => r.id !== message.guild.id).map(roles => `\`${roles.name}\``).join(" **|** ") || "No Roles"}`, true)
             .addField("Joined Discord At", member.user.createdAt)
-	          .addField("Joined this Guild At", member.joinedAt)
+	        .addField("Joined this Guild At", member.joinedAt)
             .setFooter(`Information about ${member.user.username}`)
             .setTimestamp();
 

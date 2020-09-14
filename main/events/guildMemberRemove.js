@@ -2,11 +2,11 @@ module.exports = async (bot, member) => {
   const Discord = require("discord.js");
   const efunctions = require("../functions/eventUtils.js");
 
-  let config = efunctions.getConfig(member.guild.id);
+  let config = await bot.mutils.getGuildById(member.guild.id);
 
-  if (config.loggingenabled == true) {
-    if (efunctions.checkChannel(config.loggingchannel, bot)) {
-      let lchannel = bot.channels.cache.get(config.loggingchannel);
+  if (config.logging_enabled == true) {
+    if (efunctions.checkChannel(config.logging_channel, bot)) {
+      let lchannel = bot.channels.cache.get(config.logging_channel);
       lchannel.send({
         embed: {
           color: bot.settings.color.yellow,

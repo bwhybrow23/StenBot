@@ -4,7 +4,7 @@ module.exports = {
   description: "Change all config variables related to welcomer.",
   usage: "sb!config-welcomer <SUBCOMMAND>",
   permission: "ADMIN",
-  run: (bot, message, args) => {
+  run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     if (!message.guild) return;
@@ -44,42 +44,36 @@ module.exports = {
     }
 
     //Get the server config
-    const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
+    const config = await bot.mutils.getGuildById(message.guild.id);
 
     //settings library
     switch (setting) {
       case "enable":
-        if (config.welcomerenabled) {
+        if (config.welcomer_enabled) {
           return bot.createEmbed("error","",`Error! Welcomer is already enabled!`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
-        config.welcomerenabled = true;
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
+        bot.mutils.updateGuildById(message.guild.id, { welcomer_enabled: true })
         bot.createEmbed("success","",`Welcomer has been enabled.`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
+
         break;
+
       case "disable":
-        if (!config.welcomerenabled) {
+        if (!config.welcomer_enabled) {
           return bot.createEmbed("error","",`Error! Welcomer is already disabled!`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
-        config.welcomerenabled = false;
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
+        bot.mutils.updateGuildById(message.guild.id, { welcomer_enabled: false })
         bot.createEmbed("success","",`Welcomer has been enabled.`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
+
         break;
+
       case "channel":
         var targetchannel = message.mentions.channels.first();
 
@@ -89,22 +83,17 @@ module.exports = {
             .catch((error) => bot.logger("error", error));
         }
 
-        if (targetchannel.id == config.welcomerchannel) {
+        if (targetchannel.id == config.welcomer_channel) {
           return bot.createEmbed("error","",`Error! That channel is already set as the welcomer channel!`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
 
-        config.welcomerchannel = targetchannel.id;
+        bot.mutils.updateGuildById(message.guild.id, { welcomer_channel: targetchannel.id })
         bot.createEmbed("success","",`The welcomer channel has been set to **${targetchannel.name}**`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
 
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
         break;
       case "message":
         var setmessage = args.slice(1).join(" ");
@@ -121,20 +110,13 @@ module.exports = {
             .catch((error) => bot.logger("error", error));
         }
 
-        if (setmessage == config.welcomermessage) {
+        if (setmessage == config.welcomer_message) {
           return bot.createEmbed("error","",`Error! Your message is the same as the current one!`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
 
-        config.welcomermessage = setmessage;
-
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
-
+        bot.mutils.updateGuildById(message.guild.id, { welcomer_message: setmessage })
         bot.createEmbed("success","",`New welcomer message set!\n\nTo: \n${setmessage}`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
@@ -147,19 +129,19 @@ module.exports = {
         break;
       case "test":
         //Check if enabled
-        if (config.welcomerenabled == false) {
+        if (config.welcomer_enabled == false) {
           return bot.createEmbed("error","",`Error! Your configuration didn't work. This was because you haven't enabled welcomer yet! You can do so by doing **sb!config-welcomer enable**`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
         //Check if channel is set
-        if (config.welcomerchannel == 0) {
+        if (config.welcomer_channel == 0) {
           return bot.createEmbed("error","",`Error! Your configuration didn't work. This was because you haven't set a channel for your welcome messages. You can do so by doing **sb!config-welcomer channel <#CHANNEL>**`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
         //Check if channel is accessible by bot or exists
-        let testingchannel = bot.channels.cache.get("" + config.welcomerchannel + "");
+        let testingchannel = bot.channels.cache.get("" + config.welcomer_channel + "");
         if (testingchannel == undefined) {
           return bot.createEmbed("error","",`Error! Your configuration didn't work. This is beacuse the channel you have set no longer exists. Please set a new channel by doing **sb!config-welcomer channel <#CHANNEL>**`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
@@ -167,7 +149,7 @@ module.exports = {
         }
         //Check if the bot has perms to send messages in that channel
         let botmember = message.guild.members.get(bot.user.id);
-        if (botmember.permissionsIn(message.guild.channels.get("" + config.welcomerchannel + "")).has("SEND_MESSAGES") == false) {
+        if (botmember.permissionsIn(message.guild.channels.get("" + config.welcomer_channel + "")).has("SEND_MESSAGES") == false) {
           return bot.createEmbed("error","",`Error! Your configuration didn't work. This is because the bot is unable to send messages in the configured channel you have set.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
@@ -181,7 +163,7 @@ module.exports = {
           date: new Date(),
         });
 
-        bot.channels.cache.get(config.welcomerchannel).send({
+        bot.channels.cache.get(config.welcomer_channel).send({
           embed: {
             color: bot.settings.color.yellow,
             description: themsg,

@@ -4,7 +4,7 @@ module.exports = {
   description: "Change all config variables related to logging.",
   usage: "sb!config-log <SUBCOMMAND>",
   permission: "ADMIN",
-  run: (bot, message, args) => {
+  run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     if (!message.guild) return;
@@ -44,7 +44,7 @@ module.exports = {
     }
 
     //Get the server config
-    const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
+    const config = await bot.mutils.getGuildById(message.guild.id);
 
     //Settings library
     switch (setting) {
@@ -57,22 +57,17 @@ module.exports = {
             .catch((error) => bot.logger("error", error));
         }
 
-        if (targetchannel.id == config.loggingchannel) {
+        if (targetchannel.id == config.logging_channel) {
           return bot.createEmbed("error","",`Error! That channel is already set as the log channel.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
 
-        config.loggingchannel = targetchannel.id;
+        bot.mutils.updateGuildById(message.guild.id, { logging_channel: targetchannel.id })
         bot.createEmbed("success","",`Your logging channel has been set to **${targetchannel.name}**`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
 
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
         break;
       case "level":
         var level = args[1];
@@ -84,53 +79,38 @@ module.exports = {
 
         switch (level) {
           case "low":
-            if (config.logginglevel == "low") {
+            if (config.logging_level == "low") {
               return bot.createEmbed("error","",`Error! Logging is already set to that level.`,[],`${message.guild.name}`,bot
                 )
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.logger("error", error));
             }
 
-            config.logginglevel = "low";
-            fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-              (err) => {
-                if (err) return;
-              }
-            );
+            bot.mutils.updateGuildById(message.guild.id, { logging_level: "low" })
             bot.createEmbed("success","",`Logging level has been set to **LOW**.`,[],`${message.guild.name}`,bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.logger("error", error));
             break;
           case "medium":
-            if (config.logginglevel == "medium") {
+            if (config.logging_level == "medium") {
               return bot.createEmbed("error","",`Error! Logging is already set to that level.`,[],`${message.guild.name}`,bot)
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.logger("error", error));
             }
 
-            config.logginglevel = "medium";
-            fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-              (err) => {
-                if (err) return;
-              }
-            );
+            bot.mutils.updateGuildById(message.guild.id, { logging_level: "medium" })
             bot.createEmbed("success","",`Logging level has been set to **MEDIUM**.`,[],`${message.guild.name}`,bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.logger("error", error));
             break;
           case "high":
-            if (config.logginglevel == "high") {
+            if (config.logging_level == "high") {
               return bot.createEmbed("error","",`Error! Logging is already set to that level.`,[],`${message.guild.name}`,bot)
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.logger("error", error));
             }
 
-            config.logginglevel = "high";
-            fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-              (err) => {
-                if (err) return;
-              }
-            );
+            bot.mutils.updateGuildById(message.guild.id, { logging_level: "high" })
             bot.createEmbed("success","",`Logging level has been set to **HIGH**.`,[],`${message.guild.name}`,bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.logger("error", error));
@@ -142,36 +122,26 @@ module.exports = {
         }
         break;
       case "enable":
-        if (config.loggingenabled == true) {
+        if (config.logging_enabled == true) {
           return bot.createEmbed("error","",`Error! Logging is already enabled.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
 
-        config.loggingenabled = true;
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
+        bot.mutils.updateGuildById(message.guild.id, { logging_enabled: true })
         bot.createEmbed("success","",`Logging is now enabled.`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
         break;
 
       case "disable":
-        if (config.loggingenabled == false) {
+        if (config.logging_enabled == false) {
           bot.createEmbed("error","",`Error! Logging is already disabled`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
 
-        config.loggingenabled = false;
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
+        bot.mutils.updateGuildById(message.guild.id, { logging_enabled: false })
         bot.createEmbed("success","",`Logging is now disabled.`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));

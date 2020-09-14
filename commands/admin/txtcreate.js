@@ -10,9 +10,9 @@ module.exports = {
     if (!message.guild) return;
     const fs = require("fs");
 
-    const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
+    const config = await bot.mutils.getGuildById(message.guild.id);
 
-    if (config.staffadminenabled == false) {
+    if (config.staff_admin == false) {
       return bot.createEmbed("error", "", `Error! Admin commands are disabled. To use them, enable them with **sb!config-staff admin enable**`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.logger("error", error));

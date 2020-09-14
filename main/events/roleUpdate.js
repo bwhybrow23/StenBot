@@ -4,11 +4,11 @@ module.exports = async (bot, oldRole, newRole) => {
   const ColorAPIURL = "http://thecolorapi.com/id?format=json&hex=";
   const request = require("superagent");
 
-  let config = efunctions.getConfig(newRole.guild.id);
+  let config = await bot.mutils.getGuildById(newRole.guild.id)
   if (config.loggingenabled == true) {
     if (config.logginglevel == "high") {
-      if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
-        let lchannel = bot.channels.cache.get(config.loggingchannel);
+      if (efunctions.checkChannel(config.logging_channel, bot) == true) {
+        let lchannel = bot.channels.cache.get(config.logging_channel);
         if (oldRole.name !== newRole.name) {
           lchannel.send({
             embed: {

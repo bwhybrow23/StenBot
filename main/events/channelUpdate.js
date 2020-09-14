@@ -4,14 +4,16 @@ module.exports = async (bot, oldChannel, newChannel) => {
 
   if ((newChannel.type === "dm")) return;
 
+  if (newChannel.name.startsWith("ticket-")) return;
+
   //Get Config
-  const config = efunctions.getConfig(newChannel.guild.id);
+  let config = await bot.mutils.getGuildById(newChannel.guild.id)
 
   //Check config and stuff
-  if (config.loggingenabled == true) {
-    if (config.logginglevel == "high") {
-      if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
-        let lchannel = bot.channels.cache.get(config.loggingchannel);
+  if (config.logging_enabled == true) {
+    if (config.logging_level == "high") {
+      if (efunctions.checkChannel(config.logging_channel, bot) == true) {
+        let lchannel = bot.channels.cache.get(config.logging_channel);
         if (oldChannel.name !== newChannel.name) {
           return bot.createEmbed("warning", "", `**Channel Name Updated**\n**Old Name:** ${oldChannel.name}\n**New Name:** ${newChannel.name}\n**Id:** ${newChannel.id}`, [], `${newChannel.guild.name}`, bot)
               .then(embed => lchannel.send(embed))

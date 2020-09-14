@@ -10,14 +10,14 @@ module.exports = {
     if (!message.guild) return;
     const fs = require("fs");
 
-    const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
+    const config = await bot.mutils.getGuildById(message.guild.id);
     const eventFunctions = require(`../../main/functions/eventUtils.js`);
 
     if (message.channel.parent.name === "Tickets") {
       if (message.channel.name.startsWith("ticket-")) {
-        if (config.loggingenabled) {
-          if (eventFunctions.checkChannel(config.loggingchannel, bot)) {
-            message.guild.channels.cache.get(config.loggingchannel).send({
+        if (config.logging_enabled) {
+          if (eventFunctions.checkChannel(config.logging_channel, bot)) {
+            message.guild.channels.cache.get(config.logging_channel).send({
               embed: {
                 color: bot.settings.color.yellow,
                 description: `**Ticket Closed**\n**Channel:** ${message.channel.name}\n**ID:** ${message.channel.id}`,

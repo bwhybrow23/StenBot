@@ -2,11 +2,12 @@ module.exports = async (bot, oldMember, newMember) => {
   const Discord = require("discord.js");
   const efunctions = require("../functions/eventUtils.js");
 
-  let config = efunctions.getConfig(newMember.guild.id);
-  if (config.loggingenabled == true) {
-    if (config.logginglevel == "high") {
-      if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
-        let lchannel = bot.channels.cache.get(config.loggingchannel);
+  let config = await bot.mutils.getGuildById(newMember.guild.id)
+
+  if (config.logging_enabled == true) {
+    if (config.logging_level == "high") {
+      if (efunctions.checkChannel(config.logging_channel, bot) == true) {
+        let lchannel = bot.channels.cache.get(config.logging_channel);
         if (oldMember.nickname !== newMember.nickname) {
           lchannel.send({
             embed: {

@@ -4,7 +4,7 @@ module.exports = {
   description: "Change all config variables related to staff.",
   usage: "sb!config-staff <SUBCOMMAND>",
   permission: "ADMIN",
-  run: (bot, message, args) => {
+  run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     if (!message.guild) return;
@@ -44,7 +44,7 @@ module.exports = {
     }
 
     //Get the server config
-    const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
+    const config = await bot.mutils.getGuildById(message.guild.id);
 
     //settings library
     switch (setting) {
@@ -56,14 +56,7 @@ module.exports = {
             .catch((error) => bot.logger("error", error));
         }
 
-        config.staffrole = targetrole.id;
-
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
-
+        bot.mutils.updateGuildById(message.guild.id, { staff_role: targetrole.id })
         bot.createEmbed("success","",`Your servers staff role has been set! Users with this role can now use staff commands!`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
@@ -78,34 +71,24 @@ module.exports = {
         }
 
         if (status == "enable") {
-          if (config.staffadminenabled == true) {
+          if (config.staff_admin == true) {
             return bot.createEmbed("error","",`Error! Admin commands are already **enabled**`,[],`${message.guild.name}`,bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.logger("error", error));
           }
 
-          config.staffadminenabled = true;
-          fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-            (err) => {
-              if (err) return;
-            }
-          );
+          bot.mutils.updateGuildById(message.guild.id, { staff_admin: true })
           return bot.createEmbed("success","",`Admin commands have been **enabled**.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         } else if (status == "disable") {
-          if (config.staffadminenabled == false) {
+          if (config.staff_admin == false) {
             return bot.createEmbed("error","",`Error! Admin commands are already **disabled**`,[],`${message.guild.name}`,bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.logger("error", error));
           }
 
-          config.staffadminenabled = false;
-          fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-            (err) => {
-              if (err) return;
-            }
-          );
+          bot.mutils.updateGuildById(message.guild.id, { staff_admin: false })
           return bot.createEmbed("success","",`Admin commands have been **disabled**.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
@@ -123,34 +106,25 @@ module.exports = {
         }
 
         if (status == "enable") {
-          if (config.stafflinkblocker == true) {
+          if (config.staff_linkblock == true) {
             return bot.createEmbed("error","",`Error! Link blocker is already enabled.`,[],`${message.guild.name}`,bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.logger("error", error));
           }
 
-          config.stafflinkblocker = true;
-          fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-            (err) => {
-              if (err) return;
-            }
-          );
+          bot.mutils.updateGuildById(message.guild.id, { staff_linkblock: true })
           return bot.createEmbed("success","",`Link blocker has been enabled.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
+
         } else if (status == "disable") {
-          if (config.stafflinkblocker == false) {
+          if (config.staff_linkblock == false) {
             return bot.createEmbed("error","",`Error! Link blocker is already disabled.`,[],`${message.guild.name}`,bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.logger("error", error));
           }
 
-          config.stafflinkblocker = false;
-          fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-            (err) => {
-              if (err) return;
-            }
-          );
+          bot.mutils.updateGuildById(message.guild.id, { staff_linkblock: false })
           return bot.createEmbed("success","",`Link blocker has been disabled.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
@@ -167,21 +141,15 @@ module.exports = {
             .catch((error) => bot.logger("error", error));
         }
 
-        let filter = config.stafffilter;
+        let filter = config.staff_filter;
         if (filter.includes(word)) {
           return bot.createEmbed("error","",`Error! That word is already in the filter!`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
 
-        config.stafffilter.push(word);
-
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
-
+        config.staff_filter.push(word);
+        bot.mutils.updateGuildById(message.guild.id, { staff_filter: config.staff_filter })
         bot.createEmbed("success","",`The word **${word}** has been added to the filter!`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
@@ -190,7 +158,7 @@ module.exports = {
       case "filterremove":
         var word = args[1];
 
-        let thefilter = config.stafffilter;
+        let thefilter = config.staff_filter;
         if (!thefilter.includes(word)) {
           return bot.createEmbed("error","",`Error! The word **${word}** is not in the filter.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
@@ -199,14 +167,8 @@ module.exports = {
 
         let indexofword = thefilter.indexOf(word);
 
-        config.stafffilter.splice(indexofword, 1);
-
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
-
+        config.staff_filter.splice(indexofword, 1);
+        bot.mutils.updateGuildById(message.guild.id, { staff_filter: config.staff_filter })
         bot.createEmbed("success","",`The word **${word} has been removed from the filter!`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
@@ -227,12 +189,7 @@ module.exports = {
         }
 
         if (parseInt(cap) == 0) {
-          config.staffautoban = 0;
-          fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-            (err) => {
-              if (err) return;
-            }
-          );
+          bot.mutils.updateGuildById(message.guild.id, { staff_autoban: 0 })
           return bot.createEmbed("success","",`Warn cap has been disabled`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
@@ -250,13 +207,7 @@ module.exports = {
             .catch((error) => bot.logger("error", error));
         }
 
-        config.staffautoban = parseInt(cap);
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
-
+        bot.mutils.updateGuildById(message.guild.id, { staff_autoban: parseInt(cap) })
         bot.createEmbed("success","",`The warncap has been set to **${cap}**`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));

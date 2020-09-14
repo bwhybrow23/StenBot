@@ -4,7 +4,7 @@ module.exports = {
   description: "Change all config variables related to tickets.",
   usage: "sb!config-tickets <SUBCOMMAND>",
   permission: "ADMIN",
-  run: (bot, message, args) => {
+  run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     if (!message.guild) return;
@@ -44,23 +44,17 @@ module.exports = {
     }
 
     //Get the server config
-    const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
+    const config = await bot.mutils.getGuildById(message.guild.id);
 
     //settings library
     switch (setting) {
       case "enable":
-        if (config.ticketsenabled == true) {
+        if (config.tickets_enabled == true) {
           return bot.createEmbed("error","",`Error! Tickets are already enabled.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
-        config.ticketsenabled = true;
-
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
+        bot.mutils.updateGuildById(message.guild.id, { tickets_enabled: true })
 
         //Check for a category called tickets, if it does not exist create one
         function isCatTickets(element) {
@@ -72,13 +66,14 @@ module.exports = {
           }
           return true;
         }
-        if (!message.guild.cache.channels.some(isCatTickets)) {
-          message.guild.createChannel("Tickets", "category");
+        if (!message.guild.channels.cache.some(isCatTickets)) {
+          message.guild.channels.create("Tickets", { type: "category", reason: 'Category for StenBot Tickets' });
         }
 
         bot.createEmbed("success","",`Tickets have been enabled.`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
+
         break;
       case "disable":
         if (config.ticketsenabled == false) {
@@ -86,27 +81,9 @@ module.exports = {
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
-        config.ticketsenabled = false;
-
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
-
-        //Check for a category called tickets, if it does not exist create one
-        function isCatTickets(element) {
-          if ((element.constructor.name = "CategoryChannel")) {
-            return false;
-          }
-          if ((element.name = "Tickets")) {
-            return false;
-          }
-          return true;
-        }
-        if (message.guild.channels.some(isCatTickets)) {
-          message.guild.channel.delete("Tickets", "category");
-        }
+        bot.mutils.updateGuildById(message.guild.id, { tickets_enabled: false })
+        //Find and delete tickets category
+        message.guild.channels.cache.find(c=>c.name=="Tickets" && c.type=="category").delete();
 
         bot.createEmbed("success","",`Tickets have been disabled.`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
@@ -127,28 +104,14 @@ module.exports = {
             .catch((error) => bot.logger("error", error));
         }
 
-        config.ticketsmsg = tmessage;
-
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
-
+        bot.mutils.updateGuildById(message.guild.id, { tickets_message: tmessage });
         bot.createEmbed("success","",`Ticket message set!`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
+
         break;
       default:
-        return bot
-          .createEmbed(
-            "error",
-            "",
-            `Error! There is no ticket config setting called **${setting}**.`,
-            [],
-            `${message.guild.name}`,
-            bot
-          )
+        return bot.createEmbed("error","",`Error! There is no ticket config setting called **${setting}**.`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
     }

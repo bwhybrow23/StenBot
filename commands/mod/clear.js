@@ -9,16 +9,16 @@ module.exports = {
     if (!message.guild) return;
     const fs = require("fs");
 
-    var config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,"utf8"));
+    var config = await bot.mutils.getGuildById(message.guild.id);
 
-    if (config.staffrole == false) {
+    if (config.staff_role == false) {
       return bot.createEmbed("error","",`Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.logger("error", error));
     }
 
     let staffrole = message.guild.roles.cache.find(
-      (r) => r.id === config.staffrole
+      (r) => r.id === config.staff_role
     );
 
     if (staffrole == undefined) {
@@ -27,7 +27,7 @@ module.exports = {
         .catch((error) => bot.logger("error", error));
     }
 
-    if (!message.member.roles.cache.has(config.staffrole)) {
+    if (!message.member.roles.cache.has(config.staff_role)) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot);
     }
 

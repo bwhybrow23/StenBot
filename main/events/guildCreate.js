@@ -6,12 +6,7 @@ module.exports = async (bot, guild) => {
   //Check if the server is blacklisted
   var serverstats = undefined;
   try {
-    var serverstats = JSON.parse(
-      fs.readFileSync(
-        `./data/servers/server-${guild.id}/serverstats.json`,
-        "utf8"
-      )
-    );
+    var serverstats = mutils.getGuildById(guild.id)
   } catch (err) {
     var serverstats = undefined;
   }
@@ -30,6 +25,8 @@ module.exports = async (bot, guild) => {
   }
   bot.logger("info", `Joined guild ${guild.name} | ${guild.id}`);
 
+  /**** OLD STORAGE SYSTEM ****/
+  /* 
   //Create the servers root dir
   fs.mkdir(`./data/servers/server-${guild.id}`, (err) => {
     if (err && err.code != "EEXIST") return;
@@ -106,6 +103,33 @@ module.exports = async (bot, guild) => {
       if (err) return;
     }
   );
+  */
+  
+  /**** MONGO STORAGE ****/
+  bot.mutils.createGuild({
+    guild_id: guild.id,
+    guild_name: guild.name,
+    guild_owner_id: guild.owner.id,
+    blacklisted: false,
+    welcomer_enabled: false,
+    welcomer_channel: "0",
+    welcomer_message: "Welcome {user} to {server}!",
+    userjoin_enabled: false,
+    userjoin_role: "0",
+    userjoin_nickname: "None",
+    staff_role: "0",
+    staff_admin: false,
+    staff_linkblock: false,
+    staff_filter: [],
+    staff_autoban: "",
+    logging_enabled: false,
+    logging_channel: "0",
+    logging_level: "medium",
+    tickets_enabled: false,
+    tickets_message: "None",
+    music_enabled: false,
+    levelling_enabled: false
+    });
 
   // Update Status
   if (bot.settings.mode === "production") {

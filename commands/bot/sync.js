@@ -22,112 +22,47 @@ module.exports = {
     function syncServers(g) {
       //Loop through all guilds for server root
       bot.guilds.cache.forEach((g) => {
-        //Check if guild  files exist
-        let guildexists = fs.existsSync(`./data/servers/server-${g.id}`);
-        //If it dont create all the files
-        if (guildexists == false) {
-          fs.mkdir(`./data/servers/server-${g.id}`, (err) => {
-            if (err && err.code != "EEXIST") return;
-          });
-
-          //Create the servers users directory
-          fs.mkdir(`./data/servers/server-${g.id}/users`, (err) => {
-            if (err && err.code != "EEXIST") return;
-          });
-
-          //Inside the servers directory, we will create the tempbans folder
-          fs.mkdir(`./data/servers/server-${g.id}/tempbans`, (err) => {
-            if (err && err.code != "EEXIST") return;
-          });
-
-          //Create server stats file and set its contents to the servers stats
-          let date = new Date();
-          let stats = {
-            joined: date,
-            created: g.createdAt,
-            blacklisted: false,
-          };
-          fs.writeFileSync(`./data/servers/server-${g.id}/serverstats.json`, JSON.stringify(stats, null, 4), (err) => { if (err) return; });
+        //Check if guild config exist
+        var config = undefined;
+        try {
+          var config = bot.mutils.getGuildById(g.id)
+        } catch (err) {
+          var config = undefined;
+        }
+        //If it doesnt create the config
+        if (config == undefined) {
           
-          //Create server configuration file and set it to default contents
-          let defaultContent = {
-            welcomerenabled: false,
-            welcomerchannel: 0,
-            welcomermessage: "Welcome {user} to {server}!",
-            userjoinenabled: false,
-            userjoinedrole: 0,
-            userjoinedname: 0,
-            staffrole: false,
-            staffadminenabled: false,
-            stafflinkblocker: false,
-            stafffilter: [],
-            staffautoban: 0,
-            loggingenabled: false,
-            loggingchannel: 0,
-            logginglevel: "medium",
-            ticketsenabled: false,
-            ticketsmsg: 0,
-            economyenabled: false,
-            economyrobbing: false,
-            economypay: true,
-            economysymbol: 0,
-            musicenabled: false,
-            selfroleslist: [],
-            levellingenabled: false,
-          };
+          //Create config
+          bot.mutils.createGuild({
+            guild_id: g.id,
+            guild_name: g.name,
+            guild_owner_id: g.owner.id,
+            blacklisted: false,
+            welcomer_enabled: false,
+            welcomer_channel: "0",
+            welcomer_message: "Welcome {user} to {server}!",
+            userjoin_enabled: false,
+            userjoin_role: "0",
+            userjoin_nickname: "None",
+            staff_role: "0",
+            staff_admin: false,
+            staff_linkblock: false,
+            staff_filter: [],
+            staff_autoban: "",
+            logging_enabled: false,
+            logging_channel: "0",
+            logging_level: "medium",
+            tickets_enabled: false,
+            tickets_message: "None",
+            music_enabled: false,
+            levelling_enabled: false
+            });
 
-          fs.writeFileSync(`./data/servers/server-${g.id}/serverconfig.json`, JSON.stringify(defaultContent, null, 4), (err) => { if (err) return; });
-
-          //levelling system
-          let levelDefault = {};
-          fs.writeFileSync(`./data/servers/server-${g.id}/levelling.json`, JSON.stringify(levelDefault, null, 4), (err) => { if (err) return; });
-
-          //Check if files were generated successfully.
-          var locations = [
-            "/",
-            "/users",
-            "/tempbans",
-            "/serverstats.json",
-            "/serverconfig.json",
-            "/levelling.json",
-          ];
-          let gsuccess = true;
-
-          locations.forEach(function (loc) {
-            if (fs.existsSync(`./data/servers/server-${g.id}${loc}`) == false) {
-              gsuccess = false;
-            }
-          });
-          //If generation failed
-          if (gsuccess == false) {
-            //Delete folder and contents
-            var decursive = function (path) {
-              if (fs.existsSync(path)) {
-                fs.readdirSync(path).forEach(function (file, index) {
-                  var curPath = path + "/" + file;
-                  if (fs.lstatSync(curPath).isDirectory()) {
-                    decursive(curPath);
-                  } else {
-                    fs.unlinkSync(curPath);
-                  }
-                });
-                fs.rmdirSync(path);
-              }
-            };
-            //Run func
-            decursive(`./data/servers/server-${g.id}`);
-          } else {
-            console.log(`[SYNC]`.blue, `Synced guild ${g.name} | ${g.id}`.cyan);
-          }
+          console.log(`[SYNC]`.blue, `Synced guild ${g.name} | ${g.id}`.cyan);
 
           //Counter
           amountsynced = amountsynced + 1;
 
-          if (gsuccess == false) {
-            return false;
-          } else {
-            return true;
-          }
         }
       });
     }

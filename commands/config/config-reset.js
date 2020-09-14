@@ -4,7 +4,7 @@ module.exports = {
   description: "Reset all config variables for your server.",
   usage: "sb!config-reset",
   permission: "ADMIN",
-  run: (bot, message, args) => {
+  run: async (bot, message, args) => {
 
       const Discord = require("discord.js");
       if (!message.guild) return;
@@ -20,32 +20,6 @@ module.exports = {
               .catch((error) => bot.logger("error", error));
       }
 
-      let defaultContent = {
-          welcomerenabled: false,
-          welcomerchannel: 0,
-          welcomermessage: "Welcome {user} to {server}!",
-          userjoinenabled: false,
-          userjoinedrole: 0,
-          userjoinedname: 0,
-          staffrole: false,
-          staffadminenabled: false,
-          stafflinkblocker: false,
-          stafffilter: [],
-          staffautoban: 0,
-          loggingenabled: false,
-          loggingchannel: 0,
-          logginglevel: "medium",
-          ticketsenabled: false,
-          ticketsmsg: 0,
-          economyenabled: false,
-          economyrobbing: false,
-          economypay: true,
-          economysymbol: 0,
-          musicenabled: false,
-          selfroleslist: [],
-          levellingenabled: false,
-      };
-
       //Confirmation
       bot.createEmbed("warning", "", `Are you sure you would like to reset the config of this server?\n React with :white_check_mark: if you are sure, or :x: to cancel resetting. \nThis will automatically cancel if there isn't a response in 30 seconds.`, [], `${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed).then((m) => {
@@ -56,14 +30,33 @@ module.exports = {
               m.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '✅' || reaction.emoji.name == '❌'), {max: 1,time: 30000}).then(collected => { 
                                 
                 if (collected.first().emoji.name == '✅') {
-                      fs.unlinkSync(`./data/servers/server-${message.guild.id}/serverconfig.json`);
-                      fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, JSON.stringify(defaultContent, null, 4),
-                          (err) => {
-                              if (err) return;
-                          }
-                      );
 
-                      bot.createEmbed("success", "", `Server Config has been reset.`, [], `${message.guild.name}`, bot)
+                    bot.mutils.updateGuildById(message.guild.id, {
+                        guild_id: message.guild.id,
+                        guild_name: message.guild.name,
+                        guild_owner_id: message.guild.owner.id,
+                        blacklisted: false,
+                        welcomer_enabled: false,
+                        welcomer_channel: "0",
+                        welcomer_message: "Welcome {user} to {server}!",
+                        userjoin_enabled: false,
+                        userjoin_role: "0",
+                        userjoin_nickname: "None",
+                        staff_role: "0",
+                        staff_admin: false,
+                        staff_linkblock: false,
+                        staff_filter: [],
+                        staff_autoban: "",
+                        logging_enabled: false,
+                        logging_channel: "0",
+                        logging_level: "medium",
+                        tickets_enabled: false,
+                        tickets_message: "None",
+                        music_enabled: false,
+                        levelling_enabled: false
+                        });
+
+                    bot.createEmbed("success", "", `Server Config has been reset.`, [], `${message.guild.name}`, bot)
                           .then((embed) => message.channel.send(embed))
                           .catch((error) => bot.logger("error", error));
                   } 

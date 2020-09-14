@@ -8,10 +8,11 @@ module.exports = async (bot, message) => {
 
   if ((message.channel.type === "dm")) return;
 
-  let config = efunctions.getConfig(message.guild.id);
-  if (config.loggingenabled == true) {
-    if (config.logginglevel == "medium" || config.logginglevel == "high") {
-      if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
+  await bot.mutils.getGuildById(message.guild.id);
+
+  if (config.logging_enabled == true) {
+    if (config.logging_level == "medium" || config.logging_level == "high") {
+      if (efunctions.checkChannel(config.logging_channel, bot) == true) {
         if (message.author.bot) return;
         let files = await readdir("./commands/");
         possiblefilename =
@@ -19,7 +20,7 @@ module.exports = async (bot, message) => {
           ".js";
         if (files.includes(possiblefilename)) return;
 
-        let lchannel = bot.channels.cache.get(config.loggingchannel);
+        let lchannel = bot.channels.cache.get(config.logging_channel);
         lchannel.send({
           embed: {
             color: bot.settings.color.yellow,

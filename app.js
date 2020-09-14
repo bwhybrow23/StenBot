@@ -5,10 +5,9 @@ const readdir = promisify(require("fs").readdir);
 const settings = require("./main/settings.json");
 const fs = require("fs");
 const os = require("os");
-const colors = require("colors");
-const schedule = require("node-schedule");
-// const Sequelize = require('sequelize');
-// require('sqlite3');
+// const colors = require("colors");
+// const schedule = require("node-schedule");
+const mongoose = require("mongoose");
 
 //CREATE DISCORD BOT
 const bot = new Client();
@@ -39,13 +38,13 @@ const moderator = new Moderator(bot, {
 bot.moderator = moderator;
 
 //Link Blocker & Filter
-bot.on("message", (message) => {
+bot.on("message", async (message) => {
   if (message.author.bot) return;
   if (message.content.indexOf(bot.settings.prefix) !== 0) {
     if(message.guild) {
-    const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
+    const config = await bot.mutils.getGuildById(message.guild.id);
     //Check if its an url
-    if (config.stafflinkblocker) {
+    if (config.staff_linkblock) {
       var checker = require("is-url");
       if (checker(message.content)) {
         message.delete();
@@ -53,7 +52,7 @@ bot.on("message", (message) => {
       }
     }
     //Check if it contains words from filter
-    if (config.stafffilter.some((word) => message.content.includes(word))) {
+    if (config.staff_filter.some((word) => message.content.includes(word))) {
       message.delete();
       return;
     }
@@ -132,6 +131,22 @@ bot.setInterval(function () {
   bot.logger("info", `Ping: ${ping}`)
   bot.logger("info", `Guilds: ${guilds}`)
 }, 300000);
+
+//MongoDB
+let mongo = bot.settings.mongo;
+const connectionURL = `mongodb://${mongo.user}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.database}?authSource=admin`;
+bot.logger("info", `Creating MongoDB connection at ${mongo.host}:${mongo.port}`)
+
+mongoose.connect(connectionURL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+}).then(() => { bot.logger("success", "MongoDB connection successful")
+}).catch(error => bot.logger("error", `MongoDB connection unsuccessful: ${error}`));
+
+//Mongo Stuff Global
+const mutils = require("./main/functions/mongoUtils");
+bot.mutils = mutils;
 
 //TOKENS FOR CONNECTING
 bot.login(bot.settings.connections.devToken);

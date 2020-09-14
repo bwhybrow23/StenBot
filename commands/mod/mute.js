@@ -12,18 +12,16 @@ module.exports = {
       //Permission Check
       const fs = require("fs");
 
-    var config = JSON.parse(
-      fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,"utf8")
-    );
+    var config = await bot.mutils.getGuildById(message.guild.id);
 
-    if (config.staffrole == false) {
+    if (config.staff_role == false) {
       return bot.createEmbed("error","",`Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.logger("error", error));
     }
 
     let staffrole = message.guild.roles.cache.find(
-      (r) => r.id === config.staffrole
+      (r) => r.id === config.staff_role
     );
 
     if (staffrole == undefined) {
@@ -32,7 +30,7 @@ module.exports = {
         .catch((error) => bot.logger("error", error));
     }
 
-    if (!message.member.roles.cache.has(config.staffrole)) {
+    if (!message.member.roles.cache.has(config.staff_role)) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot);
     }
       
@@ -45,7 +43,7 @@ module.exports = {
         .catch((error) => bot.logger("error", error));
     }
 
-    if (targetuser.roles.cache.has(config.staffrole)) {
+    if (targetuser.roles.cache.has(config.staff_role)) {
         return bot.createEmbed("error","",`Error! You are not allowed to mute this person!`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
@@ -95,9 +93,9 @@ module.exports = {
           .catch((error) => bot.logger("error", error));
         //Logging
         const efunctions = require('../../main/functions/eventUtils.js');
-        if (config.loggingenabled == true) {
-              if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
-                let lchannel = bot.channels.cache.get(config.loggingchannel);
+        if (config.logging_enabled == true) {
+              if (efunctions.checkChannel(config.logging_channel, bot) == true) {
+                let lchannel = bot.channels.cache.get(config.logging_channel);
                 lchannel.send({
                   embed: {
                     color: bot.settings.color.yellow,

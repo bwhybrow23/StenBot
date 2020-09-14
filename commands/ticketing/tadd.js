@@ -10,7 +10,7 @@ module.exports = {
     if (!message.guild) return;
     const fs = require("fs");
 
-    const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
+    const config = await bot.mutils.getGuildById(message.guild.id);
 
     function errsend(msg) {
       message.channel.send({
@@ -27,12 +27,12 @@ module.exports = {
     }
 
     //Check if tickets are enabled
-    if (!config.ticketsenabled) {
+    if (!config.tickets_enabled) {
       return errsend("Tickets are not enabled in the servers config.");
     }
 
     //Check if staff role is valid or set
-    if (config.staffrole) {
+    if (config.staff_role) {
       if (message.guild.roles.cache.get(config.staffrole == undefined)) {
         return errsend("The staff role set is no longer valid.");
       }

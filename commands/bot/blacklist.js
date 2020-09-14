@@ -11,7 +11,7 @@ module.exports = {
     const fs = require("fs");
     const colors = require("colors");
 
-    //Check if the command was sent in the team guild
+    //Check if the command was sent by Sten
     if (message.author.id != 346246641595973633) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
@@ -33,14 +33,9 @@ module.exports = {
         .catch((error) => bot.logger("error", error));
     }
 
-    //Attempt to read the servers stats file
+    //Attempt to read the server's config
     try {
-      var targetserverfile = JSON.parse(
-        fs.readFileSync(
-          `./data/servers/server-${targetserver}/serverstats.json`,
-          "utf8"
-        )
-      );
+      var targetserverfile = await bot.mutils.getGuildById(message.guild.id);
     } catch (err) {
       return bot.createEmbed("error", "", `Error! I cannot find the server for the ID you provided.`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
@@ -50,16 +45,8 @@ module.exports = {
     //Get the target guilds guild object
     const targetguild = bot.guilds.cache.get(targetserver);
 
-    //Set blacklist to true
-    targetserverfile.blacklisted = true;
-
-    fs.writeFileSync(
-      `./data/servers/server-${targetserver}/serverstats.json`,
-      JSON.stringify(targetserverfile, null, 4),
-      (err) => {
-        if (err) return bot.logger("error", err);
-      }
-    );
+    //Blacklist server
+    bot.mutils.updateGuildById(targetserverfile, { blacklisted: true }).then(() => {
 
     //Black list success message
     bot.createEmbed("success", "", `Success!\nServer: **${targetguild.name} | ${targetguild.id}** has been blacklisted.`, [], `${message.guild.name}`, bot)
@@ -78,5 +65,8 @@ module.exports = {
 
     //Leave the blacklisted guild
     targetguild.leave();
+
+    })
+
   },
 };

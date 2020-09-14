@@ -3,22 +3,6 @@ const Discord = require("discord.js");
 
 //Functions to be used by the events and the event handler
 
-//Getting server config from guild id
-var getConfig = (id) => {
-  return JSON.parse(
-    fs.readFileSync(`./data/servers/server-${id}/serverconfig.json`, "utf-8")
-  );
-};
-
-//Save a config with the file and the guild id
-var saveConfig = (file, id) => {
-  fs.writeFileSync(
-    `./data/servers/server-${id}/serverconfig.json`,
-    JSON.stringify(file, null, 4)
-  );
-  return true;
-};
-
 //Comparing object keys (can be used to compare ids for example its used in member role add/remove)
 const compare = (a1, a2) => {
   a1 = Array.from(a1.keys());
@@ -41,8 +25,6 @@ var checkChannel = (id, client) => {
 };
 
 module.exports = {
-  getConfig,
-  saveConfig,
   compare,
   checkChannel
 };

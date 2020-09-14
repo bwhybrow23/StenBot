@@ -10,7 +10,7 @@ module.exports = {
       if (!message.guild) return;
       const fs = require("fs");
 
-      const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
+      const config = await bot.mutils.getGuildById(message.guild.id);
 
       var reason = args.slice(0).join(" ");
       var format = require("string-template");
@@ -32,18 +32,18 @@ module.exports = {
       }
 
       //Check if tickets are enabled
-      if (!config.ticketsenabled) {
+      if (!config.tickets_enabled) {
           return errsend("Tickets are not enabled in the servers config.");
       }
 
-      if (config.staffrole == false) {
+      if (config.staff_role == false) {
           return bot.createEmbed("error", "", `Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.logger("error", error));
       }
 
       let staffrole = message.guild.roles.cache.find(
-          (r) => r.id === config.staffrole
+          (r) => r.id === config.staff_role
       );
 
       if (staffrole == undefined) {
@@ -78,7 +78,7 @@ module.exports = {
                   VIEW_CHANNEL: false
                 });
                 channel.createOverwrite(
-                  message.guild.roles.cache.get(config.staffrole), {
+                  message.guild.roles.cache.get(config.staff_role), {
                     SEND_MESSAGES: true,
                     VIEW_CHANNEL: true,
                     MANAGE_MESSAGES: true
@@ -91,13 +91,13 @@ module.exports = {
   
                 //Fill in the placeholders <3
                 var tMessage = [];
-                if (config.ticketsmsg == 0) {
+                if (config.tickets_message == "None") {
                   tMessage.push(
                     `**User:** ${message.author.tag}\n**Reason:** ${reason}`
                   );
                 } else {
                   tMessage.push(
-                    format(config.ticketsmsg, {
+                    format(config.tickets_message, {
                       user: message.author.tag,
                       reason: reason,
                     })
@@ -118,18 +118,11 @@ module.exports = {
                 });
   
                 //Check if logging enabled
-                var checkChannel = (id) => {
-                  let tchannel = bot.channels.cache.get(id);
-                  if (tchannel == undefined) {
-                    return false;
-                  } else {
-                    return true;
-                  }
-                };
+                const eventFunctions = require(`../../main/functions/eventUtils.js`);
   
-                if (config.loggingenabled) {
-                  if (checkChannel(config.loggingchannel)) {
-                    message.guild.channels.cache.get(config.loggingchannel).send({
+                if (config.logging_enabled) {
+                  if (eventFunctions.checkChannel(config.logging_channel, bot)) {
+                    message.guild.channels.cache.get(config.logging_channel).send({
                       embed: {
                         color: bot.settings.color.yellow,
                         description: `**Ticket Created**\n**Created By:** ${message.author.tag}\n**Channel:** ${channel.name}\n**Id:** ${channel.id}\n\n**Reason:** ${reason}`,

@@ -1,11 +1,10 @@
 module.exports = {
   name: "config-userjoin",
   category: "config",
-  description:
-    "Change all config variables related to when users join your server.",
+  description: "Change all config variables related to when users join your server.",
   usage: "sb!config-userjoin <SUBCOMMAND>",
   permission: "ADMIN",
-  run: (bot, message, args) => {
+  run: async (bot, message, args) => {
     const Discord = require("discord.js");
     const fs = require("fs");
     var format = require("string-template");
@@ -43,46 +42,38 @@ module.exports = {
     }
 
     //Get the server config
-    const config = JSON.parse(fs.readFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`, "utf8"));
+    const config = await bot.mutils.getGuildById(message.guild.id);
 
     //settings library
     switch (setting) {
       case "enable":
-        if (config.userjoinenabled) {
+        if (config.userjoin_enabled == true) {
           return bot.createEmbed("error","",`Error! Userjoin is already enabled.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
-        config.userjoinenabled = true;
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
+        bot.mutils.updateGuildById(message.guild.id, { userjoin_enabled: true })
         bot.createEmbed("success","",`Userjoin has been enabled!`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
         break;
+
       case "disable":
-        if (!config.userjoinenabled) {
+        if (config.userjoin_enabled == false) {
           return bot.createEmbed("error","",`Error! Userjoin is already disabled!`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
-        config.userjoinenabled = false;
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
+        bot.mutils.updateGuildById(message.guild.id, { userjoin_enabled: false })
         return bot.createEmbed("success","",`Userjoin has been disabled!`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
         break;
+
       case "role":
         var targetrole = message.mentions.roles.first();
 
-        if (!config.userjoinenabled) {
+        if (config.userjoin_enabled == false) {
           return bot.createEmbed("error","",`Error! Userjoin is not enabled. You can enable it with **sb!config-userjoin enable**`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
@@ -102,23 +93,17 @@ module.exports = {
             .catch((error) => bot.logger("error", error));
         }
 
-        if (targetrole.id == config.userjoinedrole) {
+        if (targetrole.id == config.userjoin_role) {
           return bot.createEmbed("error","",`Error! That role is already set as the auto-role.`,[],`${message.guild.name}`,bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.logger("error", error));
         }
 
-        config.userjoinedrole = targetrole.id;
-
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
-
+        bot.mutils.updateGuildById(message.guild.id, { userjoin_role: targetrole.id })
         bot.createEmbed("success","",`Auto-role is set to **${targetrole.name}**.`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
+
         break;
       case "name":
         var name = args.slice(1).join(" ");
@@ -135,15 +120,11 @@ module.exports = {
             .catch((error) => bot.logger("error", error));
         }
 
-        config.userjoinedname = name;
-        fs.writeFileSync(`./data/servers/server-${message.guild.id}/serverconfig.json`,JSON.stringify(config, null, 4),
-          (err) => {
-            if (err) return;
-          }
-        );
+        bot.mutils.updateGuildById(message.guild.id, { userjoin_nickname: name })
         bot.createEmbed("success","",`Auto-name is set to **${name}**`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
+          
         break;
       default:
         return bot.createEmbed("error","",`Error! There isn't a userjoin config setting called **${setting}**`,[],`${message.guild.name}`,bot)

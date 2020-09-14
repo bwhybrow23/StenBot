@@ -4,11 +4,11 @@ module.exports = async (bot, oldMessage, newMessage) => {
   const checker = require("is-url");
 
   if ((newMessage.type = "dm")) return;
-  let config = efunctions.getConfig(newMessage.guild.id);
+  let config = await bot.mutils.getGuildById(newMessage.guild.id)
 
-  if (config.loggingenabled == true) {
-    if (config.logginglevel == "medium" || config.logginglevel == "high") {
-      if (efunctions.checkChannel(config.loggingchannel, bot) == true) {
+  if (config.logging_enabled == true) {
+    if (config.logging_level == "medium" || config.logging_level == "high") {
+      if (efunctions.checkChannel(config.logging_channel, bot) == true) {
         if (oldMessage.author.bot) return;
         if (
           oldMessage.createdTimestamp === newMessage.createdTimestamp &&
@@ -17,7 +17,7 @@ module.exports = async (bot, oldMessage, newMessage) => {
           return;
         //AHem
         if (oldMessage.content == newMessage.content) return;
-        let lchannel = bot.channels.cache.get(config.loggingchannel);
+        let lchannel = bot.channels.cache.get(config.logging_channel);
         lchannel.send({
           embed: {
             color: bot.settings.color.yellow,

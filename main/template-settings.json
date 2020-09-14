@@ -1,5 +1,5 @@
 {
-    "version": "1.4.0",
+    "version": "1.5.0",
     "prefix": "sb!",
     "mode": "production",
     "connections": {
@@ -31,5 +31,12 @@
         "Europe",
         "Indian",
         "Pacific"
-    ]
+    ],
+		  "mongo": {
+        "user": "stenbot",
+        "database": "stenbot",
+        "password": "A5haVqy7PSZEca6Qan52NLQ9",
+        "host": "mongo.samb8104.xyz",
+        "port": 27017
+    }
 }
