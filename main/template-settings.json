@@ -32,11 +32,18 @@
         "Indian",
         "Pacific"
     ],
-		  "mongo": {
-        "user": "stenbot",
-        "database": "stenbot",
-        "password": "A5haVqy7PSZEca6Qan52NLQ9",
-        "host": "mongo.samb8104.xyz",
+	"mongo": {
+        "user": "",
+        "database": "",
+        "password": "",
+        "host": "",
+        "port": 27017
+    },
+    "mongoDev": {
+        "user": "",
+        "database": "",
+        "password": "",
+        "host": "",
         "port": 27017
     }
 }
