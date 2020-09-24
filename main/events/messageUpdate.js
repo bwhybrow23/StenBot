@@ -3,32 +3,23 @@ module.exports = async (bot, oldMessage, newMessage) => {
   const efunctions = require("../functions/eventUtils.js");
   const checker = require("is-url");
 
-  if ((newMessage.type = "dm")) return;
-  let config = await bot.mutils.getGuildById(newMessage.guild.id)
+  if (newMessage.type == "dm") return;
+  let config = await bot.mutils.getGuildById(newMessage.guild.id);
 
   if (config.logging_enabled == true) {
-    if (config.logging_level == "medium" || config.logging_level == "high") {
+    if (config.logging_level == "low" || config.logging_level == "medium" || config.logging_level == "high") {
       if (efunctions.checkChannel(config.logging_channel, bot) == true) {
         if (oldMessage.author.bot) return;
         if (
           oldMessage.createdTimestamp === newMessage.createdTimestamp &&
           checker(oldMessage)
         )
-          return;
-        //AHem
+        return;
         if (oldMessage.content == newMessage.content) return;
         let lchannel = bot.channels.cache.get(config.logging_channel);
-        lchannel.send({
-          embed: {
-            color: bot.settings.color.yellow,
-            description: `**Message Edited**\n**Before:**\n${oldMessage}\n**After:**\n${newMessage}\n**Sent in:** ${newMessage.channel}`,
-            footer: {
-              icon_url: newMessage.author.avatarURL,
-              text: "Message Edited",
-            },
-            timestamp: new Date(),
-          },
-        });
+        bot.eventEmbed("006187", newMessage.author, "Message Edited", `**Channel:** ${newMessage.channel}\n**Before:**\n${oldMessage.content}\n**After:**\n${newMessage.content}`, [], `${lchannel.guild.name}`, bot)
+                  .then(embed => lchannel.send(embed))
+                  .catch(error => console.error(error))
       }
     }
   }

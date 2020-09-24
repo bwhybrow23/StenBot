@@ -14,7 +14,7 @@ module.exports = async (bot, channel) => {
     if (config.logging_level == "low" || config.logging_level == "medium" || config.logging_level == "high") {
       if (efunctions.checkChannel(config.logging_channel, bot) == true) {
         let lchannel = bot.channels.cache.get(config.logging_channel);
-        bot.createEmbed("warning", "", `**Channel Deleted**\n**Name:** ${channel.name}\n**Id:** ${channel.id}`, [], `${channel.guild.name}`, bot)
+        bot.eventEmbed("c70011", "None", "Channel Deleted", `**Name:** ${channel.name}\n**Id:** ${channel.id}`, [], `${channel.guild.name}`, bot)
               .then(embed => lchannel.send(embed))
               .catch(error => console.error(error))
       }

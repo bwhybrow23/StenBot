@@ -174,45 +174,45 @@ module.exports = {
           .catch((error) => bot.logger("error", error));
 
         break;
-      case "warncap":
-        var cap = args[1];
-        if (isNaN(cap)) {
-          return bot.createEmbed("error","",`Error! **${cap}** is not a number!`,[],`${message.guild.name}`,bot)
-            .then((embed) => message.channel.send(embed))
-            .catch((error) => bot.logger("error", error));
-        }
+      // case "warncap":
+      //   var cap = args[1];
+      //   if (isNaN(cap)) {
+      //     return bot.createEmbed("error","",`Error! **${cap}** is not a number!`,[],`${message.guild.name}`,bot)
+      //       .then((embed) => message.channel.send(embed))
+      //       .catch((error) => bot.logger("error", error));
+      //   }
 
-        if (parseInt(cap) == config.staffautoban) {
-          return bot.createEmbed("error","",`Error! The warn cap is already set to **${cap}**.`,[],`${message.guild.name}`,bot)
-            .then((embed) => message.channel.send(embed))
-            .catch((error) => bot.logger("error", error));
-        }
+      //   if (parseInt(cap) == config.staffautoban) {
+      //     return bot.createEmbed("error","",`Error! The warn cap is already set to **${cap}**.`,[],`${message.guild.name}`,bot)
+      //       .then((embed) => message.channel.send(embed))
+      //       .catch((error) => bot.logger("error", error));
+      //   }
 
-        if (parseInt(cap) == 0) {
-          bot.mutils.updateGuildById(message.guild.id, { staff_autoban: 0 })
-          return bot.createEmbed("success","",`Warn cap has been disabled`,[],`${message.guild.name}`,bot)
-            .then((embed) => message.channel.send(embed))
-            .catch((error) => bot.logger("error", error));
-        }
+      //   if (parseInt(cap) == 0) {
+      //     bot.mutils.updateGuildById(message.guild.id, { staff_autoban: 0 })
+      //     return bot.createEmbed("success","",`Warn cap has been disabled`,[],`${message.guild.name}`,bot)
+      //       .then((embed) => message.channel.send(embed))
+      //       .catch((error) => bot.logger("error", error));
+      //   }
 
-        if (parseInt(cap) > 100) {
-          return bot.createEmbed("error","",`Error! The warncap cannot be over 100!`,[],`${message.guild.name}`,bot)
-            .then((embed) => message.channel.send(embed))
-            .catch((error) => bot.logger("error", error));
-        }
+      //   if (parseInt(cap) > 100) {
+      //     return bot.createEmbed("error","",`Error! The warncap cannot be over 100!`,[],`${message.guild.name}`,bot)
+      //       .then((embed) => message.channel.send(embed))
+      //       .catch((error) => bot.logger("error", error));
+      //   }
 
-        if (parseInt(cap) < 0) {
-          return bot.createEmbed("error","",`Error! The warncap cannot be less than 0!`,[],`${message.guild.name}`,bot)
-            .then((embed) => message.channel.send(embed))
-            .catch((error) => bot.logger("error", error));
-        }
+      //   if (parseInt(cap) < 0) {
+      //     return bot.createEmbed("error","",`Error! The warncap cannot be less than 0!`,[],`${message.guild.name}`,bot)
+      //       .then((embed) => message.channel.send(embed))
+      //       .catch((error) => bot.logger("error", error));
+      //   }
 
-        bot.mutils.updateGuildById(message.guild.id, { staff_autoban: parseInt(cap) })
-        bot.createEmbed("success","",`The warncap has been set to **${cap}**`,[],`${message.guild.name}`,bot)
-          .then((embed) => message.channel.send(embed))
-          .catch((error) => bot.logger("error", error));
+      //   bot.mutils.updateGuildById(message.guild.id, { staff_autoban: parseInt(cap) })
+      //   bot.createEmbed("success","",`The warncap has been set to **${cap}**`,[],`${message.guild.name}`,bot)
+      //     .then((embed) => message.channel.send(embed))
+      //     .catch((error) => bot.logger("error", error));
 
-        break;
+      //   break;
       default:
         bot.createEmbed("error","",`Error! There isn't a staff config setting called **${setting}**`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))

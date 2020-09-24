@@ -98,14 +98,9 @@ module.exports = {
         if (config.logging_enabled == true) {
               if (efunctions.checkChannel(config.logging_channel, bot) == true) {
                 let lchannel = bot.channels.cache.get(config.logging_channel);
-                lchannel.send({
-                  embed: {
-                    color: bot.settings.color.yellow,
-                    description: `**Member Tempmuted**\n**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.id}\n**Mute Date:** ${new Date()}\n**Reason:** ${reason}\n**Duration:** ${args[1]}`,
-                    footer: { icon_url: targetuser.avatarURL, text: "Member Tempmuted" },
-                    timestamp: new Date(),
-                  },
-                });
+                bot.eventEmbed("c70011", targetuser.user, "Member Temporarily Muted", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n**Mute Date:** ${new Date()}\n**Muted By:** ${message.author.tag}\n\n**Reason:** ${reason}\n**Duration:** ${args[1]}`, [], `${message.guild.name}`, bot)
+                .then(embed => lchannel.send(embed))
+                .catch(error => console.error(error))
               }
           }
       });

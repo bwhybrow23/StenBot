@@ -19,6 +19,7 @@ module.exports = {
       .addField("Invite Link 1", "https://sbinvite.benwhybrow.com")
       .addField("Invite Link 2", "http://bit.ly/2MDLj7hh")
       .addField("Support Server", "https://discord.benwhybrow.com")
+      .addField("Donation Link", "https://paypal.me/benwhybrow")
       .setThumbnail(bicon)
       .setFooter(`${message.guild.name}`, `https://i.imgur.com/BkZY6H8.png`);
 

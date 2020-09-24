@@ -5,19 +5,14 @@ module.exports = async (bot, oldRole, newRole) => {
   const request = require("superagent");
 
   let config = await bot.mutils.getGuildById(newRole.guild.id)
-  if (config.loggingenabled == true) {
-    if (config.logginglevel == "high") {
+  if (config.logging_enabled == true) {
+    if (config.logging_level == "high") {
       if (efunctions.checkChannel(config.logging_channel, bot) == true) {
         let lchannel = bot.channels.cache.get(config.logging_channel);
         if (oldRole.name !== newRole.name) {
-          lchannel.send({
-            embed: {
-              color: bot.settings.color.yellow,
-              description: `**Role Name Changed**\n**Before:** ${oldRole.name}\n**After:** ${newRole.name}\n**ID:** ${newRole.id}`,
-              footer: { text: "Role Name Changed" },
-              timestamp: new Date(),
-            },
-          });
+          bot.eventEmbed("006187", "None", "Role Name Changed", `**Old Name:** ${oldRole.name}\n**New Name:** ${newRole.name}\n**ID:** ${newRole.id}`, [], `${newRole.guild.name}`, bot)
+              .then(embed => lchannel.send(embed))
+              .catch(error => console.error(error))
         } else if (oldRole.hexColor !== newRole.hexColor) {
           //We use substr(1) to remove the '#' from the hex
           let oldjson = await request.get(
@@ -29,22 +24,9 @@ module.exports = async (bot, oldRole, newRole) => {
 
           let oldColor = oldjson.body.name.value;
           let newColor = newjson.body.name.value;
-          lchannel.send({
-            embed: {
-              color: bot.settings.color.yellow,
-              description: `**Role Color Changed**\n**Before:** ${
-                oldRole.hexColor
-              } (${
-                oldRole.hexColor === "#000000" ? "default" : oldColor
-              })\n**After:** ${newRole.hexColor} (${
-                newRole.hexColor === "#000000" ? "default" : newColor
-              })\n**ID:** ${
-                newRole.id
-              }\n**_NOTE:_ Colors are named to the exact color or the closest to it. Search them online to find out what they are.**`,
-              footer: { text: "Role Color Changed" },
-              timestamp: new Date(),
-            },
-          });
+          bot.eventEmbed("006187", "None", "Role Colour Changed", `**Name:** ${newRole.name}\n**Id:** ${newRole.id}\n\n**Before:** ${oldRole.hexColor} (${oldRole.hexColor === "#000000" ? "default" : oldColor})\n**After:** ${newRole.hexColor} (${newRole.hexColor === "#000000" ? "default" : newColor})\n**_NOTE:_ Colors are named to the exact color or the closest to it. Search them online to find out what they are.**`, [], `${newRole.guild.name}`, bot)
+              .then(embed => lchannel.send(embed))
+              .catch(error => console.error(error))
         }
       }
     }

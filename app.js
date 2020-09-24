@@ -5,7 +5,7 @@ const readdir = promisify(require("fs").readdir);
 const settings = require("./main/settings.json");
 const fs = require("fs");
 const os = require("os");
-// const colors = require("colors");
+const colors = require("colors");
 // const schedule = require("node-schedule");
 const mongoose = require("mongoose");
 
@@ -24,10 +24,11 @@ bot.logger = consoleUtils.post;
 bot.settings = settings;
 
 // Embed Function Available Everywhere
-const { createEmbed, noPermsEmbed, helpEmbed } = require("./main/functions/embedUtils.js");
+const { createEmbed, noPermsEmbed, helpEmbed, eventEmbed } = require("./main/functions/embedUtils.js");
 bot.createEmbed = createEmbed;
 bot.noPermsEmbed = noPermsEmbed;
 bot.helpEmbed = helpEmbed;
+bot.eventEmbed = eventEmbed;
 
 //Discord-Moderation Module (For Muting)
 const { Moderator } = require("discord-moderation");
@@ -134,6 +135,7 @@ bot.setInterval(function () {
 
 //MongoDB
 let mongo = bot.settings.mongo;
+// let mongo = bot.settings.mongoDev;
 const connectionURL = `mongodb://${mongo.user}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.database}?authSource=admin`;
 bot.logger("info", `Creating MongoDB connection at ${mongo.host}:${mongo.port}`)
 
@@ -149,5 +151,5 @@ const mutils = require("./main/functions/mongoUtils");
 bot.mutils = mutils;
 
 //TOKENS FOR CONNECTING
-bot.login(bot.settings.connections.devToken);
-// bot.login(bot.settings.connections.token);
+// bot.login(bot.settings.connections.devToken);
+bot.login(bot.settings.connections.token);

@@ -85,7 +85,7 @@ module.exports = {
         }
 
         let botmember = message.guild.members.cache.get(bot.user.id);
-        let comparedpos = targetrole.comparePositionTo(botmember.highestRole);
+        let comparedpos = targetrole.comparePositionTo(botmember.roles.highest);
 
         if (comparedpos > 0) {
           return bot.createEmbed("error","",`Error! That role is higher than the bot, therefore the bot cannot add the role to a user. Please fix this by moving the role below the bot's highest role.`,[],`${message.guild.name}`,bot)

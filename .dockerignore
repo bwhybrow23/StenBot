@@ -16,6 +16,6 @@ build/Release
 .env.test
 
 # Stuff
-main/settings.json
 Relevant-Info.txt
 StenBot Trello.url
+.vs

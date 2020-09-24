@@ -78,18 +78,15 @@ module.exports = {
         //Logging
         const efunctions = require('../../main/functions/eventUtils.js');
         if (config.logging_enabled == true) {
+          if (config.logging_level == "low" || config.logging_level == "medium" || config.logging_level == "high") {
               if (efunctions.checkChannel(config.logging_channel, bot) == true) {
                 let lchannel = bot.channels.cache.get(config.logging_channel);
-                lchannel.send({
-                  embed: {
-                    color: bot.settings.color.yellow,
-                    description: `**Member Unmuted**\n**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.id}\n**Unmute Date:** ${new Date()}\n**Reason:** ${reason}`,
-                    footer: { icon_url: targetuser.avatarURL, text: "Member Unmuted" },
-                    timestamp: new Date(),
-                  },
-                });
+                bot.eventEmbed("7ae727", targetuser.user, "Member Unmuted", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n**Unmute Date:** ${new Date()}\n**Unmuted By:** ${message.author.tag}\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)
+                .then(embed => lchannel.send(embed))
+                .catch(error => console.error(error))
               }
           }
+        }
       });
     },
   };

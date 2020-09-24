@@ -20,3 +20,6 @@ package-lock.json
 main/settings.json
 Relevant-Info.txt
 StenBot Trello.url
+.vs
+data/global/cases.json
+data/global/db.sqlite
