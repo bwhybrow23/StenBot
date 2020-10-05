@@ -18,7 +18,8 @@
         "blue": 4886754
     },
     "options": {
-        "verifEnabled": false
+        "verifEnabled": false,
+        "apiPort": 3000
     },
     "regions": [
         "Africa",

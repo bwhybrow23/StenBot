@@ -21,7 +21,7 @@ module.exports = async (bot, message) => {
         if (files.includes(possiblefilename)) return;
 
         let lchannel = bot.channels.cache.get(config.logging_channel);
-        bot.eventEmbed("c9c600", message.author, "Message Deleted", `**Channel:** ${message.channel}\n**Message:**\n${message}`, [], `${lchannel.guild.name}`, bot)
+        bot.eventEmbed("c70011", message.author, "Message Deleted", `**Channel:** ${message.channel}\n**Message:**\n${message}`, [], `${lchannel.guild.name}`, bot)
                   .then(embed => lchannel.send(embed))
                   .catch(error => console.error(error))
       }

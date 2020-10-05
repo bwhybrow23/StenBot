@@ -1,172 +1,189 @@
 module.exports = {
-  name: "action",
-  category: "fun",
-  description: "Do various actions such a hug or kiss.",
-  usage: "sb!action <ACTION> <@USER>",
-  permission: "EVERYONE",
-  run: async (bot, message, args) => {
+    name: "action",
+    category: "fun",
+    description: "Do various actions such a hug or kiss.",
+    usage: "sb!action <ACTION> <@USER>",
+    permission: "EVERYONE",
+    run: async (bot, message, args) => {
 
-      const Discord = require("discord.js");
-      if (!message.guild) return;
-      const superagent = require("superagent");
+        const Discord = require("discord.js");
+        if (!message.guild) return;
+        const fetch = require("node-fetch");
 
-      const subc = args[0];
+        const subc = args[0];
 
-      if (subc === "help") {
-          let embed = new Discord.MessageEmbed()
-              .setTitle("Help: Action")
-              .setDescription(`Below are all the action commands you can use.`)
-              .setColor(bot.settings.color.blue)
-              .addField("`sb!action cuddle @user`", "Cuddle someone you really like.")
-              .addField("`sb!action hug @user`","Hug someone and make them feel happy.")
-              .addField("`sb!action kiss @user`", "Give that special person a kiss.")
-              .addField("`sb!action pat @user`", "Pat someone for being a good dog.")
-              .addField("`sb!action poke @user`","Back to the good ol' days of poking people.")
-              .addField("`sb!action slap @user`","Slap someone just for the sake of it.")
-              .addField("`sb!action tickle @user`","Tickle someone just to make them annoyed.")
-              .setFooter(message.author.tag, message.author.avatarURL);
+        let user;
+        let url;
 
-          message.channel.send(embed);
-      } else {
-          if (!subc) {
-              let embed = new Discord.MessageEmbed()
-                  .setTitle("Help: Action")
-                  .setDescription(`Below are all the action commands you can use.`)
-                  .setColor(bot.settings.color.blue)
-                  .addField("`sb!action cuddle @user`","Cuddle someone you really like.")
-                  .addField("`sb!action hug @user`","Hug someone and make them feel happy.")
-                  .addField("`sb!action kiss @user`","Give that special person a kiss.")
-                  .addField("`sb!action pat @user`","Pat someone for being a good dog.")
-                  .addField("`sb!action poke @user`","Back to the good ol' days of poking people.")
-                  .addField("`sb!action slap @user`","Slap someone just for the sake of it.")
-                  .addField("`sb!action tickle @user`","Tickle someone just to make them annoyed.")
-                  .setFooter(message.author.tag, message.author.avatarURL);
+        switch (subc) {
+            case "cuddle":
+                try {
+                    user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+                } catch (error) {
+                    return message.channel.send("Make sure you mention someone!");
+                }
 
-              message.channel.send(embed);
-          } else {
-              if (subc === "hug") {
-                  let user = message.guild.member(
-                      message.mentions.users.first() || message.guild.members.get(args[1])
-                  );
-                  if (!user)
-                      return message.channel.send("Make sure you mention someone!");
+                const cBody = await fetch(`https://nekos.life/api/v2/img/cuddle`)
+                .then(res => res.json())
+                .then(json => url = json.url)
 
-                  const {body} = await superagent.get(`https://nekos.life/api/v2/img/hug`);
+                let cEmbed = new Discord.MessageEmbed()
+                    .setTitle("Action: Cuddle")
+                    .setDescription(`**${message.author.username}** cuddled **${user.user.username}**!`)
+                    .setImage(url)
+                    .setColor(bot.settings.color.yellow)
+                    .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
 
-                  let embed = new Discord.MessageEmbed()
-                      .setTitle("Action: Hug")
-                      .setDescription(`**${message.author.username}** hugged **${message.mentions.users.first().username}**!`)
-                      .setImage(body.url)
-                      .setColor(bot.settings.color.yellow)
-                      .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
+                message.channel.send(cEmbed);
+                break;
+            case "hug":
+                try {
+                    user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+                } catch (error) {
+                    return message.channel.send("Make sure you mention someone!");
+                }
 
-                  message.channel.send(embed);
-              } else {
-                  if (subc === "kiss") {
-                      let user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
-                      if (!user)
-                          return message.channel.send("Make sure you mention someone!");
+                const hBody = await fetch(`https://nekos.life/api/v2/img/hug`)
+                .then(res => res.json())
+                .then(json => url = json.url)
 
-                      const {body} = await superagent.get(`https://nekos.life/api/v2/img/kiss`);
+                let hEmbed = new Discord.MessageEmbed()
+                    .setTitle("Action: Hug")
+                    .setDescription(`**${message.author.username}** hugged **${user.user.username}**!`)
+                    .setImage(url)
+                    .setColor(bot.settings.color.yellow)
+                    .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
 
-                      let embed = new Discord.MessageEmbed()
-                          .setTitle("Action: Kiss")
-                          .setDescription(`**${message.author.username}** kissed **${message.mentions.users.first().username}**! :heart:`)
-                          .setImage(body.url)
-                          .setColor(bot.settings.color.yellow)
-                          .setFooter(message.guild.name,`https://i.imgur.com/BkZY6H8.png"`);
+                message.channel.send(hEmbed);
+                break;
 
-                      message.channel.send(embed);
-                  } else {
-                      if (subc === "tickle") {
-                          let user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
-                          if (!user)
-                              return message.channel.send("Make sure you mention someone!");
+            case "kiss":
+                try {
+                    user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+                } catch (error) {
+                    return message.channel.send("Make sure you mention someone!");
+                }
 
-                          const {body} = await superagent.get(`https://nekos.life/api/v2/img/tickle`);
+                const kBody = await fetch(`https://nekos.life/api/v2/img/kiss`)
+                .then(res => res.json())
+                .then(json => url = json.url)
 
-                          let embed = new Discord.MessageEmbed()
-                              .setTitle("Action: Tickle")
-                              .setDescription(`**${message.author.username}** tickled **${message.mentions.users.first().username}**!`)
-                              .setImage(body.url)
-                              .setColor(bot.settings.color.yellow)
-                              .setFooter(message.guild.name,`https://i.imgur.com/BkZY6H8.png"`);
+                let kEmbed = new Discord.MessageEmbed()
+                    .setTitle("Action: Kiss")
+                    .setDescription(`**${message.author.username}** kissed **${user.user.username}**! :heart:`)
+                    .setImage(url)
+                    .setColor(bot.settings.color.yellow)
+                    .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
 
-                          message.channel.send(embed);
-                      } else {
-                          if (subc === "slap") {
-                              let user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
-                              if (!user)
-                                  return message.channel.send("Make sure you mention someone!");
+                message.channel.send(kEmbed);
+                break;
 
-                              const {body} = await superagent.get(`https://nekos.life/api/v2/img/slap`);
+            case "pat":
+                try {
+                    user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+                } catch (error) {
+                    return message.channel.send("Make sure you mention someone!");
+                }
 
-                              let embed = new Discord.MessageEmbed()
-                                  .setTitle("Action: Slap")
-                                  .setDescription(`**${message.author.username}** slapped **${message.mentions.users.first().username}**! *ouch*`)
-                                  .setImage(body.url)
-                                  .setColor(bot.settings.color.yellow)
-                                  .setFooter(message.guild.name,`https://i.imgur.com/BkZY6H8.png"`);
+                const pBody = await fetch(`https://nekos.life/api/v2/img/pat`)
+                .then(res => res.json())
+                .then(json => url = json.url)
 
-                              message.channel.send(embed);
-                          } else {
-                              if (subc === "poke") {
-                                  let user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
-                                  if (!user)
-                                      return message.channel.send(
-                                          "Make sure you mention someone!"
-                                      );
+                let pEmbed = new Discord.MessageEmbed()
+                    .setTitle("Action: Pat")
+                    .setDescription(`**${message.author.username}** patted **${user.user.username}**! *ouch*`)
+                    .setImage(url)
+                    .setColor(bot.settings.color.yellow)
+                    .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
 
-                                  const {body} = await superagent.get(`https://nekos.life/api/v2/img/poke`);
+                message.channel.send(pEmbed);
 
-                                  let embed = new Discord.MessageEmbed()
-                                      .setTitle("Action: Poke")
-                                      .setDescription(`**${message.author.username}** poked **${message.mentions.users.first().username}**!`)
-                                      .setImage(body.url)
-                                      .setColor(bot.settings.color.yellow)
-                                      .setFooter(message.guild.name,`https://i.imgur.com/BkZY6H8.png"`);
+                break;
 
-                                  message.channel.send(embed);
-                              } else {
-                                  if (subc === "pat") {
-                                      let user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
-                                      if (!user)
-                                          return message.channel.send("Make sure you mention someone!");
+            case "poke":
+                try {
+                    user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+                } catch (error) {
+                    return message.channel.send("Make sure you mention someone!");
+                }
 
-                                      const {body} = await superagent.get(`https://nekos.life/api/v2/img/pat`);
+                const poBody = await fetch(`https://nekos.life/api/v2/img/poke`)
+                .then(res => res.json())
+                .then(json => url = json.url)
 
-                                      let embed = new Discord.MessageEmbed()
-                                          .setTitle("Action: Pat")
-                                          .setDescription(`**${message.author.username}** patted **${message.mentions.users.first().username}**! *ouch*`)
-                                          .setImage(body.url)
-                                          .setColor(bot.settings.color.yellow)
-                                          .setFooter(message.guild.name,`https://i.imgur.com/BkZY6H8.png"`);
+                let poEmbed = new Discord.MessageEmbed()
+                    .setTitle("Action: Poke")
+                    .setDescription(`**${message.author.username}** poked **${user.user.username}**!`)
+                    .setImage(url)
+                    .setColor(bot.settings.color.yellow)
+                    .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
 
-                                      message.channel.send(embed);
-                                  } else {
-                                      if (subc === "cuddle") {
-                                          let user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
-                                          if (!user)
-                                              return message.channel.send("Make sure you mention someone!");
+                message.channel.send(poEmbed);
 
-                                          const {body} = await superagent.get(`https://nekos.life/api/v2/img/cuddle`);
+                break;
 
-                                          let embed = new Discord.MessageEmbed()
-                                              .setTitle("Action: Cuddle")
-                                              .setDescription(`**${message.author.username}** cuddled **${message.mentions.users.first().username}**!`)
-                                              .setImage(body.url)
-                                              .setColor(bot.settings.color.yellow)
-                                              .setFooter(message.guild.name,`https://i.imgur.com/BkZY6H8.png"`);
+            case "slap":
+                try {
+                    user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+                } catch (error) {
+                    return message.channel.send("Make sure you mention someone!");
+                }
 
-                                          message.channel.send(embed);
-                                      }
-                                  }
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-      }
-  },
+                const sBody = await fetch(`https://nekos.life/api/v2/img/slap`)
+                .then(res => res.json())
+                .then(json => url = json.url)
+
+                let sEmbed = new Discord.MessageEmbed()
+                    .setTitle("Action: Slap")
+                    .setDescription(`**${message.author.username}** slapped **${user.user.username}**! *ouch*`)
+                    .setImage(url)
+                    .setColor(bot.settings.color.yellow)
+                    .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
+
+                message.channel.send(sEmbed);
+                break;
+
+            case "tickle":
+                try {
+                    user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+                } catch (error) {
+                    return message.channel.send("Make sure you mention someone!");
+                }
+
+                const tBody = await fetch(`https://nekos.life/api/v2/img/tickle`)
+                .then(res => res.json())
+                .then(json => url = json.url)
+
+                let tEmbed = new Discord.MessageEmbed()
+                    .setTitle("Action: Tickle")
+                    .setDescription(`**${message.author.username}** tickled **${user.user.username}**!`)
+                    .setImage(url)
+                    .setColor(bot.settings.color.yellow)
+                    .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
+
+                message.channel.send(tEmbed);
+
+                break;
+
+            default:
+            case "help":
+
+                let helpEmbed = new Discord.MessageEmbed()
+                    .setTitle("Help: Action")
+                    .setDescription(`Below are all the action commands you can use.`)
+                    .setColor(bot.settings.color.blue)
+                    .addField("`sb!action cuddle @user`", "A cuddle a day keeps the sadness away!")
+                    .addField("`sb!action hug @user`", "Everyone needs a hug, so give someone a hug!")
+                    .addField("`sb!action kiss @user`", "*kisses softly*")
+                    .addField("`sb!action pat @user`", "Some people deserve a pat for doing a good job.")
+                    .addField("`sb!action poke @user`", "*pokes* hehe")
+                    .addField("`sb!action slap @user`", "Give someone a good ol' right hander.")
+                    .addField("`sb!action tickle @user`", "TICKLE MONSTER TIME")
+                    .setFooter(message.author.tag, message.author.avatarURL);
+
+                message.channel.send(helpEmbed);
+
+                break;
+        }
+    },
 };

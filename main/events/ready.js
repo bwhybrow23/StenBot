@@ -12,7 +12,7 @@ module.exports = (bot) => {
 
     //Console Log
     let date = new Date();
-    bot.logger("info", `${bot.user.username} Started Successfully in Production Mode. Version: ${bot.settings.version}`);
+    bot.logger("success", `${bot.user.username} Started Successfully in Production Mode. Version: ${bot.settings.version}`);
   }
 
   if (bot.settings.mode === "development") {
@@ -21,7 +21,7 @@ module.exports = (bot) => {
     bot.user.setPresence({ activity: { name: `In Development Mode`, type: `PLAYING` }, status: 'dnd' });
 
     //Console Log
-    bot.logger("info", `${bot.user.username} Started Successfully in Development Mode | Date: ${date}`);
+    bot.logger("success", `${bot.user.username} Started Successfully in Development Mode | Date: ${date}`);
   }
 
   //VERIFICATION FOR SUPPORT DISCORD

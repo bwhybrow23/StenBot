@@ -133,9 +133,22 @@ bot.setInterval(function () {
   bot.logger("info", `Guilds: ${guilds}`)
 }, 300000);
 
+let mongo;
+let token;
+if(bot.settings.mode === "production") {
+  mongo = bot.settings.mongo;
+
+  token = bot.settings.connections.token;
+} else if (bot.settings.mode === "development") {
+  mongo = bot.settings.mongoDev;
+
+  token = bot.settings.connections.devToken
+}
+
+//Connect to Discord's API
+bot.login(token);
+
 //MongoDB
-let mongo = bot.settings.mongo;
-// let mongo = bot.settings.mongoDev;
 const connectionURL = `mongodb://${mongo.user}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.database}?authSource=admin`;
 bot.logger("info", `Creating MongoDB connection at ${mongo.host}:${mongo.port}`)
 
@@ -150,6 +163,46 @@ mongoose.connect(connectionURL, {
 const mutils = require("./main/functions/mongoUtils");
 bot.mutils = mutils;
 
-//TOKENS FOR CONNECTING
-// bot.login(bot.settings.connections.devToken);
-bot.login(bot.settings.connections.token);
+// Global API
+const express = require('express');
+const app = express();
+const bodyparser = require("body-parser");
+const cors = require('cors');
+const port = bot.settings.options.apiPort;
+
+//Middleware
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({ extended: false}));
+app.use(cors());
+
+app.listen(port, () => {
+  bot.logger("success", `API server started on ${port}`);
+});
+
+//Output Basic Bot Info
+app.get("/api/info", (req, res) => {
+  var info = {
+    "version": bot.settings.version,
+    "prefix": bot.settings.prefix,
+    "mode": bot.settings.mode,
+    "botName": bot.user.tag,
+    "botID": bot.user.id,
+    "totalGuilds": bot.guilds.cache.size,
+    "hotel": "trivago"
+  }
+  res.status(200).send(info)
+})
+
+// app.get("/api/guilds", (req, res) => {
+//   mutils.getAllGuilds().then(data => {
+//     var allGuilds = data;
+//     res.status(200).send(allGuilds);
+//   })
+// })
+
+// app.get("/api/guild/:id", (req, res) => {
+//   mutils.getGuildById(res.params.id).then(data => {
+//     var guildData = data;
+//     res.status(200).send(guildData);
+//   })
+// })
