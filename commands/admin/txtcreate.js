@@ -32,7 +32,7 @@ module.exports = {
         .catch((error) => bot.logger("error", error));
     }
 
-    var t = args.slice(1).join(" ") || "None";
+    var ca = args.slice(1).join(" ") || "None";
 
     if (n.length > 100) {
       return bot.createEmbed("error", "", `The channel name has to be between 1 and 100 in **length**`, [], `${message.guild.name}`, bot)
@@ -40,14 +40,25 @@ module.exports = {
         .catch((error) => bot.logger("error", error));
     }
 
-    if (t.length > 1024) {
-      return bot.createEmbed("error", "", `The channel topic has to be less that 1024 characters.`, [], `${message.guild.name}`, bot)
+    if (ca.length > 100) {
+      return bot.createEmbed("error", "", `The channel category has to be less than 100 characters.`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.logger("error", error));
     }
 
+    let cat;
+    try {
+      cat = message.guild.channels.cache.find(channel => channel.name === ca && channel.type === "category");
+    } catch (error) {
+      message.guild.channels.create(ca, { type: 'category' }).then(channel => cat = channel);
+    }
+
+    if(!cat) {
+      message.guild.channels.create(ca, { type: 'category' }).then(channel => cat = channel);
+    }
+
     message.guild.channels.create(`${n}`, { type: 'text', reason: `Created by ${message.author.tag}` }).then((channel) => {
-      channel.setTopic(`${t}`);
+      channel.setParent(cat);
       return bot.createEmbed("success", "", `The channel **${channel.name}** has been created.`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.logger("error", error));

@@ -63,7 +63,7 @@ module.exports = async (bot, member) => {
 
   //Check if user names are set
   if (config.userjoin_nickname != 0) {
-		if(config.userjoin_nikcname != "None") {
+	if(config.userjoin_nickname != "None") {
       //Changeeee
       member.setNickname(config.userjoin_nickname).catch();
   }

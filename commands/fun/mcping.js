@@ -35,8 +35,15 @@ module.exports = {
       players += 0;
     }
 
+	let motd;
+	if (!res.motd) {
+		motd = "None";
+	} else {
+		motd = res.motd;
+	}
+
     if (res.online) {
-      bot.createEmbed("success","Server Status:",``,[{ name: "IP", value: `${ip}` },{ name: `Status`, value: `Online` },{ name: `Player Count`, value: `${players}/${res.players.max}` },{ name: `Server Version`, value: `${res.server.name}` },{ name: `MOTD`, value: `${res.motd}` },],`${message.guild.name}`,bot)
+      bot.createEmbed("success","Server Status:",``,[{ name: "IP", value: `${ip}` },{ name: `Status`, value: `Online` },{ name: `Player Count`, value: `${players}/${res.players.max}` },{ name: `Server Version`, value: `${res.server.name}` },{ name: `MOTD`, value: `${motd}` },],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.logger("error", error));
     }

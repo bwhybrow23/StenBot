@@ -15,6 +15,7 @@ module.exports = (bot) => {
     bot.logger("success", `${bot.user.username} Started Successfully in Production Mode. Version: ${bot.settings.version}`);
   }
 
+  //Development Mode
   if (bot.settings.mode === "development") {
     //Status
     date = new Date();

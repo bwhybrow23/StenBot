@@ -169,7 +169,7 @@ module.exports = {
 
         config.staff_filter.splice(indexofword, 1);
         bot.mutils.updateGuildById(message.guild.id, { staff_filter: config.staff_filter })
-        bot.createEmbed("success","",`The word **${word} has been removed from the filter!`,[],`${message.guild.name}`,bot)
+        bot.createEmbed("success","",`The word **${word}** has been removed from the filter!`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
 

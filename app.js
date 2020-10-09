@@ -1,6 +1,11 @@
 //Define
-const { Client, Collection } = require("discord.js");
-const { promisify } = require("util");
+const {
+  Client,
+  Collection
+} = require("discord.js");
+const {
+  promisify
+} = require("util");
 const readdir = promisify(require("fs").readdir);
 const settings = require("./main/settings.json");
 const fs = require("fs");
@@ -24,43 +29,26 @@ bot.logger = consoleUtils.post;
 bot.settings = settings;
 
 // Embed Function Available Everywhere
-const { createEmbed, noPermsEmbed, helpEmbed, eventEmbed } = require("./main/functions/embedUtils.js");
+const {
+  createEmbed,
+  noPermsEmbed,
+  helpEmbed,
+  eventEmbed
+} = require("./main/functions/embedUtils.js");
 bot.createEmbed = createEmbed;
 bot.noPermsEmbed = noPermsEmbed;
 bot.helpEmbed = helpEmbed;
 bot.eventEmbed = eventEmbed;
 
 //Discord-Moderation Module (For Muting)
-const { Moderator } = require("discord-moderation");
+const {
+  Moderator
+} = require("discord-moderation");
 const moderator = new Moderator(bot, {
   storage: './data/global/cases.json',
   updateCountdownEvery: 5000
 });
 bot.moderator = moderator;
-
-//Link Blocker & Filter
-bot.on("message", async (message) => {
-  if (message.author.bot) return;
-  if (message.content.indexOf(bot.settings.prefix) !== 0) {
-    if(message.guild) {
-    const config = await bot.mutils.getGuildById(message.guild.id);
-    //Check if its an url
-    if (config.staff_linkblock) {
-      var checker = require("is-url");
-      if (checker(message.content)) {
-        message.delete();
-        return;
-      }
-    }
-    //Check if it contains words from filter
-    if (config.staff_filter.some((word) => message.content.includes(word))) {
-      message.delete();
-      return;
-    }
-    return;
-  }
-  }
-});
 
 //NEW COMMAND HANDLER
 bot.commands = new Collection();
@@ -72,37 +60,31 @@ bot.categories = fs.readdirSync("./commands/");
   require(`./main/handlers/${handler}`)(bot);
 });
 
-bot.on("message", async (message) => {
-  const prefix = bot.settings.prefix;
+// Status fixer thingy (runs every 6h)
+function fixStatus() {
+  //Production Mode
+  if (bot.settings.mode === "production") {
+    //Status
+    let guilds = bot.guilds.cache.size;
+    bot.user.setPresence({ activity: { name: `sb!help on ${guilds} servers!`, type: `WATCHING` }, status: 'online' });
 
-  if (message.author.bot) return;
-  // if (!message.guild) return;
-  if (!message.content.startsWith(prefix)) return;
-  // if (!message.member)
-  //   message.member = await message.guild.fetchMember(message);
-
-  const args = message.content.slice(prefix.length).trim().split(/ +/g);
-  const cmd = args.shift().toLowerCase();
-
-  if (cmd.length === 0) return;
-
-  let command = bot.commands.get(cmd);
-  if (!command) command = bot.commands.get(bot.aliases.get(cmd));
-
-  if (command) {
-    command.run(bot, message, args);
+    //Console Log
+    bot.logger("info", `Status has been set successfully.`);
   }
-});
+}
+setInterval(fixStatus, 21600000);
 
 /**
- * Event Handler
- *
- * Read in each event file from ./main/events and then setup listeners for each event
- * on the bot client. Each event will be called with `bot, ...args`, i.e. it's normal
- * parameters preceeded with a reference to the bot client.
- */
+* Event Handler
+*
+* Read in each event file from ./main/events and then setup listeners for each event
+* on the bot client. Each event will be called with `bot, ...args`, i.e. it's normal
+* parameters preceeded with a reference to the bot client.
+*/
 // New
-const { readdirSync } = require("fs");
+const {
+  readdirSync
+} = require("fs");
 let events = readdirSync("./main/events/");
 events.forEach((file) => {
   const name = file.slice(0, -3);
@@ -120,11 +102,11 @@ var getMemUsage = () => {
   const used = process.memoryUsage().heapUsed / 1024 / 1024;
   return Math.round(used * 100) / 100;
 };
-bot.setInterval(function () {
+bot.setInterval(function() {
   memusage.memoryUsage = getMemUsage();
-  fs.writeFileSync("./data/global/bot-data.json",JSON.stringify(memusage, null, 4));
-}, 30000);
-bot.setInterval(function () {
+  fs.writeFileSync("./data/global/bot-data.json", JSON.stringify(memusage, null, 4));
+}, 300000);
+bot.setInterval(function() {
   let memoryusage = getMemUsage();
   let guilds = bot.guilds.cache.size;
   let ping = Math.floor(bot.ws.ping);
@@ -135,7 +117,7 @@ bot.setInterval(function () {
 
 let mongo;
 let token;
-if(bot.settings.mode === "production") {
+if (bot.settings.mode === "production") {
   mongo = bot.settings.mongo;
 
   token = bot.settings.connections.token;
@@ -156,7 +138,8 @@ mongoose.connect(connectionURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true
-}).then(() => { bot.logger("success", "MongoDB connection successful")
+}).then(() => {
+  bot.logger("success", "MongoDB connection successful")
 }).catch(error => bot.logger("error", `MongoDB connection unsuccessful: ${error}`));
 
 //Mongo Stuff Global
@@ -172,7 +155,9 @@ const port = bot.settings.options.apiPort;
 
 //Middleware
 app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({ extended: false}));
+app.use(bodyparser.urlencoded({
+  extended: false
+}));
 app.use(cors());
 
 app.listen(port, () => {
@@ -182,13 +167,13 @@ app.listen(port, () => {
 //Output Basic Bot Info
 app.get("/api/info", (req, res) => {
   var info = {
-    "version": bot.settings.version,
-    "prefix": bot.settings.prefix,
-    "mode": bot.settings.mode,
-    "botName": bot.user.tag,
-    "botID": bot.user.id,
-    "totalGuilds": bot.guilds.cache.size,
-    "hotel": "trivago"
+      "version": bot.settings.version,
+      "prefix": bot.settings.prefix,
+      "mode": bot.settings.mode,
+      "botName": bot.user.tag,
+      "botID": bot.user.id,
+      "totalGuilds": bot.guilds.cache.size,
+      "hotel": "trivago"
   }
   res.status(200).send(info)
 })
