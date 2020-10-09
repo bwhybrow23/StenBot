@@ -1,20 +1,65 @@
-# StenBot Source Code
+<!-- Tag line -->
+<h3 align="center">StenBot - A Public Discord Bot Written in NodeJS</h3>
 
-Hello! You have reached the official source code for StenBot, the best public Discord Bot in the entire world.
-There isn't much here yet but there might be soon.
+<!-- Badges -->
+<p align="center">
+    <a href="https://shields.io/" target="_blank">
+        <img src="https://img.shields.io/github/languages/top/bwhybrow23/StenBot?color=brightgreenn" alt="Main Lang"/>
+    </a>
+     <a href="https://github.com/bwhybrow23" target="_blank">
+        <img src="https://img.shields.io/badge/GitHub-bwhybrow23-blue.svg?logo=github&logoColor=FFF" alt="GitHub"/>
+  </a>
+    <a href="http://discord.benwhybrow.com/" target="_blank">
+    <img src="https://img.shields.io/discord/455782308293771264?color=blueviolet&label=Discord" alt="Discord" />
+    </a>
+</p>
 
+<!-- Content -->
+## Hello
+This repository is the home of StenBot. It's where all its files are stored and where you can explore it all! If you do decide to modify or use the code, please follow the guidelines of the license (see below for more information) and do not claim this code as your own. :)
+
+<!-- Inviting -->
+## Inviting the Bot
+To invite the bot to your Discord server, please follow one of the below links. (The second one is there as a backup if any issues occur with the custom one.) 
+- [First Link](https://sbinvite.benwhybrow.com)
+- [Second Link](http://bit.ly/2MDLj7hh)
+> The help command is **sb!help** to get started or refer to the documentation section just below.
+
+<!-- Documentation -->
 ## Documentation
+Please refer to the [documentation page on GitBook](https://sbdocs.benwhybrow.com) for more on how to use StenBot and set it up for your server. If you experience any issues, be sure to ask for help by refering to the Support section at the bottom of this ReadMe. If you would like to help contribute to the documentation, please contact me on Discord using the Support links at the bottom of this ReadMe. 
 
-You can currently find a poor documentation for StenBot [here](https://sbdocs.benwhybrow.com).
+<!-- License & Contributing -->
+## License and Contributing
+The current license for this project is **Don't Be a Dick (DBAD)**. You can see the official license [here](https://github.com/bwhybrow23/StenBot/blob/master/LICENSE.md)
+#### The current license means you can:
+You can basically do whatever you want with the code, just don't be a dick. By that it means, don't perform copyright infringement (redistributing under a different name), selling the code on this repo without authorisation, modifying the code with malicious/harmful content. 
+> If you don't do the above, your version of said software can be removed without notice as it violates the license. 
 
-## Features
+If you would like to contribute, please use your common sense. Make sure you submit working code and credit will be given. If there's an issue and you don't know how to fix it, use the [GitHub Issues](https://github.com/bwhybrow23/StenBot/issues) page on this repository so I can attempt to fix it myself. All feedback (negative or positive) is appreciated and can be given via the Issues page or via the Support links at the bottom of this ReadMe. 
 
-A whole list of features can be found over at [StenBot's website](https://sb.benwhybrow.com)!
+## Donating
 
-## Inviting The Bot
+You can also help me, the project out and future projects out by contributing through a [donation on PayPal](https://paypal.me/benwhybrow).
+<br>
+Donations will help fund things like hosting but may also fund an occasional coffee whilst working on projects.
+<p>
+    <a href="http://paypal.benwhybrow.com/" target="_blank">
+        <img src="https://img.shields.io/badge/PayPal-Ben%20Whybrow-blue.svg?logo=paypal&logoColor=00457C" alt="PayPal"/>
+    </a>
+</p>
 
-To invite the bot, head over to the bot's page [here](https://sbinvite.benwhybrow.com) and choose your server from the dropdown. Be sure to allow the bot **administrator permissions** otherwise it cannot work functionally.
+<!-- Discussion & Support -->
+## Discussion, Support and Issues
 
-## Support Discord
+Need support with this project, have found an issue or want to chat with others about contributing to the project?
+> Please check the project's issues page first for support & bugs!
 
-StenBot's support Discord can be found over at [https://discord.benwhybrow.com/](https://discord.benwhybrow.com/) where you can get all the assistance you need with StenBot!
+Not found what you need here?
+
+* If you have an issue, please create a GitHub issue here to report the situation, include as much detail as you can!
+* _or,_ You can join my Discord server and talk to one of the support team (or me) in order to get help with this project and other projects on my GitHub. 
+
+<a href="http://discord.benwhybrow.com/" target="_blank">
+    <img src="https://img.shields.io/discord/455782308293771264?color=blueviolet&label=Discord" alt="Discord" height="25">
+</a>
