@@ -17,6 +17,8 @@
 <!-- Content -->
 ## Hello
 This repository is the home of StenBot. It's where all its files are stored and where you can explore it all! If you do decide to modify or use the code, please follow the guidelines of the license (see below for more information) and do not claim this code as your own. :)
+<br>
+<img src="https://github-readme-stats.vercel.app/api/pin/?username=bwhybrow23&repo=StenBot&theme=react">
 
 <!-- Inviting -->
 ## Inviting the Bot
