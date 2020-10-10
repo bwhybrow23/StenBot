@@ -44,7 +44,7 @@ You can also help me, the project out and future projects out by contributing th
 <br>
 Donations will help fund things like hosting but may also fund an occasional coffee whilst working on projects.
 <p>
-    <a href="http://paypal.benwhybrow.com/" target="_blank">
+    <a href="https://paypal.me/benwhybrow" target="_blank">
         <img src="https://img.shields.io/badge/PayPal-Ben%20Whybrow-blue.svg?logo=paypal&logoColor=00457C" alt="PayPal"/>
     </a>
 </p>
