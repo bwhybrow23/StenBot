@@ -2,7 +2,8 @@ module.exports = {
     name: "tempmute",
     category: "mod",
     description: "Temporarily mute a user for a period of time.",
-    usage: "sb!tempmute <@USER> <TIME> <REASON>",
+    usage: "<@USER> <TIME> <REASON>",
+    example: "@Jess#8022 1d Being annoying",
     permission: "STAFF",
     run: async (bot, message, args) => {
 
@@ -37,11 +38,10 @@ module.exports = {
       
     //Args Check
     var targetuser = message.mentions.members.first();
-
-    if (targetuser == undefined) {
-      return bot.createEmbed("error","",`Error! You forgot to mention a user!`,[],`${message.guild.name}`,bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+    if (!targetuser || args[0] == "help") {
+      return bot.helpEmbed("tempmute", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
     }
 
     if (targetuser.roles.cache.has(config.staff_role)) {

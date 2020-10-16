@@ -2,7 +2,8 @@ module.exports = {
     name: "action",
     category: "fun",
     description: "Do various actions such a hug or kiss.",
-    usage: "sb!action <ACTION> <@USER>",
+    usage: "<ACTION> <@USER>",
+    example: "hug @Sam#9215",
     permission: "EVERYONE",
     run: async (bot, message, args) => {
 

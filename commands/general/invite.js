@@ -1,8 +1,9 @@
 module.exports = {
   name: "invite",
   category: "general",
-  description: "Information on how to invite the bot to your Discord.",
-  usage: "sb!invite",
+  description: "Information on how to invite the bot to your Discord server.",
+  usage: "",
+  example: "",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
     

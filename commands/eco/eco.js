@@ -2,7 +2,8 @@ module.exports = {
   name: "eco",
   category: "eco",
   description: "Adjust a user's economy balance.",
-  usage: "sb!eco <GIVE | SET | TAKE> <@USER> <VALUE>",
+  usage: "<GIVE | SET | TAKE> <@USER> <VALUE>",
+  example: "set @Steve#1234 69000",
   permission: "BOT OWNER",
   run: async (bot, message, args) => {
 
@@ -47,8 +48,10 @@ module.exports = {
       message.reply(
         "This option currently doesn't work at the moment. Please use the Give or Take money command."
       );
-    } else if (!subc) {
-      message.reply(`Available Commands:\nGive, Take, Set.`);
+    } else if (!subc || subc == "help") {
+        return bot.helpEmbed("eco", bot)
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => bot.logger("error", error));
     }
   },
 };

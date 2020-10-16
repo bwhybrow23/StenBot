@@ -1,8 +1,9 @@
 module.exports = {
   name: "mode",
-  category: "bot",
+  category: "botowner",
   description: "Switch the bot between various modes.",
-  usage: "sb!mode <MODE>",
+  usage: "<MODE>",
+  example: "production",
   permission: "BOT OWNER",
   run: async (bot, message, args) => {
 
@@ -20,6 +21,11 @@ module.exports = {
 
     //Check for Arg
     let newMode = args[0];
+    if (!newMode || args[0] == "help") {
+      return bot.helpEmbed("mode", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
+    }
 
     let date = new Date();
 

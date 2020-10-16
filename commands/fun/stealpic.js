@@ -2,7 +2,8 @@ module.exports = {
   name: "stealpic",
   category: "fun",
   description: "Steal a user's avatar.",
-  usage: "sb!stealpic <@USER>",
+  usage: "<@USER>",
+  example: "@Jake#4012",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
 
@@ -10,6 +11,11 @@ module.exports = {
     if (!message.guild) return;
 
     let stolen = message.mentions.users.first();
+    if (!stolen || args[0] == "help") {
+      return bot.helpEmbed("stealpic", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
+    }
     let stolenPic = stolen.avatarURL();
 
     let embed = new Discord.MessageEmbed()

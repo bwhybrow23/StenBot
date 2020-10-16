@@ -2,8 +2,10 @@ module.exports = {
   name: "balance",
   category: "eco",
   description: "Check your balance.",
-  usage: "sb!balance",
+  usage: "[@USER]",
+  example: "@Steve#1234",
   permission: "EVERYONE",
+  aliases: [ "bal" ],
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
@@ -13,7 +15,11 @@ module.exports = {
 
     let person = message.mentions.users.first() || message.author;
 
-    if (!person) return message.channel.send("Help Embed Needs Doing");
+    if (!person || args[0] == "help") {
+      return bot.helpEmbed("balance", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
+    }
 
     if (person.id === message.author.id) {
       let bal = db.fetch(`money_${message.author.id}`);

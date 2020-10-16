@@ -2,7 +2,8 @@ module.exports = {
   name: "ticketclose",
   category: "ticketing",
   description: "Close an ongoing ticket.",
-  usage: "sb!ticketclose",
+  usage: "",
+  example: "",
   permission: "STAFF",
   run: async (bot, message, args) => {
 

@@ -2,8 +2,9 @@ module.exports = {
   name: "vccreate",
   category: "admin",
   description: "Creates a voice channel.",
-  usage: "sb!vccreate <NAME>",
-  permission: "ADMINS",
+  usage: "<NAME>",
+  example: "General VC",
+  permission: "ADMIN",
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
@@ -19,6 +20,11 @@ module.exports = {
     }
 
     var n = args.slice(0).join(" ");
+    if (!n || args[0] == "help") {
+      return bot.helpEmbed("vccreate", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
+    }
 
     if (n.length < 1) {
       return bot.createEmbed("error", "", `Error! You forgot to include a name for the channel!`, [], `${message.guild.name}`, bot)

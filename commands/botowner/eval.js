@@ -1,8 +1,9 @@
 module.exports = {
   name: "eval",
-  category: "bot",
-  description: "Run code from within the bot",
-  usage: "sb!eval <CODE>",
+  category: "botowner",
+  description: "Run JavaScript code from within the bot",
+  usage: "<CODE>",
+  example: "message.channel.send(\"Hello World!\")",
   permission: "BOT OWNER",
   run: async (bot, message, args) => {
 
@@ -17,6 +18,11 @@ module.exports = {
 
     try {
       let codein = args.join(" ");
+      if (!codein || args[0] == "help") {
+        return bot.helpEmbed("eval", bot)
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => bot.logger("error", error));
+      }
       let code = eval(codein);
 
       if (typeof code !== "string")

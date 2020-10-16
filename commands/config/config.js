@@ -2,7 +2,8 @@ module.exports = {
   name: "config",
   category: "config",
   description: "View all config variables.",
-  usage: "sb!config",
+  usage: "",
+  example: "",
   permission: "ADMIN",
   run: async (bot, message, args) => {
 

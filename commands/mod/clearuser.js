@@ -2,7 +2,8 @@ module.exports = {
   name: "clearuser",
   category: "mod",
   description: "Clear all messages from a specific user.",
-  usage: "sb!clearuser <@USER> <VALUE>",
+  usage: "<@USER> <VALUE>",
+  example: "@Hayden#5150 50",
   permission: "STAFF",
   run: async (bot, message, args) => {
     const Discord = require("discord.js");
@@ -32,24 +33,11 @@ module.exports = {
     }
 
     var amount = args[1];
-    if (amount == undefined) {
-        return message.channel.send({
-            embed: {
-                color: bot.settings.color.red,
-                description: `Error! You didn't include an amount of messages to clear!`
-            }
-        });
-    };
-
-    if (isNaN(amount)) {
-        return message.channel.send({
-            embed: {
-                color: bot.settings.color.red,
-                description: `Error! The amount of messages you are clearing needs to be a number!`
-            }
-        });
-    };
-
+    if (!amount || amount == undefined || isNaN(amount) || args[0] == "help") {
+      return bot.helpEmbed("clear", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
+    }
 
     if (amount > 100) {
         return message.channel.send({

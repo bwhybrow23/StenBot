@@ -107,7 +107,7 @@ const noPermsEmbed = (footer, bot) => {
     });
 };
 
-const helpEmbed = (command, fields, footer, bot) => {
+const helpEmbed = (command, bot) => {
     return new Promise((resolve, reject) => {
         //Capitalize function
         const capitalize = (s) => {
@@ -122,49 +122,58 @@ const helpEmbed = (command, fields, footer, bot) => {
         if (!cmd) {
             reject(`Cannot find command under the name of ${command}`);
         }
+				
+				if (cmd.category == "botowner") return;
+
+        //Set up variables for the embed
+        let prefix = bot.settings.prefix;
+        let name = capitalize(cmd.name);
+        let description = cmd.description;
+        // let permission = capitalize(cmd.permission);
+        let usage;
+        let example;
+        if(cmd.usage != "") {
+            usage = `\`${prefix}${cmd.name} ${cmd.usage}\``
+        } else if (cmd.usage == "") {
+            usage = `\`${prefix}${cmd.name}\``
+        };
+        if(cmd.example != "") {
+            example = `\`${prefix}${cmd.name} ${cmd.example}\``
+        } else if (cmd.example == "") {
+            example = `\`${prefix}${cmd.name}\``
+        }
+
 
         //Set up Embed
         let embed = {
             embed: {
-                title: `Command: ${capitalize(cmd.name)}`,
-                description: "Syntax: <> = required, [] = optional",
+                title: `Command: ${name}`,
+                // description: "Syntax: <> = required, [] = optional",
                 color: colours.blue,
-                url: `https://sbdocs.benwhybrow.com/commands#${capitalize(cmd.name)}`,
+                url: `https://sbdocs.benwhybrow.com/commands#${name}`,
                 footer: {
                     icon_url: "https://i.imgur.com/BkZY6H8.png",
-                    text: ``,
+                    text: `Help Command | Syntax: <> = required, [] = optional`,
                 },
                 fields: [{
-                        name: "Description",
-                        value: `${cmd.description}`,
+                        name: "Description:",
+                        value: `${description}`,
                     },
                     {
-                        name: "Usage",
-                        value: `${cmd.usage}`,
+                        name: "Usage:",
+                        value: `${usage}`,
                     },
+                    {
+                        name: "Example:",
+                        value: `${example}`,
+                    },
+                    // {
+                    //     name: "Permission",
+                    //     value: `${permission}`,
+                    // },
                 ],
             },
         };
-
-        //Input Footer
-        if (typeof footer == "string" && footer.length < 2048) {
-            embed.embed.footer.text = footer;
-        } else {
-            reject("Footer is invalid.");
-        }
-
-        //Fields
-        fields.forEach((field) => {
-            if (field.name.length < 256) {
-                if (field.value.length < 1024) {
-                    embed.embed.fields.push(field);
-                } else {
-                    reject("A field has a value that is too large.");
-                }
-            } else {
-                reject("A field has a name that is too large.");
-            }
-        });
 
         //Resolve with the embed
         resolve(embed);

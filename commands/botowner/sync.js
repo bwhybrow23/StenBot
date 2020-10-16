@@ -1,8 +1,9 @@
 module.exports = {
     name: "sync",
-    category: "bot",
-    description: "Sync all servers to replace missing files.",
-    usage: "sb!sync",
+    category: "botowner",
+    description: "Checks all servers for configs and creates if they don't work. (For if the bot is offline when it's added to a guild).",
+    usage: "",
+    example: "",
     permission: "BOT OWNER",
     run: async (bot, message, args) => {
    

@@ -2,7 +2,8 @@ module.exports = {
     name: "unmute",
     category: "mod",
     description: "Unute a user that has previously been muted by StenBot.",
-    usage: "sb!unmute <@USER> <REASON>",
+    usage: "<@USER> <REASON>",
+    example: "@Geoff#3010 Has shut up",
     permission: "STAFF",
     run: async (bot, message, args) => {
 
@@ -36,11 +37,10 @@ module.exports = {
       
     //Args Check
     var targetuser = message.mentions.members.first();
-
-    if (targetuser == undefined) {
-      return bot.createEmbed("error","",`Error! You forgot to mention a user!`,[],`${message.guild.name}`,bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+    if (!targetuser || args[0] == "help") {
+      return bot.helpEmbed("unmute", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
     }
 
     if (targetuser.roles.cache.has(config.staffrole)) {

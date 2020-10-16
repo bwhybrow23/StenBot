@@ -2,7 +2,8 @@ module.exports = {
   name: "config-welcomer",
   category: "config",
   description: "Change all config variables related to welcomer.",
-  usage: "sb!config-welcomer <SUBCOMMAND>",
+  usage: "<SUBCOMMAND>",
+  example: "channel #welcome",
   permission: "ADMIN",
   run: async (bot, message, args) => {
 

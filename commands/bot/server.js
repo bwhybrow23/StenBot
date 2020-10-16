@@ -1,9 +1,10 @@
 module.exports = {
   name: "server",
   category: "bot",
-  description: "Gain information about the server the command is ran in..",
-  usage: "sb!serverinfo",
-  permission: "BOT OWNER",
+  description: "Get some information about the server the command is ran in.",
+  usage: "",
+  example: "",
+  permission: "EVERYONE",
   run: async (bot, message, args) => {
     
     const Discord = require("discord.js");

@@ -2,7 +2,8 @@ module.exports = {
   name: "config-reset",
   category: "config",
   description: "Reset all config variables for your server.",
-  usage: "sb!config-reset",
+  usage: "",
+  example: "",
   permission: "ADMIN",
   run: async (bot, message, args) => {
 

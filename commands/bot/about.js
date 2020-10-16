@@ -2,7 +2,8 @@ module.exports = {
   name: "about",
   category: "bot",
   description: "Gives some information about StenBot.",
-  usage: "sb!about",
+  usage: "",
+  example: "",
   permission: "EVERYONE",
   run: async (bot, message) => {
 

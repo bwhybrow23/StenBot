@@ -2,7 +2,8 @@ module.exports = {
   name: "achievement",
   category: "fun",
   description: "Create your own Minecraft achievement",
-  usage: "sb!achievement <MESSAGE>",
+  usage: "<MESSAGE>",
+  example: "Being a successful failure!",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
 
@@ -13,27 +14,12 @@ module.exports = {
       var request = require("request");
       var fs = require("fs");
 
-      function isEmpty(obj) {
-          if (obj == null) return true;
-          if (obj.length > 0) return false;
-          if (obj.length === 0) return true;
-          if (typeof obj !== "object") return true;
-          for (var key in obj) {
-              if (hasOwnProperty.call(obj, key)) return false;
-          }
-          return true;
+      if (!achievement || args[0] == "help") {
+        return bot.helpEmbed("achievement", bot)
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => bot.logger("error", error));
       }
-
-      let helpE = new Discord.MessageEmbed()
-          .setColor(bot.settings.color.blue)
-          .setTitle("Command: Achievement")
-          .addField("Description:", "Insert your own messgae into a Minecraft achievement text box.", true)
-          .addField("Usage", "`sb!achievement <text>`", true)
-          .addField("Example", "`sb!achievement You can spell!`")
-          .setFooter(message.author.tag, message.author.avatarURL)
-          .setTimestamp();
-
-      if (isEmpty(achievement)) return message.channel.send(helpE);
+      
       var download = function(uri, filename, callback) {
           request.head(uri, function(err, res, body) {
               request(uri).pipe(fs.createWriteStream(filename)).on("close", callback);

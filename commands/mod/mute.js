@@ -2,7 +2,8 @@ module.exports = {
     name: "mute",
     category: "mod",
     description: "Mute a user to block them from sending messages.",
-    usage: "sb!mute <@USER> <REASON>",
+    usage: "<@USER> <REASON>",
+    example: "@Lucy#5012 Spamming",
     permission: "STAFF",
     run: async (bot, message, args) => {
 
@@ -36,11 +37,10 @@ module.exports = {
       
     //Args Check
     var targetuser = message.mentions.members.first();
-
-    if (targetuser == undefined) {
-      return bot.createEmbed("error","",`Error! You forgot to mention a user!`,[],`${message.guild.name}`,bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+    if (!targetuser || args[0] == "help") {
+      return bot.helpEmbed("mute", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
     }
 
     if (targetuser.roles.cache.has(config.staff_role)) {

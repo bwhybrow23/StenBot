@@ -2,7 +2,8 @@ module.exports = {
   name: "config-userjoin",
   category: "config",
   description: "Change all config variables related to when users join your server.",
-  usage: "sb!config-userjoin <SUBCOMMAND>",
+  usage: "<SUBCOMMAND>",
+  example: "enable",
   permission: "ADMIN",
   run: async (bot, message, args) => {
     const Discord = require("discord.js");

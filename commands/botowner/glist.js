@@ -1,8 +1,9 @@
 module.exports = {
   name: "glist",
-  category: "bot",
-  description:"Gain a list of all the guilds the bot is in. Only name and ID is given.",
-  usage: "sb!glist",
+  category: "botowner",
+  description:"Gain a list of all the guilds the bot is in.",
+  usage: "",
+  example: "",
   permission: "BOT OWNER",
   run: async (bot, message, args) => {
 

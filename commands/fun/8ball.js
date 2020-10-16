@@ -2,15 +2,14 @@ module.exports = {
   name: "8ball",
   category: "fun",
   description: "Ask a question to the magic ball and it will answer.",
-  usage: "sb!8ball <MESSAGE>",
+  usage: "<QUESTION>",
+  example: "Is StenBot the best bot?",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     let fetch = require("node-fetch");
     if (!message.guild) return;
-
-    if (!args[0]) return message.channel.send("Help embed needs doing.");
 
     // var replies = [
     //   "Yes.",
@@ -27,6 +26,11 @@ module.exports = {
 
     // let result = Math.floor(Math.random() * replies.length);
     let question = args.slice(0).join(" ");
+    if (!question || args[0] == "help") {
+      return bot.helpEmbed("8ball", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
+    }
 
     //Nekos.life API integration
     let result;

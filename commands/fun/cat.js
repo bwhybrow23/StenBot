@@ -2,7 +2,8 @@ module.exports = {
   name: "cat",
   category: "fun",
   description: "Get a random image of a cat.",
-  usage: "sb!cat",
+  usage: "",
+  example: "",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
 

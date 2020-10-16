@@ -2,7 +2,8 @@ module.exports = {
   name: "me",
   category: "fun",
   description: "Find out some of the information the bot knows about you.",
-  usage: "sb!me",
+  usage: "[@USER]",
+  example: "@Danny#7013",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
 
@@ -14,6 +15,12 @@ module.exports = {
 
     const member = message.mentions.members.first() || members.get(args[0]) || message.member;
     let target = message.mentions.users.first() || message.author;
+
+    if (args[0] == "help") {
+        return bot.helpEmbed("me", bot)
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => bot.logger("error", error));
+      }
 
     if (member.user.bot === true) {
         bot = "Yes";

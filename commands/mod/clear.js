@@ -2,7 +2,8 @@ module.exports = {
   name: "clear",
   category: "mod",
   description: "Clear a certain amount of messages from chat.",
-  usage: "sb!clear <VALUE>",
+  usage: "<VALUE>",
+  example: "69",
   permission: "STAFF",
   run: async (bot, message, args) => {
     const Discord = require("discord.js");
@@ -32,16 +33,10 @@ module.exports = {
     }
 
     var amount = args[0];
-    if (amount == undefined) {
-      return bot.createEmbed("error","",`Error! You didn't include an amount of messages to clear!`,[],`${message.guild.name}`,bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
-    }
-
-    if (isNaN(amount)) {
-      return bot.createEmbed("error","",`Error! The amount of messages you are clearing needs to be a number!`,[],`${message.guild.name}`,bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+    if (!amount || amount == undefined || isNaN(amount) || args[0] == "help") {
+      return bot.helpEmbed("clear", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
     }
 
     if (amount > 100) {

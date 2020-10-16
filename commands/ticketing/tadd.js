@@ -2,7 +2,8 @@ module.exports = {
   name: "tadd",
   category: "ticketing",
   description: "Add a user to an ongoing ticket.",
-  usage: "sb!tadd <@USER>",
+  usage: "<@USER>",
+  example: "@Lana#1505",
   permission: "STAFF",
   run: async (bot, message, args) => {
 
@@ -47,6 +48,11 @@ module.exports = {
 
     //add user
     let toBeAdded = message.mentions.members.first();
+    if (!toBeAdded || args[0] == "help") {
+      return bot.helpEmbed("tadd", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
+    }
     try {
       message.channel.createOverwrite(toBeAdded.id, {
         SEND_MESSAGES: true,

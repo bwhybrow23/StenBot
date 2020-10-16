@@ -1,8 +1,9 @@
 module.exports = {
   name: "ginvite",
-  category: "bot",
-  description: "Get an invite to a guild the bot is in. (Mainly used for finding abuse)",
-  usage: "sb!ginvite <SERVER ID>",
+  category: "botowner",
+  description: "Get an invite to a guild the bot is in.",
+  usage: "<SERVER ID>",
+  example: "712815477344305262",
   permission: "BOT OWNER",
   run: async (bot, message, args) => {
 
@@ -16,6 +17,11 @@ module.exports = {
     }
 
     let guildid = args[0];
+    if (!guildid || args[0] == "help") {
+      return bot.helpEmbed("ginvite", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
+    }
     let guild = bot.guilds.cache.get(guildid);
     if (!guild) {
       return bot.createEmbed("error", "", `Error! The bot isn't in a guild with that ID.`, [], `${message.guild.name}`, bot)

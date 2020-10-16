@@ -2,7 +2,8 @@ module.exports = {
     name: "report",
     category: "general",
     description: "Report a user, bug or server to the StenBot Staff Team.",
-    usage: "sb!report",
+    usage: "",
+    example: "",
     permission: "EVERYONE",
     run: async (bot, message, args) => {
         const Discord = require("discord.js");

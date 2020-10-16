@@ -1,9 +1,10 @@
 module.exports = {
   name: "txtcreate",
   category: "admin",
-  description: "Creates a text channel. (Category must pre-exist)",
-  usage: "sb!txtcreate <NAME> [CATEGORY]",
-  permission: "ADMINS",
+  description: "Creates a text channel.",
+  usage: "<NAME> [CATEGORY]",
+  example: "general-chat Community",
+  permission: "ADMIN",
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
@@ -19,6 +20,11 @@ module.exports = {
     }
 
     var n = args[0];
+    if (!n || args[0] == "help") {
+      return bot.helpEmbed("txtcreate", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
+    }
 
     if (n == undefined) {
       return bot.createEmbed("error", "", `Error! You forgot to include a name for the channel!`, [], `${message.guild.name}`, bot)

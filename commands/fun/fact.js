@@ -2,7 +2,8 @@ module.exports = {
     name: "fact",
     category: "fun",
     description: "Get a random cool fact!",
-    usage: "sb!fact",
+    usage: "",
+    example: "",
     permission: "EVERYONE",
     run: async (bot, message, args) => {
 

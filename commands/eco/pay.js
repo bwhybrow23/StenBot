@@ -2,7 +2,8 @@ module.exports = {
   name: "pay",
   category: "eco",
   description: "Give some money to another user.",
-  usage: "sb!pay <@USER> <VALUE>",
+  usage: "<@USER> <VALUE>",
+  example: "@Steve#6942 100",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
 
@@ -15,14 +16,11 @@ module.exports = {
     let member = db.fetch(`money_${message.author.id}`);
     let amount = args[1];
 
-    if (!user)
-      return message.reply(
-        `You need to specify a user to transfer the money to.`
-      );
-    if (!amount)
-      return message.reply(
-        `You need to specify the amount of money you want to transfer.`
-      );
+    if (!user || !amount || args[0] == "help") {
+      return bot.helpEmbed("pay", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
+    }
 
     if (message.content.includes("-")) {
       // if the message includes "-" do this.

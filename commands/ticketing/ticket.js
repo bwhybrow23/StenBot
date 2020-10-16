@@ -2,7 +2,8 @@ module.exports = {
   name: "ticket",
   category: "ticketing",
   description: "Create a ticket (if enabled)",
-  usage: "sb!ticket <REASON>",
+  usage: "<REASON>",
+  example: "I need help!",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
 
@@ -13,6 +14,11 @@ module.exports = {
       const config = await bot.mutils.getGuildById(message.guild.id);
 
       var reason = args.slice(0).join(" ");
+      if (!reason || args[0] == "help") {
+        return bot.helpEmbed("ticket", bot)
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => bot.logger("error", error));
+      }
       var format = require("string-template");
       var tnum = Math.floor(Math.random() * 1000001);
       //var staffroleobj = message.guild.roles.get(config.staffrole);

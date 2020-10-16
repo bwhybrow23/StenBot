@@ -1,15 +1,22 @@
 module.exports = {
   name: "delrole",
   category: "admin",
-  description: "Deletes the mentioned role.",
-  usage: "sb!delrole <@ROLE>",
-  permission: "ADMINS",
+  description: "Removes the mentioned role.",
+  usage: "<@ROLE>",
+  example: "@Members",
+  permission: "ADMIN",
   run: async (bot, message, args) => {
     
     const Discord = require("discord.js");
     if (!message.guild) return;
     const fs = require("fs");
     var r = message.mentions.roles.first();
+
+    if (!r || args[0] == "help") {
+      return bot.helpEmbed("delrole", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
+    }
 
     const config = await bot.mutils.getGuildById(message.guild.id);
 

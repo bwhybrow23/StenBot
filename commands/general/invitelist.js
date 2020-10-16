@@ -2,7 +2,8 @@ module.exports = {
   name: "invitelist",
   category: "general",
   description: "Get a list of all the invites in the Discord server.",
-  usage: "sb!invitelist",
+  usage: "",
+  example: "",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
 

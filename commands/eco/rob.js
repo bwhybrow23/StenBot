@@ -2,7 +2,8 @@ module.exports = {
   name: "rob",
   category: "eco",
   description: "Try and rob a user of their money.",
-  usage: "sb!rob <@USER>",
+  usage: "<@USER>",
+  example: "@Paul#6912",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
 
@@ -13,8 +14,10 @@ module.exports = {
     const ms = require("parse-ms");
 
     let user = message.mentions.members.first();
-    if (!user) {
-      return message.reply("You need to mention somebody to rob.");
+    if (!user || args[0] == "help") {
+      return bot.helpEmbed("rob", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
     }
     let targetuser = await db.fetch(`money_${user.id}`); // fetch mentioned users balance
     let author = await db.fetch(`money_${message.author.id}`); // fetch authors balance

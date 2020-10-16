@@ -2,7 +2,8 @@ module.exports = {
   name: "config-tickets",
   category: "config",
   description: "Change all config variables related to tickets.",
-  usage: "sb!config-tickets <SUBCOMMAND>",
+  usage: "<SUBCOMMAND>",
+  example: "enable",
   permission: "ADMIN",
   run: async (bot, message, args) => {
 

@@ -2,8 +2,9 @@ module.exports = {
   name: "status",
   category: "bot",
   description: "Find out about all information related to the bot's connection to Discord.",
-  usage: "sb!status",
-  permission: "BOT OWNER",
+  usage: "",
+  example: "",
+  permission: "EVERYONE",
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");

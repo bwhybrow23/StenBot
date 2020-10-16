@@ -1,8 +1,9 @@
 module.exports = {
   name: "mcping",
   category: "fun",
-  description: "Ping a Minecraft Server",
-  usage: "sb!mcping <SERVER IP>{:PORT}",
+  description: "Ping a Minecraft Server to find out more information about it.",
+  usage: "<SERVER IP>[:PORT]",
+  example: "play.hypixel.net",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
 
@@ -11,8 +12,10 @@ module.exports = {
     const fetch = require("superagent");
     const url = "https://mcapi.us/server/status?ip=";
 
-    if (!args.length) {
-      return message.channel.send("help embed not done");
+    if (!args.length || args[0] == "help") {
+      return bot.helpEmbed("mcping", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
     }
 
     const ip = args[0];

@@ -1,15 +1,22 @@
 module.exports = {
   name: "delchannel",
   category: "admin",
-  description: "Deletes the mentioned channel.",
-  usage: "sb!delchannel <#CHANNEL>",
-  permission: "ADMINS",
+  description: "Removes the mentioned channel.",
+  usage: "<#CHANNEL>",
+  example: "#general",
+  permission: "ADMIN",
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     if (!message.guild) return;
     const fs = require("fs");
     var c = message.mentions.channels.first();
+
+    if (!c || args[0] == "help") {
+      return bot.helpEmbed("delchannel", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
+    }
 
     const config = await bot.mutils.getGuildById(message.guild.id);
 

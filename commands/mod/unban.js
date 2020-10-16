@@ -2,7 +2,8 @@ module.exports = {
     name: "unban",
     category: "mod",
     description: "Unban a user",
-    usage: "sb!unban <@USER ID> <REASON>",
+    usage: "<USER ID> <REASON>",
+    example: "346246641595973633 Received punishment",
     permission: "STAFF",
     run: async (bot, message, args) => {
 
@@ -33,11 +34,10 @@ module.exports = {
         }
   
         var targetuser = args[0];
-  
-        if (targetuser == undefined || typeof targetuser === 'number') {
-            return bot.createEmbed("error", "", `Error! You forgot to give the User's ID! You must get the user's ID and not their name.`, [], `${message.guild.name}`, bot)
-                .then((embed) => message.channel.send(embed))
-                .catch((error) => bot.logger("error", error));
+        if (!targetuser || typeof targetuser === 'number' || args[0] == "help") {
+          return bot.helpEmbed("unban", bot)
+          .then((embed) => message.channel.send(embed))
+          .catch((error) => bot.logger("error", error));
         }
   
         var reason = args.slice(1).join(" ");

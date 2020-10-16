@@ -2,7 +2,8 @@ module.exports = {
   name: "config-staff",
   category: "config",
   description: "Change all config variables related to staff.",
-  usage: "sb!config-staff <SUBCOMMAND>",
+  usage: "<SUBCOMMAND>",
+  example: "role @Staff",
   permission: "ADMIN",
   run: async (bot, message, args) => {
 

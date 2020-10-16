@@ -2,7 +2,8 @@ module.exports = {
   name: "config-log",
   category: "config",
   description: "Change all config variables related to logging.",
-  usage: "sb!config-log <SUBCOMMAND>",
+  usage: "<SUBCOMMAND>",
+  example: "enable",
   permission: "ADMIN",
   run: async (bot, message, args) => {
 

@@ -1,8 +1,9 @@
 module.exports = {
   name: "gsay",
-  category: "bot",
+  category: "botowner",
   description: "Sends a message to all the owners of the servers that the bot is in.",
-  usage: "sb!gsay <MESSAGE>",
+  usage: "<MESSAGE>",
+  example: "Hello Everyone!",
   permission: "BOT OWNER",
   run: async (bot, message, args) => {
 
@@ -16,10 +17,10 @@ module.exports = {
     }
 
     let message1 = args.slice(0).join(" ");
-    if (!message1) {
-      return bot.createEmbed("error", "", `Error! You have not included the message that you would like to send.`, [], `${message.guild.name}`, bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+    if (!message1 || args[0] == "help") {
+      return bot.helpEmbed("gsay", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
     }
 
     const date = new Date();

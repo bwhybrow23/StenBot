@@ -2,7 +2,8 @@ module.exports = {
   name: "kick",
   category: "mod",
   description: "Kick a user from your server.",
-  usage: "sb!kick @Danny Spamming stuff",
+  usage: "<@USER> <REASON>",
+  example: "@Dan#9124 Bad Person",
   permission: "STAFF",
   run: async (bot, message, args) => {
     const Discord = require("discord.js");
@@ -32,11 +33,10 @@ module.exports = {
     }
 
     var targetuser = message.mentions.members.first();
-
-    if (targetuser == undefined) {
-      return bot.createEmbed("error","",`Error! You forgot to mention a user!`,[],`${message.guild.name}`,bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+    if (!targetuser || args[0] == "help") {
+      return bot.helpEmbed("kick", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
     }
 
     var reason = args.slice(1).join(" ");

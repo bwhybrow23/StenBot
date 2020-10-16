@@ -1,8 +1,9 @@
 module.exports = {
   name: "blacklist",
-  category: "bot",
+  category: "botowner",
   description: "Blacklist a server from using StenBot.",
-  usage: "sb!blacklist <SERVER ID>",
+  usage: "<SERVER ID>",
+  example: "712815477344305262",
   permission: "BOT OWNER",
   run: async (bot, message, args) => {
 
@@ -19,12 +20,10 @@ module.exports = {
     }
 
     const targetserver = args[0];
-
-    //Check if args have been included
-    if (targetserver == undefined) {
-      return bot.createEmbed("error", "", `Error! You need to include the ID of the server to blacklist.`, [], `${message.guild.name}`, bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+    if (!targetserver || args[0] == "help") {
+      return bot.helpEmbed("blacklist", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
     }
 
     if (targetserver === '455782308293771264') {

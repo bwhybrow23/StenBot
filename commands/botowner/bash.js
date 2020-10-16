@@ -1,8 +1,9 @@
 module.exports = {
   name: "bash",
-  category: "bot",
+  category: "botowner",
   description: "Runs a command in a bash terminal from within StenBot.",
-  usage: "sb!bash <COMMAND>",
+  usage: "<COMMAND>",
+  example: "apt-get update",
   permission: "BOT OWNER",
   run: async (bot, message, args) => {
 
@@ -14,8 +15,10 @@ module.exports = {
     }
 
     let cmd = args.join(" ");
-    if (!cmd || cmd === undefined) {
-      return message.reply("You haven't put any args.")
+    if (!cmd || cmd == undefined || args[0] == "help") {
+      return bot.helpEmbed("bash", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
     }
 
     const exec = require("child_process").exec;
