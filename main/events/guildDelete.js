@@ -15,4 +15,10 @@ module.exports = async (bot, guild) => {
       status: "online",
     });
   }
+
+  //Update bot-data.json
+  let botdata = require("../../data/global/bot-data.json");
+  botdata.totalGuilds = bot.guilds.cache.size;
+  fs.writeFileSync(`./data/global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => { if (err) return bot.logger("error", err); });
+  
 };

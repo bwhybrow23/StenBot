@@ -64,12 +64,18 @@ bot.categories = fs.readdirSync("./commands/");
 function fixStatus() {
   //Production Mode
   if (bot.settings.mode === "production") {
-    //Status
-    let guilds = bot.guilds.cache.size;
-    bot.user.setPresence({ activity: { name: `sb!help on ${guilds} servers!`, type: `WATCHING` }, status: 'online' });
+      //Status
+      let guilds = bot.guilds.cache.size;
+      bot.user.setPresence({
+          activity: {
+              name: `sb!help on ${guilds} servers!`,
+              type: `WATCHING`
+          },
+          status: 'online'
+      });
 
-    //Console Log
-    bot.logger("info", `Status has been set successfully.`);
+      //Console Log
+      bot.logger("info", `Status has been set successfully.`);
   }
 }
 setInterval(fixStatus, 21600000);
@@ -151,6 +157,7 @@ const express = require('express');
 const app = express();
 const bodyparser = require("body-parser");
 const cors = require('cors');
+const path = require("path");
 const port = bot.settings.options.apiPort;
 
 //Middleware
@@ -160,34 +167,22 @@ app.use(bodyparser.urlencoded({
 }));
 app.use(cors());
 
+app.use("/assets", express.static("main/website/assets"));
+app.set('views', path.join(__dirname, 'main/website/views'));
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
 app.listen(port, () => {
   bot.logger("success", `API server started on ${port}`);
 });
 
-//Output Basic Bot Info
-app.get("/api/info", (req, res) => {
-  var info = {
-      "version": bot.settings.version,
-      "prefix": bot.settings.prefix,
-      "mode": bot.settings.mode,
-      "botName": bot.user.tag,
-      "botID": bot.user.id,
-      "totalGuilds": bot.guilds.cache.size,
-      "hotel": "trivago"
-  }
-  res.status(200).send(info)
-})
-
-// app.get("/api/guilds", (req, res) => {
-//   mutils.getAllGuilds().then(data => {
-//     var allGuilds = data;
-//     res.status(200).send(allGuilds);
-//   })
-// })
-
-// app.get("/api/guild/:id", (req, res) => {
-//   mutils.getGuildById(res.params.id).then(data => {
-//     var guildData = data;
-//     res.status(200).send(guildData);
-//   })
-// })
+//Routers
+fs.promises.readdir(path.join(__dirname, "./main/routers"))
+  .then(files => {
+      files.forEach(file => {
+          if (file.split(".")[1] == "js") {
+              let router = require(`./main/routers/${file}`);
+              app.use(router);
+          };
+      });
+  });

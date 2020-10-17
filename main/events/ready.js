@@ -4,6 +4,13 @@ module.exports = (bot) => {
   //Mode Checker
   const fs = require("fs");
 
+  //Update bot-data.json
+  let botdata = require("../../data/global/bot-data.json");
+  botdata.botName = bot.user.tag;
+  botdata.botID = bot.user.id;
+  botdata.totalGuilds = bot.guilds.cache.size;
+  fs.writeFileSync(`./data/global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => { if (err) return bot.logger("error", err); });
+
   //Production Mode
   if (bot.settings.mode === "production") {
     //Status
