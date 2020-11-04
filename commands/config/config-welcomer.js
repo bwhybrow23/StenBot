@@ -73,7 +73,7 @@ module.exports = {
               bot.mutils.updateGuildById(message.guild.id, {
                   welcomer_enabled: false
               })
-              bot.createEmbed("success", "", `Welcomer has been enabled.`, [], `${message.guild.name}`, bot)
+              bot.createEmbed("success", "", `Welcomer has been disabled.`, [], `${message.guild.name}`, bot)
                   .then((embed) => message.channel.send(embed))
                   .catch((error) => bot.logger("error", error));
 

@@ -2,7 +2,7 @@ module.exports = {
     name: "unban",
     category: "mod",
     description: "Unban a user",
-    usage: "<USER ID> <REASON>",
+    usage: "<USER ID> [REASON]",
     example: "346246641595973633 Received punishment",
     permission: "STAFF",
     run: async (bot, message, args) => {
@@ -40,20 +40,20 @@ module.exports = {
           .catch((error) => bot.logger("error", error));
         }
   
-        var reason = args.slice(1).join(" ");
-  
-        if (reason.length < 1) {
-            return bot.createEmbed("error", "", `Error! You forgot to include a reason!`, [], `${message.guild.name}`, bot)
-                .then((embed) => message.channel.send(embed))
-                .catch((error) => bot.logger("error", error));
-        }
+        let reason = args.slice(1).join(" ");
+    let message1 = `Succesfully unbanned the user with the ID of **${targetuser}** for **${reason}**`;
+
+    if (reason.length < 1) {
+      reason = "N/A";
+      message1 = `Succesfully unbanned the user with the ID of **${targetuser}**`;
+    }
   
         message.guild.members.unban(targetuser, {
                 reason: `By ${message.author.tag}\nReason: ${reason}`
             })
             .catch(console.error)
             .then(
-                bot.createEmbed("success", "", `Succesfully unbanned the User with the ID of **${targetuser}** for **${reason}**`, [], `${message.guild.name}`, bot)
+                bot.createEmbed("success", "", `${message1}`, [], `${message.guild.name}`, bot)
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.logger("error", error)));
 

@@ -2,7 +2,7 @@ module.exports = {
     name: "tempmute",
     category: "mod",
     description: "Temporarily mute a user for a period of time.",
-    usage: "<@USER> <TIME> <REASON>",
+    usage: "<@USER> <TIME> [REASON]",
     example: "@Jess#8022 1d Being annoying",
     permission: "STAFF",
     run: async (bot, message, args) => {
@@ -50,21 +50,21 @@ module.exports = {
           .catch((error) => bot.logger("error", error));
       }
 
-    var reason = args.slice(2).join(" ");
-
-    if (reason.length < 1) {
-      return bot.createEmbed("error","",`Error! You forgot to include a reason!`,[],`${message.guild.name}`,bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
-    }
+      let reason = args.slice(1).join(" ");
+      let message1 = `Succesfully tempmuted **${targetuser.user.tag}** for **${reason}**`;
+  
+      if (reason.length < 1) {
+        reason = "N/A";
+        message1 = `Succesfully tempmuted **${targetuser.user.tag}**`;
+      }
 
       //Role Check
-      let muteRole = message.guild.roles.cache.find(r=>r.name=="muted")
+      let muteRole = message.guild.roles.cache.find(r=>r.name=="Muted")
       if(!muteRole){
         try{
             muteRole = await message.guild.roles.create({
             data: {
-                name: "muted",
+                name: "Muted",
                 color: "#000000",
                 permissions:[]
             },
@@ -90,7 +90,7 @@ module.exports = {
           mutedRoleID: muteRole
       }).then((muteData) => {
         //Response
-        bot.createEmbed("success","",`Succesfully tempmuted **${targetuser.user.tag}** for **${args[1]}** for **${reason}**`,[],`${message.guild.name}`,bot)
+        bot.createEmbed("success","",`${message1}`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
         //Logging

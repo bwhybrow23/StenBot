@@ -2,7 +2,7 @@ module.exports = {
   name: "ban",
   category: "mod",
   description: "Permanently Ban a user from your server.",
-  usage: "<@USER> <REASON>",
+  usage: "<@USER> [REASON]",
   example: "@Ben#2307 Spamming",
   permission: "STAFF",
   run: async (bot, message, args) => {
@@ -40,13 +40,13 @@ module.exports = {
         .catch((error) => bot.logger("error", error));
       }
 
-      var reason = args.slice(1).join(" ");
+      let reason = args.slice(1).join(" ");
+    let message1 = `Succesfully banned **${targetuser.user.tag}** for **${reason}**`;
 
-      if (reason.length < 1) {
-          return bot.createEmbed("error", "", `Error! You forgot to include a reason!`, [], `${message.guild.name}`, bot)
-              .then((embed) => message.channel.send(embed))
-              .catch((error) => bot.logger("error", error));
-      }
+    if (reason.length < 1) {
+      reason = "N/A";
+      message1 = `Succesfully banned **${targetuser.user.tag}**`;
+    }
 
       if (!targetuser.bannable) {
           return bot.createEmbed("error", "", `Error! I do not have permission to ban this user!`, [], `${message.guild.name}`, bot)
@@ -57,7 +57,7 @@ module.exports = {
       targetuser.ban({reason: `By ${message.author.tag}\nReason: ${reason}`})
           .catch(console.error)
           .then(
-              bot.createEmbed("success", "", `Succesfully banned **${targetuser.user.tag}** for **${reason}**`, [], `${message.guild.name}`, bot)
+              bot.createEmbed("success", "", `${message1}`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.logger("error", error)));
 

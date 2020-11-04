@@ -2,7 +2,7 @@ module.exports = {
     name: "unmute",
     category: "mod",
     description: "Unute a user that has previously been muted by StenBot.",
-    usage: "<@USER> <REASON>",
+    usage: "<@USER> [REASON]",
     example: "@Geoff#3010 Has shut up",
     permission: "STAFF",
     run: async (bot, message, args) => {
@@ -49,16 +49,16 @@ module.exports = {
           .catch((error) => bot.logger("error", error));
       }
 
-    var reason = args.slice(1).join(" ");
+    let reason = args.slice(1).join(" ");
+    let message1 = `Succesfully unmuted **${targetuser.user.tag}** for **${reason}**`;
 
     if (reason.length < 1) {
-      return bot.createEmbed("error","",`Error! You forgot to include a reason!`,[],`${message.guild.name}`,bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+      reason = "N/A";
+      message1 = `Succesfully unmuted **${targetuser.user.tag}**`;
     }
 
       //Role Check
-      let muteRole = message.guild.roles.cache.find(r=>r.name=="muted")
+      let muteRole = message.guild.roles.cache.find(r=>r.name=="Muted")
       if (!muteRole) {
         return bot.createEmbed("error","",`Error! There is no valid "Muted" role which means that the role has been deleted or was never created. In order for the role to be created, a user has to be muted by StenBot.`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
@@ -72,7 +72,7 @@ module.exports = {
           mutedRoleID: muteRole
       }).then((muteData) => {
         //Response
-        bot.createEmbed("success","",`Succesfully unmuted **${targetuser.user.tag}** for **${reason}**`,[],`${message.guild.name}`,bot)
+        bot.createEmbed("success","",`${message1}`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
         //Logging

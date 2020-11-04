@@ -126,37 +126,39 @@ USER FUNCTIONS
 const genAuthToken = async function () {
     const select = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890?&!£$%#-";
     let token = "";
-    for (let x=0; x <= 35; x++) { 
+    for (let x=0; x <= 40; x++) { 
         let ranInt = Math.floor(Math.random() * 62);
         token = token.concat(select[ranInt]);
     }
-    let hashedToken = await bcrypt.hash(token, 12);
+    // let hashedToken = await bcrypt.hash(token, 12);
     
-    let data = {
-        token: token,
-        hashedToken: hashedToken
-    }
-    return (data);
+    // let data = {
+    //     token: token,
+    //     hashedToken: hashedToken
+    // }
+    // return (data);
+    return (token);
 };
 
 // Create a user
 const createUser = async (id) => {
     let authToken;
-    let normalToken;
-    await genAuthToken().then(data => {
-        authToken = data.hashedToken;
-        normalToken = data.token
+    // let normalToken;
+    await genAuthToken().then(token => {
+        authToken = token;
+        // normalToken = data.token
     });
     //Check if user already has a token
     if(await User.findOne({discordID: id})) {
-        let normalToken = "User already exists in the database. If you believe this is an error, please contact Stentorian#9524";
-        return normalToken;
+        let profile = await User.findOne({discordID: id})
+        let authToken = profile.token;
+        return authToken;
     }
     //Check if token already exists in database
     if(await User.findOne({token: authToken})) {
-        await genAuthToken().then(data => {
-            authToken = data.hashedToken;
-            normalToken = data.token
+        await genAuthToken().then(token => {
+            authToken = token;
+            // normalToken = data.token
         });
     } else {
         const data = {
@@ -165,7 +167,7 @@ const createUser = async (id) => {
         };
         const user = new User(data);
         await user.save();
-        return (user, normalToken);
+        return (user, authToken);
     }
     /* 
     EXAMPLE
@@ -175,8 +177,9 @@ const createUser = async (id) => {
 
 //Match Token and Return User ID
 const checkToken = async (token) => {
-    let hashedToken = await bcrypt.hash(token, 12);
-    let profile = User.findOne({token: hashedToken});
+    // let hashedToken = await bcrypt.hash(token, 12);
+    // console.log(hashedToken);
+    let profile = await User.findOne({token: token});
     let discordID;
     if(!profile) discordID = 0
     else discordID = profile.discordID

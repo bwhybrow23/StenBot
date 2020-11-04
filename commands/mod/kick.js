@@ -2,7 +2,7 @@ module.exports = {
   name: "kick",
   category: "mod",
   description: "Kick a user from your server.",
-  usage: "<@USER> <REASON>",
+  usage: "<@USER> [REASON]",
   example: "@Dan#9124 Bad Person",
   permission: "STAFF",
   run: async (bot, message, args) => {
@@ -39,12 +39,12 @@ module.exports = {
       .catch((error) => bot.logger("error", error));
     }
 
-    var reason = args.slice(1).join(" ");
+    let reason = args.slice(1).join(" ");
+    let message1 = `Succesfully kicked **${targetuser.user.tag}** for **${reason}**`;
 
     if (reason.length < 1) {
-      return bot.createEmbed("error","",`Error! You forgot to include a reason!`,[],`${message.guild.name}`,bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+      reason = "N/A";
+      message1 = `Succesfully kicked **${targetuser.user.tag}**`;
     }
 
     if (!targetuser.kickable) {
@@ -56,7 +56,7 @@ module.exports = {
     targetuser.kick(`By ${message.author.tag}\nReason: ${reason}`)
       .catch(console.error)
       .then(
-        bot.createEmbed("success","",`Succesfully kicked **${targetuser.user.tag}** for **${reason}**`,[],`${message.guild.name}`,bot)
+        bot.createEmbed("success","",`${message1}`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error)));
 
