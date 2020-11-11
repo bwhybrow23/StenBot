@@ -1,7 +1,7 @@
 module.exports = {
     name: "unmute",
     category: "mod",
-    description: "Unute a user that has previously been muted by StenBot.",
+    description: "Unmute a user that has previously been muted by StenBot.",
     usage: "<@USER> [REASON]",
     example: "@Geoff#3010 Has shut up",
     permission: "STAFF",

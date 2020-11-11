@@ -8,6 +8,7 @@ module.exports = async (bot, oldMessage, newMessage) => {
   let config = await bot.mutils.getGuildById(newMessage.guild.id);
 
   if (config.logging_enabled == true) {
+    if (config.logging_ignore.includes(oldMessage.channel.id)) return;
     if (config.logging_level == "low" || config.logging_level == "medium" || config.logging_level == "high") {
       if (efunctions.checkChannel(config.logging_channel, bot) == true) {
         if (oldMessage.author.bot) return;

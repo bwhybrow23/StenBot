@@ -125,6 +125,7 @@ module.exports = async (bot, guild) => {
     logging_enabled: false,
     logging_channel: "0",
     logging_level: "medium",
+    logging_ignore: [],
     tickets_enabled: false,
     tickets_message: "None",
     music_enabled: false,

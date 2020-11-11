@@ -3,7 +3,7 @@ module.exports = {
   category: "fun",
   description: "Ask a question to the magic ball and it will answer.",
   usage: "<QUESTION>",
-  example: "Is StenBot the best bot?",
+  example: "Will I ever stop losing the game?",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
 

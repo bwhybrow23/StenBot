@@ -2,8 +2,8 @@ module.exports = {
   name: "help",
   category: "general",
   description: "Returns all commands, or information about one specific command.",
-  usage: "sb!help <CATEGORY | COMMAND>",
-  example: "sb!help 8ball",
+  usage: "[CATEGORY | COMMAND]",
+  example: "ban",
   permission: "EVERYONE",
   run: async (bot, message, args) => {
 

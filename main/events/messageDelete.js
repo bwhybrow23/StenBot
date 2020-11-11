@@ -11,6 +11,7 @@ module.exports = async (bot, message) => {
   let config = await bot.mutils.getGuildById(message.guild.id)
 
   if (config.logging_enabled == true) {
+    if (config.logging_ignore.includes(message.channel.id)) return;
     if (config.logging_level == "low" || config.logging_level == "medium" || config.logging_level == "high") {
       if (efunctions.checkChannel(config.logging_channel, bot) == true) {
         if (message.author.bot) return;

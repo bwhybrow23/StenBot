@@ -24,11 +24,15 @@ module.exports = {
     var welcomerchannel = serverconfigfile.welcomer_channel;
     if (welcomerchannel == 0) {
       var welcomerchannel = "Not Set";
+    } else {
+      var welcomerchannel = `<#${welcomerchannel}>`;
     }
     //User on-join role default 0
     var userjoinrole = serverconfigfile.userjoin_role;
     if (userjoinrole == 0) {
       var userjoinrole = "Not Set";
+    } else {
+      var userjoinrole = `<@&${userjoinrole}>`;
     }
     //User onjoin set nick default undefined
     var userjoinnick = serverconfigfile.userjoin_nickname;
@@ -39,12 +43,19 @@ module.exports = {
     var staffrole = serverconfigfile.staff_role;
     if (staffrole == false) {
       var staffrole = "Not Set";
+    } else {
+      var staffrole = `<@&${staffrole}>`;
     }
     //word filter by default is empty
     var stafffilter = serverconfigfile.staff_filter;
+    let stafffilter1 = [];
     if (stafffilter.length == 0) {
-      var stafffilter = "Empty";
-    }
+      stafffilter1.push("Empty");
+    } else {
+      stafffilter.forEach(word => {
+        stafffilter1.push(`<#${word}> `);
+    });
+  }
     //autoban by default is undefined
     // var staffban = serverconfigfile.staff_autoban;
     // if (staffban == 0) {
@@ -54,7 +65,19 @@ module.exports = {
     var logchannel = serverconfigfile.logging_channel;
     if (logchannel == 0) {
       var logchannel = "Not Set";
+    } else {
+      var logchannel = `<#${logchannel}>`;
     }
+    var loggingignore = serverconfigfile.logging_ignore;
+    let loggingignore1 = [];
+    if (loggingignore.length == 0) {
+      loggingignore1.push("Empty");
+    } else {
+    loggingignore.forEach(id => {
+      loggingignore1.push(`<#${id}> `);
+    });
+  }
+    
     //Ticket message by default is undefined
     var ticketmessage = serverconfigfile.tickets_message;
     if (ticketmessage == 0) {
@@ -62,20 +85,15 @@ module.exports = {
     }
 
     //Check if they have required permissions
-    if (adminperm === true) {
-      bot.createEmbed("warning",`${servertag} Configuration`,`Your Configuration`,[{name: "Welcomer",value: `Enabled: **${serverconfigfile.welcomer_enabled ? "Yes" : "No"} **\nWelcomer Channel: **${welcomerchannel}**\nWelcomer Message: **${serverconfigfile.welcomer_message}**`,},{name: "User Join",value: `Enabled: **${serverconfigfile.userjoin_enabled ? "Yes" : "No"}**\nAdd Role: **${userjoinrole}**\nSet Nick: **${userjoinnick}**`,},{name: "Staff",value: `Staff Role: **${staffrole}**\nAdmin Commands: **${serverconfigfile.staff_admin ? "Enabled" : "Disabled"}**\nLink Blocker: **${serverconfigfile.staff_linkblock ? "Enabled" : "Disabled"}**\nWord Filter: **${stafffilter}**`,},{name: "Logging",value: `Enabled: **${serverconfigfile.logging_enabled ? "Yes" : "No"}**\nLogging Channel: **${logchannel}**\nLevel: **${serverconfigfile.logging_level}**`,},{name: "Tickets",value: `Enabled: **${serverconfigfile.tickets_enabled ? "Yes" : "No"}**\nTicket Message: **${ticketmessage}**`,},],`${message.guild.name}`,bot)
+    if (adminperm === true || ownersid == message.author.id) {
+      return bot.createEmbed("warning",`${servertag} Configuration`,`Your Configuration`,[{name: "Welcomer",value: `Enabled: **${serverconfigfile.welcomer_enabled ? "Yes" : "No"} **\nWelcomer Channel: **${welcomerchannel}**\nWelcomer Message: **${serverconfigfile.welcomer_message}**`,},{name: "User Join",value: `Enabled: **${serverconfigfile.userjoin_enabled ? "Yes" : "No"}**\nAdd Role: **${userjoinrole}**\nSet Nick: **${userjoinnick}**`,},{name: "Staff",value: `Staff Role: **${staffrole}**\nAdmin Commands: **${serverconfigfile.staff_admin ? "Enabled" : "Disabled"}**\nLink Blocker: **${serverconfigfile.staff_linkblock ? "Enabled" : "Disabled"}**\nWord Filter: **${stafffilter1}**`,},{name: "Logging",value: `Enabled: **${serverconfigfile.logging_enabled ? "Yes" : "No"}**\nLogging Channel: **${logchannel}**\nLevel: **${serverconfigfile.logging_level}**\nIgnore List: **${loggingignore1}**`,},{name: "Tickets",value: `Enabled: **${serverconfigfile.tickets_enabled ? "Yes" : "No"}**\nTicket Message: **${ticketmessage}**`,},],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.logger("error", error));
       return;
-    }
-    if (ownersid == message.author.id) {
-      bot.createEmbed("warning",`${servertag} Configuration`,`Your Configuration`,[{name: "Welcomer",value: `Enabled: **${serverconfigfile.welcomer_enabled ? "Yes" : "No"} **\nWelcomer Channel: **${welcomerchannel}**\nWelcomer Message: **${serverconfigfile.welcomer_message}**`,},{name: "User Join",value: `Enabled: **${serverconfigfile.userjoin_enabled ? "Yes" : "No"}**\nAdd Role: **${userjoinrole}**\nSet Nick: **${userjoinnick}**`,},{name: "Staff",value: `Staff Role: **${staffrole}**\nAdmin Commands: **${serverconfigfile.staff_admin ? "Enabled" : "Disabled"}**\nLink Blocker: **${serverconfigfile.staff_linkblock ? "Enabled" : "Disabled"}**\nWord Filter: **${stafffilter}**`,},{name: "Logging",value: `Enabled: **${serverconfigfile.logging_enabled ? "Yes" : "No"}**\nLogging Channel: **${logchannel}**\nLevel: **${serverconfigfile.logging_level}**`,},{name: "Tickets",value: `Enabled: **${serverconfigfile.tickets_enabled ? "Yes" : "No"}**\nTicket Message: **${ticketmessage}**`,},],`${message.guild.name}`,bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
-      return;
-    }
-    bot.noPermsEmbed(`${message.guild.name}`, bot)
+    } else {
+    return bot.noPermsEmbed(`${message.guild.name}`, bot)
       .then((embed) => message.channel.send(embed))
       .catch((error) => bot.logger("error", error));
+    }
   },
 };

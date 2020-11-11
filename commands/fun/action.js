@@ -1,7 +1,7 @@
 module.exports = {
     name: "action",
     category: "fun",
-    description: "Do various actions such a hug or kiss.",
+    description: "Do various actions such as hug or kiss.",
     usage: "<ACTION> <@USER>",
     example: "hug @Sam#9215",
     permission: "EVERYONE",

@@ -1,7 +1,7 @@
 module.exports = {
     name: "report",
     category: "general",
-    description: "Report a user, bug or server to the StenBot Staff Team.",
+    description: "Report a user, bug or server to the StenBot Team to be investigated.",
     usage: "",
     example: "",
     permission: "EVERYONE",

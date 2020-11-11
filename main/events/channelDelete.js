@@ -11,6 +11,12 @@ module.exports = async (bot, channel) => {
 
   //Check config and send message
   if (config.logging_enabled == true) {
+    //remove channel from ignored list if it's on there
+    if (config.logging_ignore.includes(channel.id)) {
+      let index = config.logging_ignore.indexOf(channel.id);
+      config.logging_ignore.splice(index, 1);
+      bot.mutils.updateGuildById(channel.guild.id, { logging_ignore: config.logging_ignore });
+    }
     if (config.logging_level == "low" || config.logging_level == "medium" || config.logging_level == "high") {
       if (efunctions.checkChannel(config.logging_channel, bot) == true) {
         let lchannel = bot.channels.cache.get(config.logging_channel);

@@ -1,9 +1,9 @@
 module.exports = {
   name: "kick",
   category: "mod",
-  description: "Kick a user from your server.",
+  description: "Kick a user from the server.",
   usage: "<@USER> [REASON]",
-  example: "@Dan#9124 Bad Person",
+  example: "@Dan#9124 Rude Name",
   permission: "STAFF",
   run: async (bot, message, args) => {
     const Discord = require("discord.js");

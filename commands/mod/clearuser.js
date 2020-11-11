@@ -1,7 +1,7 @@
 module.exports = {
   name: "clearuser",
   category: "mod",
-  description: "Clear all messages from a specific user.",
+  description: "Clear a certain number of messages from a specific user.",
   usage: "<@USER> <VALUE>",
   example: "@Hayden#5150 50",
   permission: "STAFF",

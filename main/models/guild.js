@@ -74,6 +74,9 @@ const guildSchema = new mongoose.Schema({
             }
         }
     },
+    logging_ignore: {
+        type: [String],
+    },
     tickets_enabled: {
         type: Boolean,
         required: true
