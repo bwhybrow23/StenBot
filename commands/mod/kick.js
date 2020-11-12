@@ -40,11 +40,11 @@ module.exports = {
     }
 
     let reason = args.slice(1).join(" ");
-    let message1 = `Succesfully kicked **${targetuser.user.tag}** for **${reason}**`;
+    let msg = `Succesfully kicked **${targetuser.user.tag}** for **${reason}**`;
 
     if (reason.length < 1) {
       reason = "N/A";
-      message1 = `Succesfully kicked **${targetuser.user.tag}**`;
+      msg = `Succesfully kicked **${targetuser.user.tag}**`;
     }
 
     if (!targetuser.kickable) {
@@ -56,7 +56,7 @@ module.exports = {
     targetuser.kick(`By ${message.author.tag}\nReason: ${reason}`)
       .catch(console.error)
       .then(
-        bot.createEmbed("success","",`${message1}`,[],`${message.guild.name}`,bot)
+        bot.createEmbed("success","",`${msg}`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error)));
 

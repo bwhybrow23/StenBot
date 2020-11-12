@@ -51,11 +51,11 @@ module.exports = {
       }
 
       let reason = args.slice(1).join(" ");
-      let message1 = `Succesfully tempmuted **${targetuser.user.tag}** for **${reason}**`;
+      let msg = `Succesfully tempmuted **${targetuser.user.tag}** for **${reason}**`;
   
       if (reason.length < 1) {
         reason = "N/A";
-        message1 = `Succesfully tempmuted **${targetuser.user.tag}**`;
+        msg = `Succesfully tempmuted **${targetuser.user.tag}**`;
       }
 
       //Role Check
@@ -90,7 +90,7 @@ module.exports = {
           mutedRoleID: muteRole
       }).then((muteData) => {
         //Response
-        bot.createEmbed("success","",`${message1}`,[],`${message.guild.name}`,bot)
+        bot.createEmbed("success","",`${msg}`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.logger("error", error));
         //Logging

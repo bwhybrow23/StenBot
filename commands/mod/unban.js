@@ -41,11 +41,11 @@ module.exports = {
         }
   
         let reason = args.slice(1).join(" ");
-    let message1 = `Succesfully unbanned the user with the ID of **${targetuser}** for **${reason}**`;
+    let msg = `Succesfully unbanned the user with the ID of **${targetuser}** for **${reason}**`;
 
     if (reason.length < 1) {
       reason = "N/A";
-      message1 = `Succesfully unbanned the user with the ID of **${targetuser}**`;
+      msg = `Succesfully unbanned the user with the ID of **${targetuser}**`;
     }
   
         message.guild.members.unban(targetuser, {
@@ -53,7 +53,7 @@ module.exports = {
             })
             .catch(console.error)
             .then(
-                bot.createEmbed("success", "", `${message1}`, [], `${message.guild.name}`, bot)
+                bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, bot)
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.logger("error", error)));
 

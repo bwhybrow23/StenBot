@@ -16,8 +16,8 @@ module.exports = {
         .catch((error) => bot.logger("error", error));
     }
 
-    let message1 = args.slice(0).join(" ");
-    if (!message1 || args[0] == "help") {
+    let msg = args.slice(0).join(" ");
+    if (!msg || args[0] == "help") {
       return bot.helpEmbed("gsay", bot)
       .then((embed) => message.channel.send(embed))
       .catch((error) => bot.logger("error", error));
@@ -27,7 +27,7 @@ module.exports = {
     const timestamp = date.getTime();
 
     bot.guilds.cache.forEach(async (guild) => {
-      bot.createEmbed("info", "Message from StenBot Owner", `You have been sent this message by the owner of StenBot (Stentorian#9524) to inform you. The bot has seen that you are the server owner of ${guild.name} so it has been sent to you. Feel free to communicate the below message to other people.`, [{ name: "Server Name", value: `${guild.name}`}, { name: "Message", value: `${message1}`}], `${message.guild.name}`, bot)
+      bot.createEmbed("info", "Message from StenBot Owner", `You have been sent this message by the owner of StenBot (Stentorian#9524) to inform you. The bot has seen that you are the server owner of ${guild.name} so it has been sent to you. Feel free to communicate the below message to other people.`, [{ name: "Server Name", value: `${guild.name}`}, { name: "Message", value: `${msg}`}], `${message.guild.name}`, bot)
         .then((embed) => guild.owner.send(embed))
         .catch((error) => bot.logger("error", error));
 

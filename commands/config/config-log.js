@@ -50,7 +50,7 @@ module.exports = {
       //Settings library
       switch (setting) {
           case "channel":
-              let targetchannel = message.mentions.channels.first();
+              var targetchannel = message.mentions.channels.first();
 
               if (targetchannel == undefined) {
                   return bot.createEmbed("error", "", `Error! You didn't mention a channel.`, [], `${message.guild.name}`, bot)
@@ -166,24 +166,24 @@ module.exports = {
 
                   case "add":
 
-                      let targetchannel1 = message.mentions.channels.first();
-                      if (targetchannel1 == undefined) {
+                      var targetchannel = message.mentions.channels.first();
+                      if (targetchannel == undefined) {
                           return bot.createEmbed("error", "", `Error! You didn't mention a channel.`, [], `${message.guild.name}`, bot)
                               .then((embed) => message.channel.send(embed))
                               .catch((error) => bot.logger("error", error));
                       }
 
-                      if (config.logging_ignore.includes(targetchannel1.id)) {
+                      if (config.logging_ignore.includes(targetchannel.id)) {
                           return bot.createEmbed("error", "", `Error! This channel is already in the ignored list.`, [], `${message.guild.name}`, bot)
                               .then((embed) => message.channel.send(embed))
                               .catch((error) => bot.logger("error", error));
                       }
 
-                      config.logging_ignore.push(targetchannel1.id)
+                      config.logging_ignore.push(targetchannel.id)
                       bot.mutils.updateGuildById(message.guild.id, {
                           logging_ignore: config.logging_ignore
                       });
-                      bot.createEmbed("success", "", `The channel <#${targetchannel1.id}> has been successfully added to the logging ignore list!`, [], `${message.guild.name}`, bot)
+                      bot.createEmbed("success", "", `The channel <#${targetchannel.id}> has been successfully added to the logging ignore list!`, [], `${message.guild.name}`, bot)
                           .then((embed) => message.channel.send(embed))
                           .catch((error) => bot.logger("error", error));
 
@@ -191,26 +191,26 @@ module.exports = {
 
                   case "remove":
 
-                      let targetchannel2 = message.mentions.channels.first();
-                      if (targetchannel2 == undefined) {
+                      var targetchannel = message.mentions.channels.first();
+                      if (targetchannel == undefined) {
                           return bot.createEmbed("error", "", `Error! You didn't mention a channel.`, [], `${message.guild.name}`, bot)
                               .then((embed) => message.channel.send(embed))
                               .catch((error) => bot.logger("error", error));
                       }
 
-                      if (!config.logging_ignore.includes(targetchannel2.id)) {
+                      if (!config.logging_ignore.includes(targetchannel.id)) {
                           return bot.createEmbed("error", "", `Error! This channel is currently not in the ignored list.`, [], `${message.guild.name}`, bot)
                               .then((embed) => message.channel.send(embed))
                               .catch((error) => bot.logger("error", error));
                       }
 
-                      let index = config.logging_ignore.indexOf(targetchannel2.id);
+                      let index = config.logging_ignore.indexOf(targetchannel.id);
 
                       config.logging_ignore.splice(index, 1)
                       bot.mutils.updateGuildById(message.guild.id, {
                           logging_ignore: config.logging_ignore
                       });
-                      bot.createEmbed("success", "", `The channel <#${targetchannel2.id}> has been successfully removed from the logging ignore list!`, [], `${message.guild.name}`, bot)
+                      bot.createEmbed("success", "", `The channel <#${targetchannel.id}> has been successfully removed from the logging ignore list!`, [], `${message.guild.name}`, bot)
                           .then((embed) => message.channel.send(embed))
                           .catch((error) => bot.logger("error", error));
 
@@ -219,7 +219,7 @@ module.exports = {
                   case "clear":
 
                       bot.mutils.updateGuildById(message.guild.id, {
-                          logging_ignore: {}
+                          logging_ignore: []
                       });
                       bot.createEmbed("success", "", `The logging ignore list has been succesfully cleared.`, [], `${message.guild.name}`, bot)
                           .then((embed) => message.channel.send(embed))

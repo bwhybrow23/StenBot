@@ -20,7 +20,7 @@ module.exports = {
     let memUsed = Math.floor(memusage.memoryUsage);
     let totalGuilds = bot.guilds.cache.size;
 
-    bot.createEmbed("success", "StenBot Status", `**Ping:** ${ping}\n**Memory Usage:** ${memUsed}MB\n**Total Guilds:** ${totalGuilds}\n**Version:** ${bot.settings.version}`, [], `${message.guild.name}`, bot)
+    bot.createEmbed("success", "StenBot Status", `**Ping:** ${ping}\n**Memory Usage:** ${memUsed}MB\n**Total Guilds:** ${totalGuilds}\n**Version:** ${bot.packageJSON.version}`, [], `${message.guild.name}`, bot)
       .then((embed) => message.channel.send(embed))
       .catch((error) => bot.logger("error", error));
   

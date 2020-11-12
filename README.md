@@ -29,7 +29,7 @@ To invite the bot to your Discord server, please follow one of the below links. 
 
 <!-- Documentation -->
 ## Documentation
-Please refer to the [documentation page on GitBook](https://sbdocs.benwhybrow.com) for more on how to use StenBot and set it up for your server. If you experience any issues, be sure to ask for help by refering to the Support section at the bottom of this ReadMe. If you would like to help contribute to the documentation, please contact me on Discord using the Support links at the bottom of this ReadMe. 
+Please refer to the [documentation site](https://sbdocs.benwhybrow.com) for more on how to use StenBot and set it up for your server. If you experience any issues, be sure to ask for help by refering to the Support section at the bottom of this ReadMe. If you would like to help contribute to the documentation, please contact me on Discord using the Support links at the bottom of this ReadMe. 
 
 <!-- License & Contributing -->
 ## License and Contributing

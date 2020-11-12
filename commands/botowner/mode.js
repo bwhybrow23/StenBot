@@ -45,7 +45,7 @@ module.exports = {
           let guilds = bot.guilds.cache.size;
           bot.user.setPresence({ activity: { name: `sb!help on ${guilds} servers!`, type: `WATCHING` }, status: 'online' });
           //Console Log
-          bot.logger("info", `StenBot has been converted to Production Mode. Running version: ${bot.settings.version} | Changed at ${date}`);
+          bot.logger("info", `StenBot has been converted to Production Mode. Running version: ${bot.packageJSON.version} | Changed at ${date}`);
           //Reply Message
           bot.createEmbed("success", "", `Bot Mode has been Sucessfully Updated to **Production**.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))

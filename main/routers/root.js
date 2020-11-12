@@ -3,6 +3,7 @@ const router = express.Router();
 
 const settings = require("../settings.json");
 const botdata = require("../../data/global/bot-data.json");
+const packageJSON = require("../../package.json");
 
 // MAIN WEBSITE
 router.get("/", (req, res) => {
@@ -20,13 +21,14 @@ router.get('/api', (req, res) => {
 
 // Basic bot info
 router.get('/api/info', (req, res) => {
-    var info = {
-        "version": settings.version,
+    let info = {
+        "version": packageJSON.version,
         "prefix": settings.prefix,
         "mode": settings.mode,
         "botName": botdata.botName,
         "botID": botdata.botID,
         "totalGuilds": botdata.totalGuilds,
+        "dependencies": packageJSON.dependencies,
         "hotel": "trivago"
     }
     res.status(200).send(info)

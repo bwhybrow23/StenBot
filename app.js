@@ -21,6 +21,7 @@ const bot = new Client();
 const consoleUtils = require("./main/functions/consoleUtils.js");
 const utils = require("./main/functions/utilities.js");
 const reactionFunctions = require("./main/functions/reactionUtils.js");
+const packageJSON = require("./package.json");
 
 //Global logger
 bot.logger = consoleUtils.post;
@@ -39,6 +40,7 @@ bot.createEmbed = createEmbed;
 bot.noPermsEmbed = noPermsEmbed;
 bot.helpEmbed = helpEmbed;
 bot.eventEmbed = eventEmbed;
+bot.packageJSON = packageJSON;
 
 //Discord-Moderation Module (For Muting)
 const {

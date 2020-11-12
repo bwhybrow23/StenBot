@@ -19,7 +19,7 @@ module.exports = (bot) => {
 
     //Console Log
     let date = new Date();
-    bot.logger("success", `${bot.user.username} Started Successfully in Production Mode. Version: ${bot.settings.version}`);
+    bot.logger("success", `${bot.user.username} Started Successfully in Production Mode. Version: ${bot.packageJSON.version}`);
   }
 
   //Development Mode
