@@ -123,7 +123,7 @@ const helpEmbed = (command, bot) => {
             reject(`Cannot find command under the name of ${command}`);
         }
 				
-				if (cmd.category == "botowner") return;
+		if (cmd.category == "botowner") return;
 
         //Set up variables for the embed
         let prefix = bot.settings.prefix;

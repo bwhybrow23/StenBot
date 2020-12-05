@@ -25,7 +25,7 @@ module.exports = {
 
     let request = await fetch.get(args[1] ? url + `&port=${port}` : url + ip);
     let res = request.body;
-    if (res.status !== "success") {
+    if (res.status === "error" && res.error === "server timeout") {
       bot.createEmbed("error","",`Error! The status couldn't be fetched, perhaps an invalid IP or Port.`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.logger("error", error));

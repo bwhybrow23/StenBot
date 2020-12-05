@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Guild = require("../models/guild");
 const User = require("../models/user");
+const UserBlacklist = require("../models/userblacklist");
 const { Message } = require("discord.js");
 
 /** 
@@ -190,4 +191,23 @@ const checkToken = async (token) => {
     */
 }
 
-module.exports = { createGuild, getAllGuilds, getGuildById, getGuildByName, deleteGuildById, deleteGuildByName, updateGuildById, updateGuildByName, createUser, checkToken }
+//Blacklist User
+const blacklistUser = async (data) => {
+    const user = new UserBlacklist(data);
+    await user.save();
+    return user;
+    /* 
+    EXAMPLE
+    bot.mutils.blacklistUser({
+        user_id: "",
+        blacklisted: true
+    });
+    */
+}
+
+const checkBlacklist = async (user) => {
+    let data = UserBlacklist.findOne({user_id: user});
+    return data;
+}
+
+module.exports = { createGuild, getAllGuilds, getGuildById, getGuildByName, deleteGuildById, deleteGuildByName, updateGuildById, updateGuildByName, createUser, checkToken, blacklistUser, checkBlacklist }

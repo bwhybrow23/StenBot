@@ -10,13 +10,11 @@ module.exports = {
       const Discord = require("discord.js");
       if (!message.guild) return;
       const ms = require("ms");
-
-      //Permission Check
       const fs = require("fs");
 
     var config = await bot.mutils.getGuildById(message.guild.id);
 
-    if (config.staff_role == false) {
+    /*if (config.staff_role == false) {
       return bot.createEmbed("error","",`Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.logger("error", error));
@@ -34,6 +32,9 @@ module.exports = {
 
     if (!message.member.roles.cache.has(config.staff_role)) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot);
+    }*/
+    if (!message.member.permissions.has("MANAGE_MESSAGES")) {
+      return bot.noPermsEmbed(`${message.guild.name}`, bot);
     }
       
     //Args Check
@@ -50,7 +51,7 @@ module.exports = {
           .catch((error) => bot.logger("error", error));
       }
 
-      let reason = args.slice(1).join(" ");
+      let reason = args.slice(2).join(" ");
       let msg = `Succesfully tempmuted **${targetuser.user.tag}** for **${reason}**`;
   
       if (reason.length < 1) {

@@ -12,7 +12,7 @@ module.exports = {
 
     var config = await bot.mutils.getGuildById(message.guild.id);
 
-    if (config.staff_role == false) {
+    /*if (config.staff_role == false) {
       return bot.createEmbed("error","",`Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.logger("error", error));
@@ -29,6 +29,9 @@ module.exports = {
     }
 
     if (!message.member.roles.cache.has(config.staff_role)) {
+      return bot.noPermsEmbed(`${message.guild.name}`, bot);
+    }*/
+    if (!message.member.permissions.has("MANAGE_MESSAGES")) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot);
     }
 

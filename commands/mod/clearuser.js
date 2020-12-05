@@ -3,7 +3,7 @@ module.exports = {
   category: "mod",
   description: "Clear a certain number of messages from a specific user.",
   usage: "<@USER> <VALUE>",
-  example: "@Hayden#5150 50",
+  example: "@Haydn#3329 50",
   permission: "STAFF",
   run: async (bot, message, args) => {
     const Discord = require("discord.js");
@@ -12,7 +12,7 @@ module.exports = {
 
     var config = await bot.mutils.getGuildById(message.guild.id);
 
-    if (config.staff_role == false) {
+    /*if (config.staff_role == false) {
       return bot.createEmbed("error","",`Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.logger("error", error));
@@ -30,11 +30,14 @@ module.exports = {
 
     if (!message.member.roles.cache.has(config.staff_role)) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot);
+    } */
+    if (!message.member.permissions.has("MANAGE_MESSAGES")) {
+      return bot.noPermsEmbed(`${message.guild.name}`, bot);
     }
 
     var amount = args[1];
     if (!amount || amount == undefined || isNaN(amount) || args[0] == "help") {
-      return bot.helpEmbed("clear", bot)
+      return bot.helpEmbed("clearuser", bot)
       .then((embed) => message.channel.send(embed))
       .catch((error) => bot.logger("error", error));
     }

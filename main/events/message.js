@@ -15,7 +15,7 @@ module.exports = async (bot, message) => {
                 }
             }
             //Check if it contains words from filter
-            if (config.staff_filter.some((word) => message.content.includes(word))) {
+            if (config.staff_filter.some((word) => message.content.toLowerCase().includes(word))) {
                 if(message.member.hasPermission("ADMINISTRATOR") == true) return;
                 message.delete();
                 return;
@@ -32,6 +32,14 @@ module.exports = async (bot, message) => {
     if (!message.content.startsWith(prefix)) return;
     // if (!message.member)
     //   message.member = await message.guild.fetchMember(message);
+    
+    // Ignore if blacklisted
+    var bStatus;
+    await bot.mutils.checkBlacklist(message.author.id).then((data) => {
+        if(!data) return bStatus = "No";
+        if(data.blacklisted === true) bStatus = "Yes";
+    })
+    if (bStatus === "Yes") return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const cmd = args.shift().toLowerCase();

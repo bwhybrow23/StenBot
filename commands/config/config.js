@@ -53,7 +53,7 @@ module.exports = {
       stafffilter1.push("Empty");
     } else {
       stafffilter.forEach(word => {
-        stafffilter1.push(`<#${word}> `);
+        stafffilter1.push(`${word} `);
     });
   }
     //autoban by default is undefined
