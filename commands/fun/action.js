@@ -15,6 +15,11 @@ module.exports = {
 
         let user;
         let url;
+        let argsMsg = args.slice(1).join(" ");
+        let userNick = message.guild.members.cache.get(message.author.id).nickname;
+        if(userNick === null) {
+            userNick = message.author.username;
+        }
 
         switch (subc) {
             case "cuddle":
@@ -24,18 +29,40 @@ module.exports = {
                     return message.channel.send("Make sure you mention someone!");
                 }
 
-                const cBody = await fetch(`https://nekos.life/api/v2/img/cuddle`)
-                .then(res => res.json())
-                .then(json => url = json.url)
+                await apiFetch("cuddle");
+                if (!url) {
+                    await apiFetch("cuddle");
+                }
 
                 let cEmbed = new Discord.MessageEmbed()
-                    .setTitle("Action: Cuddle")
-                    .setDescription(`**${message.author.username}** cuddled **${user.user.username}**!`)
+                    // .setTitle("Action: Cuddle")
+                    .setDescription(`${userNick} cuddled ${argsMsg}`)
                     .setImage(url)
                     .setColor(bot.settings.color.yellow)
                     .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
 
                 message.channel.send(cEmbed);
+                break;
+            case "feed":
+                try {
+                    user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+                } catch (error) {
+                    return message.channel.send("Make sure you mention someone!");
+                }
+
+                await apiFetch("feed");
+                if (!url) {
+                    await apiFetch("feed");
+                }
+
+                let fEmbed = new Discord.MessageEmbed()
+                    // .setTitle("Action: Cuddle")
+                    .setDescription(`${userNick} fed ${argsMsg}`)
+                    .setImage(url)
+                    .setColor(bot.settings.color.yellow)
+                    .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
+
+                message.channel.send(fEmbed);
                 break;
             case "hug":
                 try {
@@ -44,13 +71,14 @@ module.exports = {
                     return message.channel.send("Make sure you mention someone!");
                 }
 
-                const hBody = await fetch(`https://nekos.life/api/v2/img/hug`)
-                .then(res => res.json())
-                .then(json => url = json.url)
+                await apiFetch("hug");
+                if (!url) {
+                    await apiFetch("hug");
+                }
 
                 let hEmbed = new Discord.MessageEmbed()
-                    .setTitle("Action: Hug")
-                    .setDescription(`**${message.author.username}** hugged **${user.user.username}**!`)
+                    // .setTitle("Action: Hug")
+                    .setDescription(`${userNick} hugged ${argsMsg}`)
                     .setImage(url)
                     .setColor(bot.settings.color.yellow)
                     .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
@@ -65,13 +93,14 @@ module.exports = {
                     return message.channel.send("Make sure you mention someone!");
                 }
 
-                const kBody = await fetch(`https://nekos.life/api/v2/img/kiss`)
-                .then(res => res.json())
-                .then(json => url = json.url)
+                await apiFetch("kiss");
+                if (!url) {
+                    await apiFetch("kiss");
+                }
 
                 let kEmbed = new Discord.MessageEmbed()
-                    .setTitle("Action: Kiss")
-                    .setDescription(`**${message.author.username}** kissed **${user.user.username}**! :heart:`)
+                    // .setTitle("Action: Kiss")
+                    .setDescription(`${userNick} kissed ${argsMsg}`)
                     .setImage(url)
                     .setColor(bot.settings.color.yellow)
                     .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
@@ -86,13 +115,14 @@ module.exports = {
                     return message.channel.send("Make sure you mention someone!");
                 }
 
-                const pBody = await fetch(`https://nekos.life/api/v2/img/pat`)
-                .then(res => res.json())
-                .then(json => url = json.url)
+                await apiFetch("pat");
+                if (!url) {
+                    await apiFetch("pat");
+                }
 
                 let pEmbed = new Discord.MessageEmbed()
-                    .setTitle("Action: Pat")
-                    .setDescription(`**${message.author.username}** patted **${user.user.username}**! *ouch*`)
+                    // .setTitle("Action: Pat")
+                    .setDescription(`${userNick} patted ${argsMsg}`)
                     .setImage(url)
                     .setColor(bot.settings.color.yellow)
                     .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
@@ -108,13 +138,14 @@ module.exports = {
                     return message.channel.send("Make sure you mention someone!");
                 }
 
-                const poBody = await fetch(`https://nekos.life/api/v2/img/poke`)
-                .then(res => res.json())
-                .then(json => url = json.url)
+                await apiFetch("poke");
+                if (!url) {
+                    await apiFetch("poke");
+                }
 
                 let poEmbed = new Discord.MessageEmbed()
-                    .setTitle("Action: Poke")
-                    .setDescription(`**${message.author.username}** poked **${user.user.username}**!`)
+                    // .setTitle("Action: Poke")
+                    .setDescription(`${userNick} poked ${argsMsg}`)
                     .setImage(url)
                     .setColor(bot.settings.color.yellow)
                     .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
@@ -130,13 +161,14 @@ module.exports = {
                     return message.channel.send("Make sure you mention someone!");
                 }
 
-                const sBody = await fetch(`https://nekos.life/api/v2/img/slap`)
-                .then(res => res.json())
-                .then(json => url = json.url)
+                await apiFetch("slap");
+                if (!url) {
+                    await apiFetch("slap");
+                }
 
                 let sEmbed = new Discord.MessageEmbed()
-                    .setTitle("Action: Slap")
-                    .setDescription(`**${message.author.username}** slapped **${user.user.username}**! *ouch*`)
+                    // .setTitle("Action: Slap")
+                    .setDescription(`${userNick} slapped ${argsMsg}`)
                     .setImage(url)
                     .setColor(bot.settings.color.yellow)
                     .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
@@ -151,13 +183,14 @@ module.exports = {
                     return message.channel.send("Make sure you mention someone!");
                 }
 
-                const tBody = await fetch(`https://nekos.life/api/v2/img/tickle`)
-                .then(res => res.json())
-                .then(json => url = json.url)
+                await apiFetch("tickle");
+                if (!url) {
+                    await apiFetch("tickle");
+                }
 
                 let tEmbed = new Discord.MessageEmbed()
-                    .setTitle("Action: Tickle")
-                    .setDescription(`**${message.author.username}** tickled **${user.user.username}**!`)
+                    // .setTitle("Action: Tickle")
+                    .setDescription(`${userNick} tickled ${argsMsg}`)
                     .setImage(url)
                     .setColor(bot.settings.color.yellow)
                     .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
@@ -174,6 +207,7 @@ module.exports = {
                     .setDescription(`Below are all the action commands you can use.`)
                     .setColor(bot.settings.color.blue)
                     .addField("`sb!action cuddle @user`", "A cuddle a day keeps the sadness away!")
+                    .addField("`sb!action feed @user`", "Here comes the aeroplane *nyerm*")
                     .addField("`sb!action hug @user`", "Everyone needs a hug, so give someone a hug!")
                     .addField("`sb!action kiss @user`", "*kisses softly*")
                     .addField("`sb!action pat @user`", "Some people deserve a pat for doing a good job.")
@@ -185,6 +219,13 @@ module.exports = {
                 message.channel.send(helpEmbed);
 
                 break;
+        }
+
+        // Fetch function
+        async function apiFetch(action) {
+            await fetch(`https://nekos.life/api/v2/img/${action}`)
+                .then(res => res.json())
+                .then(json => url = json.url)
         }
     },
 };

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.5 - 07/12/2020
+* Made fetching images for action command a function
+* Added "feed" action
+* Added sb!goose command
+* Updated API's of cat and dog
+
 ## 1.6.4 - 05/12/2020
 
 ### Changes
