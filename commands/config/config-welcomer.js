@@ -177,7 +177,7 @@ module.exports = {
               let themsg = format(config.welcomer_message, {
                   user: message.author.tag,
                   usermention: message.author,
-                  username: member.user.name,
+                  username: message.author.user.name,
                   usertag: message.author.discriminator,
                   server: message.guild.name,
                   date: dFormatter.format(date),

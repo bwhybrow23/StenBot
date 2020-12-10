@@ -2,6 +2,7 @@ const chalk = require("chalk");
 
 //Create new console log
 const post = (type, message) => {
+
   //Get the current time
   const date = new Date();
 

@@ -36,7 +36,7 @@ module.exports = {
 
                 let cEmbed = new Discord.MessageEmbed()
                     // .setTitle("Action: Cuddle")
-                    .setDescription(`${userNick} cuddled ${argsMsg}`)
+                    .setDescription(`${userNick} cuddles ${argsMsg}`)
                     .setImage(url)
                     .setColor(bot.settings.color.yellow)
                     .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
@@ -57,7 +57,7 @@ module.exports = {
 
                 let fEmbed = new Discord.MessageEmbed()
                     // .setTitle("Action: Cuddle")
-                    .setDescription(`${userNick} fed ${argsMsg}`)
+                    .setDescription(`${userNick} feeds ${argsMsg}`)
                     .setImage(url)
                     .setColor(bot.settings.color.yellow)
                     .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
@@ -78,7 +78,7 @@ module.exports = {
 
                 let hEmbed = new Discord.MessageEmbed()
                     // .setTitle("Action: Hug")
-                    .setDescription(`${userNick} hugged ${argsMsg}`)
+                    .setDescription(`${userNick} hugs ${argsMsg}`)
                     .setImage(url)
                     .setColor(bot.settings.color.yellow)
                     .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
@@ -100,7 +100,7 @@ module.exports = {
 
                 let kEmbed = new Discord.MessageEmbed()
                     // .setTitle("Action: Kiss")
-                    .setDescription(`${userNick} kissed ${argsMsg}`)
+                    .setDescription(`${userNick} kisses ${argsMsg}`)
                     .setImage(url)
                     .setColor(bot.settings.color.yellow)
                     .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
@@ -122,7 +122,7 @@ module.exports = {
 
                 let pEmbed = new Discord.MessageEmbed()
                     // .setTitle("Action: Pat")
-                    .setDescription(`${userNick} patted ${argsMsg}`)
+                    .setDescription(`${userNick} pats ${argsMsg}`)
                     .setImage(url)
                     .setColor(bot.settings.color.yellow)
                     .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
@@ -145,7 +145,7 @@ module.exports = {
 
                 let poEmbed = new Discord.MessageEmbed()
                     // .setTitle("Action: Poke")
-                    .setDescription(`${userNick} poked ${argsMsg}`)
+                    .setDescription(`${userNick} pokes ${argsMsg}`)
                     .setImage(url)
                     .setColor(bot.settings.color.yellow)
                     .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
@@ -190,7 +190,7 @@ module.exports = {
 
                 let tEmbed = new Discord.MessageEmbed()
                     // .setTitle("Action: Tickle")
-                    .setDescription(`${userNick} tickled ${argsMsg}`)
+                    .setDescription(`${userNick} tickles ${argsMsg}`)
                     .setImage(url)
                     .setColor(bot.settings.color.yellow)
                     .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);

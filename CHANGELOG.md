@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.6 - 10/12/2020
+* Fixed bug with config-welcomer
+* Gramatically corrected action.js
+
 ## 1.6.5 - 07/12/2020
 * Made fetching images for action command a function
 * Added "feed" action

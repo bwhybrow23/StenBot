@@ -29,7 +29,7 @@ module.exports = {
 
       function downloadJS() {
           download("https://minecraftskinstealer.com/achievement/13/Achievement%20unlocked/" + achievement, dir, function() {
-              message.channel.send(`${message.author} has earned a new achievement.`, {
+          message.channel.send(`${message.author} has earned a new achievement.`, {
                   files: [{
                       attachment: dir,
                       name: `${message.guild.id}-${message.author.id}.png`
