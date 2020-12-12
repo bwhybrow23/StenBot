@@ -29,6 +29,8 @@ module.exports = {
                     return message.channel.send("Make sure you mention someone!");
                 }
 
+                if(user === message.author) return message.channel.send("You can't cuddle yourself, you silly goose.")
+
                 await apiFetch("cuddle");
                 if (!url) {
                     await apiFetch("cuddle");
@@ -71,6 +73,8 @@ module.exports = {
                     return message.channel.send("Make sure you mention someone!");
                 }
 
+                if(user === message.author) return message.channel.send("You can't hug yourself, you silly goose.")
+
                 await apiFetch("hug");
                 if (!url) {
                     await apiFetch("hug");
@@ -93,6 +97,8 @@ module.exports = {
                     return message.channel.send("Make sure you mention someone!");
                 }
 
+                if(user === message.author) return message.channel.send("You can't kiss yourself, you silly goose.")
+
                 await apiFetch("kiss");
                 if (!url) {
                     await apiFetch("kiss");
@@ -114,6 +120,8 @@ module.exports = {
                 } catch (error) {
                     return message.channel.send("Make sure you mention someone!");
                 }
+
+                if(user === message.author) return message.channel.send("Whilst patting yourself is technically allowed, you're not allowed to do it :)")
 
                 await apiFetch("pat");
                 if (!url) {
@@ -143,6 +151,8 @@ module.exports = {
                     await apiFetch("poke");
                 }
 
+                if(user === message.author) return message.channel.send("You're not allowed to poke yourself silly.")
+
                 let poEmbed = new Discord.MessageEmbed()
                     // .setTitle("Action: Poke")
                     .setDescription(`${userNick} pokes ${argsMsg}`)
@@ -160,6 +170,8 @@ module.exports = {
                 } catch (error) {
                     return message.channel.send("Make sure you mention someone!");
                 }
+
+                if(user === message.author) return message.channel.send("You really think I'm gonna let you slap yourself? No ❤️")
 
                 await apiFetch("slap");
                 if (!url) {
@@ -182,6 +194,8 @@ module.exports = {
                 } catch (error) {
                     return message.channel.send("Make sure you mention someone!");
                 }
+
+                if(user === message.author) return message.channel.send("I- no. No tickling yourself. Just ask someone else to tickle you if you wanna feel pain.")
 
                 await apiFetch("tickle");
                 if (!url) {
