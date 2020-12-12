@@ -154,6 +154,10 @@ mongoose.connect(connectionURL, {
 const mutils = require("./main/functions/mongoUtils");
 bot.mutils = mutils;
 
+const { TimeoutUtils } = require("./main/functions/timeoutUtils");
+const timeouts = new TimeoutUtils(bot);
+bot.timeouts = timeouts;
+
 // Global API
 const express = require('express');
 const app = express();
