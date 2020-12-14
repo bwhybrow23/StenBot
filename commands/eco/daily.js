@@ -32,7 +32,7 @@ module.exports = {
             ecoUtils.updateUser(person.id, newBal).then(async () => {
                 // Create a new daily for the user
                 await bot.timeouts.new(person.id, "daily");
-                return bot.createEmbed("success", "", `You have claimed your daily reward of **reward}**. Come back in 24 hours to claim it again!`, [], ``, bot)
+                return bot.createEmbed("success", "", `You have claimed your daily reward of **${reward}**. Come back in 24 hours to claim it again!`, [], ``, bot)
                     .then((embed) => message.channel.send(embed))
                     .catch((error) => bot.logger("error", error));
             })
