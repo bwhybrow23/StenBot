@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.6.7 - 14/12/2020
+* Added member count to status command
+* New economy system implemented (ty to Sam)
+* Some minor fixes
+
 ## 1.6.6 - 10/12/2020
 * Fixed bug with config-welcomer
 * Gramatically corrected action.js

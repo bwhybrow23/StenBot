@@ -8,15 +8,21 @@ module.exports = {
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
+    const ecoUtils = require("../../main/functions/ecoUtils");
     if (!message.guild) return;
-    const fs = require("fs");
-    const db = require("quick.db");
 
-    let user = message.mentions.users.first();
-    let member = db.fetch(`money_${message.author.id}`);
-    let amount = args[1];
+    let toBePaid = await ecoUtils.getUser(message.mentions.users.first().id);
+    let payee = await ecoUtils.getUser(message.author.id);
+    let amount;
+    try {
+      amount = parseInt(args[1]);
+    } catch (error) {
+      return bot.helpEmbed("pay", bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
+    }
 
-    if (!user || !amount || args[0] == "help") {
+    if (!toBePaid || !amount || args[0] == "help") {
       return bot.helpEmbed("pay", bot)
       .then((embed) => message.channel.send(embed))
       .catch((error) => bot.logger("error", error));
@@ -27,16 +33,19 @@ module.exports = {
       return message.channel.send("Negative money can not be paid.");
     }
 
-    if (member < amount) {
+    if (payee.balance < amount) {
       return message.reply(
         `That's more money than you've got in your balance.`
       );
     }
 
-    message.channel.send(
-      `${message.author.tag}, You successfully paid ${user.username} ${args[1]} coins.`
-    );
-    db.add(`money_${user.id}`, args[1]);
-    db.subtract(`money_${message.author.id}`, args[1]);
+    await ecoUtils.updateUser(payee.discordID, payee.balance - amount).then(async () => {
+      await ecoUtils.updateUser(toBePaid.discordID, toBePaid.balance + amount).then(async (user) => {
+        return bot.createEmbed("success", "", `${amount} has now been transferred to ${message.mentions.users.first()}'s balance. Their new balance is ${user.balance}.`, [], ``, bot)
+                          .then((embed) => message.channel.send(embed))
+                          .catch((error) => bot.logger("error", error));
+      })
+    })
+    
   },
 };

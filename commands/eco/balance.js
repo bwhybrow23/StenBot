@@ -9,9 +9,7 @@ module.exports = {
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
-    const fs = require("fs");
-    const db = require("quick.db");
+    const ecoUtils = require("../../main/functions/ecoUtils");
 
     let person = message.mentions.users.first() || message.author;
 
@@ -21,18 +19,11 @@ module.exports = {
       .catch((error) => bot.logger("error", error));
     }
 
-    if (person.id === message.author.id) {
-      let bal = db.fetch(`money_${message.author.id}`);
-      if (bal === null) bal = 0;
-      bot.createEmbed("info","Balance",`You currently have a balance of **${bal}** coins.`,[],`${message.guild.name}`,bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
-    } else {
-      let bal = db.fetch(`money_${message.author.id}`);
-      if (bal === null) bal = 0;
-      bot.createEmbed("info",`${person.tag}'s Balance`,`${person.tag} currently has a balance of **${bal}** coins.`,[],`${message.guild.name}`,bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
-    }
-  },
+    await ecoUtils.getUser(person.id).then(async (user) => {
+      return bot.createEmbed("info","",`${person} has ${user.balance} credits.`,[],``,bot)
+      .then((embed) => message.channel.send(embed))
+      .catch((error) => bot.logger("error", error));
+    })
+    
+  }
 };

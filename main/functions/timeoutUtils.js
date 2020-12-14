@@ -99,6 +99,7 @@ class TimeoutUtils {
                     let present = moment();
                     let untilExpiry = moment.duration((timeout.expires - present.unix()) * 1000);
                     resolve(untilExpiry.humanize(true))
+                    // resolve(untilExpiry)
 
                 } else { resolve(false) }
             } catch (error) { reject(error) }
