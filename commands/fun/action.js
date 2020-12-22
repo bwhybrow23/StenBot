@@ -11,15 +11,19 @@ module.exports = {
         if (!message.guild) return;
         const fetch = require("node-fetch");
 
+        const nekos = require('nekos.life');
+        const neko = new nekos();
+
         const subc = args[0];
 
         let user;
         let url;
         let argsMsg = args.slice(1).join(" ");
-        let userNick = message.guild.members.cache.get(message.author.id).nickname;
-        if(userNick === null) {
-            userNick = message.author.username;
-        }
+        // let userNick = message.guild.members.cache.get(message.author.id).nickname;
+        // if(userNick === null) {
+        //     userNick = message.author.username;
+        // }
+        let userNick = message.author.username;
 
         switch (subc) {
             case "cuddle":
@@ -237,9 +241,11 @@ module.exports = {
 
         // Fetch function
         async function apiFetch(action) {
-            await fetch(`https://nekos.life/api/v2/img/${action}`)
-                .then(res => res.json())
-                .then(json => url = json.url)
+            // // await fetch(`https://nekos.life/api/v2/img/${action}`)
+            //     .then(res => res.json())
+            //     .then(json => url = json.url)
+            await neko.sfw[action]()
+                .then(data => url = data.url)
         }
     },
 };

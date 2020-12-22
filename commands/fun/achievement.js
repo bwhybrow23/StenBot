@@ -8,7 +8,6 @@ module.exports = {
   run: async (bot, message, args) => {
 
       const Discord = require("discord.js");
-      if (!message.guild) return;
 
       var achievement = args.join(" ");
       var request = require("request");
@@ -25,14 +24,14 @@ module.exports = {
               request(uri).pipe(fs.createWriteStream(filename)).on("close", callback);
           });
       };
-      var dir = `./data/images/temp/${message.guild.id}-${message.author.id}.png`;
+      var dir = `./data/images/temp/${message.author.id}.png`;
 
       function downloadJS() {
           download("https://minecraftskinstealer.com/achievement/13/Achievement%20unlocked/" + achievement, dir, function() {
           message.channel.send(`${message.author} has earned a new achievement.`, {
                   files: [{
                       attachment: dir,
-                      name: `${message.guild.id}-${message.author.id}.png`
+                      name: `${message.author.id}.png`
                   }]
               });
           });
@@ -41,7 +40,7 @@ module.exports = {
       //Delete file
       function deleteJS() {
           fs.stat(
-              `././data/images/temp/${message.guild.id}-${message.author.id}.png`,
+              `././data/images/temp/${message.author.id}.png`,
               function(err, stats) {
                   if (err) {
                       return console.error(err);

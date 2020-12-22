@@ -2,8 +2,10 @@ const mongoose = require("mongoose");
 
 const economySchema = new mongoose.Schema({
     discordID: {
-        type: Number,
-        required: [true, "A Discord ID is required."]
+        type: String,
+        required: [true, "A Discord ID is required."],
+        unique: true,
+        trim: true
     },
     balance: {
         type: Number,

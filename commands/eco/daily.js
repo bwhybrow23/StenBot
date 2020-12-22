@@ -20,7 +20,7 @@ module.exports = {
         // Check if there is an ongoing daily
         let check = await bot.timeouts.check(person.id, "daily")
         if (check != false) {
-            return bot.createEmbed("error", "", `You've already redeemed your daily money for today. \nCome back **${check}** and you'll be able to redeem it again.`, [], ``, bot)
+            return bot.createEmbed("error", "", `You've already redeemed your daily money for today. \nCome back in **${check}** and you'll be able to redeem it again.`, [], ``, bot)
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.logger("error", error));
         }

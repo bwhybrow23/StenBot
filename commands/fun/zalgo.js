@@ -8,7 +8,6 @@ module.exports = {
   run: async (bot, message, args) => {
 
     const zalgo = require("zalgolize");
-    if (!message.guild) return;
 
     const sayMessage = args.join(" ");
     if(!sayMessage || sayMessage == "help") {

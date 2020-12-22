@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.6.8 - 00/12/2020
+* Daily now presents a readable formatted time
+* Begun work on Rob.js
+* Made some fun commands work in DMs
+* Action command uses name instead of nickname again
+* Action command now uses the nekos.life JS wrapper
+* Animal commands combined into one command
+* GIF command added
+
 ## 1.6.7 - 14/12/2020
 * Added member count to status command
 * New economy system implemented (ty to Sam)

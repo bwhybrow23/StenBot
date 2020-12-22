@@ -9,7 +9,6 @@ module.exports = {
 
       const Discord = require("discord.js");
       if (!message.guild) return;
-      const fs = require("fs");
       const colors = require("colors");
 
       //Check if the command was sent by Sten

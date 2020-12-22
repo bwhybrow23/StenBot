@@ -9,7 +9,6 @@ module.exports = {
 
     const Discord = require("discord.js");
     let fetch = require("node-fetch");
-    if (!message.guild) return;
 
     // var replies = [
     //   "Yes.",

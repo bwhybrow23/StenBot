@@ -8,7 +8,6 @@ module.exports = {
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
     const fetch = require("superagent");
     const url = "https://mcapi.us/server/status?ip=";
 

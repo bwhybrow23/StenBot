@@ -3,7 +3,8 @@
     "mode": "production",
     "connections": {
         "token": "",
-        "devToken": ""
+        "devToken": "",
+        "giphyAPI": ""
     },
     "ids": {
         "botOwner": "",

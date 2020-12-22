@@ -9,7 +9,6 @@ module.exports = {
 
         let Discord = require("discord.js");
         let fetch = require("node-fetch");
-        if (!message.guild) return;
 
         let fact;
         await fetch(`https://nekos.life/api/v2/fact`)
