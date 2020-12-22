@@ -7,7 +7,9 @@ module.exports = {
     permission: "EVERYONE",
     run: async (bot, message, args) => {
 
-        const Discord = require("discord.js");
+        return;
+
+        /* const Discord = require("discord.js");
         const ecoUtils = require("../../main/functions/ecoUtils");
 
         const robber = message.author;
@@ -71,6 +73,8 @@ module.exports = {
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.logger("error", error));
         }
+
+        */
 
 
     }

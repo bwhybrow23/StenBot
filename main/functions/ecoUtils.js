@@ -34,7 +34,6 @@ const updateUser = async (userid, balance) => {
     return user;
 }
 
-
 module.exports = {
     createUser,
     getUser,
