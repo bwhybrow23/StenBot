@@ -51,7 +51,7 @@ module.exports = {
     if (!toBeAdded || args[0] == "help") {
       return bot.helpEmbed("tadd", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
     try {
       message.channel.createOverwrite(toBeAdded.id, {
@@ -60,7 +60,7 @@ module.exports = {
       });
     } catch (e) {
       errsend("Error in adding this user. Please check the console.");
-      bot.logger("error", e);
+      bot.log.post("error", e);
     }
 
     let embed = new Discord.MessageEmbed()

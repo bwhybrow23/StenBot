@@ -15,7 +15,7 @@ module.exports = {
     if (!r || args[0] == "help") {
       return bot.helpEmbed("delrole", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
 
     const config = await bot.mutils.getGuildById(message.guild.id);
@@ -23,19 +23,19 @@ module.exports = {
     if (config.staff_admin == false) {
       return bot.createEmbed("error", "", `Error! Admin commands are disabled. To use them, enable them with **sb!config-staff admin enable**`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     if (r == undefined) {
       return bot.createEmbed("error", "", `Error! You forgot to mention a role to remove!`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     if (message.member.hasPermission("ADMINISTRATOR") == false) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     var bm = await message.guild.members.fetch(bot.user.id);
@@ -43,13 +43,13 @@ module.exports = {
     if (r.position > bm.roles.highest.position) {
       return bot.createEmbed("error", "", `Error! I am unable to delete this role!`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     } else {
       var name = r.name;
       r.delete();
       return bot.createEmbed("success", "", `Deleted role **${name}** requested by **${message.author.tag}**`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
   },
 };

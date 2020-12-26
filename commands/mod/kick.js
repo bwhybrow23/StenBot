@@ -15,7 +15,7 @@ module.exports = {
     /*if (config.staff_role == false) {
       return bot.createEmbed("error","",`Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     let staffrole = message.guild.roles.cache.find(
@@ -25,7 +25,7 @@ module.exports = {
     if (staffrole == undefined) {
       return bot.createEmbed("error","",`Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     if (!message.member.roles.cache.has(config.staff_role)) {
@@ -39,7 +39,7 @@ module.exports = {
     if (!targetuser || args[0] == "help") {
       return bot.helpEmbed("kick", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
 
     let reason = args.slice(1).join(" ");
@@ -53,7 +53,7 @@ module.exports = {
     if (!targetuser.kickable) {
       return bot.createEmbed("error","",`Error! I do not have permission to kick this user!`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     targetuser.kick(`By ${message.author.tag}\nReason: ${reason}`)
@@ -61,7 +61,7 @@ module.exports = {
       .then(
         bot.createEmbed("success","",`${msg}`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
-          .catch((error) => bot.logger("error", error)));
+          .catch((error) => bot.log.post("error", error)));
 
     //Logging
     const efunctions = require('../../main/functions/eventUtils.js');

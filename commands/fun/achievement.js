@@ -16,7 +16,7 @@ module.exports = {
       if (!achievement || args[0] == "help") {
         return bot.helpEmbed("achievement", bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
       }
       
       var download = function(uri, filename, callback) {
@@ -49,7 +49,7 @@ module.exports = {
                   fs.unlink(
                       `././data/images/temp/${message.guild.id}-${message.author.id}.png`,
                       function(err) {
-                          if (err) return bot.logger("error", err);
+                          if (err) return bot.log.post("error", err);
                       }
                   );
               }

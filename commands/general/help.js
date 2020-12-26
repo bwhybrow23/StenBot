@@ -67,7 +67,7 @@ module.exports = {
 
       return bot.helpEmbed(input, bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
 
       // // Get the cmd by the name or alias
       // const cmd =

@@ -1,6 +1,14 @@
 # Changelog
 
-## 1.6.8 - 00/12/2020
+## 1.6.9 - 26/12/2020
+* Sync commands fixed
+* Dynamic changing status
+* Failsafe for no result for GIF command
+* Removed logging in gitignore
+* Added file logging
+* Dynamic status that changes every 5 minutes
+
+## 1.6.8 - 22/12/2020
 * Daily now presents a readable formatted time
 * Begun work on Rob.js
 * Made some fun commands work in DMs
@@ -130,7 +138,7 @@
 
 ### **Changes**
 
-* Began using bot.logger instead of the default console.log
+* Began using bot.log.post instead of the default console.log
 * Created dev branch for collaboration work
 * New interactive report command
 * Renamed functions

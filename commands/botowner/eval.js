@@ -13,7 +13,7 @@ module.exports = {
     if (message.author.id !== bot.settings.ids.botOwner) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     };
 
     try {
@@ -21,7 +21,7 @@ module.exports = {
       if (!codein || args[0] == "help") {
         return bot.helpEmbed("eval", bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
       }
       let code = eval(codein);
 

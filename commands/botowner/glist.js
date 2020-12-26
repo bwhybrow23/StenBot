@@ -13,7 +13,7 @@ module.exports = {
     if (message.author.id !== bot.settings.ids.botOwner) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     let guildList = [];
@@ -23,6 +23,6 @@ module.exports = {
 
     bot.createEmbed("info", "**Guild List**", "", [{ name: "Guilds", value: `\`\`\`${guildList.join("\n")}\`\`\``}], `${message.guild.name}`, bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
   }
 };

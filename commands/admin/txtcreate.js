@@ -16,26 +16,26 @@ module.exports = {
     if (config.staff_admin == false) {
       return bot.createEmbed("error", "", `Error! Admin commands are disabled. To use them, enable them with **sb!config-staff admin enable**`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     var n = args[0];
     if (!n || args[0] == "help") {
       return bot.helpEmbed("txtcreate", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
 
     if (n == undefined) {
       return bot.createEmbed("error", "", `Error! You forgot to include a name for the channel!`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     if (message.member.hasPermission("ADMINISTRATOR") == false) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     var ca = args.slice(1).join(" ") || "None";
@@ -43,13 +43,13 @@ module.exports = {
     if (n.length > 100) {
       return bot.createEmbed("error", "", `The channel name has to be between 1 and 100 in **length**`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     if (ca.length > 100) {
       return bot.createEmbed("error", "", `The channel category has to be less than 100 characters.`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     let cat;
@@ -67,7 +67,7 @@ module.exports = {
       channel.setParent(cat);
       return bot.createEmbed("success", "", `The channel **${channel.name}** has been created.`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     });
   },
 };

@@ -105,7 +105,7 @@ module.exports = {
         //   message.react("⚙")
         // })
         //   })
-        bot.logger("success", "Verification message reset.");
+        bot.log.post("success", "Verification message reset.");
       });
   },
 

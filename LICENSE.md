@@ -6,7 +6,7 @@
 
 > Version 1.1, December 2016
 
-> Copyright (c) 2018 - 2020 Ben Whybrow <me@benwhybrow.com>
+> Copyright (c) 2018 - 2021 Ben Whybrow <me@benwhybrow.com>
 
 Everyone is permitted to copy and distribute verbatim or modified
 copies of this license document.

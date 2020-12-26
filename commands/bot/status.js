@@ -23,7 +23,7 @@ module.exports = {
 
     bot.createEmbed("success", "StenBot Status", `**Ping:** ${ping}\n**Memory Usage:** ${memUsed}MB\n**Total Guilds:** ${totalGuilds}\n**Total Members:** ${totalMembers}\n**Version:** ${bot.packageJSON.version}`, [], `${message.guild.name}`, bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
   
     }
 };

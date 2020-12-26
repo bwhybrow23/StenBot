@@ -17,7 +17,7 @@ module.exports = {
       if (!reason || args[0] == "help") {
         return bot.helpEmbed("ticket", bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
       }
       var format = require("string-template");
       var tnum = Math.floor(Math.random() * 1000001);
@@ -45,7 +45,7 @@ module.exports = {
       if (config.staff_role == false) {
           return bot.createEmbed("error", "", `Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
-              .catch((error) => bot.logger("error", error));
+              .catch((error) => bot.log.post("error", error));
       }
 
       let staffrole = message.guild.roles.cache.find(
@@ -55,7 +55,7 @@ module.exports = {
       if (staffrole == undefined) {
           return bot.createEmbed("error", "", `Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`sb!config-staff role <@ROLE>\``, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
-              .catch((error) => bot.logger("error", error));
+              .catch((error) => bot.log.post("error", error));
       }
 
       //Check if supplied sufficient reason

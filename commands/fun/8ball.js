@@ -28,7 +28,7 @@ module.exports = {
     if (!question || args[0] == "help") {
       return bot.helpEmbed("8ball", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
 
     //Nekos.life API integration
@@ -47,7 +47,7 @@ module.exports = {
 
     message.channel.send("The 8ball is working it's magic! :tada:").then((m) => {setTimeout(() => {m.edit(ballEmbed);}, 1000);})
       .catch((e) => {
-        bot.logger("error", e);
+        bot.log.post("error", e);
       });
   },
 };

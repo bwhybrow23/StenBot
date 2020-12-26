@@ -24,10 +24,10 @@ class TimeoutUtils {
                     }, (timeout.expires - present.unix()) * 1000)
                 }
             })
-            bot.logger("success", `[-] Removed ${removedTimeouts} expired timeouts`);
-            bot.logger("success", `[+] Rebooted ${this.activeTimeouts} active timeouts`)
+            bot.log.post("success", `[-] Removed ${removedTimeouts} expired timeouts`);
+            bot.log.post("success", `[+] Rebooted ${this.activeTimeouts} active timeouts`)
         })
-        .catch(error => bot.logger("error", error))
+        .catch(error => bot.log.post("error", error))
     }
 
     //Fetch all timeouts (including expired if still in database)

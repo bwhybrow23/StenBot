@@ -17,7 +17,7 @@ module.exports = {
     if (!user || args[0] == "help") {
       return bot.helpEmbed("rob", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
     let targetuser = await db.fetch(`money_${user.id}`); // fetch mentioned users balance
     let author = await db.fetch(`money_${message.author.id}`); // fetch authors balance
@@ -55,7 +55,7 @@ module.exports = {
           bot
         )
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     } else {
       bot
         .createEmbed(
@@ -67,7 +67,7 @@ module.exports = {
           bot
         )
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
 
       db.subtract(`money_${user.id}`, random);
       db.add(`money_${message.author.id}`, random);

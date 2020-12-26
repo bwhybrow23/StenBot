@@ -18,7 +18,7 @@ module.exports = {
     if (!cmd || cmd == undefined || args[0] == "help") {
       return bot.helpEmbed("bash", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
 
     const exec = require("child_process").exec;

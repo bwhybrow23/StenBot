@@ -27,7 +27,7 @@ module.exports = {
                   await ecoUtils.updateUser(person.id, value).then((user) => {
                       return bot.createEmbed("info", "", `${amount} has now been added to ${person}'s balance. Their new balance is ${user.balance}.`, [], ``, bot)
                           .then((embed) => message.channel.send(embed))
-                          .catch((error) => bot.logger("error", error));
+                          .catch((error) => bot.log.post("error", error));
                   })
               })
               break;
@@ -40,7 +40,7 @@ module.exports = {
                   await ecoUtils.updateUser(person.id, value).then((user) => {
                       return bot.createEmbed("info", "", `${amount} has now been subtracted from ${person}'s balance. Their new balance is ${user.balance}.`, [], ``, bot)
                           .then((embed) => message.channel.send(embed))
-                          .catch((error) => bot.logger("error", error));
+                          .catch((error) => bot.log.post("error", error));
                   })
               })
               break;
@@ -49,7 +49,7 @@ module.exports = {
               await ecoUtils.updateUser(person.id, amount).then((user) => {
                   return bot.createEmbed("info", "", `${person}'s balance has now been set to ${user.balance}.`, [], ``, bot)
                       .then((embed) => message.channel.send(embed))
-                      .catch((error) => bot.logger("error", error));
+                      .catch((error) => bot.log.post("error", error));
               })
               break;
 

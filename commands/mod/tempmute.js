@@ -17,7 +17,7 @@ module.exports = {
     /*if (config.staff_role == false) {
       return bot.createEmbed("error","",`Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     let staffrole = message.guild.roles.cache.find(
@@ -27,7 +27,7 @@ module.exports = {
     if (staffrole == undefined) {
       return bot.createEmbed("error","",`Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     if (!message.member.roles.cache.has(config.staff_role)) {
@@ -42,13 +42,13 @@ module.exports = {
     if (!targetuser || args[0] == "help") {
       return bot.helpEmbed("tempmute", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
 
     if (targetuser.roles.cache.has(config.staff_role)) {
         return bot.createEmbed("error","",`Error! You are not allowed to mute this person!`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
-          .catch((error) => bot.logger("error", error));
+          .catch((error) => bot.log.post("error", error));
       }
 
       let reason = args.slice(2).join(" ");
@@ -79,7 +79,7 @@ module.exports = {
           });
         }catch(e){
             message.reply("Error, check console");
-            bot.logger("error", error);
+            bot.log.post("error", error);
         }
       }
 
@@ -93,7 +93,7 @@ module.exports = {
         //Response
         bot.createEmbed("success","",`${msg}`,[],`${message.guild.name}`,bot)
           .then((embed) => message.channel.send(embed))
-          .catch((error) => bot.logger("error", error));
+          .catch((error) => bot.log.post("error", error));
         //Logging
         const efunctions = require('../../main/functions/eventUtils.js');
         if (config.logging_enabled == true) {

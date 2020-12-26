@@ -17,7 +17,7 @@ module.exports = {
         if (message.author.id != ownersid) {
             return bot.noPermsEmbed(`${message.guild.name}`, bot)
                 .then((embed) => message.channel.send(embed))
-                .catch((error) => bot.logger("error", error));
+                .catch((error) => bot.log.post("error", error));
         }
 
         //Check for Arg
@@ -25,7 +25,7 @@ module.exports = {
         if (!command || args[0] == "help") {
             return bot.helpEmbed("reload", bot)
             .then((embed) => message.channel.send(embed))
-            .catch((error) => bot.logger("error", error));
+            .catch((error) => bot.log.post("error", error));
           }
 
         // message.reply("Not working atm")

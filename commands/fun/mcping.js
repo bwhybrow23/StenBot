@@ -14,7 +14,7 @@ module.exports = {
     if (!args.length || args[0] == "help") {
       return bot.helpEmbed("mcping", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
 
     const ip = args[0];
@@ -27,7 +27,7 @@ module.exports = {
     if (res.status === "error" && res.error === "server timeout") {
       bot.createEmbed("error","",`Error! The status couldn't be fetched, perhaps an invalid IP or Port.`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     var players = 0;
@@ -47,13 +47,13 @@ module.exports = {
     if (res.online) {
       bot.createEmbed("success","Server Status:",``,[{ name: "IP", value: `${ip}` },{ name: `Status`, value: `Online` },{ name: `Player Count`, value: `${players}/${res.players.max}` },{ name: `Server Version`, value: `${res.server.name}` },{ name: `MOTD`, value: `${motd}` },],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     if (!res.online) {
       bot.createEmbed("success","Server Status:",``,[{ name: "IP", value: `${ip}` },{ name: `Status`, value: `Offline` },],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
   },
 };

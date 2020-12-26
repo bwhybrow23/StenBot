@@ -14,29 +14,21 @@ module.exports = {
       if (message.author.id !== bot.settings.ids.botOwner) {
         return bot.noPermsEmbed(`${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
-          .catch((error) => bot.logger("error", error));
+          .catch((error) => bot.log.post("error", error));
       }
-   
-      var amountsynced = 0;
-   
-      async function syncServers(g) {
+      
+      let amountSynced = 0;
+      let syncedServers;
         //Loop through all guilds for server root
-        bot.guilds.cache.forEach(async (g) => {
+        await Promise.all(bot.guilds.cache.map(async (g) => {
           //Check if guild config exist
-          var config = undefined;
-          try {
-            var config = await bot.mutils.getGuildById(g.id)
-          } catch (err) {
-            var config = undefined;
-          }
-          //If it doesnt create the config
-          if (config == undefined) {
-            
+            var config = await bot.mutils.getGuildById(g.id);
+            if(!config) {
             //Create config
-            bot.mutils.createGuild({
+            await bot.mutils.createGuild({
               guild_id: g.id,
               guild_name: g.name,
-              guild_owner_id: g.owner.id,
+              guild_owner_id: g.ownerID,
               blacklisted: false,
               welcomer_enabled: false,
               welcomer_channel: "0",
@@ -52,6 +44,7 @@ module.exports = {
               logging_enabled: false,
               logging_channel: "0",
               logging_level: "medium",
+              logging_ignore: [],
               tickets_enabled: false,
               tickets_message: "None",
               music_enabled: false,
@@ -59,26 +52,27 @@ module.exports = {
               });
    
             // console.log(`[SYNC]`.blue, `Synced guild ${g.name} | ${g.id}`.cyan);
-            bot.logger("info", `Synced guild ${g.name} | ${g.id}`);
+            bot.log.post("info", `Synced guild ${g.name} | ${g.id}`);
+            syncedServers += `\n${g.name} | ${g.id}`;
    
             //Counter
-            amountsynced = amountsynced + 1
+            amountSynced++;
    
           }
-        });
-      }
+        }));
    
-      let attempt = 1;
-      while (syncServers(message.guild) == false) {
-        syncServers(message.guild);
-        attempt = attempt + 1;
-      }
+      // let attempt = 1;
+      // while (syncServers() === false) {
+      //   syncServers();
+      //   attempt++
+      // }
    
       //Round up the goodies
-      console.log(`[SYNC]`.blue, `${amountsynced} servers have been synced in ${attempt} attempts.`.cyan);
-      bot.createEmbed("success", "", `**${amountsynced}** servers have been synced in ${attempt} attempts.`, [], `${message.guild.name}`, bot)
+      // cons1ole.log(`[SYNC]`.blue, `${amountSynced} servers have been synced in ${attempt} attempts.`.cyan);
+      bot.log.post("info", `${amountSynced} server(s) have been synced.`)
+      bot.createEmbed("success", `**${amountSynced}** server(s) have been synced`, `\`\`\`${syncedServers}\`\`\``, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
         
     }
   };

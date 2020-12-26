@@ -14,7 +14,7 @@ module.exports = {
     if (!stolen || args[0] == "help") {
       return bot.helpEmbed("stealpic", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
     let stolenPic = stolen.avatarURL();
 

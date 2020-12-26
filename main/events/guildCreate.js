@@ -18,12 +18,12 @@ module.exports = async (bot, guild) => {
               .then(embed => guild.owner.send(embed))
               .catch(error => console.error(error))
       guild.leave();
-      bot.logger("info", `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
+      bot.log.post("info", `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
     } else {
       return;
     }
   }
-  bot.logger("info", `Joined guild ${guild.name} | ${guild.id}`);
+  bot.log.post("info", `Joined guild ${guild.name} | ${guild.id}`);
 
   /**** OLD STORAGE SYSTEM ****/
   /* 
@@ -106,10 +106,10 @@ module.exports = async (bot, guild) => {
   */
   
   /**** MONGO STORAGE ****/
-  bot.mutils.createGuild({
+  await bot.mutils.createGuild({
     guild_id: guild.id,
     guild_name: guild.name,
-    guild_owner_id: guild.owner.id,
+    guild_owner_id: guild.ownerID,
     blacklisted: false,
     welcomer_enabled: false,
     welcomer_channel: "0",
@@ -133,7 +133,7 @@ module.exports = async (bot, guild) => {
     });
 
   // Update Status
-  if (bot.settings.mode === "production") {
+  /*if (bot.settings.mode === "production") {
     let guilds = bot.guilds.cache.size;
     bot.user.setPresence({
       game: {
@@ -142,11 +142,11 @@ module.exports = async (bot, guild) => {
       },
       status: "online",
     });
-  }
+  }*/
 
   //Update bot-data.json
   let botdata = require("../../data/global/bot-data.json");
   botdata.totalGuilds = bot.guilds.cache.size;
-  fs.writeFileSync(`./data/global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => { if (err) return bot.logger("error", err); });
+  fs.writeFileSync(`./data/global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => { if (err) return bot.log.post("error", err); });
   
 };

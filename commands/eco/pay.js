@@ -19,13 +19,13 @@ module.exports = {
     } catch (error) {
       return bot.helpEmbed("pay", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
 
     if (!toBePaid || !amount || args[0] == "help") {
       return bot.helpEmbed("pay", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
 
     if (message.content.includes("-")) {
@@ -43,7 +43,7 @@ module.exports = {
       await ecoUtils.updateUser(toBePaid.discordID, toBePaid.balance + amount).then(async (user) => {
         return bot.createEmbed("success", "", `${amount} has now been transferred to ${message.mentions.users.first()}'s balance. Their new balance is ${user.balance}.`, [], ``, bot)
                           .then((embed) => message.channel.send(embed))
-                          .catch((error) => bot.logger("error", error));
+                          .catch((error) => bot.log.post("error", error));
       })
     })
     

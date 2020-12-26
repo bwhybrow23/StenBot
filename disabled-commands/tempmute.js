@@ -26,7 +26,7 @@ module.exports = {
           bot
         )
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     let staffrole = message.guild.roles.get(config.staffrole);
@@ -42,7 +42,7 @@ module.exports = {
           bot
         )
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     if (!message.member.roles.has(config.staffrole)) {
@@ -62,7 +62,7 @@ module.exports = {
           bot
         )
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     var reason = args.slice(2).join(" ");
@@ -78,7 +78,7 @@ module.exports = {
           bot
         )
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     var time = args[1];
@@ -93,7 +93,7 @@ module.exports = {
           bot
         )
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     if (isNaN(time)) {
@@ -107,7 +107,7 @@ module.exports = {
           bot
         )
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     if (time < 1) {
@@ -121,7 +121,7 @@ module.exports = {
           bot
         )
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     if (time > 43200) {
@@ -135,7 +135,7 @@ module.exports = {
           bot
         )
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     let muterole = message.guild.roles.find(`name`, `Mute`);

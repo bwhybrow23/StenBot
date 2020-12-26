@@ -17,7 +17,7 @@ module.exports = {
         if (!victim) {
             return bot.createEmbed("error", "", `You forgot to mention a user.`, [], ``, bot)
                 .then((embed) => message.channel.send(embed))
-                .catch((error) => bot.logger("error", error));
+                .catch((error) => bot.log.post("error", error));
         }
 
         // Check if still on cooldown
@@ -25,7 +25,7 @@ module.exports = {
         if (check != false) {
             return bot.createEmbed("error", "", `Woah! Calm down there, you're gonna get ahead of yourself. You've still got another **${check}** left until you can rob someone. Be patient.`, [], ``, bot)
                 .then((embed) => message.channel.send(embed))
-                .catch((error) => bot.logger("error", error));
+                .catch((error) => bot.log.post("error", error));
         }
 
         //Check balance of victim
@@ -33,7 +33,7 @@ module.exports = {
         if (victimUser.balance < 0) {
             return bot.createEmbed("error", "", `This user doesn't have enough money in their balance to be robbed. Try another user.`, [], ``, bot)
                 .then((embed) => message.channel.send(embed))
-                .catch((error) => bot.logger("error", error));
+                .catch((error) => bot.log.post("error", error));
         }
 
         // Function to test chance
@@ -64,14 +64,14 @@ module.exports = {
             let rNewBalance = await ecoUtils.getUser(robber.id);
             return bot.createEmbed("success", "", `${message.author}, you robbed ${victim} of **${amountRobbed} credits**. Your balance is now **${rNewBalance}**.`, [], ``, bot)
                 .then((embed) => message.channel.send(embed))
-                .catch((error) => bot.logger("error", error));
+                .catch((error) => bot.log.post("error", error));
         } else {
             await ecoUtils.updateUser(victim.id, parseInt(victimBal + 500));
             await ecoUtils.updateUser(robber.id, parseInt(robberBal - 500));
             let rNewBalance = await ecoUtils.getUser(robber.id);
             return bot.createEmbed("error", "", `${message.author}, you got caught and you had to pay ${victim} **500 credits**. Your balance is now **${rNewBalance}**.`, [], ``, bot)
                 .then((embed) => message.channel.send(embed))
-                .catch((error) => bot.logger("error", error));
+                .catch((error) => bot.log.post("error", error));
         }
 
         */

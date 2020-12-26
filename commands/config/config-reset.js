@@ -18,7 +18,7 @@ module.exports = {
       if (adminperm != true) {
           return bot.createEmbed("error", "", `Error! You are not the owner or admin of this guild.`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
-              .catch((error) => bot.logger("error", error));
+              .catch((error) => bot.log.post("error", error));
       }
 
       //Confirmation
@@ -59,7 +59,7 @@ module.exports = {
 
                     bot.createEmbed("success", "", `Server Config has been reset.`, [], `${message.guild.name}`, bot)
                           .then((embed) => message.channel.send(embed))
-                          .catch((error) => bot.logger("error", error));
+                          .catch((error) => bot.log.post("error", error));
                   } 
                 if (collected.first().emoji.name == '❌') {
                       message.reply('Reset Cancelled.');
@@ -68,6 +68,6 @@ module.exports = {
                   message.reply('No reaction after 30 seconds, reset cancelled');
               });
           }))
-          .catch((error) => bot.logger("error", error));
+          .catch((error) => bot.log.post("error", error));
   },
 };

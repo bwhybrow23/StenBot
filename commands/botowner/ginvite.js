@@ -13,20 +13,20 @@ module.exports = {
     if (message.author.id !== bot.settings.ids.botOwner) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     let guildid = args[0];
     if (!guildid || args[0] == "help") {
       return bot.helpEmbed("ginvite", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
     let guild = bot.guilds.cache.get(guildid);
     if (!guild) {
       return bot.createEmbed("error", "", `Error! The bot isn't in a guild with that ID.`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     let invitechannels = guild.channels.cache.filter((c) =>
@@ -36,7 +36,7 @@ module.exports = {
     if (!invitechannels) {
       return bot.createEmbed("error", "", `Error! I don't have permission to create an invite in that guild.`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     invitechannels.random().createInvite()

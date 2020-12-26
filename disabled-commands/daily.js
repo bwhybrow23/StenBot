@@ -21,11 +21,11 @@ module.exports = {
 
       bot.createEmbed("error","Daily Reward",`Error! You have already redeemed your daily reward for today. \nYou can redeem it again in **${time.hours}h ${time.minutes} and ${time.seconds}s**!`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     } else {
       bot.createEmbed("success","",`Congrats, you just won ${amount} coins for today's daily reward. Come back in 24 hours to redeem again!`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
 
       message.channel.send(embed1);
       db.add(`money_${message.author.id}`, amount);

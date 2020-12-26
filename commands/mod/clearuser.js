@@ -15,7 +15,7 @@ module.exports = {
     /*if (config.staff_role == false) {
       return bot.createEmbed("error","",`Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     let staffrole = message.guild.roles.cache.find(
@@ -25,7 +25,7 @@ module.exports = {
     if (staffrole == undefined) {
       return bot.createEmbed("error","",`Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     if (!message.member.roles.cache.has(config.staff_role)) {
@@ -39,7 +39,7 @@ module.exports = {
     if (!amount || amount == undefined || isNaN(amount) || args[0] == "help") {
       return bot.helpEmbed("clearuser", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
 
     if (amount > 100) {
@@ -65,7 +65,7 @@ module.exports = {
     if (targetuser == undefined) {
       return bot.createEmbed("error","",`Error! You need to include someone to clear the messages of!`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     message.channel.messages.fetch({
@@ -73,7 +73,7 @@ module.exports = {
   }).then((messages) => {
       const filterBy = targetuser ? targetuser.id : bot.user.id;
       messages = messages.filter(m => m.author.id === filterBy).array().slice(0, amount);
-      message.channel.bulkDelete(messages).catch(error => bot.logger("error", error.stack));
+      message.channel.bulkDelete(messages).catch(error => bot.log.post("error", error.stack));
   });
 
   message.channel.send({

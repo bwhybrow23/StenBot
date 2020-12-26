@@ -16,7 +16,7 @@ module.exports = {
     if (message.author.id != ownersid) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     //Check for Arg
@@ -24,7 +24,7 @@ module.exports = {
     if (!newMode || args[0] == "help") {
       return bot.helpEmbed("mode", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
 
     let date = new Date();
@@ -40,16 +40,16 @@ module.exports = {
           }
           //Change Setting
           bot.settings.mode = "production";
-          fs.writeFileSync(`./main/settings.json`, JSON.stringify(bot.settings, null, 4), (err) => { if (err) return bot.logger("error", err); });
+          fs.writeFileSync(`./main/settings.json`, JSON.stringify(bot.settings, null, 4), (err) => { if (err) return bot.log.post("error", err); });
           //Change Status
           let guilds = bot.guilds.cache.size;
           bot.user.setPresence({ activity: { name: `sb!help on ${guilds} servers!`, type: `WATCHING` }, status: 'online' });
           //Console Log
-          bot.logger("info", `StenBot has been converted to Production Mode. Running version: ${bot.packageJSON.version} | Changed at ${date}`);
+          bot.log.post("info", `StenBot has been converted to Production Mode. Running version: ${bot.packageJSON.version} | Changed at ${date}`);
           //Reply Message
           bot.createEmbed("success", "", `Bot Mode has been Sucessfully Updated to **Production**.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
-            .catch((error) => bot.logger("error", error));
+            .catch((error) => bot.log.post("error", error));
 
           break;
 
@@ -62,18 +62,18 @@ module.exports = {
 
           //Change Setting
           bot.settings.mode = "development";
-          fs.writeFileSync(`./main/settings.json`, JSON.stringify(bot.settings, null, 4), (err) => { if (err) return bot.logger("error", err); });
+          fs.writeFileSync(`./main/settings.json`, JSON.stringify(bot.settings, null, 4), (err) => { if (err) return bot.log.post("error", err); });
           
           //Change Status
           bot.user.setPresence({ activity: { name: `In Development Mode`, type: `PLAYING` }, status: 'dnd' });
 
           //Console Log
-          bot.logger("info", `StenBot has been converted to Development Mode. | Changed at ${date}`);
+          bot.log.post("info", `StenBot has been converted to Development Mode. | Changed at ${date}`);
           
           //Reply Message
           bot.createEmbed("success", "", `Bot Mode has been Sucessfully Updated to **Development**.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
-            .catch((error) => bot.logger("error", error));
+            .catch((error) => bot.log.post("error", error));
 
           break;
 
@@ -81,7 +81,7 @@ module.exports = {
           if (newMode == undefined) {
             bot.createEmbed("error", "", `Error! You haven't included a new mode for the bot to be switched to.`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
-              .catch((error) => bot.logger("error", error));
+              .catch((error) => bot.log.post("error", error));
           }
           break;
       }

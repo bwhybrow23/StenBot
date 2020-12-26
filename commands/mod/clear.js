@@ -15,7 +15,7 @@ module.exports = {
     /*if (config.staff_role == false) {
       return bot.createEmbed("error","",`Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     let staffrole = message.guild.roles.cache.find(
@@ -25,7 +25,7 @@ module.exports = {
     if (staffrole == undefined) {
       return bot.createEmbed("error","",`Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     if (!message.member.roles.cache.has(config.staff_role)) {
@@ -39,26 +39,26 @@ module.exports = {
     if (!amount || amount == undefined || isNaN(amount) || args[0] == "help") {
       return bot.helpEmbed("clear", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
 
     if (amount > 100) {
       return bot.createEmbed("error","",`Error! You can't clear more than 100 messages at a time!`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     if (amount < 1) {
       return bot.createEmbed("error","",`Error! You can't clear less than 1 message you silly goose!`,[],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
     }
 
     message.channel.messages.fetch({
       limit: amount,
   }).then((messages) => {
       message.delete();
-      message.channel.bulkDelete(messages).catch(error => bot.logger("error", error.stack));
+      message.channel.bulkDelete(messages).catch(error => bot.log.post("error", error.stack));
   });
 
   message.channel.send({

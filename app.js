@@ -18,13 +18,13 @@ const mongoose = require("mongoose");
 const bot = new Client();
 
 //FUNCTIONS
-const consoleUtils = require("./main/functions/consoleUtils.js");
+const logUtils = require("./main/functions/logUtils.js");
 const utils = require("./main/functions/utilities.js");
 const reactionFunctions = require("./main/functions/reactionUtils.js");
 const packageJSON = require("./package.json");
 
 //Global logger
-bot.logger = consoleUtils.post;
+bot.log = logUtils;
 
 //Lets make the settings file available everywhere
 bot.settings = settings;
@@ -62,6 +62,7 @@ bot.categories = fs.readdirSync("./commands/");
   require(`./main/handlers/${handler}`)(bot);
 });
 
+/*
 // Status fixer thingy (runs every 6h)
 function fixStatus() {
   //Production Mode
@@ -77,10 +78,11 @@ function fixStatus() {
       });
 
       //Console Log
-      bot.logger("info", `Status has been set successfully.`);
+      bot.log.post("info", `Status has been set successfully.`);
   }
 }
 setInterval(fixStatus, 21600000);
+*/
 
 /**
 * Event Handler
@@ -118,9 +120,9 @@ bot.setInterval(function() {
   let memoryusage = getMemUsage();
   let guilds = bot.guilds.cache.size;
   let ping = Math.floor(bot.ws.ping);
-  bot.logger("info", `Memory Usage: ${memoryusage}`)
-  bot.logger("info", `Ping: ${ping}`)
-  bot.logger("info", `Guilds: ${guilds}`)
+  bot.log.post("info", `Memory Usage: ${memoryusage}`)
+  bot.log.post("info", `Ping: ${ping}`)
+  bot.log.post("info", `Guilds: ${guilds}`)
 }, 300000);
 
 let mongo;
@@ -140,15 +142,15 @@ bot.login(token);
 
 //MongoDB
 const connectionURL = `mongodb://${mongo.user}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.database}?authSource=admin`;
-bot.logger("info", `Creating MongoDB connection at ${mongo.host}:${mongo.port}`)
+bot.log.post("info", `Creating MongoDB connection at ${mongo.host}:${mongo.port}`)
 
 mongoose.connect(connectionURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true
 }).then(() => {
-  bot.logger("success", "MongoDB connection successful")
-}).catch(error => bot.logger("error", `MongoDB connection unsuccessful: ${error}`));
+  bot.log.post("success", "MongoDB connection successful")
+}).catch(error => bot.log.post("error", `MongoDB connection unsuccessful: ${error}`));
 
 //Mongo Stuff Global
 const mutils = require("./main/functions/mongoUtils");
@@ -179,7 +181,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 app.listen(port, () => {
-  bot.logger("success", `API server started on ${port}`);
+  bot.log.post("success", `API server started on ${port}`);
 });
 
 //Routers

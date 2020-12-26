@@ -18,11 +18,12 @@ module.exports = {
                 .then(res => res.json())
                 .then(json => response = json)
                 .catch(error => {
-                    bot.logger("error", error);
+                    bot.log.post("error", error);
                     message.reply("An error occured, please contact support if this continues to happen.")
                 });
 
         let toBeUsed = response.data[Math.floor(Math.random() * response.data.length)];
+        if(!toBeUsed) return message.channel.send("There was no result for this query.");
 
         let embed = new Discord.MessageEmbed()
                     .setTitle(`Giphy Image: ${toBeUsed.slug}`)

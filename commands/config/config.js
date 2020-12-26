@@ -88,12 +88,12 @@ module.exports = {
     if (adminperm === true || ownersid == message.author.id) {
       return bot.createEmbed("warning",`${servertag} Configuration`,`Your Configuration`,[{name: "Welcomer",value: `Enabled: **${serverconfigfile.welcomer_enabled ? "Yes" : "No"} **\nWelcomer Channel: **${welcomerchannel}**\nWelcomer Message: **${serverconfigfile.welcomer_message}**`,},{name: "User Join",value: `Enabled: **${serverconfigfile.userjoin_enabled ? "Yes" : "No"}**\nAdd Role: **${userjoinrole}**\nSet Nick: **${userjoinnick}**`,},{name: "Staff",value: `Staff Role: **${staffrole}**\nAdmin Commands: **${serverconfigfile.staff_admin ? "Enabled" : "Disabled"}**\nLink Blocker: **${serverconfigfile.staff_linkblock ? "Enabled" : "Disabled"}**\nWord Filter: **${stafffilter1}**`,},{name: "Logging",value: `Enabled: **${serverconfigfile.logging_enabled ? "Yes" : "No"}**\nLogging Channel: **${logchannel}**\nLevel: **${serverconfigfile.logging_level}**\nIgnore List: **${loggingignore1}**`,},{name: "Tickets",value: `Enabled: **${serverconfigfile.tickets_enabled ? "Yes" : "No"}**\nTicket Message: **${ticketmessage}**`,},],`${message.guild.name}`,bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.logger("error", error));
+        .catch((error) => bot.log.post("error", error));
       return;
     } else {
     return bot.noPermsEmbed(`${message.guild.name}`, bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
   },
 };

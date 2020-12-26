@@ -19,7 +19,7 @@ module.exports = {
 
     bot.createEmbed("success", `${gName} Information`, ``, [{ name: `Guild ID`, value: `${gID}`}, { name: `Date Created`, value: `${gCreated}`}, { name: `Number of Channels`, value: `${channelCount}`}, { name: `Number of Roles`, value: `${roleCount}`}, { name: `Total Members`, value: `${totalMembers}`}], `${message.guild.name}`, bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
 
   }
 };

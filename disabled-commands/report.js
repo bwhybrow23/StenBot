@@ -36,7 +36,7 @@ module.exports = {
             `Platform: **Discord**\n\nUsername: **${message.author}**\nUser Id: **${message.author.id}**\nFrom Server: **${message.guild.name} | ${message.guild.id}**\nTime: **${thedate}**\n\nThe Bug: \n**${report}**`
           );
 
-        bot.logger("info", `A bug report has been created by ${message.author.tag} | ${message.author.id}`);
+        bot.log.post("info", `A bug report has been created by ${message.author.tag} | ${message.author.id}`);
         bot.channels.cache.get("518729627586527232").send(bugreport);
 
         message.channel.send({
@@ -79,7 +79,7 @@ module.exports = {
           );
 
         bot.channels.cache.get("518729627586527232").send(playerreport);
-        bot.logger("info", `A player report has been created by ${message.author.tag} | ${message.author.id}`);
+        bot.log.post("info", `A player report has been created by ${message.author.tag} | ${message.author.id}`);
 
         message.channel.send({
           embed: {

@@ -13,7 +13,7 @@ module.exports = {
     if(!sayMessage || sayMessage == "help") {
       return bot.helpEmbed("zalgo", bot)
       .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.logger("error", error));
+      .catch((error) => bot.log.post("error", error));
     }
 
     message.channel.send(`\u180E${zalgo(sayMessage, 0.3, [12, 6, 12])}`);
