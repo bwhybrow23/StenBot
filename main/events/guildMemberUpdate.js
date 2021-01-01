@@ -3,7 +3,7 @@ module.exports = async (bot, oldMember, newMember) => {
   const Discord = require("discord.js");
   const efunctions = require("../functions/eventUtils.js");
 
-  let config = await bot.mutils.getGuildById(newMember.guild.id)
+  let config = await bot.mutils.getGuildById(newMember.guild.id);
 
   if (config.logging_enabled == true) {
       if (config.logging_level == "high") {

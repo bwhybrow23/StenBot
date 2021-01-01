@@ -5,6 +5,8 @@ module.exports = {
   usage: "<SERVER IP>[:PORT]",
   example: "play.hypixel.net",
   permission: "EVERYONE",
+  aliases: ["mc"],
+  enabled: true,
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");

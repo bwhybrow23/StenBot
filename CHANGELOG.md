@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.6.10 - 01/01/2021
+* Command statistics tracking
+* /api/stats router added
+* Fixed aliases and added aliases for some commands
+* Some spring (well, winter) cleaning (Removed unneccesary comments, added cleaner comments, removed unused packages)
+* Added template bot-data file for anyone wanting to use the open source code
+* Added GitHub FUNDING.yml file
+* Removed un-needed files from disabled-commands
+* Added the feature to enable and disable commands
+* Added ship command
+
 ## 1.6.9 - 26/12/2020
 * Sync commands fixed
 * Dynamic changing status
@@ -10,7 +21,7 @@
 
 ## 1.6.8 - 22/12/2020
 * Daily now presents a readable formatted time
-* Begun work on Rob.js
+* Begun work on Rob command
 * Made some fun commands work in DMs
 * Action command uses name instead of nickname again
 * Action command now uses the nekos.life JS wrapper

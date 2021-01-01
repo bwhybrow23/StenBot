@@ -5,11 +5,11 @@ module.exports = {
     usage: "<@USER>",
     example: "@Melissa#1391",
     permission: "EVERYONE",
+    aliases: [],
+    enabled: false,
     run: async (bot, message, args) => {
 
-        return;
-
-        /* const Discord = require("discord.js");
+        const Discord = require("discord.js");
         const ecoUtils = require("../../main/functions/ecoUtils");
 
         const robber = message.author;
@@ -73,8 +73,6 @@ module.exports = {
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.log.post("error", error));
         }
-
-        */
 
 
     }

@@ -5,11 +5,12 @@ module.exports = {
   usage: "<SERVER|USER> <SERVER ID|@USER> <REASON>",
   example: "user @Dave#1230 Abuse",
   permission: "BOT OWNER",
+  aliases: [],
+  enabled: true,
   run: async (bot, message, args) => {
 
       const Discord = require("discord.js");
       if (!message.guild) return;
-      const colors = require("colors");
 
       //Check if the command was sent by Sten
       if (message.author.id != 346246641595973633) {

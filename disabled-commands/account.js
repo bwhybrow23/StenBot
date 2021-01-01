@@ -9,8 +9,6 @@ module.exports = {
     const Discord = require("discord.js");
     if (!message.guild) return;
     const fs = require("fs");
-    var format = require("string-template");
-    const download = require("image-downloader");
 
     //Accesschecking:
     const ownersid = message.guild.ownerID;

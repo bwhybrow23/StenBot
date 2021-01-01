@@ -8,7 +8,7 @@ module.exports = async (bot, message) => {
 
   if ((message.channel.type === "dm")) return;
 
-  let config = await bot.mutils.getGuildById(message.guild.id)
+  let config = await bot.mutils.getGuildById(message.guild.id);
 
   if (config.logging_enabled == true) {
     if (config.logging_ignore.includes(message.channel.id)) return;

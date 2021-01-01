@@ -5,11 +5,12 @@ module.exports = {
   usage: "",
   example: "",
   permission: "ADMIN",
+  aliases: ["c-reset"],
+  enabled: true,
   run: async (bot, message, args) => {
 
       const Discord = require("discord.js");
       if (!message.guild) return;
-      const fs = require("fs");
 
       const ownersid = message.guild.ownerID;
       const adminperm = message.member.hasPermission("ADMINISTRATOR");

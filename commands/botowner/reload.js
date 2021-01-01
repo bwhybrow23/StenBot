@@ -5,6 +5,8 @@ module.exports = {
     usage: "[TYPE]",
     example: "docker",
     permission: "BOT OWNER",
+    aliases: [],
+    enabled: false,
     run: async (bot, message, args) => {
 
         const Discord = require("discord.js");

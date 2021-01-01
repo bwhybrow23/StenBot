@@ -5,6 +5,8 @@ module.exports = {
     usage: "<ANIMAL>",
     example: "dog",
     permission: "EVERYONE",
+    aliases: [],
+    enabled: true,
     run: async (bot, message, args) => {
 
         const Discord = require("discord.js");

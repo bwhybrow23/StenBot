@@ -6,9 +6,10 @@ module.exports = (bot) => {
 
   //Update bot-data.json
   let botdata = require("../../data/global/bot-data.json");
-  botdata.botName = bot.user.tag;
-  botdata.botID = bot.user.id;
-  botdata.totalGuilds = bot.guilds.cache.size;
+  botdata.info.botName = bot.user.tag;
+  botdata.info.botID = bot.user.id;
+  botdata.stats.totalGuilds = bot.guilds.cache.size;
+  botdata.stats.totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
   fs.writeFileSync(`./data/global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => { if (err) return bot.log.post("error", err); });
 
   //Production Mode

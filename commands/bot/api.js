@@ -5,6 +5,8 @@ module.exports = {
     usage: "",
     example: "",
     permission: "EVERYONE",
+    aliases: [],
+    enabled: true,
     run: async (bot, message, args) => {
 
         if(message.channel.type === "guild") message.delete();

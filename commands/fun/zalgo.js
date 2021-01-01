@@ -5,6 +5,8 @@ module.exports = {
   usage: "<MESSAGE>",
   example: "Hello World",
   permission: "EVERYONE",
+  aliases: [],
+  enabled: true,
   run: async (bot, message, args) => {
 
     const zalgo = require("zalgolize");

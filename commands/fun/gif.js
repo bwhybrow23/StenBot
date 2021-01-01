@@ -5,6 +5,8 @@ module.exports = {
     usage: "<QUERY>",
     example: "monkeys",
     permission: "EVERYONE",
+    aliases: [],
+    enabled: true,
     run: async (bot, message, args) => {
 
         let Discord = require("discord.js");

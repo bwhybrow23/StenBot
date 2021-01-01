@@ -24,88 +24,12 @@ module.exports = async (bot, guild) => {
     }
   }
   bot.log.post("info", `Joined guild ${guild.name} | ${guild.id}`);
-
-  /**** OLD STORAGE SYSTEM ****/
-  /* 
-  //Create the servers root dir
-  fs.mkdir(`./data/servers/server-${guild.id}`, (err) => {
-    if (err && err.code != "EEXIST") return;
-  });
-
-  //Create the servers users directory
-  fs.mkdir(`./data/servers/server-${guild.id}/users`, (err) => {
-    if (err && err.code != "EEXIST") return;
-  });
-
-  //Inside the servers directory, we will create the tempbans folder Done as functions as this does not always work !
-  function tempbanCreate(guild) {
-    fs.mkdir(`./data/servers/server-${guild.id}/tempbans`, (err) => {
-      if (err && err.code != "EEXIST") tempbanCreate(guild);
-    });
-  }
-  tempbanCreate(guild);
-
-  //Create server stats file and set its contents to the servers stats
-  let date = new Date();
-  let stats = {
-    joined: date,
-    created: guild.createdAt,
-    blacklisted: false,
-  };
-  fs.writeFileSync(
-    `./data/servers/server-${guild.id}/serverstats.json`,
-    JSON.stringify(stats, null, 4),
-    (err) => {
-      if (err) return;
-    }
-  );
-
-  //Create server configuration file and set it to default contents
-  let defaultContent = {
-    welcomerenabled: false,
-    welcomerchannel: 0,
-    welcomermessage: "Welcome {user} to {server}!",
-    userjoinenabled: false,
-    userjoinedrole: 0,
-    userjoinedname: 0,
-    staffrole: false,
-    staffadminenabled: false,
-    stafflinkblocker: false,
-    stafffilter: [],
-    staffautoban: 0,
-    loggingenabled: false,
-    loggingchannel: 0,
-    logginglevel: "medium",
-    ticketsenabled: false,
-    ticketsmsg: 0,
-    economyenabled: false,
-    economyrobbing: false,
-    economypay: true,
-    economysymbol: 0,
-    musicenabled: false,
-    selfroleslist: [],
-    levellingenabled: false,
-  };
-  fs.writeFileSync(
-    `./data/servers/server-${guild.id}/serverconfig.json`,
-    JSON.stringify(defaultContent, null, 4),
-    (err) => {
-      if (err) return;
-    }
-  );
-
-  //levelling system
-  let levelDefault = {};
-  fs.writeFileSync(
-    `./data/servers/server-${guild.id}/levelling.json`,
-    JSON.stringify(levelDefault, null, 4),
-    (err) => {
-      if (err) return;
-    }
-  );
-  */
   
-  /**** MONGO STORAGE ****/
+  /**
+   * 
+   * MONGO STORAGE 
+   * 
+   */
   await bot.mutils.createGuild({
     guild_id: guild.id,
     guild_name: guild.name,
@@ -132,21 +56,9 @@ module.exports = async (bot, guild) => {
     levelling_enabled: false
     });
 
-  // Update Status
-  /*if (bot.settings.mode === "production") {
-    let guilds = bot.guilds.cache.size;
-    bot.user.setPresence({
-      game: {
-        name: `sb!help on ${guilds} servers!`,
-        type: "WATCHING",
-      },
-      status: "online",
-    });
-  }*/
-
   //Update bot-data.json
   let botdata = require("../../data/global/bot-data.json");
-  botdata.totalGuilds = bot.guilds.cache.size;
+  botdata.stats.totalGuilds = bot.guilds.cache.size;
   fs.writeFileSync(`./data/global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => { if (err) return bot.log.post("error", err); });
   
 };

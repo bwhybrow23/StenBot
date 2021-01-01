@@ -13,7 +13,7 @@ const createEmbed = (type, title, desc, fields, footer, bot) => {
                 title: "",
                 description: "",
                 color: 0,
-                timestamp: Date.now(),
+                // timestamp: Date.now(),
                 footer: {
                     icon_url: "https://i.imgur.com/BkZY6H8.png",
                     text: ``,
@@ -55,7 +55,7 @@ const createEmbed = (type, title, desc, fields, footer, bot) => {
         if (typeof footer == "string" && footer.length < 2048) {
             embedTemplate.embed.footer.text = footer;
         } else {
-            reject("Footer is invalid.");
+            embedTemplate.embed.footer.icon_url = "";
         }
         //Fields
         fields.forEach((field) => {
@@ -132,6 +132,7 @@ const helpEmbed = (command, bot) => {
         // let permission = capitalize(cmd.permission);
         let usage;
         let example;
+        let aliases;
         if(cmd.usage != "") {
             usage = `\`${prefix}${cmd.name} ${cmd.usage}\``
         } else if (cmd.usage == "") {
@@ -141,6 +142,11 @@ const helpEmbed = (command, bot) => {
             example = `\`${prefix}${cmd.name} ${cmd.example}\``
         } else if (cmd.example == "") {
             example = `\`${prefix}${cmd.name}\``
+        }
+        if(cmd.aliases === []) {
+            aliases = "None"
+        } else {
+            aliases = cmd.aliases.join(", ");
         }
 
 
@@ -167,6 +173,10 @@ const helpEmbed = (command, bot) => {
                         name: "Example:",
                         value: `${example}`,
                     },
+                    {
+                        name: "Aliases:",
+                        value: `${aliases}`,
+                    }
                     // {
                     //     name: "Permission",
                     //     value: `${permission}`,

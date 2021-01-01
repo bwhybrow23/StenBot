@@ -5,7 +5,8 @@ module.exports = {
   usage: "[@USER]",
   example: "@Steve#1234",
   permission: "EVERYONE",
-  aliases: [ "bal" ],
+  aliases: [ "bal", "money" ],
+  enabled: true,
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");

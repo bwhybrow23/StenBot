@@ -5,32 +5,15 @@ module.exports = {
   usage: "<@USER> [REASON]",
   example: "@Dan#9124 Rude Name",
   permission: "STAFF",
+  aliases: [],
+  enabled: true,
   run: async (bot, message, args) => {
+    
     const Discord = require("discord.js");
     if (!message.guild) return;
-    const fs = require("fs");
 
     var config = await bot.mutils.getGuildById(message.guild.id);
 
-    /*if (config.staff_role == false) {
-      return bot.createEmbed("error","",`Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
-
-    let staffrole = message.guild.roles.cache.find(
-      (r) => r.id === config.staff_role
-    );
-
-    if (staffrole == undefined) {
-      return bot.createEmbed("error","",`Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`sb!config-staff role <@ROLE>\``,[],`${message.guild.name}`,bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
-
-    if (!message.member.roles.cache.has(config.staff_role)) {
-      return bot.noPermsEmbed(`${message.guild.name}`, bot);
-    } */
     if (!message.member.permissions.has("KICK_MEMBERS")) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot);
     }

@@ -5,11 +5,12 @@ module.exports = {
   usage: "<#CHANNEL>",
   example: "#general",
   permission: "ADMIN",
+  aliases: ["dchannel"],
+  enabled: true,
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     if (!message.guild) return;
-    const fs = require("fs");
     var c = message.mentions.channels.first();
 
     if (!c || args[0] == "help") {

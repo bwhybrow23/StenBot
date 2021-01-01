@@ -5,11 +5,12 @@ module.exports = {
   usage: "<@ROLE>",
   example: "@Members",
   permission: "ADMIN",
+  aliases: ["drole"],
+  enabled: true,
   run: async (bot, message, args) => {
     
     const Discord = require("discord.js");
     if (!message.guild) return;
-    const fs = require("fs");
     var r = message.mentions.roles.first();
 
     if (!r || args[0] == "help") {

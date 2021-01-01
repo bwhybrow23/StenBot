@@ -5,6 +5,8 @@ module.exports = {
   usage: "<QUESTION>",
   example: "Will I ever stop losing the game?",
   permission: "EVERYONE",
+  aliases: [],
+  enabled: true,
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");

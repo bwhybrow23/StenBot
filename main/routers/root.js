@@ -25,13 +25,20 @@ router.get('/api/info', (req, res) => {
         "version": packageJSON.version,
         "prefix": settings.prefix,
         "mode": settings.mode,
-        "botName": botdata.botName,
-        "botID": botdata.botID,
-        "totalGuilds": botdata.totalGuilds,
-        "dependencies": packageJSON.dependencies,
-        "hotel": "trivago"
+        "botName": botdata.info.botName,
+        "botID": botdata.info.botID,
+        "hotel": "trivago",
+        "theGame": "lost"
     }
     res.status(200).send(info)
+});
+
+router.get("/api/stats", (req, res) => {
+    res.status(200).send(botdata.stats)
+})
+
+router.get("/api/dependencies", (req, res) => {
+    res.status(200).send(packageJSON.dependencies);
 })
 
 module.exports = router;

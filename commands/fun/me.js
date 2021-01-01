@@ -5,6 +5,8 @@ module.exports = {
   usage: "[@USER]",
   example: "@Danny#7013",
   permission: "EVERYONE",
+  aliases: [],
+  enabled: true,
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
@@ -47,14 +49,6 @@ module.exports = {
             break;
     }
 
-    /*let activity;
-    if(user.presence.activities !== "CUSTOM_STATUS") {
-        return;
-    } else {
-        if(user.presence.activities[0].type != "CUSTOM_STATUS") return;
-        activity = `${user.presence.activities[0].emoji} ${user.presence.activities[0].name}`
-    } */
-
        let meEmbed = new Discord.MessageEmbed()
             .setThumbnail(user.displayAvatarURL())
             .setColor(14672927)
@@ -64,7 +58,6 @@ module.exports = {
             .addField("Bot", `${bot}`, inline, true)
             .addField("Status", userStatus, inline, true)
             .addField("Activities", `${user.presence.activities}` ? `${user.presence.activities.map((a)=>a.type === "CUSTOM_STATUS" ? a.state : a.toString()).join("\n")}` : "Not playing")
-            // .addField("Playing", activity, inline, true)
             .addField("Roles", `${member.roles.cache.filter(r => r.id !== message.guild.id).map(roles => `\`${roles.name}\``).join(" **|** ") || "No Roles"}`)
             .addField("Joined Discord At", user.createdAt)
 	        .addField("Joined this Guild At", member.joinedAt)

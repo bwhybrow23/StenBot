@@ -5,6 +5,8 @@ module.exports = {
   usage: "",
   example: "",
   permission: "EVERYONE",
+  aliases: [],
+  enabled: true,
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
@@ -17,7 +19,7 @@ module.exports = {
     let ping = Math.floor(bot.ws.ping);
     // let pingHistory = bot.ws.pings;
     // let cmdTotal = cmdusage.total;
-    let memUsed = Math.floor(memusage.memoryUsage);
+    let memUsed = Math.floor(memusage.info.memoryUsage);
     let totalGuilds = bot.guilds.cache.size;
     let totalMembers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
 

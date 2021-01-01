@@ -1,5 +1,7 @@
 module.exports = async (bot, message) => {
 
+    const fs = require("fs");
+
     //Link Blocker & Filter
     if (message.author.bot) return;
     if (message.content.indexOf(bot.settings.prefix) !== 0) {
@@ -47,10 +49,20 @@ module.exports = async (bot, message) => {
     if (cmd.length === 0) return;
 
     let command = bot.commands.get(cmd);
-    if (!command) command = bot.commands.get(bot.aliases.get(cmd));
+    // if (!command) command = bot.commands.get(bot.aliases.get(cmd));
+    if(!command) command = bot.commands.get(bot.aliases.get(cmd));
 
     if (command) {
         command.run(bot, message, args);
+        logToStats(command);
+    }
+
+    //Log to stats json
+    function logToStats(cmd) {
+        let botData = require("../../data/global/bot-data.json");
+        botData.stats.commands[cmd.category][cmd.name]++;
+        botData.stats.commands[cmd.category].total++;
+        fs.writeFileSync("./data/global/bot-data.json", JSON.stringify(botData, null, 4));
     }
 
 };

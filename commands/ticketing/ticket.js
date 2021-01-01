@@ -5,11 +5,12 @@ module.exports = {
   usage: "<REASON>",
   example: "I need help!",
   permission: "EVERYONE",
+  aliases: ["t"],
+  enabled: true,
   run: async (bot, message, args) => {
 
       const Discord = require("discord.js");
       if (!message.guild) return;
-      const fs = require("fs");
 
       const config = await bot.mutils.getGuildById(message.guild.id);
 

@@ -5,6 +5,8 @@ module.exports = {
   usage: "<ADD | SUBTRACT | SET> <@USER> <VALUE>",
   example: "set @Steve#1234 69000",
   permission: "BOT OWNER",
+  aliases: [],
+  enabled: true,
   run: async (bot, message, args) => {
 
       const Discord = require("discord.js");

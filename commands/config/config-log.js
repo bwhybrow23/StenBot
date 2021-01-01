@@ -5,12 +5,12 @@ module.exports = {
   usage: "<SUBCOMMAND>",
   example: "enable",
   permission: "ADMIN",
+  aliases: ["c-log"],
+  enabled: true,
   run: async (bot, message, args) => {
 
       const Discord = require("discord.js");
       if (!message.guild) return;
-      const fs = require("fs");
-      const checker = require("typechecker");
 
       let servertag = message.guild.name;
 
