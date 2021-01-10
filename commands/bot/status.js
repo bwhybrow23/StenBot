@@ -5,27 +5,23 @@ module.exports = {
   usage: "",
   example: "",
   permission: "EVERYONE",
-  aliases: [],
+  aliases: ["ping"],
   enabled: true,
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     if (!message.guild) return;
     const fs = require("fs");
-
-    // const cmdusage = JSON.parse(fs.readFileSync("./data/global/command-usage.json", "utf8"));
     const memusage = JSON.parse(fs.readFileSync("./data/global/bot-data.json", "utf8"));
 
     let ping = Math.floor(bot.ws.ping);
-    // let pingHistory = bot.ws.pings;
-    // let cmdTotal = cmdusage.total;
     let memUsed = Math.floor(memusage.info.memoryUsage);
     let totalGuilds = bot.guilds.cache.size;
     let totalMembers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
 
-    bot.createEmbed("success", "StenBot Status", `**Ping:** ${ping}\n**Memory Usage:** ${memUsed}MB\n**Total Guilds:** ${totalGuilds}\n**Total Members:** ${totalMembers}\n**Version:** ${bot.packageJSON.version}`, [], `${message.guild.name}`, bot)
+    bot.createEmbed("success", "StenBot Status", `**Ping:** ${ping}ms\n**Memory Usage:** ${memUsed}MB\n**Total Guilds:** ${totalGuilds}\n**Total Members:** ${totalMembers}\n**Version:** ${bot.packageJSON.version}`, [], `${message.guild.name}`, bot)
       .then((embed) => message.channel.send(embed))
       .catch((error) => bot.log.post("error", error));
-  
-    }
+
+  }
 };

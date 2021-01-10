@@ -5,25 +5,23 @@ module.exports = {
   usage: "<CODE>",
   example: "message.channel.send(\"Hello World!\")",
   permission: "BOT OWNER",
-  aliases: [],
   enabled: true,
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     if (!message.guild) return;
 
+    //Permission Check
     if (message.author.id !== bot.settings.ids.botOwner) {
-      return bot.noPermsEmbed(`${message.guild.name}`, bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.log.post("error", error));
+      return;
     };
 
     try {
       let codein = args.join(" ");
       if (!codein || args[0] == "help") {
         return bot.helpEmbed("eval", bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.log.post("error", error));
+          .then((embed) => message.channel.send(embed))
+          .catch((error) => bot.log.post("error", error));
       }
       let code = eval(codein);
 

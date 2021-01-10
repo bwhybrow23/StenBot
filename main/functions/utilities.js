@@ -1,5 +1,5 @@
 module.exports = {
-  getMember: function (message, toFind = "") {
+  getMember: function(message, toFind = "") {
     toFind = toFind.toLowerCase();
 
     let target = message.guild.cache.members.get(toFind);
@@ -21,7 +21,7 @@ module.exports = {
     return target;
   },
 
-  msToTime: function (ms) {
+  msToTime: function(ms) {
     days = Math.floor(ms / 86400000); // 24*60*60*1000
     daysms = ms % 86400000; // 24*60*60*1000
     hours = Math.floor(daysms / 3600000); // 60*60*1000
@@ -29,21 +29,21 @@ module.exports = {
     minutes = Math.floor(hoursms / 60000); // 60*1000
     minutesms = ms % 60000; // 60*1000
     sec = Math.floor(minutesms / 1000);
-  
+
     let str = "";
     if (days) str = str + days + "d";
     if (hours) str = str + hours + "h";
     if (minutes) str = str + minutes + "m";
     if (sec) str = str + sec + "s";
-  
+
     return str;
   },
 
-  formatDate: function (date) {
+  formatDate: function(date) {
     return new Intl.DateTimeFormat("en-US").format(date);
   },
 
-  promptMessage: async function (message, author, time, validReactions) {
+  promptMessage: async function(message, author, time, validReactions) {
     // We put in the time as seconds, with this it's being transfered to MS
     time *= 1000;
 
@@ -84,11 +84,12 @@ module.exports = {
       .send({
         embed: {
           title: "SERVER VERIFICATION",
-          description:
-            "Make sure to read <#624316687537405954> and then click the ✅ to get access to the rest of the discord.",
+          description: "Make sure to read <#624316687537405954> and then click the ✅ to get access to the rest of the discord.",
           color: bot.settings.color.yellow,
           footer: {
-            icon_url: bot.user.avatarURL({format:"png"}),
+            icon_url: bot.user.avatarURL({
+              format: "png"
+            }),
             text: "If you have any issues DM Stentorian#9524 on Discord!",
           },
         },
@@ -109,7 +110,7 @@ module.exports = {
       });
   },
 
-  promptMessage: async function (message, author, time, validReactions) {
+  promptMessage: async function(message, author, time, validReactions) {
     // We put in the time as seconds, with this it's being transfered to MS
     time *= 1000;
 
@@ -123,7 +124,10 @@ module.exports = {
 
     // And ofcourse, await the reactions
     return message
-      .awaitReactions(filter, { max: 1, time: time })
+      .awaitReactions(filter, {
+        max: 1,
+        time: time
+      })
       .then((collected) => collected.first() && collected.first().emoji.name);
   }
 };

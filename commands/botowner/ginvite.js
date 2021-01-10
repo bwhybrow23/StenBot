@@ -5,24 +5,22 @@ module.exports = {
   usage: "<SERVER ID>",
   example: "712815477344305262",
   permission: "BOT OWNER",
-  aliases: [],
   enabled: true,
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     if (!message.guild) return;
 
+    //Permission Check
     if (message.author.id !== bot.settings.ids.botOwner) {
-      return bot.noPermsEmbed(`${message.guild.name}`, bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
+      return;
+    };
 
     let guildid = args[0];
     if (!guildid || args[0] == "help") {
       return bot.helpEmbed("ginvite", bot)
-      .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.log.post("error", error));
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => bot.log.post("error", error));
     }
     let guild = bot.guilds.cache.get(guildid);
     if (!guild) {

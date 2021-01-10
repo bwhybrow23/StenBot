@@ -5,7 +5,6 @@ module.exports = {
   usage: "",
   example: "",
   permission: "EVERYONE",
-  aliases: [],
   enabled: true,
   run: async (bot, message, args) => {
 
@@ -19,7 +18,7 @@ module.exports = {
     invites = invites.array();
 
     let possibleinvites = [];
-    invites.forEach(function (invites) {
+    invites.forEach(function(invites) {
       possibleinvites.push(`${invites.inviter.username} ||  ${invites.uses}`);
     });
 

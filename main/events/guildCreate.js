@@ -15,8 +15,8 @@ module.exports = async (bot, guild) => {
   if (serverstats != undefined) {
     if (serverstats.blacklisted === true) {
       bot.createEmbed("error", "", `I'm afraid that StenBot cannot join your server **${guild.name}** as your server is blacklisted from the bot. If you believe this is an error, please contact **Stentorian#9524** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${guild.name}`, bot)
-              .then(embed => guild.owner.send(embed))
-              .catch(error => console.error(error))
+        .then(embed => guild.owner.send(embed))
+        .catch(error => console.error(error))
       guild.leave();
       bot.log.post("info", `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
     } else {
@@ -24,7 +24,7 @@ module.exports = async (bot, guild) => {
     }
   }
   bot.log.post("info", `Joined guild ${guild.name} | ${guild.id}`);
-  
+
   /**
    * 
    * MONGO STORAGE 
@@ -54,11 +54,13 @@ module.exports = async (bot, guild) => {
     tickets_message: "None",
     music_enabled: false,
     levelling_enabled: false
-    });
+  });
 
   //Update bot-data.json
   let botdata = require("../../data/global/bot-data.json");
   botdata.stats.totalGuilds = bot.guilds.cache.size;
-  fs.writeFileSync(`./data/global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => { if (err) return bot.log.post("error", err); });
-  
+  fs.writeFileSync(`./data/global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => {
+    if (err) return bot.log.post("error", err);
+  });
+
 };

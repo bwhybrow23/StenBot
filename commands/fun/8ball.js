@@ -5,39 +5,24 @@ module.exports = {
   usage: "<QUESTION>",
   example: "Will I ever stop losing the game?",
   permission: "EVERYONE",
-  aliases: [],
   enabled: true,
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     let fetch = require("node-fetch");
 
-    // var replies = [
-    //   "Yes.",
-    //   "No.",
-    //   "I don't know.",
-    //   "Ask again later.",
-    //   "Umm...",
-    //   "Questionable.",
-    //   "Maybe.",
-    //   "Ask someone else.",
-    //   "There's a possibility.",
-    //   "Never.",
-    // ];
-
-    // let result = Math.floor(Math.random() * replies.length);
     let question = args.slice(0).join(" ");
     if (!question || args[0] == "help") {
       return bot.helpEmbed("8ball", bot)
-      .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.log.post("error", error));
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => bot.log.post("error", error));
     }
 
     //Nekos.life API integration
     let result;
     await fetch(`https://nekos.life/api/v2/8ball`)
-                .then(res => res.json())
-                .then(json => result = json)
+      .then(res => res.json())
+      .then(json => result = json)
 
 
     let ballEmbed = new Discord.MessageEmbed()
@@ -47,7 +32,11 @@ module.exports = {
       .setImage(result.url)
       .setFooter(`${message.guild.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
-    message.channel.send("The 8ball is working it's magic! :tada:").then((m) => {setTimeout(() => {m.edit(ballEmbed);}, 1000);})
+    message.channel.send("The 8ball is working it's magic! :tada:").then((m) => {
+        setTimeout(() => {
+          m.edit(ballEmbed);
+        }, 1000);
+      })
       .catch((e) => {
         bot.log.post("error", e);
       });

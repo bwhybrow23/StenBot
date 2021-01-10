@@ -16,12 +16,12 @@ module.exports = async (bot, oldChannel, newChannel) => {
         let lchannel = bot.channels.cache.get(config.logging_channel);
         if (oldChannel.name !== newChannel.name) {
           bot.eventEmbed("006187", "None", "Channel Name Updated", `**Old Name:** ${oldChannel.name}\n**New Name:** ${newChannel.name}\n**Id:** ${newChannel.id}`, [], `${newChannel.guild.name}`, bot)
-              .then(embed => lchannel.send(embed))
-              .catch(error => console.error(error))
+            .then(embed => lchannel.send(embed))
+            .catch(error => console.error(error))
         } else if (oldChannel.topic !== newChannel.topic) {
           bot.eventEmbed("006187", "None", "Channel Topic Updated", `**Old Name:** ${oldChannel.name}\n**New Name:** ${newChannel.name}\n**Id:** ${newChannel.id}`, [], `${newChannel.guild.name}`, bot)
-              .then(embed => lchannel.send(embed))
-              .catch(error => console.error(error))
+            .then(embed => lchannel.send(embed))
+            .catch(error => console.error(error))
         }
       }
     }

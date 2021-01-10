@@ -13,10 +13,11 @@ module.exports = {
     if (!message.guild) return;
     var c = message.mentions.channels.first();
 
+    //Permission, Args and Config Check
     if (!c || args[0] == "help") {
       return bot.helpEmbed("delchannel", bot)
-      .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.log.post("error", error));
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => bot.log.post("error", error));
     }
 
     const config = await bot.mutils.getGuildById(message.guild.id);
@@ -27,14 +28,14 @@ module.exports = {
         .catch((error) => bot.log.post("error", error));
     }
 
-    if (c == undefined) {
-      return bot.createEmbed("error", "", "Error! You forgot to mention a channel to remove!", [], `${message.guild.name}`, bot)
+    if (message.member.hasPermission("ADMINISTRATOR") == false) {
+      return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
-    if (message.member.hasPermission("ADMINISTRATOR") == false) {
-      return bot.noPermsEmbed(`${message.guild.name}`, bot)
+    if (c == undefined) {
+      return bot.createEmbed("error", "", "Error! You forgot to mention a channel to remove!", [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -45,10 +46,11 @@ module.exports = {
         .catch((error) => bot.log.post("error", error));
     }
 
+    //Do the Magic
     c.delete().then((deleted) => {
       return bot.createEmbed("success", "", `The channel **${deleted.name}** has been removed by administrator **${message.author}**`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error))
-  });
+    });
   },
 };

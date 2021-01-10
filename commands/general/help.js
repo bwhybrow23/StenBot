@@ -5,7 +5,6 @@ module.exports = {
   usage: "[CATEGORY | COMMAND]",
   example: "ban",
   permission: "EVERYONE",
-  aliases: [],
   enabled: true,
   run: async (bot, message, args) => {
 
@@ -28,12 +27,11 @@ module.exports = {
       const embed = new Discord.MessageEmbed()
         .setColor(bot.settings.color.blue)
         .setTitle(capitalize(args[0]))
-        // .setDescription(commandSum)
-        .setFooter(`Help Command | Syntax: <> = required, [] = optional`,bot.user.displayURL)
+        .setFooter(`Help Command | Syntax: <> = required, [] = optional`, bot.user.displayURL)
         .setTimestamp();
 
       bot.commands.forEach(cmd => {
-        if(cmd.category != category) return;
+        if (cmd.category != category) return;
         embed.addField(`\`${prefix}${cmd.name} ${cmd.usage}\``, `${cmd.description}`)
       });
 
@@ -62,12 +60,12 @@ module.exports = {
       let input = args[0];
 
       return bot.helpEmbed(input, bot)
-      .then((embed) => message.channel.send(embed))
-      .catch((error) => {
-        bot.createEmbed("error", "", `Cannot find a command under the name of ${input}`, [], message.author.tag, bot)
-        .then((embed) => message.channel.send(embed));
-      });
-      // .catch((error) => bot.log.post("error", error));
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => {
+          bot.createEmbed("error", "", `Cannot find a command under the name of ${input}`, [], message.author.tag, bot)
+            .then((embed) => message.channel.send(embed))
+            .then(console.log(error))
+        });
 
     }
   },

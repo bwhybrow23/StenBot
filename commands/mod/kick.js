@@ -5,10 +5,9 @@ module.exports = {
   usage: "<@USER> [REASON]",
   example: "@Dan#9124 Rude Name",
   permission: "STAFF",
-  aliases: [],
   enabled: true,
   run: async (bot, message, args) => {
-    
+
     const Discord = require("discord.js");
     if (!message.guild) return;
 
@@ -21,8 +20,8 @@ module.exports = {
     var targetuser = message.mentions.members.first();
     if (!targetuser || args[0] == "help") {
       return bot.helpEmbed("kick", bot)
-      .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.log.post("error", error));
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => bot.log.post("error", error));
     }
 
     let reason = args.slice(1).join(" ");
@@ -34,7 +33,7 @@ module.exports = {
     }
 
     if (!targetuser.kickable) {
-      return bot.createEmbed("error","",`Error! I do not have permission to kick this user!`,[],`${message.guild.name}`,bot)
+      return bot.createEmbed("error", "", `Error! I do not have permission to kick this user!`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -42,9 +41,9 @@ module.exports = {
     targetuser.kick(`By ${message.author.tag}\nReason: ${reason}`)
       .catch(console.error)
       .then(
-        bot.createEmbed("success","",`${msg}`,[],`${message.guild.name}`,bot)
-          .then((embed) => message.channel.send(embed))
-          .catch((error) => bot.log.post("error", error)));
+        bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, bot)
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => bot.log.post("error", error)));
 
     //Logging
     const efunctions = require('../../main/functions/eventUtils.js');
@@ -53,8 +52,8 @@ module.exports = {
         if (efunctions.checkChannel(config.logging_channel, bot) == true) {
           let lchannel = bot.channels.cache.get(config.logging_channel);
           bot.eventEmbed("c70011", targetuser.user, "Member Banned", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n**Ban Date:** ${new Date()}\n**Banned By:** ${message.author.tag}\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)
-                .then(embed => lchannel.send(embed))
-                .catch(error => console.error(error))
+            .then(embed => lchannel.send(embed))
+            .catch(error => console.error(error))
         }
       }
     }

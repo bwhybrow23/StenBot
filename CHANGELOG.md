@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.6.11 - 10/01/2021
+* Some more cleaning up
+* Fixed some permissions
+* SERVER OWNERS COULD CONTROL THE MODE COMMAND?! Fixed because I'm a dumbass
+* Updated Node in Docker for the latest security update
+* Fixed an issue with the help embed not recognising commands with no aliases
+* Added fox images to animal command
+
 ## 1.6.10 - 01/01/2021
 * Command statistics tracking
 * /api/stats router added

@@ -15,9 +15,9 @@ module.exports = async (bot, channel) => {
       if (efunctions.checkChannel(config.logging_channel, bot) == true) {
         let lchannel = bot.channels.cache.get(config.logging_channel);
         bot.eventEmbed("7ae727", "None", "Channel Created", `**Name:** ${channel.name}\n**Id:** ${channel.id}`, [], `${channel.guild.name}`, bot)
-              .then(embed => lchannel.send(embed))
-              .catch(error => console.error(error))
+          .then(embed => lchannel.send(embed))
+          .catch(error => console.error(error))
       }
-    } 
+    }
   }
 };

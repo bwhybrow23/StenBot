@@ -1,5 +1,5 @@
-const { promisify } = require("util");
-const readdir = promisify(require("fs").readdir);
+const util = require("util");
+const readdir = util.promisify(require("fs").readdir);
 
 module.exports = async (bot, message) => {
 
@@ -23,8 +23,8 @@ module.exports = async (bot, message) => {
 
         let lchannel = bot.channels.cache.get(config.logging_channel);
         bot.eventEmbed("c70011", message.author, "Message Deleted", `**Channel:** ${message.channel}\n**Message:**\n${message}`, [], `${lchannel.guild.name}`, bot)
-                  .then(embed => lchannel.send(embed))
-                  .catch(error => console.error(error))
+          .then(embed => lchannel.send(embed))
+          .catch(error => console.error(error))
       }
     }
   }

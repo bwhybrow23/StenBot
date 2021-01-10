@@ -11,12 +11,14 @@ module.exports = {
 
     const Discord = require("discord.js");
     if (!message.guild) return;
-    const fs = require("fs");
 
     let servertag = message.guild.name;
 
-    const ownersid = message.guild.ownerID;
-    const adminperm = message.member.hasPermission("ADMINISTRATOR");
+    if (message.member.hasPermission("ADMINISTRATOR") === false) {
+      return bot.noPermsEmbed(`${message.guild.name}`, bot)
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => bot.log.post("error", error));
+    }
 
     //Set up the embed
     const serverconfigfile = await bot.mutils.getGuildById(message.guild.id);
@@ -56,8 +58,8 @@ module.exports = {
     } else {
       stafffilter.forEach(word => {
         stafffilter1.push(`${word} `);
-    });
-  }
+      });
+    }
     //autoban by default is undefined
     // var staffban = serverconfigfile.staff_autoban;
     // if (staffban == 0) {
@@ -75,11 +77,11 @@ module.exports = {
     if (loggingignore.length == 0) {
       loggingignore1.push("Empty");
     } else {
-    loggingignore.forEach(id => {
-      loggingignore1.push(`<#${id}> `);
-    });
-  }
-    
+      loggingignore.forEach(id => {
+        loggingignore1.push(`<#${id}> `);
+      });
+    }
+
     //Ticket message by default is undefined
     var ticketmessage = serverconfigfile.tickets_message;
     if (ticketmessage == 0) {
@@ -88,14 +90,28 @@ module.exports = {
 
     //Check if they have required permissions
     if (adminperm === true || ownersid == message.author.id) {
-      return bot.createEmbed("warning",`${servertag} Configuration`,`Your Configuration`,[{name: "Welcomer",value: `Enabled: **${serverconfigfile.welcomer_enabled ? "Yes" : "No"} **\nWelcomer Channel: **${welcomerchannel}**\nWelcomer Message: **${serverconfigfile.welcomer_message}**`,},{name: "User Join",value: `Enabled: **${serverconfigfile.userjoin_enabled ? "Yes" : "No"}**\nAdd Role: **${userjoinrole}**\nSet Nick: **${userjoinnick}**`,},{name: "Staff",value: `Staff Role: **${staffrole}**\nAdmin Commands: **${serverconfigfile.staff_admin ? "Enabled" : "Disabled"}**\nLink Blocker: **${serverconfigfile.staff_linkblock ? "Enabled" : "Disabled"}**\nWord Filter: **${stafffilter1}**`,},{name: "Logging",value: `Enabled: **${serverconfigfile.logging_enabled ? "Yes" : "No"}**\nLogging Channel: **${logchannel}**\nLevel: **${serverconfigfile.logging_level}**\nIgnore List: **${loggingignore1}**`,},{name: "Tickets",value: `Enabled: **${serverconfigfile.tickets_enabled ? "Yes" : "No"}**\nTicket Message: **${ticketmessage}**`,},],`${message.guild.name}`,bot)
+      return bot.createEmbed("warning", `${servertag} Configuration`, `Your Configuration`, [{
+          name: "Welcomer",
+          value: `Enabled: **${serverconfigfile.welcomer_enabled ? "Yes" : "No"} **\nWelcomer Channel: **${welcomerchannel}**\nWelcomer Message: **${serverconfigfile.welcomer_message}**`,
+        }, {
+          name: "User Join",
+          value: `Enabled: **${serverconfigfile.userjoin_enabled ? "Yes" : "No"}**\nAdd Role: **${userjoinrole}**\nSet Nick: **${userjoinnick}**`,
+        }, {
+          name: "Staff",
+          value: `Staff Role: **${staffrole}**\nAdmin Commands: **${serverconfigfile.staff_admin ? "Enabled" : "Disabled"}**\nLink Blocker: **${serverconfigfile.staff_linkblock ? "Enabled" : "Disabled"}**\nWord Filter: **${stafffilter1}**`,
+        }, {
+          name: "Logging",
+          value: `Enabled: **${serverconfigfile.logging_enabled ? "Yes" : "No"}**\nLogging Channel: **${logchannel}**\nLevel: **${serverconfigfile.logging_level}**\nIgnore List: **${loggingignore1}**`,
+        }, {
+          name: "Tickets",
+          value: `Enabled: **${serverconfigfile.tickets_enabled ? "Yes" : "No"}**\nTicket Message: **${ticketmessage}**`,
+        }, ], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
-      return;
     } else {
-    return bot.noPermsEmbed(`${message.guild.name}`, bot)
-      .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.log.post("error", error));
+      return bot.noPermsEmbed(`${message.guild.name}`, bot)
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => bot.log.post("error", error));
     }
   },
 };

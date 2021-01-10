@@ -15,8 +15,8 @@ module.exports = {
 
     if (!args.length || args[0] == "help") {
       return bot.helpEmbed("mcping", bot)
-      .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.log.post("error", error));
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => bot.log.post("error", error));
     }
 
     const ip = args[0];
@@ -27,7 +27,7 @@ module.exports = {
     let request = await fetch.get(args[1] ? url + `&port=${port}` : url + ip);
     let res = request.body;
     if (res.status === "error" && res.error === "server timeout") {
-      bot.createEmbed("error","",`Error! The status couldn't be fetched, perhaps an invalid IP or Port.`,[],`${message.guild.name}`,bot)
+      bot.createEmbed("error", "", `Error! The status couldn't be fetched, perhaps an invalid IP or Port.`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -39,21 +39,42 @@ module.exports = {
       players += 0;
     }
 
-	let motd;
-	if (!res.motd) {
-		motd = "None";
-	} else {
-		motd = res.motd;
-	}
+    let motd;
+    if (!res.motd) {
+      motd = "None";
+    } else {
+      motd = res.motd;
+    }
 
     if (res.online) {
-      bot.createEmbed("success","Server Status:",``,[{ name: "IP", value: `${ip}` },{ name: `Status`, value: `Online` },{ name: `Player Count`, value: `${players}/${res.players.max}` },{ name: `Server Version`, value: `${res.server.name}` },{ name: `MOTD`, value: `${motd}` },],`${message.guild.name}`,bot)
+      bot.createEmbed("success", "Server Status:", ``, [{
+          name: "IP",
+          value: `${ip}`
+        }, {
+          name: `Status`,
+          value: `Online`
+        }, {
+          name: `Player Count`,
+          value: `${players}/${res.players.max}`
+        }, {
+          name: `Server Version`,
+          value: `${res.server.name}`
+        }, {
+          name: `MOTD`,
+          value: `${motd}`
+        }, ], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     if (!res.online) {
-      bot.createEmbed("success","Server Status:",``,[{ name: "IP", value: `${ip}` },{ name: `Status`, value: `Offline` },],`${message.guild.name}`,bot)
+      bot.createEmbed("success", "Server Status:", ``, [{
+          name: "IP",
+          value: `${ip}`
+        }, {
+          name: `Status`,
+          value: `Offline`
+        }, ], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }

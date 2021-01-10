@@ -5,23 +5,35 @@ module.exports = {
   usage: "",
   example: "",
   permission: "EVERYONE",
-  aliases: ["server-info"],
+  aliases: ["server-info", "serverinfo"],
   enabled: true,
   run: async (bot, message, args) => {
-    
+
     const Discord = require("discord.js");
     if (!message.guild) return;
 
-    let channelCount = message.guild.channels.cache.size;
-    let gCreated = message.guild.createdAt;
-    let gID = message.guild.id;
-    let totalMembers = message.guild.memberCount;
-    let gName = message.guild.name;
-    let roleCount = message.guild.roles.cache.size;
+    let txtChannelCount = 0;
+    let vcChannelChannel = 0;
+    message.guild.channels.cache.forEach(channel => {
+      if (channel.type === "text") return txtChannelCount++;
+      if (channel.type === "voice") return vcChannelChannel++;
+    });
 
-    bot.createEmbed("success", `${gName} Information`, ``, [{ name: `Guild ID`, value: `${gID}`}, { name: `Date Created`, value: `${gCreated}`}, { name: `Number of Channels`, value: `${channelCount}`}, { name: `Number of Roles`, value: `${roleCount}`}, { name: `Total Members`, value: `${totalMembers}`}], `${message.guild.name}`, bot)
-      .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.log.post("error", error));
+    let embed = new Discord.MessageEmbed()
+      .setColor(bot.settings.color.blue)
+      .setThumbnail(message.guild.iconURL())
+      .addField(`Name:`, `${message.guild.name}`, true)
+      .addField(`Owner:`, `${bot.users.cache.get(message.guild.ownerID).tag}`, true)
+      .addField(`Region:`, `${message.guild.region.charAt(0).toUpperCase() + message.guild.region.slice(1)}`, true)
+      .addField(`Text Channels:`, `${txtChannelCount}`, true)
+      .addField(`Voice Channels:`, `${vcChannelChannel}`, true)
+      .addField(`Roles:`, `${message.guild.roles.cache.size}`, true)
+      .addField(`Member Count:`, `${message.guild.memberCount}`, true)
+      .addField(`Bot Count:`, `${message.guild.members.cache.filter(member => member.user.bot).size}`, true)
+      .setFooter(`Created`)
+      .setTimestamp(message.guild.createdAt);
+
+    message.channel.send(embed);
 
   }
 };

@@ -5,53 +5,49 @@ module.exports = {
     usage: "[TYPE]",
     example: "docker",
     permission: "BOT OWNER",
-    aliases: [],
     enabled: false,
     run: async (bot, message, args) => {
-
-        const Discord = require("discord.js");
-        if (!message.guild) return;
-        const fs = require("fs");
-        const cp = require("child_process");
-
-        //Perm Checker
-        const ownersid = message.guild.ownerID;
-        if (message.author.id != ownersid) {
-            return bot.noPermsEmbed(`${message.guild.name}`, bot)
-                .then((embed) => message.channel.send(embed))
-                .catch((error) => bot.log.post("error", error));
-        }
-
-        //Check for Arg
-        let command = args[0];
-        if (!command || args[0] == "help") {
-            return bot.helpEmbed("reload", bot)
-            .then((embed) => message.channel.send(embed))
-            .catch((error) => bot.log.post("error", error));
-          }
-
-        // message.reply("Not working atm")
-
-        switch (args[0]) {
-            case "normal":
-                
-            cp.execFile("../../restart.bat");
-            process.exit();
-
-                break;
-
-            case "docker":
-
-            cp.exec('docker restart StenBot');
-
-            break;
-        
-            default:
-
-            message.reply("not done");
-            
-                break;
-        }
-
+  
+      const Discord = require("discord.js");
+      if (!message.guild) return;
+      const fs = require("fs");
+      const cp = require("child_process");
+  
+      //Permission Check
+      if (message.author.id !== bot.settings.ids.botOwner) {
+        return;
+      };
+  
+      //Check for Arg
+      let command = args[0];
+      if (!command || args[0] == "help") {
+        return bot.helpEmbed("reload", bot)
+          .then((embed) => message.channel.send(embed))
+          .catch((error) => bot.log.post("error", error));
+      }
+  
+      // message.reply("Not working atm")
+  
+      switch (args[0]) {
+        case "normal":
+  
+          cp.execFile("../../restart.bat");
+          process.exit();
+  
+          break;
+  
+        case "docker":
+  
+          cp.exec('docker restart StenBot');
+  
+          break;
+  
+        default:
+  
+          message.reply("not done");
+  
+          break;
+      }
+  
     }
-}
+  }

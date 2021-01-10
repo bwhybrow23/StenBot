@@ -1,5 +1,5 @@
 module.exports = (bot, reaction, user) => {
-  
+
   const reactionFunctions = require("../functions/reactionUtils.js");
 
   const botData = require("../../data/global/bot-data.json")

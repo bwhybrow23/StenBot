@@ -11,8 +11,8 @@ module.exports = async (bot, oldRole, newRole) => {
         let lchannel = bot.channels.cache.get(config.logging_channel);
         if (oldRole.name !== newRole.name) {
           bot.eventEmbed("006187", "None", "Role Name Changed", `**Old Name:** ${oldRole.name}\n**New Name:** ${newRole.name}\n**ID:** ${newRole.id}`, [], `${newRole.guild.name}`, bot)
-              .then(embed => lchannel.send(embed))
-              .catch(error => console.error(error))
+            .then(embed => lchannel.send(embed))
+            .catch(error => console.error(error))
         } else if (oldRole.hexColor !== newRole.hexColor) {
           //We use substr(1) to remove the '#' from the hex
           let oldjson = await request.get(
@@ -25,8 +25,8 @@ module.exports = async (bot, oldRole, newRole) => {
           let oldColor = oldjson.body.name.value;
           let newColor = newjson.body.name.value;
           bot.eventEmbed("006187", "None", "Role Colour Changed", `**Name:** ${newRole.name}\n**Id:** ${newRole.id}\n\n**Before:** ${oldRole.hexColor} (${oldRole.hexColor === "#000000" ? "default" : oldColor})\n**After:** ${newRole.hexColor} (${newRole.hexColor === "#000000" ? "default" : newColor})\n**_NOTE:_ Colors are named to the exact color or the closest to it. Search them online to find out what they are.**`, [], `${newRole.guild.name}`, bot)
-              .then(embed => lchannel.send(embed))
-              .catch(error => console.error(error))
+            .then(embed => lchannel.send(embed))
+            .catch(error => console.error(error))
         }
       }
     }

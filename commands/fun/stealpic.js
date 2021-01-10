@@ -5,7 +5,6 @@ module.exports = {
   usage: "<@USER>",
   example: "@Jake#4012",
   permission: "EVERYONE",
-  aliases: [],
   enabled: true,
   run: async (bot, message, args) => {
 
@@ -15,8 +14,8 @@ module.exports = {
     let stolen = message.mentions.users.first();
     if (!stolen || args[0] == "help") {
       return bot.helpEmbed("stealpic", bot)
-      .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.log.post("error", error));
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => bot.log.post("error", error));
     }
     let stolenPic = stolen.avatarURL();
 

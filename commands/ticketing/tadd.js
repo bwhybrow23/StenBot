@@ -5,7 +5,6 @@ module.exports = {
   usage: "<@USER>",
   example: "@Lana#1505",
   permission: "STAFF",
-  aliases: [],
   enabled: true,
   run: async (bot, message, args) => {
 
@@ -51,8 +50,8 @@ module.exports = {
     let toBeAdded = message.mentions.members.first();
     if (!toBeAdded || args[0] == "help") {
       return bot.helpEmbed("tadd", bot)
-      .then((embed) => message.channel.send(embed))
-      .catch((error) => bot.log.post("error", error));
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => bot.log.post("error", error));
     }
     try {
       message.channel.createOverwrite(toBeAdded.id, {

@@ -6,11 +6,11 @@ const Auth = require('../middleware/auth');
 
 //Get all guilds
 //router.get("/api/guilds", Auth.discord, (req, res) => {
-  
-    //Permission Check
-    // let member = bot.users.cache.fetch(req.discordID);
-    // res.send(member.user.tag);
-    // console.log(bot);
+
+//Permission Check
+// let member = bot.users.cache.fetch(req.discordID);
+// res.send(member.user.tag);
+// console.log(bot);
 
 //   mutils.getAllGuilds().then(data => {
 //     var allGuilds = data;

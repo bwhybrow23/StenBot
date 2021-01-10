@@ -16,12 +16,12 @@ module.exports = async (bot, oldMessage, newMessage) => {
           oldMessage.createdTimestamp === newMessage.createdTimestamp &&
           checker(oldMessage)
         )
-        return;
+          return;
         if (oldMessage.content == newMessage.content) return;
         let lchannel = bot.channels.cache.get(config.logging_channel);
         bot.eventEmbed("006187", newMessage.author, "Message Edited", `**Channel:** ${newMessage.channel}\n**Before:**\n${oldMessage.content}\n**After:**\n${newMessage.content}`, [], `${lchannel.guild.name}`, bot)
-                  .then(embed => lchannel.send(embed))
-                  .catch(error => console.error(error))
+          .then(embed => lchannel.send(embed))
+          .catch(error => console.error(error))
       }
     }
   }

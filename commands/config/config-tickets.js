@@ -12,25 +12,8 @@ module.exports = {
     const Discord = require("discord.js");
     if (!message.guild) return;
 
-    let servertag = message.guild.name;
-
-    const ownersid = message.guild.ownerID;
-    const adminperm = message.member.hasPermission("ADMINISTRATOR");
-
-    var access = true;
-
-    if (adminperm == false) {
-      var access = false;
-    }
-
-    if (access == false) {
-      if (ownersid == message.author.id) {
-        var access = true;
-      }
-    }
-
-    if (access == false) {
-      return bot.createEmbed("error","",`Error! You are not the owner or admin of this guild.`,[],`${message.guild.name}`,bot)
+    if (message.member.hasPermission("ADMINISTRATOR") === false) {
+      return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -39,7 +22,7 @@ module.exports = {
     let setting = args[0];
 
     if (setting == undefined) {
-      return bot.createEmbed("error","",`Error! You forgot to include a ticket setting.`,[],`${message.guild.name}`,bot)
+      return bot.createEmbed("error", "", `Error! You forgot to include a ticket setting.`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -51,11 +34,13 @@ module.exports = {
     switch (setting) {
       case "enable":
         if (config.tickets_enabled == true) {
-          return bot.createEmbed("error","",`Error! Tickets are already enabled.`,[],`${message.guild.name}`,bot)
+          return bot.createEmbed("error", "", `Error! Tickets are already enabled.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
-        bot.mutils.updateGuildById(message.guild.id, { tickets_enabled: true })
+        bot.mutils.updateGuildById(message.guild.id, {
+          tickets_enabled: true
+        })
 
         //Check for a category called tickets, if it does not exist create one
         function isCatTickets(element) {
@@ -68,51 +53,61 @@ module.exports = {
           return true;
         }
         if (!message.guild.channels.cache.some(isCatTickets)) {
-          message.guild.channels.create("Tickets", { type: "category", reason: 'Category for StenBot Tickets' });
+          message.guild.channels.create("Tickets", {
+            type: "category",
+            reason: 'Category for StenBot Tickets'
+          });
         }
 
-        bot.createEmbed("success","",`Tickets have been enabled.`,[],`${message.guild.name}`,bot)
+        bot.createEmbed("success", "", `Tickets have been enabled.`, [], `${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
 
         break;
       case "disable":
         if (config.ticketsenabled == false) {
-          return bot.createEmbed("error","",`Error! Tickets are already disabled.`,[],`${message.guild.name}`,bot)
+          return bot.createEmbed("error", "", `Error! Tickets are already disabled.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
-        bot.mutils.updateGuildById(message.guild.id, { tickets_enabled: false })
+        bot.mutils.updateGuildById(message.guild.id, {
+          tickets_enabled: false
+        })
         //Find and delete tickets category
-        message.guild.channels.cache.find(c=>c.name=="Tickets" && c.type=="category").delete();
+        message.guild.channels.cache.find(c => c.name == "Tickets" && c.type == "category").delete();
 
-        bot.createEmbed("success","",`Tickets have been disabled.`,[],`${message.guild.name}`,bot)
+        bot.createEmbed("success", "", `Tickets have been disabled.`, [], `${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
         break;
       case "message":
         var tmessage = args.slice(1).join(" ");
 
-        if (tmessage.length < 1) {
-          return bot.createEmbed("error","",`Error! You haven't included a message.`,[],`${message.guild.name}`,bot)
+        if (tmessage.length < 1 || tmessage === "None") {
+          bot.mutils.updateGuildById(message.guild.id, {
+            tickets_message: "None"
+          })
+          return bot.createEmbed("success", "", `The ticket message has been reset.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
 
         if (tmessage.length > 256) {
-          return bot.createEmbed("error","",`Error! The message you have provided is too long! Make sure it is less than **256** characters.`,[],`${message.guild.name}`,bot)
+          return bot.createEmbed("error", "", `Error! The message you have provided is too long! Make sure it is less than **256** characters.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
 
-        bot.mutils.updateGuildById(message.guild.id, { tickets_message: tmessage });
-        bot.createEmbed("success","",`Ticket message set!`,[],`${message.guild.name}`,bot)
+        bot.mutils.updateGuildById(message.guild.id, {
+          tickets_message: tmessage
+        });
+        bot.createEmbed("success", "", `Ticket message set!`, [], `${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
 
         break;
       default:
-        return bot.createEmbed("error","",`Error! There is no ticket config setting called **${setting}**.`,[],`${message.guild.name}`,bot)
+        return bot.createEmbed("error", "", `Error! There is no ticket config setting called **${setting}**.`, [], `${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
     }

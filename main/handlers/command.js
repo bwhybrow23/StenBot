@@ -1,4 +1,7 @@
-const { readdirSync, writeFileSync } = require("fs");
+const {
+  readdirSync,
+  writeFileSync
+} = require("fs");
 const ascii = require("ascii-table");
 const table = new ascii().setHeading("Command", "Load status");
 
@@ -13,9 +16,9 @@ module.exports = (client) => {
     for (let file of commands) {
       let pull = require(`../../commands/${dir}/${file}`);
 
-      if(pull.enabled === false) return;
+      if (pull.enabled === false) return;
 
-      if(!botData.stats.commands[pull.category][pull.name]) {
+      if (!botData.stats.commands[pull.category][pull.name]) {
         botData.stats.commands[pull.category][pull.name] = 0;
         writeFileSync("./data/global/bot-data.json", JSON.stringify(botData, null, 4));
       }
@@ -31,7 +34,7 @@ module.exports = (client) => {
           continue;
         }
 
-        if (pull.aliases && Array.isArray(pull.aliases)){
+        if (pull.aliases && Array.isArray(pull.aliases)) {
           pull.aliases.forEach((alias) => client.aliases.set(alias, pull.name));
         }
       }

@@ -5,10 +5,9 @@ module.exports = {
   usage: "",
   example: "",
   permission: "EVERYONE",
-  aliases: [],
   enabled: true,
   run: async (bot, message, args) => {
-    
+
     const Discord = require("discord.js");
     if (!message.guild) return;
 
@@ -18,7 +17,7 @@ module.exports = {
       .setDescription("Invite StenBot to your Discord Server")
       .setColor(bot.settings.color.blue)
       .addField("Default Help Command", "`sb!help`")
-      .addField("How to Invite","Click the link below to go to Discord's invite page where you can choose which server you want StenBot to be added to. Make sure to give the bot all permissions so it can function properly.")
+      .addField("How to Invite", "Click the link below to go to Discord's invite page where you can choose which server you want StenBot to be added to. Make sure to give the bot all permissions so it can function properly.")
       .addField("Invite Link 1", "https://sbinvite.benwhybrow.com")
       .addField("Invite Link 2", "http://bit.ly/2MDLj7hh")
       .addField("Support Server", "https://discord.benwhybrow.com")
