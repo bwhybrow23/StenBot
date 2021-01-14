@@ -4,9 +4,7 @@ module.exports = {
   description: "Check your balance.",
   usage: "[@USER]",
   example: "@Steve#1234",
-  permission: "EVERYONE",
-  aliases: ["bal", "money"],
-  enabled: true,
+  options: { permission: "EVERYONE", aliases: ["bal", "money"], enabled: true, cooldown: 5, guildOnly: false },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");

@@ -4,12 +4,10 @@ module.exports = {
     description: "Reload the bot.",
     usage: "[TYPE]",
     example: "docker",
-    permission: "BOT OWNER",
-    enabled: false,
+    options: { permission: "BOTOWNER", enabled: true, guildOnly: true },
     run: async (bot, message, args) => {
   
       const Discord = require("discord.js");
-      if (!message.guild) return;
       const fs = require("fs");
       const cp = require("child_process");
   

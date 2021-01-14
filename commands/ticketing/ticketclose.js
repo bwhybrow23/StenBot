@@ -4,13 +4,10 @@ module.exports = {
   description: "Close an ongoing ticket.",
   usage: "",
   example: "",
-  permission: "STAFF",
-  aliases: ["tclose"],
-  enabled: true,
+  options: { permission: "EVERYONE", aliases: ["tclose"], enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     const config = await bot.mutils.getGuildById(message.guild.id);
     const eventFunctions = require(`../../main/functions/eventUtils.js`);

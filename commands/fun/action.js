@@ -4,12 +4,10 @@ module.exports = {
     description: "Do various actions such as hug or kiss.",
     usage: "<ACTION> <@USER>",
     example: "hug @Sam#9215",
-    permission: "EVERYONE",
-    enabled: true,
+    options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: true },
     run: async (bot, message, args) => {
   
       const Discord = require("discord.js");
-      if (!message.guild) return;
   
       const nekos = require('nekos.life');
       const neko = new nekos();

@@ -4,8 +4,7 @@ module.exports = {
     description: "Report a user, bug or server to the StenBot Team to be investigated.",
     usage: "",
     example: "",
-    permission: "EVERYONE",
-    enabled: true,
+    options: { permission: "EVERYONE", enabled: true, cooldown: 300, guildOnly: false },
     run: async (bot, message, args) => {
       const Discord = require("discord.js");
   

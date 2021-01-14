@@ -4,12 +4,10 @@ module.exports = {
   description: "Unban a user",
   usage: "<USER ID> [REASON]",
   example: "346246641595973633 Received punishment",
-  permission: "STAFF",
-  enabled: true,
+  options: { permission: "STAFF", enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     var config = await bot.mutils.getGuildById(message.guild.id);
 

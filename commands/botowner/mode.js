@@ -4,12 +4,10 @@ module.exports = {
   description: "Switch the bot between various modes.",
   usage: "<MODE>",
   example: "production",
-  permission: "BOT OWNER",
-  enabled: true,
+  options: { permission: "BOTOWNER", enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
     const fs = require("fs");
 
     //Permission Check

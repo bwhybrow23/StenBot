@@ -4,12 +4,10 @@ module.exports = {
   description: "Sends a message to all the owners of the servers that the bot is in.",
   usage: "<MESSAGE>",
   example: "Hello Everyone!",
-  permission: "BOT OWNER",
-  enabled: true,
+  options: { permission: "BOTOWNER", enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     //Permission Check
     if (message.author.id !== bot.settings.ids.botOwner) {

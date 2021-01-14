@@ -4,12 +4,8 @@ module.exports = {
   description: "Calculate the love between two people.",
   usage: "<USER1> <USER2>",
   example: "Trump Boris",
-  permission: "EVERYONE",
-  aliases: ["love"],
-  enabled: true,
+  options: { permission: "EVERYONE", aliases: ["love"], enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
-
-    if (!message.guild) return;
 
     let person1 = args[0];
     let person2 = args[1];

@@ -4,13 +4,10 @@ module.exports = {
   description: "Temporarily mute a user for a period of time.",
   usage: "<@USER> <TIME> [REASON]",
   example: "@Jess#8022 1d Being annoying",
-  permission: "STAFF",
-  aliases: ["tmute"],
-  enabled: true,
+  options: { permission: "STAFF", aliases: ["tmute"], enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
     const ms = require("ms");
 
     var config = await bot.mutils.getGuildById(message.guild.id);

@@ -4,12 +4,10 @@ module.exports = {
   description: "Get a list of all the invites in the Discord server.",
   usage: "",
   example: "",
-  permission: "EVERYONE",
-  enabled: true,
+  options: { permission: "EVERYONE", enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     let invites = await message.guild.fetchInvites().catch((error) => {
       return message.channel.send("Sorry, I don't have the proper permissions to view invites!");

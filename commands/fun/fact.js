@@ -4,8 +4,7 @@ module.exports = {
     description: "Get a random cool fact!",
     usage: "",
     example: "",
-    permission: "EVERYONE",
-    enabled: true,
+    options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: false },
     run: async (bot, message, args) => {
   
       let Discord = require("discord.js");
@@ -20,7 +19,7 @@ module.exports = {
         .setTitle("Random Fact")
         .setDescription(fact)
         .setColor(bot.settings.color.yellow)
-        .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
+        .setFooter(message.server.name, `https://i.imgur.com/BkZY6H8.png"`);
   
       message.channel.send(embed);
   

@@ -4,13 +4,10 @@ module.exports = {
   description: "Change all config variables related to tickets.",
   usage: "<SUBCOMMAND>",
   example: "enable",
-  permission: "ADMIN",
-  aliases: ["c-tickets"],
-  enabled: true,
+  options: { permission: "ADMIN", aliases: ["c-tickets"], enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     if (message.member.hasPermission("ADMINISTRATOR") === false) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)

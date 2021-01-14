@@ -4,12 +4,10 @@ module.exports = {
   description: "Returns all commands, or information about one specific command.",
   usage: "[CATEGORY | COMMAND]",
   example: "ban",
-  permission: "EVERYONE",
-  enabled: true,
+  options: { permission: "EVERYONE", enabled: true, guildOnly: false },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
     let prefix = bot.settings.prefix;
 
     //Capitalize function

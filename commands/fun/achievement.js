@@ -4,8 +4,7 @@ module.exports = {
     description: "Create your own Minecraft achievement",
     usage: "<MESSAGE>",
     example: "Being a successful failure!",
-    permission: "EVERYONE",
-    enabled: true,
+    options: { permission: "EVERYONE", enabled: true, cooldown: 15, guildOnly: false },
     run: async (bot, message, args) => {
   
       const Discord = require("discord.js");
@@ -48,7 +47,7 @@ module.exports = {
             }
   
             fs.unlink(
-              `././data/images/temp/${message.guild.id}-${message.author.id}.png`,
+              `././data/images/temp/${message.server.id}-${message.author.id}.png`,
               function(err) {
                 if (err) return bot.log.post("error", err);
               }

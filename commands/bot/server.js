@@ -4,13 +4,10 @@ module.exports = {
   description: "Get some information about the server the command is ran in.",
   usage: "",
   example: "",
-  permission: "EVERYONE",
-  aliases: ["server-info", "serverinfo"],
-  enabled: true,
+  options: { permission: "EVERYONE", aliases: ["server-info", "serverinfo"], enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     let txtChannelCount = 0;
     let vcChannelChannel = 0;

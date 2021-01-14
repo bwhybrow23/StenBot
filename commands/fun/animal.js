@@ -4,8 +4,7 @@ module.exports = {
   description: "Get a random image of an animal from a list.",
   usage: "<ANIMAL>",
   example: "fox",
-  permission: "EVERYONE",
-  enabled: true,
+  options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: false },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
@@ -34,7 +33,7 @@ module.exports = {
           .setTitle("Aww... Kitty!")
           .setColor("#ff9900")
           .setImage(url)
-          .setFooter(`${message.guild.name}`, `https://i.imgur.com/BkZY6H8.png`);
+          .setFooter(`${message.server.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
         message.channel.send(catEmbed);
         break;
@@ -50,7 +49,7 @@ module.exports = {
           .setTitle("Aww... Doggo!")
           .setColor("#ff9900")
           .setImage(url)
-          .setFooter(`${message.guild.name}`, `https://i.imgur.com/BkZY6H8.png`);
+          .setFooter(`${message.server.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
         message.channel.send(dogEmbed);
 
@@ -66,7 +65,7 @@ module.exports = {
           .setTitle("Aww... Fox!")
           .setColor("#ff9900")
           .setImage(url)
-          .setFooter(`${message.guild.name}`, `https://i.imgur.com/BkZY6H8.png`);
+          .setFooter(`${message.server.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
         message.channel.send(foxEmbed);
 
@@ -83,7 +82,7 @@ module.exports = {
           .setTitle("Hjonk!")
           .setColor("#ff9900")
           .setImage(url)
-          .setFooter(`${message.guild.name}`, `https://i.imgur.com/BkZY6H8.png`);
+          .setFooter(`${message.server.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
         message.channel.send(gooseEmbed);
 

@@ -4,8 +4,7 @@ module.exports = {
     description: "Generate an API token to use at https://benwhybrow.com/api",
     usage: "",
     example: "",
-    permission: "EVERYONE",
-    enabled: true,
+    options: { permission: "EVERYONE", enabled: true, cooldown: 60, guildOnly: false },
     run: async (bot, message, args) => {
   
       if (message.channel.type !== "dm") message.delete();

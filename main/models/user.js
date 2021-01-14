@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema({
 
   discordID: {
-    type: Number,
+    type: String,
     required: [true, "A Discord ID is required."]
   },
   token: {

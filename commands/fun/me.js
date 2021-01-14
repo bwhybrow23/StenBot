@@ -4,12 +4,10 @@ module.exports = {
     description: "Find out some of the information the bot knows about you.",
     usage: "[@USER]",
     example: "@Danny#7013",
-    permission: "EVERYONE",
-    enabled: true,
+    options: { permission: "EVERYONE", enabled: true, guildOnly: true },
     run: async (bot, message, args) => {
   
       const Discord = require("discord.js");
-      if (!message.guild) return;
   
       if (args[0] === "help") {
         return bot.helpEmbed("me", bot)

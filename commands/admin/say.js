@@ -4,11 +4,10 @@ module.exports = {
   description: "Get StenBot to say something",
   usage: "<MESSAGE>",
   example: "Hello World!",
-  permission: "ADMIN",
-  enabled: true,
+  options: { permission: "ADMIN", enabled: true, cooldown: 5, guildOnly: true },
   run: async (bot, message, args) => {
+
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     //Permission Check
     if (message.member.hasPermission("ADMINISTRATOR") == false) {

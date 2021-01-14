@@ -4,8 +4,7 @@ module.exports = {
     description: "Claim your daily reward every 24 hours.",
     usage: "",
     example: "",
-    permission: "EVERYONE",
-    enabled: true,
+    options: { permission: "EVERYONE", enabled: true, cooldown: 60, guildOnly: false },
     run: async (bot, message, args) => {
   
       const Discord = require("discord.js");

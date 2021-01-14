@@ -4,12 +4,10 @@ module.exports = {
   description: "Unmute a user that has previously been muted by StenBot.",
   usage: "<@USER> [REASON]",
   example: "@Geoff#3010 Has shut up",
-  permission: "STAFF",
-  enabled: true,
+  options: { permission: "STAFF", enabled: true, guildOnly: true},
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     var config = await bot.mutils.getGuildById(message.guild.id);
 

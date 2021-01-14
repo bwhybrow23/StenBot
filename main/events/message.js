@@ -1,5 +1,6 @@
 module.exports = async (bot, message) => {
 
+    const Discord = require("discord.js");
     const fs = require("fs");
   
     //Link Blocker & Filter
@@ -51,7 +52,46 @@ module.exports = async (bot, message) => {
     let command = bot.commands.get(cmd);
     // if (!command) command = bot.commands.get(bot.aliases.get(cmd));
     if (!command) command = bot.commands.get(bot.aliases.get(cmd));
+
+    //Check if GuildOnly
+    if(command.options.guildOnly === true) {
+      if(!message.guild) return message.reply("This command can only be ran in a guild.");
+    }
+
+    //Pass author as guild if command is ran in DMs
+    if(message.channel.type === "dm") {
+      if(!message.guild) {
+        message.server = message.author;
+        message.server.name = message.author.username;
+      }
+    } else {
+      message.server = message.guild;
+    }
   
+    //Check Cooldown
+    if(command.options.cooldown) {
+    if (!bot.cooldowns.has(command.name)) {
+      bot.cooldowns.set(command.name, new Discord.Collection());
+    }
+    
+    const now = Date.now();
+    const timestamps = bot.cooldowns.get(command.name);
+    const cooldownAmount = (command.options.cooldown || 3) * 1000;
+
+    if (timestamps.has(message.author.id)) {
+      const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+    
+      if (now < expirationTime) {
+        const timeLeft = (expirationTime - now) / 1000;
+        return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+      }
+    }
+
+    timestamps.set(message.author.id, now);
+    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+
+  }
+
     if (command) {
       command.run(bot, message, args);
       logToStats(command);

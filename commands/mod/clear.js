@@ -4,12 +4,10 @@ module.exports = {
   description: "Clear a certain amount of messages from chat.",
   usage: "<VALUE>",
   example: "69",
-  permission: "STAFF",
-  enabled: true,
+  options: { permission: "STAFF", enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     var config = await bot.mutils.getGuildById(message.guild.id);
 

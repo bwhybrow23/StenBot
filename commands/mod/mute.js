@@ -4,12 +4,10 @@ module.exports = {
   description: "Mute a user to block them from sending messages.",
   usage: "<@USER> [REASON]",
   example: "@Lucy#5012 Spamming",
-  permission: "STAFF",
-  enabled: true,
+  options: { permission: "STAFF", enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     var config = await bot.mutils.getGuildById(message.guild.id);
 

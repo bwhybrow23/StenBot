@@ -4,13 +4,10 @@ module.exports = {
   description: "Creates a voice channel.",
   usage: "<NAME>",
   example: "General VC",
-  permission: "ADMIN",
-  aliases: ["vc"],
-  enabled: true,
+  options: { permission: "ADMIN", aliases: ["vc"], enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     //Config and Permission Check
     const config = await bot.mutils.getGuildById(message.guild.id);

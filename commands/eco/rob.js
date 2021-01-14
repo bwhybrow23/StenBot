@@ -4,8 +4,7 @@ module.exports = {
     description: "Attempt to rob a user of some of their money.",
     usage: "<@USER>",
     example: "@Melissa#1391",
-    permission: "EVERYONE",
-    enabled: false,
+    options: { permission: "EVERYONE", enabled: false, guildOnly: true },
     run: async (bot, message, args) => {
   
       const Discord = require("discord.js");

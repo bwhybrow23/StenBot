@@ -4,12 +4,10 @@ module.exports = {
   description: "Get an invite to a guild the bot is in.",
   usage: "<SERVER ID>",
   example: "712815477344305262",
-  permission: "BOT OWNER",
-  enabled: true,
+  options: { permission: "BOTOWNER", enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     //Permission Check
     if (message.author.id !== bot.settings.ids.botOwner) {

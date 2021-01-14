@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const bot = require("../../app.js");
+
+const Auth = require('../middleware/auth');
 
 const settings = require("../settings.json");
 const botdata = require("../../data/global/bot-data.json");
@@ -33,15 +36,35 @@ router.get('/api/info', (req, res) => {
     "hotel": "trivago",
     "theGame": "lost"
   }
-  res.status(200).send(info)
+  res.status(200).json(info)
 });
 
+//Statistics
 router.get("/api/stats", (req, res) => {
-  res.status(200).send(botdata.stats)
-})
+  res.status(200).json(botdata.stats)
+});
 
+//Dependencies
 router.get("/api/dependencies", (req, res) => {
-  res.status(200).send(packageJSON.dependencies);
+  res.status(200).json(packageJSON.dependencies);
+});
+
+//Test Token and Output
+router.get("/api/test", Auth.discord, (req, res) => {
+
+  var ip = req.headers['x-forwarded-for'] || 
+     req.connection.remoteAddress || 
+     req.socket.remoteAddress ||
+     (req.connection.socket ? req.connection.socket.remoteAddress : null);
+
+  res.status(200).json({
+    message: "Test completed successfully, please see data below and confirm it is valid.",
+    data: {
+      token: req.token,
+      discordID: req.discordID,
+      ip: ip
+    }
+  });
 })
 
 module.exports = router;

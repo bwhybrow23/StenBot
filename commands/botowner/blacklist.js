@@ -4,12 +4,10 @@ module.exports = {
     description: "Blacklist a server or user from using StenBot.",
     usage: "<SERVER|USER> <SERVER ID|@USER> <REASON>",
     example: "user @Dave#1230 Abuse",
-    permission: "BOT OWNER",
-    enabled: true,
+    options: { permission: "BOTOWNER", enabled: true, guildOnly: true },
     run: async (bot, message, args) => {
   
       const Discord = require("discord.js");
-      if (!message.guild) return;
   
       //Permission Check
       if (message.author.id !== bot.settings.ids.botOwner) {

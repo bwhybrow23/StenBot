@@ -146,10 +146,10 @@ const colours = {
       } else if (cmd.example == "") {
         example = `\`${prefix}${cmd.name}\``
       }
-      if (!cmd.aliases) {
+      if (!cmd.options.aliases) {
         aliases = "None"
       } else {
-        aliases = cmd.aliases.join(", ");
+        aliases = cmd.options.aliases.join(", ");
       }
   
   

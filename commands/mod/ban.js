@@ -4,12 +4,10 @@ module.exports = {
   description: "Permanently ban a user from the server.",
   usage: "<@USER> [REASON]",
   example: "@Ash#2307 Bullying",
-  permission: "STAFF",
-  enabled: true,
+  options: { permission: "STAFF", enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     var config = await bot.mutils.getGuildById(message.guild.id);
 

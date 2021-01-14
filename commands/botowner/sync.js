@@ -4,12 +4,10 @@ module.exports = {
   description: "Checks all servers for configs and creates if they don't work. (For if the bot is offline when it's added to a guild).",
   usage: "",
   example: "",
-  permission: "BOT OWNER",
-  enabled: true,
+  options: { permission: "BOTOWNER", enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     //Permission Check
     if (message.author.id !== bot.settings.ids.botOwner) {

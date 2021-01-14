@@ -4,13 +4,11 @@ module.exports = {
   description: "Give some money to another user.",
   usage: "<@USER> <VALUE>",
   example: "@Steve#6942 100",
-  permission: "EVERYONE",
-  enabled: true,
+  options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
     const ecoUtils = require("../../main/functions/ecoUtils");
-    if (!message.guild) return;
 
     let toBePaid = await ecoUtils.getUser(message.mentions.users.first().id);
     let payee = await ecoUtils.getUser(message.author.id);

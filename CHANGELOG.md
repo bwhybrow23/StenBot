@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.7.0 - 14/01/2021
+* Added cooldowns to commands
+* Added an options object to each command export to summarise a few values
+* Added the guildOnly option to command exports
+* Added support for passing message.author as a "guild" variable if a command is ran in DMs
+* Reverted about.js to traditional Discord embed, added credit section and changed the "Why StenBot was Created" text
+* Implemented some API endpoints - /api/guilds, /api/guild/:id, /api/test
+* Fully completed the API middleware to check against Discord
+
 ## 1.6.11 - 10/01/2021
 * Some more cleaning up
 * Fixed some permissions

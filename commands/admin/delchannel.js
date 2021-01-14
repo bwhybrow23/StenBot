@@ -4,13 +4,10 @@ module.exports = {
   description: "Removes the mentioned channel.",
   usage: "<#CHANNEL>",
   example: "#general",
-  permission: "ADMIN",
-  aliases: ["dchannel"],
-  enabled: true,
+  options: { permission: "ADMIN", aliases: ["dchannel"], enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
     var c = message.mentions.channels.first();
 
     //Permission, Args and Config Check

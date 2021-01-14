@@ -4,12 +4,10 @@ module.exports = {
   description: "Run JavaScript code from within the bot",
   usage: "<CODE>",
   example: "message.channel.send(\"Hello World!\")",
-  permission: "BOT OWNER",
-  enabled: true,
+  options: { permission: "BOTOWNER", enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     //Permission Check
     if (message.author.id !== bot.settings.ids.botOwner) {

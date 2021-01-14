@@ -4,8 +4,7 @@ module.exports = {
     description: "Adjust a user's economy balance.",
     usage: "<ADD | SUBTRACT | SET> <@USER> <VALUE>",
     example: "set @Steve#1234 69000",
-    permission: "BOT OWNER",
-    enabled: true,
+    options: { permission: "BOTOWNER", enabled: true, guildOnly: true },
     run: async (bot, message, args) => {
   
       const Discord = require("discord.js");

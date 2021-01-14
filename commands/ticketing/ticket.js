@@ -4,13 +4,10 @@ module.exports = {
   description: "Create a ticket (if enabled)",
   usage: "<REASON>",
   example: "I need help!",
-  permission: "EVERYONE",
-  aliases: ["t"],
-  enabled: true,
+  options: { permission: "EVERYONE", aliases: ["t"], enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     const config = await bot.mutils.getGuildById(message.guild.id);
 

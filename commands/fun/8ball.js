@@ -4,8 +4,7 @@ module.exports = {
   description: "Ask a question to the magic ball and it will answer.",
   usage: "<QUESTION>",
   example: "Will I ever stop losing the game?",
-  permission: "EVERYONE",
-  enabled: true,
+  options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: false },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
@@ -30,7 +29,7 @@ module.exports = {
       .addField("Question", question)
       .addField("Answer", result.response)
       .setImage(result.url)
-      .setFooter(`${message.guild.name}`, `https://i.imgur.com/BkZY6H8.png`);
+      .setFooter(`${message.server.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
     message.channel.send("The 8ball is working it's magic! :tada:").then((m) => {
         setTimeout(() => {

@@ -1,26 +1,23 @@
-const {
-  readdirSync,
-  writeFileSync
-} = require("fs");
+const fs = require("fs");
 const ascii = require("ascii-table");
 const table = new ascii().setHeading("Command", "Load status");
 
 const botData = require("../../data/global/bot-data.json");
 
 module.exports = (client) => {
-  readdirSync("./commands/").forEach((dir) => {
-    const commands = readdirSync(`./commands/${dir}/`).filter((f) =>
+  fs.readdirSync("./commands/").forEach((dir) => {
+    const commands = fs.readdirSync(`./commands/${dir}/`).filter((f) =>
       f.endsWith(".js")
     );
 
     for (let file of commands) {
       let pull = require(`../../commands/${dir}/${file}`);
 
-      if (pull.enabled === false) return;
+      if (pull.options.enabled === false) return;
 
       if (!botData.stats.commands[pull.category][pull.name]) {
         botData.stats.commands[pull.category][pull.name] = 0;
-        writeFileSync("./data/global/bot-data.json", JSON.stringify(botData, null, 4));
+        fs.writeFileSync("./data/global/bot-data.json", JSON.stringify(botData, null, 4));
       }
 
       if (pull.name) {
@@ -34,8 +31,8 @@ module.exports = (client) => {
           continue;
         }
 
-        if (pull.aliases && Array.isArray(pull.aliases)) {
-          pull.aliases.forEach((alias) => client.aliases.set(alias, pull.name));
+        if (pull.options.aliases && Array.isArray(pull.options.aliases)) {
+          pull.options.aliases.forEach((alias) => client.aliases.set(alias, pull.name));
         }
       }
     }

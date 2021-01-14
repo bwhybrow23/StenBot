@@ -4,9 +4,7 @@ module.exports = {
   description: "Ping a Minecraft Server to find out more information about it.",
   usage: "<SERVER IP>[:PORT]",
   example: "play.hypixel.net",
-  permission: "EVERYONE",
-  aliases: ["mc"],
-  enabled: true,
+  options: { permission: "EVERYONE", aliases: ["mc"], enabled: true, cooldown: 15, guildOnly: false },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
@@ -27,7 +25,7 @@ module.exports = {
     let request = await fetch.get(args[1] ? url + `&port=${port}` : url + ip);
     let res = request.body;
     if (res.status === "error" && res.error === "server timeout") {
-      bot.createEmbed("error", "", `Error! The status couldn't be fetched, perhaps an invalid IP or Port.`, [], `${message.guild.name}`, bot)
+      bot.createEmbed("error", "", `Error! The status couldn't be fetched, perhaps an invalid IP or Port.`, [], `${message.server.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -62,7 +60,7 @@ module.exports = {
         }, {
           name: `MOTD`,
           value: `${motd}`
-        }, ], `${message.guild.name}`, bot)
+        }, ], `${message.server.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -74,7 +72,7 @@ module.exports = {
         }, {
           name: `Status`,
           value: `Offline`
-        }, ], `${message.guild.name}`, bot)
+        }, ], `${message.server.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }

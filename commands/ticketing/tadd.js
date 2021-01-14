@@ -4,12 +4,10 @@ module.exports = {
   description: "Add a user to an ongoing ticket.",
   usage: "<@USER>",
   example: "@Lana#1505",
-  permission: "STAFF",
-  enabled: true,
+  options: { permission: "EVERYONE", enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     const config = await bot.mutils.getGuildById(message.guild.id);
 

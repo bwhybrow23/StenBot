@@ -4,8 +4,7 @@ module.exports = {
     description: "Search for a specific GIF",
     usage: "<QUERY>",
     example: "monkeys",
-    permission: "EVERYONE",
-    enabled: true,
+    options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: false },
     run: async (bot, message, args) => {
   
       let Discord = require("discord.js");

@@ -4,12 +4,10 @@ module.exports = {
   description: "Gain a list of all the guilds the bot is in.",
   usage: "",
   example: "",
-  permission: "BOT OWNER",
-  enabled: true,
+  options: { permission: "BOTOWNER", enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     //Permission Check
     if (message.author.id !== bot.settings.ids.botOwner) {

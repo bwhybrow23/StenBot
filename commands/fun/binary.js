@@ -4,8 +4,7 @@ module.exports = {
   description: "Convert text into binary.",
   usage: "<MESSAGE>",
   example: "Hello There",
-  permission: "EVERYONE",
-  enabled: true,
+  options: { permission: "EVERYONE", enabled: true, guildOnly: false },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
@@ -27,7 +26,7 @@ module.exports = {
       }, {
         name: "Binary",
         value: `${output}`
-      }, ], `${message.guild.name}`, bot)
+      }, ], `${message.server.name}`, bot)
       .then((embed) => message.channel.send(embed))
       .catch((error) => bot.log.post("error", error));
   },

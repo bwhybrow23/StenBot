@@ -4,13 +4,10 @@ module.exports = {
   description: "Clear a certain number of messages from a specific user.",
   usage: "<@USER> <VALUE>",
   example: "@Haydn#3329 50",
-  permission: "STAFF",
-  aliases: ["cuser"],
-  enabled: true,
+  options: { permission: "STAFF", aliases: ["cuser"], enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     var config = await bot.mutils.getGuildById(message.guild.id);
 

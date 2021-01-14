@@ -4,12 +4,10 @@ module.exports = {
   description: "Information on how to invite the bot to your Discord server.",
   usage: "",
   example: "",
-  permission: "EVERYONE",
-  enabled: true,
+  options: { permission: "EVERYONE", enabled: true, guildOnly: false },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
 
     let bicon = bot.user.avatarURL;
 
@@ -23,7 +21,7 @@ module.exports = {
       .addField("Support Server", "https://discord.benwhybrow.com")
       .addField("Donation Link", "https://paypal.me/benwhybrow")
       .setThumbnail(bicon)
-      .setFooter(`${message.guild.name}`, `https://i.imgur.com/BkZY6H8.png`);
+      .setFooter(`${message.server.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
     message.channel.send(inviteEmbed);
   },

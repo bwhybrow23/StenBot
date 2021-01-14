@@ -4,13 +4,10 @@ module.exports = {
     description: "Reset all config variables for your server.",
     usage: "",
     example: "",
-    permission: "ADMIN",
-    aliases: ["c-reset"],
-    enabled: true,
+    options: { permission: "ADMIN", aliases: ["c-reset"], enabled: true, guildOnly: true },
     run: async (bot, message, args) => {
   
       const Discord = require("discord.js");
-      if (!message.guild) return;
   
       if (message.member.hasPermission("ADMINISTRATOR") === false) {
         return bot.noPermsEmbed(`${message.guild.name}`, bot)

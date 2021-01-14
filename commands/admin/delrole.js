@@ -4,13 +4,10 @@ module.exports = {
   description: "Removes the mentioned role.",
   usage: "<@ROLE>",
   example: "@Members",
-  permission: "ADMIN",
-  aliases: ["drole"],
-  enabled: true,
+  options: { permission: "ADMIN", aliases: ["drole"], enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    if (!message.guild) return;
     var r = message.mentions.roles.first();
 
     //Help Embed
