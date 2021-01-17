@@ -38,6 +38,9 @@ module.exports = async (bot, guild) => {
     welcomer_enabled: false,
     welcomer_channel: "0",
     welcomer_message: "Welcome {user} to {server}!",
+    leave_enabled: false,
+    leave_channel: "0",
+    leave_message: "Goodbye {user} from {server}!",
     userjoin_enabled: false,
     userjoin_role: "0",
     userjoin_nickname: "None",
@@ -59,6 +62,7 @@ module.exports = async (bot, guild) => {
   //Update bot-data.json
   let botdata = require("../../data/global/bot-data.json");
   botdata.stats.totalGuilds = bot.guilds.cache.size;
+  botdata.stats.totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
   fs.writeFileSync(`./data/global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => {
     if (err) return bot.log.post("error", err);
   });

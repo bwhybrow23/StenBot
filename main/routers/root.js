@@ -41,6 +41,8 @@ router.get('/api/info', (req, res) => {
 
 //Statistics
 router.get("/api/stats", (req, res) => {
+  botdata.stats.totalGuilds = bot.guilds.cache.size;
+  botdata.stats.totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
   res.status(200).json(botdata.stats)
 });
 

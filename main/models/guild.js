@@ -31,6 +31,16 @@ const guildSchema = new mongoose.Schema({
   welcomer_message: {
     type: String,
   },
+  leave_enabled: {
+    type: Boolean,
+    required: true
+  },
+  leave_channel: {
+    type: String,
+  },
+  leave_message: {
+    type: String,
+  },
   userjoin_enabled: {
     type: Boolean,
     required: true

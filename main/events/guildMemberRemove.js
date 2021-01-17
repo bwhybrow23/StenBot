@@ -4,6 +4,60 @@ module.exports = async (bot, member) => {
 
   if (newMember.user === bot.user) return;
 
+  //Update bot-data.json
+  let botdata = require("../../data/global/bot-data.json");
+  botdata.stats.totalGuilds = bot.guilds.cache.size;
+  botdata.stats.totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
+  fs.writeFileSync(`./data/global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => {
+    if (err) return bot.log.post("error", err);
+  });
+
+  //Leave Module
+    //Check if leave is enabled
+    if (config.leave_enabled == true) {
+      //Check if there is a channel set
+      if (config.leave_channel != 0) {
+        //Check if channel is valid
+        let leavechannel = bot.channels.cache.get(config.leave_channel);
+        if (leavechannel != undefined) {
+          //Check if the bot has perms to welcome
+          let botasmember = member.guild.members.cache.get(bot.user.id);
+          if (
+            botasmember.permissionsIn(member.guild.channels.cache.get("" + config.leave_channel + "")).has("SEND_MESSAGES") == true
+          ) {
+            //Get the current time
+            const date = new Date();
+            //Convert to a readable format
+            const dFormatter = new Intl.DateTimeFormat("en", {
+              dateStyle: "medium"
+            });
+            const tFormatter = new Intl.DateTimeFormat("en", {
+              timeStyle: "medium"
+            });
+            //Fill in place holders
+            let themsg = format(config.leave_channel, {
+              user: member.user.tag,
+              usermention: member.user,
+              username: member.user.name,
+              usertag: member.user.discriminator,
+              server: member.guild.name,
+              date: dFormatter.format(date),
+              time: tFormatter.format(date),
+              posInMemberCount: member.guild.memberCount,
+              posInUserCount: member.guild.members.cache.filter(member => !member.user.bot).size
+            });
+  
+            let leaveEmbed = new Discord.MessageEmbed()
+              .setColor(bot.settings.color.yellow)
+              .setDescription(themsg);
+  
+            //Send the message.
+            bot.channels.cache.get(config.leave_channel).send(leaveEmbed);
+          }
+        }
+      }
+    }
+
   let config = await bot.mutils.getGuildById(member.guild.id);
 
   if (config.logging_enabled == true) {

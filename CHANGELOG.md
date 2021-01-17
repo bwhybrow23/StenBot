@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.7.1 - 17/01/2021
+* Update total users upon joining a new guild
+* Fetch totalGuilds and totalUsers when visiting the /api/stats page
+* Added leave messages and the config options for them - sb!config-leave
+
 ## 1.7.0 - 14/01/2021
 * Added cooldowns to commands
 * Added an options object to each command export to summarise a few values

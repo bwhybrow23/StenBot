@@ -26,6 +26,13 @@ module.exports = {
     if (welcomerchannel == 0) {
       var welcomerchannel = "Not Set";
     } else {
+      var welcomerchannel = welcomerchannel;
+    }
+    //Leave Channel? Default = undefined
+    var leavechannel = serverconfigfile.leave_channel;
+    if (leavechannel == 0) {
+      var welcomerchannel = "Not Set";
+    } else {
       var welcomerchannel = `<#${welcomerchannel}>`;
     }
     //User on-join role default 0
@@ -86,10 +93,12 @@ module.exports = {
     }
 
     //Check if they have required permissions
-    if (adminperm === true || ownersid == message.author.id) {
       return bot.createEmbed("warning", `${servertag} Configuration`, `Your Configuration`, [{
           name: "Welcomer",
           value: `Enabled: **${serverconfigfile.welcomer_enabled ? "Yes" : "No"} **\nWelcomer Channel: **${welcomerchannel}**\nWelcomer Message: **${serverconfigfile.welcomer_message}**`,
+        }, {
+          name: "Leave",
+          value: `Enabled: **${serverconfigfile.leave_enabled ? "Yes" : "No"} **\nLeave Channel: **${leavechannel}**\nLeave Message: **${serverconfigfile.leave_message}**`,
         }, {
           name: "User Join",
           value: `Enabled: **${serverconfigfile.userjoin_enabled ? "Yes" : "No"}**\nAdd Role: **${userjoinrole}**\nSet Nick: **${userjoinnick}**`,
@@ -105,10 +114,5 @@ module.exports = {
         }, ], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
-    } else {
-      return bot.noPermsEmbed(`${message.guild.name}`, bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
   },
 };

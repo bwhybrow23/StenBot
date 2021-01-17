@@ -5,6 +5,14 @@ module.exports = async (bot, member) => {
     const efunctions = require("../functions/eventUtils.js");
   
     if (newMember.user === bot.user) return;
+
+    //Update bot-data.json
+    let botdata = require("../../data/global/bot-data.json");
+    botdata.stats.totalGuilds = bot.guilds.cache.size;
+    botdata.stats.totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
+    fs.writeFileSync(`./data/global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => {
+      if (err) return bot.log.post("error", err);
+     });
   
     //Welcomer
     //Check if welcomer is enabled
