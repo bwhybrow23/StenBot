@@ -1,4 +1,5 @@
 module.exports = async (bot, guild) => {
+
   const Discord = require("discord.js");
   const fs = require("fs");
 
@@ -13,14 +14,18 @@ module.exports = async (bot, guild) => {
 
   //Leave the guild if its blacklisted
   if (serverstats != undefined) {
-    if (serverstats.blacklisted === true) {
+    if (serverstats.info.blacklisted === true) {
       bot.createEmbed("error", "", `I'm afraid that StenBot cannot join your server **${guild.name}** as your server is blacklisted from the bot. If you believe this is an error, please contact **Stentorian#9524** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${guild.name}`, bot)
         .then(embed => guild.owner.send(embed))
         .catch(error => console.error(error))
       guild.leave();
-      bot.log.post("info", `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
+      return bot.log.post("info", `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
     } else {
-      return;
+      bot.createEmbed("error", "", `I'm afraid that StenBot cannot join your server **${guild.name}** as it failed to create the configuration for the server. Please try again and if this issue persists, please join the **[Discord](https://discord.benwhybrow.com)** and gain help.`, [], `${guild.name}`, bot)
+        .then(embed => guild.owner.send(embed))
+        .catch(error => console.error(error))
+      guild.leave();
+      return bot.log.post("error", `Left guild: ${guild.name} | ${guild.id} because there was an error creating the server's config!`);
     }
   }
   bot.log.post("info", `Joined guild ${guild.name} | ${guild.id}`);
@@ -31,33 +36,41 @@ module.exports = async (bot, guild) => {
    * 
    */
   await bot.mutils.createGuild({
-    guild_id: guild.id,
-    guild_name: guild.name,
-    guild_owner_id: guild.ownerID,
-    blacklisted: false,
-    welcomer_enabled: false,
-    welcomer_channel: "0",
-    welcomer_message: "Welcome {user} to {server}!",
-    leave_enabled: false,
-    leave_channel: "0",
-    leave_message: "Goodbye {user} from {server}!",
-    userjoin_enabled: false,
-    userjoin_role: "0",
-    userjoin_nickname: "None",
-    staff_role: "0",
-    staff_admin: false,
-    staff_linkblock: false,
-    staff_filter: [],
-    staff_autoban: "",
-    logging_enabled: false,
-    logging_channel: "0",
-    logging_level: "medium",
-    logging_ignore: [],
-    tickets_enabled: false,
-    tickets_message: "None",
-    music_enabled: false,
-    levelling_enabled: false
-  });
+    info: {
+      id: guild.id,
+      name: guild.name,
+      owner_id: guild.ownerID,
+      blacklisted: false
+    },
+    gatekeeper: {
+      welcome_enabled: false,
+      welcome_channel: "0",
+      welcome_message: "Welcome {user} to {server}",
+      leave_enabled: false,
+      leave_channel: "0",
+      leave_message: "Goodbye {user} from {server}"
+    },
+    userjoin: {
+      enabled: false,
+      role: "0",
+      nickname: "None"
+    },
+    moderation: {
+      staff_role: "0",
+      link_block: false,
+      filter: []
+    },
+    logging: {
+      enabled: false,
+      channel: "0",
+      level: "medium",
+      ignore: []
+    },
+    tickets: {
+      enabled: false,
+      message: "**User:** {user}\n**Reason:** {reason}"
+    }
+  })
 
   //Update bot-data.json
   let botdata = require("../../data/global/bot-data.json");

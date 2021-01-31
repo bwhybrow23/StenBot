@@ -14,16 +14,16 @@ module.exports = async (bot, member) => {
 
   //Leave Module
     //Check if leave is enabled
-    if (config.leave_enabled == true) {
+    if (config.gatekeeper.leave_enabled == true) {
       //Check if there is a channel set
-      if (config.leave_channel != 0) {
+      if (config.gatekeeper.leave_channel != 0) {
         //Check if channel is valid
-        let leavechannel = bot.channels.cache.get(config.leave_channel);
+        let leavechannel = bot.channels.cache.get(config.gatekeeper.leave_channel);
         if (leavechannel != undefined) {
           //Check if the bot has perms to welcome
           let botasmember = member.guild.members.cache.get(bot.user.id);
           if (
-            botasmember.permissionsIn(member.guild.channels.cache.get("" + config.leave_channel + "")).has("SEND_MESSAGES") == true
+            botasmember.permissionsIn(member.guild.channels.cache.get("" + config.gatekeeper.leave_channel + "")).has("SEND_MESSAGES") == true
           ) {
             //Get the current time
             const date = new Date();
@@ -35,7 +35,7 @@ module.exports = async (bot, member) => {
               timeStyle: "medium"
             });
             //Fill in place holders
-            let themsg = format(config.leave_channel, {
+            let themsg = format(config.gatekeeper.leave_channel, {
               user: member.user.tag,
               usermention: member.user,
               username: member.user.name,
@@ -43,8 +43,8 @@ module.exports = async (bot, member) => {
               server: member.guild.name,
               date: dFormatter.format(date),
               time: tFormatter.format(date),
-              posInMemberCount: member.guild.memberCount,
-              posInUserCount: member.guild.members.cache.filter(member => !member.user.bot).size
+              memberCount: member.guild.memberCount,
+              userCount: member.guild.members.cache.filter(member => !member.user.bot).size
             });
   
             let leaveEmbed = new Discord.MessageEmbed()
@@ -52,7 +52,7 @@ module.exports = async (bot, member) => {
               .setDescription(themsg);
   
             //Send the message.
-            bot.channels.cache.get(config.leave_channel).send(leaveEmbed);
+            bot.channels.cache.get(config.gatekeeper.leave_channel).send(leaveEmbed);
           }
         }
       }
@@ -60,10 +60,10 @@ module.exports = async (bot, member) => {
 
   let config = await bot.mutils.getGuildById(member.guild.id);
 
-  if (config.logging_enabled == true) {
-    if (config.logging_level == "low" || config.logging_level == "medium" || config.logging_level == "high") {
-      if (efunctions.checkChannel(config.logging_channel, bot)) {
-        let lchannel = bot.channels.cache.get(config.logging_channel);
+  if (config.logging.enabled === true) {
+    if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
+      if (efunctions.checkChannel(config.logging.channel, bot)) {
+        let lchannel = bot.channels.cache.get(config.logging.channel);
         bot.eventEmbed("c9c600", member.user, "Member Left", `**Name:** ${member.user.tag}\n**Id:** ${member.id}\n**Created At:** ${member.user.createdAt}`, [], `${lchannel.guild.name}`, bot)
           .then(embed => lchannel.send(embed))
           .catch(error => console.error(error))

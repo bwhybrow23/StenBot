@@ -18,8 +18,8 @@ module.exports = async (bot, message) => {
           }
         }
         //Check if it contains words from filter
-        if (config.staff_filter.some((word) => message.content.toLowerCase().includes(word))) {
-          if (message.member.hasPermission("ADMINISTRATOR") == true) return;
+        if (config.moderation.filter.some((word) => message.content.toLowerCase().includes(word))) {
+          if (message.member.hasPermission("ADMINISTRATOR") === true) return;
           message.delete();
           return;
         }
@@ -40,7 +40,7 @@ module.exports = async (bot, message) => {
     var bStatus;
     await bot.mutils.checkBlacklist(message.author.id).then((data) => {
       if (!data) return bStatus = "No";
-      if (data.blacklisted === true) bStatus = "Yes";
+      if (data.info.blacklisted === true) bStatus = "Yes";
     })
     if (bStatus === "Yes") return;
   
@@ -52,6 +52,7 @@ module.exports = async (bot, message) => {
     let command = bot.commands.get(cmd);
     // if (!command) command = bot.commands.get(bot.aliases.get(cmd));
     if (!command) command = bot.commands.get(bot.aliases.get(cmd));
+    if (!command) return;
 
     //Check if GuildOnly
     if(command.options.guildOnly === true) {

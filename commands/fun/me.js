@@ -14,10 +14,16 @@ module.exports = {
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
       }
-  
-      let member = await message.guild.members.fetch(message.author) || await message.guild.members.fetch(message.mentions.members.first().id);
-      let user = await (bot.users.fetch(message.author.id, true, true)) || await (bot.users.fetch(message.mentions.first().id, true, true));
-  
+
+      let member, user;
+      if(message.mentions.members.first()) {
+        member = await message.guild.members.fetch(message.mentions.members.first().id);
+        user = await (bot.users.fetch(message.mentions.members.first().id, true, true));
+      } else {
+        member = await message.guild.members.fetch(message.author);
+        user = await (bot.users.fetch(message.author.id, true, true));
+      }
+    
       if (user.bot === true) {
         bot = "Yes";
       } else {

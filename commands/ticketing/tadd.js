@@ -26,12 +26,12 @@ module.exports = {
     }
 
     //Check if tickets are enabled
-    if (!config.tickets_enabled) {
+    if (!config.tickets.enabled) {
       return errsend("Tickets are not enabled in the servers config.");
     }
 
     //Check if staff role is valid or set
-    if (config.staff_role) {
+    if (config.moderation.staff_role) {
       if (message.guild.roles.cache.get(config.staffrole == undefined)) {
         return errsend("The staff role set is no longer valid.");
       }

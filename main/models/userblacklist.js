@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 
 const userBlacklistSchema = new mongoose.Schema({
+
   user_id: {
     type: String,
     trim: true,
-    required: true,
-    unique: true
+    required: true
   },
   reason: {
     type: String,
@@ -15,6 +15,7 @@ const userBlacklistSchema = new mongoose.Schema({
     type: Boolean,
     required: true
   }
+  
 }, {
   timestamps: true
 });

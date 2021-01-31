@@ -23,32 +23,39 @@ module.exports = {
       if (!config) {
         //Create config
         await bot.mutils.createGuild({
-          guild_id: g.id,
-          guild_name: g.name,
-          guild_owner_id: g.ownerID,
-          blacklisted: false,
-          welcomer_enabled: false,
-          welcomer_channel: "0",
-          welcomer_message: "Welcome {user} to {server}!",
-          leave_enabled: false,
-          leave_channel: "0",
-          leave_message: "Goodbye {user} from {server}!",
-          userjoin_enabled: false,
-          userjoin_role: "0",
-          userjoin_nickname: "None",
-          staff_role: "0",
-          staff_admin: false,
-          staff_linkblock: false,
-          staff_filter: [],
-          staff_autoban: "",
-          logging_enabled: false,
-          logging_channel: "0",
-          logging_level: "medium",
-          logging_ignore: [],
-          tickets_enabled: false,
-          tickets_message: "None",
-          music_enabled: false,
-          levelling_enabled: false
+          info: {
+            id: g.id,
+            name: g.name,
+            owner_id: g.ownerID,
+            blacklisted: false
+          },
+          gatekeeper: {
+            welcome_enabled: false,
+            welcome_channel: "0",
+            welcome_message: "Welcome {user} to {server}",
+            leave_enabled: false,
+            leave_channel: "0",
+            leave_message: "Goodbye {user} from {server}"
+          },
+          userjoin: {
+            enabled: false,
+            role: "0",
+            nickname: "None"
+          },
+          moderation: {
+            staff_role: "0",
+            link_block: false,
+            filter: []
+          },
+          logging: {
+            enabled: false,
+            channel: "0",
+            level: "medium"
+          },
+          tickets: {
+            enabled: false,
+            message: "**User:** {user}\n**Reason:** {reason}"
+          }
         });
 
         bot.log.post("info", `Synced guild ${g.name} | ${g.id}`);

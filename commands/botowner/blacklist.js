@@ -45,7 +45,9 @@ module.exports = {
   
           //Blacklist server
           await bot.mutils.updateGuildById(targetserverfile, {
-            blacklisted: true
+            info: {
+              blacklisted: true
+            }
           }).then(async () => {
   
             //Black list success message

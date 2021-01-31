@@ -159,7 +159,7 @@ const colours = {
           title: `Command: ${name}`,
           // description: "Syntax: <> = required, [] = optional",
           color: colours.blue,
-          url: `https://sbdocs.benwhybrow.com/commands/${cmd.category}#${cmd.name}-command`,
+          url: `https://wiki.benwhybrow.com/commands/${cmd.name}`,
           footer: {
             icon_url: "https://i.imgur.com/BkZY6H8.png",
             text: `Help Command | Syntax: <> = required, [] = optional`,

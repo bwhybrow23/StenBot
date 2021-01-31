@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.0.0 - 01/02/2021
+* Completely rewritten per-server config format
+* Updated website copyright to 2021
+* Combine welcomer and leave module into gatekeeper
+* Updated mongoUtils for the per-server config update
+* Removed staff_admin config entry
+* Cleaned up app.js
+* Default ticket message is now store in guild config and not hard-coded
+* Changed config-staff to config-moderation
+* Got rob command working and finalized the initial economy move to Mongo
+* Me command actually works for mentioned users
+* Changed all areas to use the new Wiki site instead of the old Docs site
+
 ## 1.7.1 - 17/01/2021
 * Update total users upon joining a new guild
 * Fetch totalGuilds and totalUsers when visiting the /api/stats page

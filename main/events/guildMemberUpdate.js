@@ -7,11 +7,11 @@ module.exports = async (bot, oldMember, newMember) => {
   
     let config = await bot.mutils.getGuildById(newMember.guild.id);
   
-    if (config.logging_enabled == true) {
-      if (config.logging_level == "high") {
-        if (efunctions.checkChannel(config.logging_channel, bot) == true) {
+    if (config.logging.enabled === true) {
+      if (config.logging.level === "high") {
+        if (efunctions.checkChannel(config.logging.channel, bot) == true) {
   
-          let lchannel = bot.channels.cache.get(config.logging_channel);
+          let lchannel = bot.channels.cache.get(config.logging.channel);
   
           //Role Added
           if (oldMember.roles.cache.size < newMember.roles.cache.size) {

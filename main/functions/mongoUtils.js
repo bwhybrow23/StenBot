@@ -22,9 +22,9 @@ const createGuild = async (data) => {
   guild_name: "Example",
   guild_owner_id: "123456789",
   blacklisted: false,
-  welcomer_enabled: false,
-  welcomer_channel: "123456789",
-  welcomer_message: "Hello there",
+  welcome_enabled: false,
+  welcome_channel: "123456789",
+  welcome_message: "Hello there",
   userjoin_enabled: false,
   userjoin_role: "123456789",
   userjoin_nickname: "Joe",
@@ -56,9 +56,7 @@ const getAllGuilds = async () => {
 
 //Fetch guild by id
 const getGuildById = async (id) => {
-  const guild = await Guild.findOne({
-    guild_id: id
-  });
+  const guild = await Guild.findOne({"info.id": id})
   return guild;
   /*
   EXAMPLE
@@ -68,9 +66,7 @@ const getGuildById = async (id) => {
 
 //Fetch guild by name
 const getGuildByName = async (name) => {
-  const guild = await Guild.findOne({
-    guild_name: name
-  });
+  const guild = await Guild.findOne({"info.name": name})
   return guild;
   /*
   EXAMPLE
@@ -80,9 +76,7 @@ const getGuildByName = async (name) => {
 
 //Delete guild by id
 const deleteGuildById = async (id) => {
-  await Guild.findOneAndDelete({
-    guild_id: id
-  });
+  await Guild.findOneAndDelete({"info.id": id});
   /*
   EXAMPLE
   bot.mutils.deleteGuildById(123456789)
@@ -91,9 +85,7 @@ const deleteGuildById = async (id) => {
 
 //Delete guild by name
 const deleteGuildByName = async (name) => {
-  await Guild.findOneAndDelete({
-    guild_name: name
-  });
+  await Guild.findOneAndDelete({"info.name": name});
   /*
   EXAMPLE
   bot.mutils.deleteGuildByName("Example")

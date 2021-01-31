@@ -75,9 +75,9 @@ module.exports = {
         .catch((error) => bot.log.post("error", error));
       //Logging
       const efunctions = require('../../main/functions/eventUtils.js');
-      if (config.logging_enabled == true) {
-        if (efunctions.checkChannel(config.logging_channel, bot) == true) {
-          let lchannel = bot.channels.cache.get(config.logging_channel);
+      if (config.logging.enabled === true) {
+        if (efunctions.checkChannel(config.logging.channel, bot) == true) {
+          let lchannel = bot.channels.cache.get(config.logging.channel);
           bot.eventEmbed("c70011", targetuser.user, "Member Temporarily Muted", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n**Mute Date:** ${new Date()}\n**Muted By:** ${message.author.tag}\n\n**Reason:** ${reason}\n**Duration:** ${args[1]}`, [], `${message.guild.name}`, bot)
             .then(embed => lchannel.send(embed))
             .catch(error => console.error(error))

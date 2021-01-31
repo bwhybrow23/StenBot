@@ -36,22 +36,22 @@ module.exports = {
     }
 
     //Check if tickets are enabled
-    if (!config.tickets_enabled) {
+    if (!config.tickets.enabled) {
       return errsend("Tickets are not enabled in the servers config.");
     }
 
-    if (config.staff_role == false) {
-      return bot.createEmbed("error", "", `Error! A staff role has not been set. An owner or admin can set one using \`sb!config-staff role <@ROLE>\``, [], `${message.guild.name}`, bot)
+    if (config.moderation.staff_role === "0") {
+      return bot.createEmbed("error", "", `Error! A staff role has not been set. An owner or admin can set one using \`sb!config-moderation role <@ROLE>\``, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     let staffrole = message.guild.roles.cache.find(
-      (r) => r.id === config.staff_role
+      (r) => r.id === config.moderation.staff_role
     );
 
     if (staffrole == undefined) {
-      return bot.createEmbed("error", "", `Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`sb!config-staff role <@ROLE>\``, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`sb!config-moderation role <@ROLE>\``, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -76,7 +76,7 @@ module.exports = {
             })
             .then((channel) => {
               channel.setParent(element.id);
-              channel.setTopic("Ticket");
+              channel.setTopic(`${message.author.tag}'s Ticket`);
 
               //Channel permissions
               channel.createOverwrite(message.guild.roles.everyone.id, {
@@ -84,7 +84,7 @@ module.exports = {
                 VIEW_CHANNEL: false
               });
               channel.createOverwrite(
-                message.guild.roles.cache.get(config.staff_role), {
+                message.guild.roles.cache.get(config.moderation.staff_role), {
                   SEND_MESSAGES: true,
                   VIEW_CHANNEL: true,
                   MANAGE_MESSAGES: true
@@ -97,25 +97,27 @@ module.exports = {
 
               //Fill in the placeholders <3
               var tMessage = [];
-              if (config.tickets_message == "None") {
+              // if (config.tickets_message == "None") {
+              //   tMessage.push(
+              //     `**User:** ${message.author.tag}\n**Reason:** ${reason}`
+              //   );
+              // } else {
                 tMessage.push(
-                  `**User:** ${message.author.tag}\n**Reason:** ${reason}`
-                );
-              } else {
-                tMessage.push(
-                  format(config.tickets_message, {
+                  format(config.tickets.message, {
                     user: message.author.tag,
                     reason: reason,
                   })
                 );
-              }
+              // }
 
               channel.send({
                 embed: {
                   color: bot.settings.color.yellow,
                   description: `**New Ticket:**\n${tMessage[0]}`,
                 },
+                content: `<@&${config.moderation.staff_role}>`
               });
+
               message.channel.send({
                 embed: {
                   color: bot.settings.color.green,
@@ -126,9 +128,9 @@ module.exports = {
               //Check if logging enabled
               const eventFunctions = require(`../../main/functions/eventUtils.js`);
 
-              if (config.logging_enabled) {
-                if (eventFunctions.checkChannel(config.logging_channel, bot)) {
-                  message.guild.channels.cache.get(config.logging_channel).send({
+              if (config.logging.enabled) {
+                if (eventFunctions.checkChannel(config.logging.channel, bot)) {
+                  message.guild.channels.cache.get(config.logging.channel).send({
                     embed: {
                       color: bot.settings.color.yellow,
                       description: `**Ticket Created**\n**Created By:** ${message.author.tag}\n**Channel:** ${channel.name}\n**Id:** ${channel.id}\n\n**Reason:** ${reason}`,

@@ -9,6 +9,7 @@ module.exports = {
 
     const Discord = require("discord.js");
     const fs = require("fs");
+    const packageJSON = require("../../package.json");
 
     //Permission Check
     if (message.author.id !== bot.settings.ids.botOwner) {
@@ -49,7 +50,7 @@ module.exports = {
             status: 'online'
           });
           //Console Log
-          bot.log.post("info", `StenBot has been converted to Production Mode. Running version: ${bot.packageJSON.version} | Changed at ${date}`);
+          bot.log.post("info", `StenBot has been converted to Production Mode. Running version: ${packageJSON.version} | Changed at ${date}`);
           //Reply Message
           bot.createEmbed("success", "", `Bot Mode has been Sucessfully Updated to **Production**.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))

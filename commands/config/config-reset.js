@@ -30,28 +30,40 @@ module.exports = {
             if (collected.first().emoji.name == '✅') {
   
               bot.mutils.updateGuildById(message.guild.id, {
-                guild_id: message.guild.id,
-                guild_name: message.guild.name,
-                guild_owner_id: message.guild.owner.id,
-                blacklisted: false,
-                welcomer_enabled: false,
-                welcomer_channel: "0",
-                welcomer_message: "Welcome {user} to {server}!",
-                userjoin_enabled: false,
-                userjoin_role: "0",
-                userjoin_nickname: "None",
-                staff_role: "0",
-                staff_admin: false,
-                staff_linkblock: false,
-                staff_filter: [],
-                staff_autoban: "",
-                logging_enabled: false,
-                logging_channel: "0",
-                logging_level: "medium",
-                tickets_enabled: false,
-                tickets_message: "None",
-                music_enabled: false,
-                levelling_enabled: false
+                info: {
+                  id: guild.id,
+                  name: guild.name,
+                  owner_id: guild.ownerID,
+                  blacklisted: false
+                },
+                gatekeeper: {
+                  welcome_enabled: false,
+                  welcome_channel: "0",
+                  welcome_message: "Welcome {user} to {server}",
+                  leave_enabled: false,
+                  leave_channel: "0",
+                  leave_message: "Goodbye {user} from {server}"
+                },
+                userjoin: {
+                  enabled: false,
+                  roles: [],
+                  nickname: "None"
+                },
+                moderation: {
+                  staff_role: "0",
+                  link_block: false,
+                  filter: []
+                },
+                logging: {
+                  enabled: false,
+                  channel: "0",
+                  level: "medium",
+                  ignore: []
+                },
+                tickets: {
+                  enabled: false,
+                  message: "**User:** {user}\n**Reason:** {reason}"
+                }
               });
   
               bot.createEmbed("success", "", `Server Config has been reset.`, [], `${message.guild.name}`, bot)

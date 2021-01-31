@@ -25,19 +25,20 @@ module.exports = {
     }
 
     //Get the server config
-    const config = await bot.mutils.getGuildById(message.guild.id);
+    let config = await bot.mutils.getGuildById(message.guild.id);
 
     //settings library
     switch (setting) {
       case "enable":
-        if (config.tickets_enabled == true) {
+        
+        if (config.tickets.enabled === true) {
           return bot.createEmbed("error", "", `Error! Tickets are already enabled.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
-        bot.mutils.updateGuildById(message.guild.id, {
-          tickets_enabled: true
-        })
+
+        config.tickets.enabled = true;
+        bot.mutils.updateGuildById(message.guild.id, config);
 
         //Check for a category called tickets, if it does not exist create one
         function isCatTickets(element) {
@@ -62,14 +63,13 @@ module.exports = {
 
         break;
       case "disable":
-        if (config.ticketsenabled == false) {
+        if (config.tickets.enabled === false) {
           return bot.createEmbed("error", "", `Error! Tickets are already disabled.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
-        bot.mutils.updateGuildById(message.guild.id, {
-          tickets_enabled: false
-        })
+        config.tickets.enabled = false;
+        bot.mutils.updateGuildById(message.guild.id, config);
         //Find and delete tickets category
         message.guild.channels.cache.find(c => c.name == "Tickets" && c.type == "category").delete();
 
@@ -81,9 +81,8 @@ module.exports = {
         var tmessage = args.slice(1).join(" ");
 
         if (tmessage.length < 1 || tmessage === "None") {
-          bot.mutils.updateGuildById(message.guild.id, {
-            tickets_message: "None"
-          })
+          config.tickets.message = "**User:** ${user}\n**Reason:** ${reason}"
+          bot.mutils.updateGuildById(message.guild.id, config);
           return bot.createEmbed("success", "", `The ticket message has been reset.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
@@ -95,9 +94,8 @@ module.exports = {
             .catch((error) => bot.log.post("error", error));
         }
 
-        bot.mutils.updateGuildById(message.guild.id, {
-          tickets_message: tmessage
-        });
+        config.tickets.message = message;
+        bot.mutils.updateGuildById(message.guild.id, config);
         bot.createEmbed("success", "", `Ticket message set!`, [], `${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));

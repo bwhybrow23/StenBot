@@ -3,6 +3,7 @@ module.exports = (bot) => {
 
   //Mode Checker
   const fs = require("fs");
+  const packageJSON = require("../../package.json");
 
   //Update bot-data.json
   let botdata = require("../../data/global/bot-data.json");
@@ -49,13 +50,13 @@ module.exports = (bot) => {
         name: `with ${totalUsers} users!`,
         type: `PLAYING`
       }, {
-        name: `sbdocs.benwhybrow.com`,
+        name: `wiki.benwhybrow.com`,
         type: 'PLAYING'
       }, {
         name: `sb!invite`,
         type: 'WATCHING'
       }, {
-        name: `on Version ${bot.packageJSON.version}`,
+        name: `on Version ${packageJSON.version}`,
         type: 'PLAYING'
       }];
 

@@ -10,10 +10,10 @@ module.exports = async (bot, message) => {
 
   let config = await bot.mutils.getGuildById(message.guild.id);
 
-  if (config.logging_enabled == true) {
-    if (config.logging_ignore.includes(message.channel.id)) return;
-    if (config.logging_level == "low" || config.logging_level == "medium" || config.logging_level == "high") {
-      if (efunctions.checkChannel(config.logging_channel, bot) == true) {
+  if (config.logging.enabled === true) {
+    if (config.logging.ignore.includes(message.channel.id)) return;
+    if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
+      if (efunctions.checkChannel(config.logging.channel, bot) == true) {
         if (message.author.bot) return;
         let files = await readdir("./commands/");
         possiblefilename =
@@ -21,7 +21,7 @@ module.exports = async (bot, message) => {
           ".js";
         if (files.includes(possiblefilename)) return;
 
-        let lchannel = bot.channels.cache.get(config.logging_channel);
+        let lchannel = bot.channels.cache.get(config.logging.channel);
         bot.eventEmbed("c70011", message.author, "Message Deleted", `**Channel:** ${message.channel}\n**Message:**\n${message}`, [], `${lchannel.guild.name}`, bot)
           .then(embed => lchannel.send(embed))
           .catch(error => console.error(error))

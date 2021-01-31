@@ -31,13 +31,15 @@ module.exports = {
       //settings library
       switch (setting) {
         case "enable":
-          if (config.leave_enabled) {
+          if (config.gatekeeper.leave_enabled) {
             return bot.createEmbed("error", "", `Error! Leave is already enabled!`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
           }
           bot.mutils.updateGuildById(message.guild.id, {
-            leave_enabled: true
+            gatekeeper: {
+              leave_enabled: true
+            }
           })
           bot.createEmbed("success", "", `Leave has been enabled.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
@@ -46,13 +48,15 @@ module.exports = {
           break;
   
         case "disable":
-          if (!config.leave_enabled) {
+          if (!config.gatekeeper.leave_enabled) {
             return bot.createEmbed("error", "", `Error! Leave is already disabled!`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
           }
           bot.mutils.updateGuildById(message.guild.id, {
-            leave_enabled: false
+            gatekeeper: {
+              leave_enabled: false
+            }
           })
           bot.createEmbed("success", "", `Leave has been disabled.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
@@ -65,14 +69,16 @@ module.exports = {
         var targetchannel = message.mentions.channels.first();
           if (!args[1] || args[1] === "None") {
             bot.mutils.updateGuildById(message.guild.id, {
+              gatekeeper: {
                 leave_channel: "0"
+              }
             })
             return bot.createEmbed("success", "", `The leave channel has been reset.`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
           }
   
-          if (targetchannel.id == config.leave_channel) {
+          if (targetchannel.id == config.gatekeeper.leave_channel) {
             return bot.createEmbed("error", "", `Error! That channel is already set as the leave channel!`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
@@ -104,7 +110,7 @@ module.exports = {
               .catch((error) => bot.log.post("error", error));
           }
   
-          if (setmessage == config.leave_message) {
+          if (setmessage == config.gatekeeper.leave_message) {
             return bot.createEmbed("error", "", `Error! Your message is the same as the current one!`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
@@ -125,19 +131,19 @@ module.exports = {
           break;
         case "test":
           //Check if enabled
-          if (config.leave_enabled == false) {
+          if (config.gatekeeper.leave_enabled == false) {
             return bot.createEmbed("error", "", `Error! Your configuration didn't work. This was because you haven't enabled the leave module yet! You can do so by doing **sb!config-leave enable**`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
           }
           //Check if channel is set
-          if (config.leave_channel == 0) {
+          if (config.gatekeeper.leave_channel == 0) {
             return bot.createEmbed("error", "", `Error! Your configuration didn't work. This was because you haven't set a channel for your leave messages. You can do so by doing **sb!config-leave channel <#CHANNEL>**`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
           }
           //Check if channel is accessible by bot or exists
-          let testingchannel = bot.channels.cache.get("" + config.leave_channel + "");
+          let testingchannel = bot.channels.cache.get("" + config.gatekeeper.leave_channel + "");
           if (testingchannel == undefined) {
             return bot.createEmbed("error", "", `Error! Your configuration didn't work. This is beacuse the channel you have set no longer exists. Please set a new channel by doing **sb!config-leave channel <#CHANNEL>**`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
@@ -145,7 +151,7 @@ module.exports = {
           }
           //Check if the bot has perms to send messages in that channel
           let botmember = message.guild.members.cache.get(bot.user.id);
-          if (botmember.permissionsIn(message.guild.channels.cache.get("" + config.leave_channel + "")).has("SEND_MESSAGES") == false) {
+          if (botmember.permissionsIn(message.guild.channels.cache.get("" + config.gatekeeper.leave_channel + "")).has("SEND_MESSAGES") == false) {
             return bot.createEmbed("error", "", `Error! Your configuration didn't work. This is because the bot is unable to send messages in the configured channel you have set.`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
@@ -161,7 +167,7 @@ module.exports = {
             timeStyle: "medium"
           });
   
-          let themsg = format(config.leave_message, {
+          let themsg = format(config.gatekeeper.leave_message, {
             user: message.author.tag,
             usermention: message.author,
             username: message.author.name,
@@ -173,7 +179,7 @@ module.exports = {
             posInUserCount: message.guild.members.cache.filter(member => !member.user.bot).size
           });
   
-          bot.channels.cache.get(config.leave_channel).send({
+          bot.channels.cache.get(config.gatekeeper.leave_channel).send({
             embed: {
               color: bot.settings.color.yellow,
               description: themsg,

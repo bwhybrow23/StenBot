@@ -87,6 +87,12 @@ router.get("/api/guild/:id", Auth.discord, async (req, res) => {
 
   //Do and send the magic
   return mutils.getGuildById(req.params.id).then(data => {
+    if(data === null) {
+      return res.status(400).json({
+        error: true,
+        message: "Guild cannot be found, check it is the correct ID or the bot is in the guild."
+      })
+    }
     var guildData = data;
     res.status(200).send(guildData);
   });

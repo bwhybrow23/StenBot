@@ -4,19 +4,13 @@ module.exports = {
   description: "Creates a voice channel.",
   usage: "<NAME>",
   example: "General VC",
-  options: { permission: "ADMIN", aliases: ["vc"], enabled: true, guildOnly: true },
+  options: { permission: "ADMIN", aliases: ["vc"], enabled: true, guildOnly: true, cooldown: 5 },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
 
     //Config and Permission Check
     const config = await bot.mutils.getGuildById(message.guild.id);
-
-    if (config.staff_admin == false) {
-      return bot.createEmbed("error", "", `Error! Admin commands are disabled. To use them, enable them with **sb!config-staff admin enable**`, [], `${message.guild.name}`, bot)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
 
     if (message.member.hasPermission("ADMINISTRATOR") == false) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)

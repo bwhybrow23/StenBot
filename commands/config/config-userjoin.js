@@ -25,34 +25,32 @@ module.exports = {
     }
 
     //Get the server config
-    const config = await bot.mutils.getGuildById(message.guild.id);
+    let config = await bot.mutils.getGuildById(message.guild.id);
 
     //settings library
     switch (setting) {
       case "enable":
-        if (config.userjoin_enabled == true) {
+        if (config.userjoin.enabled == true) {
           return bot.createEmbed("error", "", `Error! Userjoin is already enabled.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
-        bot.mutils.updateGuildById(message.guild.id, {
-          userjoin_enabled: true
-        })
+        config.userjoin.enabled = true;
+        bot.mutils.updateGuildById(message.guild.id, config);
         bot.createEmbed("success", "", `Userjoin has been enabled!`, [], `${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
         break;
 
       case "disable":
-        if (config.userjoin_enabled == false) {
+        if (config.userjoin.enabled == false) {
           return bot.createEmbed("error", "", `Error! Userjoin is already disabled!`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
-        bot.mutils.updateGuildById(message.guild.id, {
-          userjoin_enabled: false
-        })
-        return bot.createEmbed("success", "", `Userjoin has been disabled!`, [], `${message.guild.name}`, bot)
+        config.userjoin.enabled = true;
+        bot.mutils.updateGuildById(message.guild.id, config)
+        bot.createEmbed("success", "", `Userjoin has been disabled!`, [], `${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
         break;
@@ -60,15 +58,14 @@ module.exports = {
       case "role":
         var targetrole = message.mentions.roles.first();
 
-        if (config.userjoin_enabled === false) {
+        if (config.userjoin.enabled === false) {
           return bot.createEmbed("error", "", `Error! Userjoin is not enabled. You can enable it with **sb!config-userjoin enable**`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
         if (targetrole === undefined || "None") {
-          bot.mutils.updateGuildById(message.guild.id, {
-            userjoin_role: "0"
-          })
+          config.userjoin.role = "0"
+          bot.mutils.updateGuildById(message.guild.id, config);
           return bot.createEmbed("success", "", `The userjoin role has been reset.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
@@ -83,15 +80,14 @@ module.exports = {
             .catch((error) => bot.log.post("error", error));
         }
 
-        if (targetrole.id == config.userjoin_role) {
+        if (targetrole.id == config.userjoin.role) {
           return bot.createEmbed("error", "", `Error! That role is already set as the auto-role.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
 
-        bot.mutils.updateGuildById(message.guild.id, {
-          userjoin_role: targetrole.id
-        })
+        config.userjoin.role = targetrole.id;
+        bot.mutils.updateGuildById(message.guild.id, config);
         bot.createEmbed("success", "", `Auto-role is set to **${targetrole.name}**.`, [], `${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
@@ -101,9 +97,8 @@ module.exports = {
         var name = args.slice(1).join(" ");
 
         if (name === undefined || "None") {
-          bot.mutils.updateGuildById(message.guild.id, {
-            userjoin_nickname: "None"
-          })
+          config.userjoin.nickname = "None";
+          bot.mutils.updateGuildById(message.guild.id, config);
           return bot.createEmbed("success", "", `The userjoin nickname has been reset.`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
@@ -115,9 +110,8 @@ module.exports = {
             .catch((error) => bot.log.post("error", error));
         }
 
-        bot.mutils.updateGuildById(message.guild.id, {
-          userjoin_nickname: name
-        })
+        config.userjoin.nickname = name;
+        bot.mutils.updateGuildById(message.guild.id, config);
         bot.createEmbed("success", "", `Auto-name is set to **${name}**`, [], `${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));

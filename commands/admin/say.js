@@ -4,7 +4,7 @@ module.exports = {
   description: "Get StenBot to say something",
   usage: "<MESSAGE>",
   example: "Hello World!",
-  options: { permission: "ADMIN", enabled: true, cooldown: 5, guildOnly: true },
+  options: { permission: "ADMIN", enabled: true, cooldown: 5, guildOnly: true, cooldown: 5 },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");

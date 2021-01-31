@@ -94,7 +94,7 @@ module.exports = {
           embed: {
             title: "Command: Animal",
             color: 4886754,
-            url: `https://sbdocs.benwhybrow.com/commands/fun#animal-command`,
+            url: `https://wiki.benwhybrow.com/commands/animal`,
             fields: [
               {
                 name: "Description:",

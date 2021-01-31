@@ -4,10 +4,10 @@ module.exports = async (bot, guild, user) => {
 
   let config = await bot.mutils.getGuildById(guild.id)
 
-  if (config.logging_enabled == true) {
-    if (config.logging_level == "low" || config.logging_level == "medium" || config.logging_level == "high") {
-      if (efunctions.checkChannel(config.logging_channel, bot) == true) {
-        let lchannel = bot.channels.cache.get(config.logging_channel);
+  if (config.logging.enabled === true) {
+    if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
+      if (efunctions.checkChannel(config.logging.channel, bot) == true) {
+        let lchannel = bot.channels.cache.get(config.logging.channel);
         bot.eventEmbed("c70011", user, "Member Unbanned", `**User:** ${user.tag}\n**Unban Date:** ${new Date()}`, [], `${lchannel.guild.name}`, bot)
           .then(embed => lchannel.send(embed))
           .catch(error => console.error(error))

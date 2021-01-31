@@ -4,7 +4,7 @@ module.exports = {
     description: "Attempt to rob a user of some of their money.",
     usage: "<@USER>",
     example: "@Melissa#1391",
-    options: { permission: "EVERYONE", enabled: false, guildOnly: true },
+    options: { permission: "EVERYONE", enabled: true, guildOnly: true },
     run: async (bot, message, args) => {
   
       const Discord = require("discord.js");
@@ -45,13 +45,17 @@ module.exports = {
         return Math.floor(Math.random() * (max - min + 1)) + min;
       }
   
-      let victimBal = await ecoUtils.getUser(victim.id).balance;
-      if (!victimBal) {
-        await ecoUtils.createUser(victim.id, 500);
+      let victim2 = await ecoUtils.getUser(victim.id);
+      let victimBal = victim2.balance;
+      if (!victim2) {
+        let userCreate = await ecoUtils.createUser(victim.id, 500);
+        victimBal = userCreate.balance;
       }
-      let robberBal = await ecoUtils.getUser(robber.id).balance;
-      if (!robberBal) {
-        await ecoUtils.createUser(robber.id, 500);
+      let robber2 = await ecoUtils.getUser(robber.id);
+      let robberBal = robber2.balance;
+      if (!robber2) {
+        let userCreate = await ecoUtils.createUser(robber.id, 500);
+        robberBal = userCreate.balance;
       }
   
       //Test chance and do stuff
@@ -60,14 +64,16 @@ module.exports = {
         await ecoUtils.updateUser(victim.id, parseInt(victimBal - amountRobbed));
         await ecoUtils.updateUser(robber.id, parseInt(robberBal + amountRobbed));
         let rNewBalance = await ecoUtils.getUser(robber.id);
-        return bot.createEmbed("success", "", `${message.author}, you robbed ${victim} of **${amountRobbed} credits**. Your balance is now **${rNewBalance}**.`, [], ``, bot)
+        await bot.timeouts.new(robberr.id, "rob");
+        return bot.createEmbed("success", "", `${message.author}, you robbed ${victim} of **${amountRobbed} credits**. Your balance is now **${rNewBalance.balance}**.`, [], ``, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
       } else {
         await ecoUtils.updateUser(victim.id, parseInt(victimBal + 500));
         await ecoUtils.updateUser(robber.id, parseInt(robberBal - 500));
         let rNewBalance = await ecoUtils.getUser(robber.id);
-        return bot.createEmbed("error", "", `${message.author}, you got caught and you had to pay ${victim} **500 credits**. Your balance is now **${rNewBalance}**.`, [], ``, bot)
+        await bot.timeouts.new(robber.id, "rob");
+        return bot.createEmbed("error", "", `${message.author}, you got caught and you had to pay ${victim} **500 credits**. Your balance is now **${rNewBalance.balance}**.`, [], ``, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
       }

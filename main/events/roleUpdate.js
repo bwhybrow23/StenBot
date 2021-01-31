@@ -5,10 +5,10 @@ module.exports = async (bot, oldRole, newRole) => {
   const request = require("superagent");
 
   let config = await bot.mutils.getGuildById(newRole.guild.id)
-  if (config.logging_enabled == true) {
-    if (config.logging_level == "high") {
-      if (efunctions.checkChannel(config.logging_channel, bot) == true) {
-        let lchannel = bot.channels.cache.get(config.logging_channel);
+  if (config.logging.enabled === true) {
+    if (config.logging.level === "high") {
+      if (efunctions.checkChannel(config.logging.channel, bot) == true) {
+        let lchannel = bot.channels.cache.get(config.logging.channel);
         if (oldRole.name !== newRole.name) {
           bot.eventEmbed("006187", "None", "Role Name Changed", `**Old Name:** ${oldRole.name}\n**New Name:** ${newRole.name}\n**ID:** ${newRole.id}`, [], `${newRole.guild.name}`, bot)
             .then(embed => lchannel.send(embed))

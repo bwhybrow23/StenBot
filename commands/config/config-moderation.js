@@ -1,10 +1,10 @@
 module.exports = {
-    name: "config-staff",
+    name: "config-moderation",
     category: "config",
-    description: "Change all config variables related to staff.",
+    description: "Change all config variables related to moderation.",
     usage: "<SUBCOMMAND>",
     example: "role @Staff",
-    options: { permission: "ADMIN", aliases: ["c-staff"], enabled: true, guildOnly: true },
+    options: { permission: "ADMIN", aliases: ["c-mod", "c-moderation"], enabled: true, guildOnly: true },
     run: async (bot, message, args) => {
   
       const Discord = require("discord.js");
@@ -25,66 +25,25 @@ module.exports = {
       }
   
       //Get the server config
-      const config = await bot.mutils.getGuildById(message.guild.id);
+      let config = await bot.mutils.getGuildById(message.guild.id);
   
       //settings library
       switch (setting) {
         case "role":
           var targetrole = message.mentions.roles.first();
           if (targetrole === undefined | "None") {
-            bot.mutils.updateGuildById(message.guild.id, {
-              staff_role: "0"
-            })
+            config.moderation.staff_role = "0";
+            bot.mutils.updateGuildById(message.guild.id, config);
             return bot.createEmbed("success", "", `Your server's staff role has now been removed.`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
           }
   
-          bot.mutils.updateGuildById(message.guild.id, {
-            staff_role: targetrole.id
-          })
+          config.moderation.staff_role = targetrole.id;
+          bot.mutils.updateGuildById(message.guild.id, config);
           bot.createEmbed("success", "", `Your servers staff role has been set! Users with this role can now use staff commands!`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
-  
-          break;
-        case "admin":
-          var status = args[1];
-          if (status == undefined) {
-            return bot.createEmbed("error", "", `Error! You forgot to include a status, enable/disable.`, [], `${message.guild.name}`, bot)
-              .then((embed) => message.channel.send(embed))
-              .catch((error) => bot.log.post("error", error));
-          }
-  
-          if (status == "enable") {
-            if (config.staff_admin == true) {
-              return bot.createEmbed("error", "", `Error! Admin commands are already **enabled**`, [], `${message.guild.name}`, bot)
-                .then((embed) => message.channel.send(embed))
-                .catch((error) => bot.log.post("error", error));
-            }
-  
-            bot.mutils.updateGuildById(message.guild.id, {
-              staff_admin: true
-            })
-            return bot.createEmbed("success", "", `Admin commands have been **enabled**.`, [], `${message.guild.name}`, bot)
-              .then((embed) => message.channel.send(embed))
-              .catch((error) => bot.log.post("error", error));
-          } else if (status == "disable") {
-            if (config.staff_admin == false) {
-              return bot.createEmbed("error", "", `Error! Admin commands are already **disabled**`, [], `${message.guild.name}`, bot)
-                .then((embed) => message.channel.send(embed))
-                .catch((error) => bot.log.post("error", error));
-            }
-  
-            bot.mutils.updateGuildById(message.guild.id, {
-              staff_admin: false
-            })
-            return bot.createEmbed("success", "", `Admin commands have been **disabled**.`, [], `${message.guild.name}`, bot)
-              .then((embed) => message.channel.send(embed))
-              .catch((error) => bot.log.post("error", error));
-          } else {
-            return;
-          }
   
           break;
         case "linkblock":
@@ -102,9 +61,8 @@ module.exports = {
                 .catch((error) => bot.log.post("error", error));
             }
   
-            bot.mutils.updateGuildById(message.guild.id, {
-              staff_linkblock: true
-            })
+            config.moderation.link_block = true;
+            bot.mutils.updateGuildById(message.guild.id, config)
             return bot.createEmbed("success", "", `Link blocker has been enabled.`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
@@ -116,9 +74,8 @@ module.exports = {
                 .catch((error) => bot.log.post("error", error));
             }
   
-            bot.mutils.updateGuildById(message.guild.id, {
-              staff_linkblock: false
-            })
+            config.moderation.link_block = false;
+            bot.mutils.updateGuildById(message.guild.id, config);
             bot.createEmbed("success", "", `Link blocker has been disabled.`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
@@ -135,17 +92,15 @@ module.exports = {
   
               var word = args[2];
               var lowerWord = word.toLowerCase();
-              let filter = config.staff_filter;
+              let filter = config.moderation.filter;
               if (filter.includes(lowerWord)) {
                 return bot.createEmbed("error", "", `Error! That word is already in the filter!`, [], `${message.guild.name}`, bot)
                   .then((embed) => message.channel.send(embed))
                   .catch((error) => bot.log.post("error", error));
               }
   
-              config.staff_filter.push(lowerWord);
-              bot.mutils.updateGuildById(message.guild.id, {
-                staff_filter: config.staff_filter
-              })
+              config.moderation.filter.push(lowerWord);
+              bot.mutils.updateGuildById(message.guild.id, config);
               bot.createEmbed("success", "", `The word **${word}** has been added to the filter!`, [], `${message.guild.name}`, bot)
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.log.post("error", error));
@@ -156,7 +111,7 @@ module.exports = {
   
               var word = args[2];
               var lowerWord = word.toLowerCase();
-              let thefilter = config.staff_filter;
+              let thefilter = config.moderation.filter;
               if (!thefilter.includes(lowerWord)) {
                 return bot.createEmbed("error", "", `Error! The word **${lowerWord}** is not in the filter.`, [], `${message.guild.name}`, bot)
                   .then((embed) => message.channel.send(embed))
@@ -165,10 +120,8 @@ module.exports = {
   
               let indexofword = thefilter.indexOf(lowerWord);
   
-              config.staff_filter.splice(indexofword, 1);
-              bot.mutils.updateGuildById(message.guild.id, {
-                staff_filter: config.staff_filter
-              })
+              config.moderation.filter.splice(indexofword, 1);
+              bot.mutils.updateGuildById(message.guild.id, config);
               bot.createEmbed("success", "", `The word **${word}** has been removed from the filter!`, [], `${message.guild.name}`, bot)
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.log.post("error", error));
@@ -177,9 +130,8 @@ module.exports = {
   
             case "clear":
   
-              bot.mutils.updateGuildById(message.guild.id, {
-                staff_filter: []
-              });
+              config.moderation.filter = [];
+              bot.mutils.updateGuildById(message.guild.id, config);
               bot.createEmbed("success", "", `The logging ignore list has been succesfully cleared.`, [], `${message.guild.name}`, bot)
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.log.post("error", error));
