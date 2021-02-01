@@ -55,7 +55,7 @@ module.exports = {
       var staffrole = `<@&${staffrole}>`;
     }
     //word filter by default is empty
-    var stafffilter = config.moderation.ignore;
+    var stafffilter = config.moderation.filter;
     let stafffilter1 = [];
     if (stafffilter.length == 0) {
       stafffilter1.push("Empty");
