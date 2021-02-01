@@ -170,8 +170,8 @@ module.exports = {
                 server: message.guild.name,
                 date: dFormatter.format(date),
                 time: tFormatter.format(date),
-                posInMemberCount: message.guild.memberCount,
-                posInUserCount: message.guild.members.cache.filter(member => !member.user.bot).size
+                memberCount: message.guild.memberCount,
+                userCount: message.guild.members.cache.filter(member => !member.user.bot).size
               });
   
               bot.channels.cache.get(config.gatekeeper.welcome_channel).send({
