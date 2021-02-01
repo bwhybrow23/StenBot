@@ -80,7 +80,7 @@ module.exports = (bot) => {
 
     //Console Log
     let date = new Date();
-    bot.log.post("success", `${bot.user.username} Started Successfully in Production Mode. Version: ${bot.packageJSON.version}`);
+    bot.log.post("success", `${bot.user.username} Started Successfully in Production Mode. Version: ${packageJSON.version}`);
   }
 
   //Development Mode
