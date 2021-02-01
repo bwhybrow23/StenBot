@@ -63,7 +63,7 @@ module.exports = {
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
-        if (targetrole === undefined || "None") {
+        if (!targetrole || targetrole === "None") {
           config.userjoin.role = "0"
           bot.mutils.updateGuildById(message.guild.id, config);
           return bot.createEmbed("success", "", `The userjoin role has been reset.`, [], `${message.guild.name}`, bot)
