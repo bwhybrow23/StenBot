@@ -93,16 +93,16 @@ module.exports = {
 
     //Embed
       return bot.createEmbed("warning", `${servertag} Configuration`, `Your Configuration`, [{
-          name: "Welcomer",
+          name: "Gatekeeper Welcomer",
           value: `Enabled: **${config.gatekeeper.welcome_enabled ? "Yes" : "No"} **\nWelcomer Channel: **${welcomerchannel}**\nWelcomer Message: **${config.gatekeeper.welcome_message}**`,
         }, {
-          name: "Leave",
+          name: "Gatekeeper Leave",
           value: `Enabled: **${config.gatekeeper.leave_enabled ? "Yes" : "No"} **\nLeave Channel: **${leavechannel}**\nLeave Message: **${config.gatekeeper.leave_message}**`,
         }, {
           name: "User Join",
           value: `Enabled: **${config.userjoin.enabled ? "Yes" : "No"}**\nAdd Role: **${userjoinrole}**\nSet Nick: **${userjoinnick}**`,
         }, {
-          name: "Staff",
+          name: "Moderation",
           value: `Staff Role: **${staffrole}**\nLink Blocker: **${config.moderation.link_block ? "Enabled" : "Disabled"}**\nWord Filter: **${stafffilter1}**`,
         }, {
           name: "Logging",
