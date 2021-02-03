@@ -2,7 +2,7 @@ module.exports = async (bot, member) => {
   const Discord = require("discord.js");
   const efunctions = require("../functions/eventUtils.js");
 
-  if (newMember.user === bot.user) return;
+  if (member.user == bot.user) return;
 
   //Update bot-data.json
   let botdata = require("../../data/global/bot-data.json");
@@ -60,8 +60,8 @@ module.exports = async (bot, member) => {
 
   let config = await bot.mutils.getGuildById(member.guild.id);
 
-  if (config.logging.enabled === true) {
-    if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
+  if (config.logging.enabled == true) {
+    if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
       if (efunctions.checkChannel(config.logging.channel, bot)) {
         let lchannel = bot.channels.cache.get(config.logging.channel);
         bot.eventEmbed("c9c600", member.user, "Member Left", `**Name:** ${member.user.tag}\n**Id:** ${member.id}\n**Created At:** ${member.user.createdAt}`, [], `${lchannel.guild.name}`, bot)

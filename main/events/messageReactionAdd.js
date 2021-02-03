@@ -7,7 +7,7 @@ module.exports = (bot, reaction, user) => {
   if (reaction.message.id !== botData.verifMsgID) return;
   if (user.id !== bot.user.id) {
     // Reaction not from StenBot
-    if (reaction.emoji.name === "✅") {
+    if (reaction.emoji.name == "✅") {
       reactionFunctions.verifiedRole(reaction, user);
     }
   }

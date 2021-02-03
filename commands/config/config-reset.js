@@ -9,7 +9,7 @@ module.exports = {
   
       const Discord = require("discord.js");
   
-      if (message.member.hasPermission("ADMINISTRATOR") === false) {
+      if (message.member.hasPermission("ADMINISTRATOR") == false) {
         return bot.noPermsEmbed(`${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));

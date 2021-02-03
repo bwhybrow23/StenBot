@@ -9,7 +9,7 @@ module.exports = {
 
     const Discord = require("discord.js");
 
-    if (message.member.hasPermission("ADMINISTRATOR") === false) {
+    if (message.member.hasPermission("ADMINISTRATOR") == false) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
@@ -58,12 +58,12 @@ module.exports = {
       case "role":
         var targetrole = message.mentions.roles.first();
 
-        if (config.userjoin.enabled === false) {
+        if (config.userjoin.enabled == false) {
           return bot.createEmbed("error", "", `Error! Userjoin is not enabled. You can enable it with **sb!config-userjoin enable**`, [], `${message.guild.name}`, bot)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
-        if (!targetrole || targetrole === "None") {
+        if (!targetrole || targetrole == "None") {
           config.userjoin.role = "0"
           bot.mutils.updateGuildById(message.guild.id, config);
           return bot.createEmbed("success", "", `The userjoin role has been reset.`, [], `${message.guild.name}`, bot)
@@ -96,7 +96,7 @@ module.exports = {
       case "name":
         var name = args.slice(1).join(" ");
 
-        if (name === undefined || "None") {
+        if (name == undefined || "None") {
           config.userjoin.nickname = "None";
           bot.mutils.updateGuildById(message.guild.id, config);
           return bot.createEmbed("success", "", `The userjoin nickname has been reset.`, [], `${message.guild.name}`, bot)

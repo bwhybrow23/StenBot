@@ -53,7 +53,7 @@ module.exports = {
     // Only allow reactions from the author,
     // and the emoji must be in the array we provided.
     const filter = (reaction, user) =>
-      validReactions.includes(reaction.emoji.name) && user.id === author.id;
+      validReactions.includes(reaction.emoji.name) && user.id == author.id;
 
     // And ofcourse, await the reactions
     return message
@@ -120,7 +120,7 @@ module.exports = {
     // Only allow reactions from the author,
     // and the emoji must be in the array we provided.
     const filter = (reaction, user) =>
-      validReactions.includes(reaction.emoji.name) && user.id === author.id;
+      validReactions.includes(reaction.emoji.name) && user.id == author.id;
 
     // And ofcourse, await the reactions
     return message

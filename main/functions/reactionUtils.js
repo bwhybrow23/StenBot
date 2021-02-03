@@ -11,7 +11,7 @@ const verifiedRole = (reaction, user) => {
   reaction.users.remove(user);
 
   const role = reaction.message.guild.roles.cache.find(
-    (r) => r.id === "455794398438096896"
+    (r) => r.id == "455794398438096896"
   );
 
   reaction.message.guild.members.fetch(user)

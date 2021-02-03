@@ -10,7 +10,7 @@ module.exports = {
       const Discord = require("discord.js");
       const format = require("string-template");
   
-      if (message.member.hasPermission("ADMINISTRATOR") === false) {
+      if (message.member.hasPermission("ADMINISTRATOR") == false) {
         return bot.noPermsEmbed(`${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
@@ -63,7 +63,7 @@ module.exports = {
         case "channel":
 
           var targetchannel = message.mentions.channels.first();
-          if (!args[1] || args[1] === "None") {
+          if (!args[1] || args[1] == "None") {
             bot.mutils.updateGuildById(message.guild.id, {
                 welcomer_channel: "0"
             })
@@ -89,7 +89,7 @@ module.exports = {
         case "message":
           var setmessage = args.slice(1).join(" ");
   
-          if (setmessage.length < 1 || setmessage === "None") {
+          if (setmessage.length < 1 || setmessage == "None") {
             bot.mutils.updateGuildById(message.guild.id, {
               welcomer_message: "Welcome {user} to {server}!"
             })
@@ -125,7 +125,7 @@ module.exports = {
           break;
         case "test":
           //Check if enabled
-          if (config.gatekeeper.welcome_enabled === false) {
+          if (config.gatekeeper.welcome_enabled == false) {
             return bot.createEmbed("error", "", `Error! Your configuration didn't work. This was because you haven't enabled welcomer yet! You can do so by doing **sb!config-welcomer enable**`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));

@@ -3,12 +3,12 @@ module.exports = async (bot, oldMember, newMember) => {
     const Discord = require("discord.js");
     const efunctions = require("../functions/eventUtils.js");
   
-    if (newMember.user === bot.user) return;
+    if (newMember.user == bot.user) return;
   
     let config = await bot.mutils.getGuildById(newMember.guild.id);
   
-    if (config.logging.enabled === true) {
-      if (config.logging.level === "high") {
+    if (config.logging.enabled == true) {
+      if (config.logging.level == "high") {
         if (efunctions.checkChannel(config.logging.channel, bot) == true) {
   
           let lchannel = bot.channels.cache.get(config.logging.channel);

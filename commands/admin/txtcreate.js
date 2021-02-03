@@ -49,7 +49,7 @@ module.exports = {
     //If a category is provided find it (create it if it doesn't exist)
     let cat;
     try {
-      cat = message.guild.channels.cache.find(channel => channel.name === ca && channel.type === "category");
+      cat = message.guild.channels.cache.find(channel => channel.name == ca && channel.type == "category");
     } catch (error) {
       message.guild.channels.create(ca, {
         type: 'category'

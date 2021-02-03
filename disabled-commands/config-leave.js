@@ -10,7 +10,7 @@ module.exports = {
       const Discord = require("discord.js");
       const format = require("string-template");
   
-      if (message.member.hasPermission("ADMINISTRATOR") === false) {
+      if (message.member.hasPermission("ADMINISTRATOR") == false) {
         return bot.noPermsEmbed(`${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
@@ -67,7 +67,7 @@ module.exports = {
         case "channel":
   
         var targetchannel = message.mentions.channels.first();
-          if (!args[1] || args[1] === "None") {
+          if (!args[1] || args[1] == "None") {
             bot.mutils.updateGuildById(message.guild.id, {
               gatekeeper: {
                 leave_channel: "0"
@@ -95,7 +95,7 @@ module.exports = {
         case "message":
           var setmessage = args.slice(1).join(" ");
   
-          if (setmessage.length < 1 || setmessage === "None") {
+          if (setmessage.length < 1 || setmessage == "None") {
             bot.mutils.updateGuildById(message.guild.id, {
               leave_message: "Welcome {user} to {server}!"
             })

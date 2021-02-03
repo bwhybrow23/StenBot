@@ -9,7 +9,7 @@ module.exports = {
   
       const Discord = require("discord.js");
   
-      if (message.member.hasPermission("ADMINISTRATOR") === false) {
+      if (message.member.hasPermission("ADMINISTRATOR") == false) {
         return bot.noPermsEmbed(`${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
@@ -31,7 +31,7 @@ module.exports = {
       switch (setting) {
         case "role":
           var targetrole = message.mentions.roles.first();
-          if (targetrole === undefined | "None") {
+          if (targetrole == undefined | "None") {
             config.moderation.staff_role = "0";
             bot.mutils.updateGuildById(message.guild.id, config);
             return bot.createEmbed("success", "", `Your server's staff role has now been removed.`, [], `${message.guild.name}`, bot)

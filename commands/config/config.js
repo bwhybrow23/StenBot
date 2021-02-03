@@ -11,7 +11,7 @@ module.exports = {
 
     let servertag = message.guild.name;
 
-    if (message.member.hasPermission("ADMINISTRATOR") === false) {
+    if (message.member.hasPermission("ADMINISTRATOR") == false) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
@@ -49,7 +49,7 @@ module.exports = {
     }
     //Staff role default false
     var staffrole = config.moderation.staff_role;
-    if (staffrole === "0") {
+    if (staffrole == "0") {
       var staffrole = "Not Set";
     } else {
       var staffrole = `<@&${staffrole}>`;

@@ -25,7 +25,7 @@ module.exports = {
         .catch((error) => bot.log.post("error", error));
     }
 
-    if (c == undefined) {
+    if (!c) {
       return bot.createEmbed("error", "", "Error! You forgot to mention a channel to remove!", [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));

@@ -45,8 +45,8 @@ module.exports = {
 
     //Logging
     const efunctions = require('../../main/functions/eventUtils.js');
-    if (config.logging.enabled === true) {
-      if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
+    if (config.logging.enabled == true) {
+      if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
         if (efunctions.checkChannel(config.logging.channel, bot) == true) {
           let lchannel = bot.channels.cache.get(config.logging.channel);
           bot.eventEmbed("c70011", targetuser.user, "Member Banned", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n**Ban Date:** ${new Date()}\n**Banned By:** ${message.author.tag}\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)

@@ -117,7 +117,7 @@ const colours = {
   
       //Get command info
       let cmd;
-      if(bot.aliases.get(command.toLowerCase()) === undefined) {
+      if(bot.aliases.get(command.toLowerCase()) == undefined) {
         cmd = bot.commands.get(command.toLowerCase())
       } else {
         cmd = bot.commands.get(bot.aliases.get(command.toLowerCase()));

@@ -57,8 +57,8 @@ module.exports = {
         .catch((error) => bot.log.post("error", error));
       //Logging
       const efunctions = require('../../main/functions/eventUtils.js');
-      if (config.logging.enabled === true) {
-        if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
+      if (config.logging.enabled == true) {
+        if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
           if (efunctions.checkChannel(config.logging.channel, bot) == true) {
             let lchannel = bot.channels.cache.get(config.logging.channel);
             bot.eventEmbed("7ae727", targetuser.user, "Member Unmuted", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n**Unmute Date:** ${new Date()}\n**Unmuted By:** ${message.author.tag}\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)

@@ -2,7 +2,7 @@ module.exports = async (bot, oldChannel, newChannel) => {
   const Discord = require("discord.js");
   const efunctions = require("../functions/eventUtils.js");
 
-  if ((newChannel.type === "dm")) return;
+  if ((newChannel.type == "dm")) return;
 
   if (newChannel.name.startsWith("ticket-")) return;
 
@@ -10,8 +10,8 @@ module.exports = async (bot, oldChannel, newChannel) => {
   let config = await bot.mutils.getGuildById(newChannel.guild.id)
 
   //Check config and stuff
-  if (config.logging.enabled === true) {
-    if (config.logging.level === "high") {
+  if (config.logging.enabled == true) {
+    if (config.logging.level == "high") {
       if (efunctions.checkChannel(config.logging.channel, bot) == true) {
         let lchannel = bot.channels.cache.get(config.logging.channel);
         if (oldChannel.name !== newChannel.name) {

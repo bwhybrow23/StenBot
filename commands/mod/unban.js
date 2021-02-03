@@ -16,7 +16,7 @@ module.exports = {
     }
 
     var targetuser = args[0];
-    if (!targetuser || typeof targetuser === 'number' || args[0] == "help") {
+    if (!targetuser || typeof targetuser == 'number' || args[0] == "help") {
       return bot.helpEmbed("unban", bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
@@ -41,8 +41,8 @@ module.exports = {
 
     //Logging
     const efunctions = require('../../main/functions/eventUtils.js');
-    if (config.logging.enabled === true) {
-      if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
+    if (config.logging.enabled == true) {
+      if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
         if (efunctions.checkChannel(config.logging.channel, bot) == true) {
           let lchannel = bot.channels.cache.get(config.logging.channel);
           bot.eventEmbed("7ae727", message.author, "Member Unbanned", `**User ID:** ${targetuser}\n**Unban Date:** ${new Date()}\n**Unbanned By:** ${message.author.tag}\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)

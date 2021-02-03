@@ -9,7 +9,7 @@ module.exports = {
   
       const Discord = require("discord.js");
   
-      if (message.member.hasPermission("ADMINISTRATOR") === false) {
+      if (message.member.hasPermission("ADMINISTRATOR") == false) {
         return bot.noPermsEmbed(`${message.guild.name}`, bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
@@ -32,7 +32,7 @@ module.exports = {
         case "channel":
           var targetchannel = message.mentions.channels.first();
   
-          if (targetchannel === undefined || "None") {
+          if (!targetchannel || targetchannel == "None") {
             config.logging.channel = "0";
             bot.mutils.updateGuildById(message.guild.id, config)
             return bot.createEmbed("success", "", `Your logging channel has been removed`, [], `${message.guild.name}`, bot)
@@ -63,7 +63,7 @@ module.exports = {
   
           switch (level) {
             case "low":
-              if (config.logging.level === "low") {
+              if (config.logging.level == "low") {
                 return bot.createEmbed("error", "", `Error! Logging is already set to that level.`, [], `${message.guild.name}`, bot)
                   .then((embed) => message.channel.send(embed))
                   .catch((error) => bot.log.post("error", error));
@@ -77,7 +77,7 @@ module.exports = {
               break;
 
             case "medium":
-              if (config.logging.level === "medium") {
+              if (config.logging.level == "medium") {
                 return bot.createEmbed("error", "", `Error! Logging is already set to that level.`, [], `${message.guild.name}`, bot)
                   .then((embed) => message.channel.send(embed))
                   .catch((error) => bot.log.post("error", error));
@@ -91,7 +91,7 @@ module.exports = {
               break;
 
             case "high":
-              if (config.logging.level === "high") {
+              if (config.logging.level == "high") {
                 return bot.createEmbed("error", "", `Error! Logging is already set to that level.`, [], `${message.guild.name}`, bot)
                   .then((embed) => message.channel.send(embed))
                   .catch((error) => bot.log.post("error", error));
@@ -112,7 +112,7 @@ module.exports = {
           break;
 
         case "enable":
-          if (config.logging.enabled === true) {
+          if (config.logging.enabled == true) {
             return bot.createEmbed("error", "", `Error! Logging is already enabled.`, [], `${message.guild.name}`, bot)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));

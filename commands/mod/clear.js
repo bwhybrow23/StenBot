@@ -50,8 +50,8 @@ module.exports = {
 
     //Logging
     const efunctions = require('../../main/functions/eventUtils.js');
-    if (config.logging.enabled === true) {
-      if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
+    if (config.logging.enabled == true) {
+      if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
         if (efunctions.checkChannel(config.logging.channel, bot) == true) {
           let lchannel = bot.channels.cache.get(config.logging.channel);
           bot.eventEmbed("c70011", message.author, "Bulk Delete", `**Amount:** ${amount}\n**Channel:** ${message.channel.name}`, [], `${message.guild.name}`, bot)

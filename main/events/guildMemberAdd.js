@@ -4,7 +4,7 @@ module.exports = async (bot, member) => {
     var format = require("string-template");
     const efunctions = require("../functions/eventUtils.js");
   
-    if (newMember.user === bot.user) return;
+    if (newMember.user == bot.user) return;
 
     //Update bot-data.json
     let botdata = require("../../data/global/bot-data.json");
@@ -16,7 +16,7 @@ module.exports = async (bot, member) => {
   
     //Welcomer
     //Check if welcomer is enabled
-    if (config.gatekeeper.welcome_enabled === true) {
+    if (config.gatekeeper.welcome_enabled == true) {
       //Check if there is a channel set
       if (config.gatekeeper.welcome_channel != 0) {
         //Check if channel is valid

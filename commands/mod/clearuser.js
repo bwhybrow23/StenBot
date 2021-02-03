@@ -52,7 +52,7 @@ module.exports = {
       limit: amount,
     }).then((messages) => {
       const filterBy = targetuser ? targetuser.id : bot.user.id;
-      messages = messages.filter(m => m.author.id === filterBy).array().slice(0, amount);
+      messages = messages.filter(m => m.author.id == filterBy).array().slice(0, amount);
       message.channel.bulkDelete(messages).catch(error => bot.log.post("error", error.stack));
     });
 
@@ -65,8 +65,8 @@ module.exports = {
 
     //Logging
     const efunctions = require('../../main/functions/eventUtils.js');
-    if (config.logging.enabled === true) {
-      if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
+    if (config.logging.enabled == true) {
+      if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
         if (efunctions.checkChannel(config.logging.channel, bot) == true) {
           let lchannel = bot.channels.cache.get(config.logging.channel);
           bot.eventEmbed("c70011", message.author, "Bulk Delete", `**Amount:** ${amount}\n**Channel:** ${message.channel.name}\n**Filter:** From ${targetuser.user.tag}`, [], `${message.guild.name}`, bot)

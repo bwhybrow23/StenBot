@@ -5,8 +5,8 @@ module.exports = async (bot, oldRole, newRole) => {
   const request = require("superagent");
 
   let config = await bot.mutils.getGuildById(newRole.guild.id)
-  if (config.logging.enabled === true) {
-    if (config.logging.level === "high") {
+  if (config.logging.enabled == true) {
+    if (config.logging.level == "high") {
       if (efunctions.checkChannel(config.logging.channel, bot) == true) {
         let lchannel = bot.channels.cache.get(config.logging.channel);
         if (oldRole.name !== newRole.name) {
@@ -24,7 +24,7 @@ module.exports = async (bot, oldRole, newRole) => {
 
           let oldColor = oldjson.body.name.value;
           let newColor = newjson.body.name.value;
-          bot.eventEmbed("006187", "None", "Role Colour Changed", `**Name:** ${newRole.name}\n**Id:** ${newRole.id}\n\n**Before:** ${oldRole.hexColor} (${oldRole.hexColor === "#000000" ? "default" : oldColor})\n**After:** ${newRole.hexColor} (${newRole.hexColor === "#000000" ? "default" : newColor})\n**_NOTE:_ Colors are named to the exact color or the closest to it. Search them online to find out what they are.**`, [], `${newRole.guild.name}`, bot)
+          bot.eventEmbed("006187", "None", "Role Colour Changed", `**Name:** ${newRole.name}\n**Id:** ${newRole.id}\n\n**Before:** ${oldRole.hexColor} (${oldRole.hexColor == "#000000" ? "default" : oldColor})\n**After:** ${newRole.hexColor} (${newRole.hexColor == "#000000" ? "default" : newColor})\n**_NOTE:_ Colors are named to the exact color or the closest to it. Search them online to find out what they are.**`, [], `${newRole.guild.name}`, bot)
             .then(embed => lchannel.send(embed))
             .catch(error => console.error(error))
         }

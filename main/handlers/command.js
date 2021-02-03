@@ -13,7 +13,7 @@ module.exports = (client) => {
     for (let file of commands) {
       let pull = require(`../../commands/${dir}/${file}`);
 
-      if (pull.options.enabled === false) return;
+      if (pull.options.enabled == false) return;
 
       if (!botData.stats.commands[pull.category][pull.name]) {
         botData.stats.commands[pull.category][pull.name] = 0;

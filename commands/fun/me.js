@@ -9,7 +9,7 @@ module.exports = {
   
       const Discord = require("discord.js");
   
-      if (args[0] === "help") {
+      if (args[0] == "help") {
         return bot.helpEmbed("me", bot)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
@@ -24,7 +24,7 @@ module.exports = {
         user = await (bot.users.fetch(message.author.id, true, true));
       }
     
-      if (user.bot === true) {
+      if (user.bot == true) {
         bot = "Yes";
       } else {
         bot = "No";
@@ -57,7 +57,7 @@ module.exports = {
         .addField("Nickname", `${member.nickname !== null ? `Nickname: ${member.nickname}` : "None"}`, true)
         .addField("Bot", `${bot}`, true, true)
         .addField("Status", userStatus, true)
-        .addField("Activities", `${user.presence.activities}` ? `${user.presence.activities.map((a)=>a.type === "CUSTOM_STATUS" ? a.state : a.toString()).join("\n")}` : "Not playing")
+        .addField("Activities", `${user.presence.activities}` ? `${user.presence.activities.map((a)=>a.type == "CUSTOM_STATUS" ? a.state : a.toString()).join("\n")}` : "Not playing")
         .addField("Roles", `${member.roles.cache.filter(r => r.id !== message.guild.id).map(roles => `\`${roles.name}\``).join(" **|** ") || "No Roles"}`)
         .addField("Joined Discord At", user.createdAt)
         .addField("Joined this Guild At", member.joinedAt)

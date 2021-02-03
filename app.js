@@ -96,11 +96,11 @@
    *
    */
   let mongo, token;
-  if (bot.settings.mode === "production") {
+  if (bot.settings.mode == "production") {
     mongo = bot.settings.mongo;
   
     token = bot.settings.connections.token;
-  } else if (bot.settings.mode === "development") {
+  } else if (bot.settings.mode == "development") {
     mongo = bot.settings.mongoDev;
   
     token = bot.settings.connections.devToken

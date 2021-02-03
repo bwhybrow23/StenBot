@@ -40,14 +40,14 @@ module.exports = {
       return errsend("Tickets are not enabled in the servers config.");
     }
 
-    if (config.moderation.staff_role === "0") {
+    if (config.moderation.staff_role == "0") {
       return bot.createEmbed("error", "", `Error! A staff role has not been set. An owner or admin can set one using \`sb!config-moderation role <@ROLE>\``, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     let staffrole = message.guild.roles.cache.find(
-      (r) => r.id === config.moderation.staff_role
+      (r) => r.id == config.moderation.staff_role
     );
 
     if (staffrole == undefined) {
