@@ -1,6 +1,7 @@
 module.exports = async (bot, member) => {
   const Discord = require("discord.js");
   const efunctions = require("../functions/eventUtils.js");
+  const fs = require("fs");
 
   if (member.user == bot.user) return;
 
