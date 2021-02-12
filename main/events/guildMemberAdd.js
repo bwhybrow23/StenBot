@@ -4,7 +4,7 @@ module.exports = async (bot, member) => {
     var format = require("string-template");
     const efunctions = require("../functions/eventUtils.js");
   
-    if (newMember.user == bot.user) return;
+    if (member.user == bot.user) return;
 
     //Update bot-data.json
     let botdata = require("../../data/global/bot-data.json");
