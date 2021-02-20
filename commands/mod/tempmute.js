@@ -24,18 +24,18 @@ module.exports = {
         .catch((error) => bot.log.post("error", error));
     }
 
-    if (targetuser.roles.cache.has(config.staff_role)) {
+    if (targetuser.roles.cache.has(config.moderation.staff_role)) {
       return bot.createEmbed("error", "", `Error! You are not allowed to mute this person!`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     let reason = args.slice(2).join(" ");
-    let msg = `Succesfully tempmuted **${targetuser.user.tag}** for **${reason}**`;
+    let msg = `Succesfully tempmuted **${targetuser.user.tag}** for **${args[1]}** for **${reason}**`;
 
     if (reason.length < 1) {
       reason = "N/A";
-      msg = `Succesfully tempmuted **${targetuser.user.tag}**`;
+      msg = `Succesfully tempmuted **${targetuser.user.tag}** for **${args[1]}**`;
     }
 
     //Role Check

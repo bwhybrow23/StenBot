@@ -22,6 +22,12 @@ module.exports = {
         .catch((error) => bot.log.post("error", error));
     }
 
+    if (targetuser.roles.cache.has(config.moderation.staff_role)) {
+      return bot.createEmbed("error", "", `Error! You are not allowed to mute this person!`, [], `${message.guild.name}`, bot)
+        .then((embed) => message.channel.send(embed))
+        .catch((error) => bot.log.post("error", error));
+    }
+
     let reason = args.slice(1).join(" ");
     let msg = `Succesfully kicked **${targetuser.user.tag}** for **${reason}**`;
 

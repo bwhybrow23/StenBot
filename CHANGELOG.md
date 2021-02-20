@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.1 - 21/02/2021
+* Added command template snippet
+* Small fixes from v2
+* Warning system
+* Update Dockerfile for the latest Node version
+
 ## 2.0.0 - 01/02/2021
 * Completely rewritten per-server config format
 * Updated website copyright to 2021

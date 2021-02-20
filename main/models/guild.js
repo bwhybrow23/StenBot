@@ -74,6 +74,9 @@ const guildSchema = new mongoose.Schema({
         filter: {
             type: [String],
             required: true
+        },
+        warnings: {
+            type: [Object],
         }
     },
     logging: {

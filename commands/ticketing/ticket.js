@@ -19,7 +19,6 @@ module.exports = {
     }
     var format = require("string-template");
     var tnum = Math.floor(Math.random() * 1000001);
-    //var staffroleobj = message.guild.roles.get(config.staffrole);
 
     function errsend(msg) {
       message.channel.send({

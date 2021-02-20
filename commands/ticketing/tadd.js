@@ -32,7 +32,7 @@ module.exports = {
 
     //Check if staff role is valid or set
     if (config.moderation.staff_role) {
-      if (message.guild.roles.cache.get(config.staffrole == undefined)) {
+      if (message.guild.roles.cache.get(config.moderation.staff_role == undefined)) {
         return errsend("The staff role set is no longer valid.");
       }
     } else {

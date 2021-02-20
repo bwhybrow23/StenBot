@@ -1,4 +1,4 @@
-FROM node:14.15.4
+FROM node:14.15.5
 
 # Install Nano
 RUN ["apt-get", "update"]
