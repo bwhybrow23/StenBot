@@ -60,8 +60,6 @@ module.exports = async (bot, member) => {
       }
     }
 
-  let config = await bot.mutils.getGuildById(member.guild.id);
-
   if (config.logging.enabled == true) {
     if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
       if (efunctions.checkChannel(config.logging.channel, bot)) {
