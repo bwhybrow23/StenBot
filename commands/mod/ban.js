@@ -50,7 +50,14 @@ module.exports = {
       .then(
         bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.log.post("error", error)));
+        .catch((error) => bot.log.post("error", error))
+        )
+      .then(
+        //Send user a message
+        bot.eventEmbed("c70011", targetuser.user, "You have been banned!", `**Ban Date:** ${new Date()}\n**Banned By:** ${message.author.tag}\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)
+            .then(embed => targetuser.send(embed))
+            .catch(error => console.error(error))
+      );
 
     //Logging
     const efunctions = require('../../main/functions/eventUtils.js');

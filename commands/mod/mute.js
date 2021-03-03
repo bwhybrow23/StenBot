@@ -71,6 +71,10 @@ module.exports = {
       bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
+      //DM User
+      bot.eventEmbed("c70011", targetuser.user, "You have been muted!", `**Mute Date:** ${new Date()}\n**Muted By:** ${message.author.tag}\n\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)
+            .then(embed => targetuser.send(embed))
+            .catch(error => console.error(error))
       //Logging
       const efunctions = require('../../main/functions/eventUtils.js');
       if (config.logging.enabled == true) {

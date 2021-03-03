@@ -47,7 +47,14 @@ module.exports = {
       .then(
         bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.log.post("error", error)));
+        .catch((error) => bot.log.post("error", error))
+        )
+      .then(
+        //Send user a message
+        bot.eventEmbed("c70011", targetuser.user, "You have been kicked!", `**Kick Date:** ${new Date()}\n**Kicked By:** ${message.author.tag}\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)
+            .then(embed => targetuser.send(embed))
+            .catch(error => console.error(error))
+      );
 
     //Logging
     const efunctions = require('../../main/functions/eventUtils.js');
@@ -55,7 +62,7 @@ module.exports = {
       if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
         if (efunctions.checkChannel(config.logging.channel, bot) == true) {
           let lchannel = bot.channels.cache.get(config.logging.channel);
-          bot.eventEmbed("c70011", targetuser.user, "Member Banned", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n**Ban Date:** ${new Date()}\n**Banned By:** ${message.author.tag}\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)
+          bot.eventEmbed("c70011", targetuser.user, "Member Kicked", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n**Kick Date:** ${new Date()}\n**Kicked By:** ${message.author.tag}\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)
             .then(embed => lchannel.send(embed))
             .catch(error => console.error(error))
         }

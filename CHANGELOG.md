@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.2 - 03/03/2021
+* Updated FUNDING.yml so the PayPal link works properly
+* Updated punishment commands to DM the user (if possible) upon the punishment being given
+* The leave message actually works now
+
 ## 2.0.1 - 21/02/2021
 * Added command template snippet
 * Small fixes from v2

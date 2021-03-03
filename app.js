@@ -69,7 +69,7 @@
    * USAGE STATISTICS
    *
    */
-  const memusage = JSON.parse(fs.readFileSync("./data/global/bot-data.json", "utf8"));
+  const botData = JSON.parse(fs.readFileSync("./data/global/bot-data.json", "utf8"));
   
   function getMemUsage() {
     const arr = [1, 2, 3, 4, 5, 6, 9, 7, 8, 9, 10];
@@ -78,8 +78,8 @@
     return Math.round(used * 100) / 100;
   };
   bot.setInterval(function() {
-    memusage.info.memoryUsage = getMemUsage();
-    fs.writeFileSync("./data/global/bot-data.json", JSON.stringify(memusage, null, 4));
+    botData.info.memoryUsage = getMemUsage();
+    fs.writeFileSync("./data/global/bot-data.json", JSON.stringify(botData, null, 4));
   }, 300000);
   bot.setInterval(function() {
     let memoryusage = getMemUsage();
