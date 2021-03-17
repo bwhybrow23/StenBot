@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.3 - 17/03/2021
+* Server command now supports args
+* Uses message variable passed to createEmbed function to change the footer icon to what is being used (server or user)
+* Config command now directly mentions welcomer/leave channels
+
 ## 2.0.2 - 03/03/2021
 * Updated FUNDING.yml so the PayPal link works properly
 * Updated punishment commands to DM the user (if possible) upon the punishment being given

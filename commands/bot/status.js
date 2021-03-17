@@ -17,7 +17,7 @@ module.exports = {
     let totalGuilds = bot.guilds.cache.size;
     let totalMembers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
 
-    bot.createEmbed("success", "StenBot Status", `**Ping:** ${ping}ms\n**Memory Usage:** ${memUsed}MB\n**Total Guilds:** ${totalGuilds}\n**Total Members:** ${totalMembers}\n**Version:** ${packageJSON.version}`, [], `${message.server.name}`, bot)
+    bot.createEmbed("success", "StenBot Status", `**Ping:** ${ping}ms\n**Memory Usage:** ${memUsed}MB\n**Total Guilds:** ${totalGuilds}\n**Total Members:** ${totalMembers}\n**Version:** ${packageJSON.version}`, [], `${message.guild.name}`, message)
       .then((embed) => message.channel.send(embed))
       .catch((error) => bot.log.post("error", error));
 

@@ -22,7 +22,7 @@ module.exports = {
     bot.createEmbed("info", "**Guild List**", "", [{
         name: "Guilds",
         value: `\`\`\`${guildList.join("\n")}\`\`\``
-      }], `${message.guild.name}`, bot)
+      }], `${message.guild.name}`, message)
       .then((embed) => message.channel.send(embed))
       .catch((error) => bot.log.post("error", error));
   }

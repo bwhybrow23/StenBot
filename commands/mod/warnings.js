@@ -29,7 +29,7 @@ module.exports = {
     });
     
     if (Object.keys(warnings).length < 0) {
-      return bot.createEmbed("error", "", "Error! This user has no warnings.", [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", "Error! This user has no warnings.", [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }

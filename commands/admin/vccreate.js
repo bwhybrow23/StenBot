@@ -27,14 +27,14 @@ module.exports = {
     }
 
     if (n.length < 1) {
-      return bot.createEmbed("error", "", `Error! You forgot to include a name for the channel!`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `Error! You forgot to include a name for the channel!`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
 
     if (n.length > 100) {
-      return bot.createEmbed("error", "", `The voice channel name has to be between 1 and 100 in **length**`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `The voice channel name has to be between 1 and 100 in **length**`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -44,7 +44,7 @@ module.exports = {
       type: 'voice',
       reason: `Created by ${message.author.tag}`
     }).then((channel) => {
-      return bot.createEmbed("success", "", `The voice channel **${channel.name}** has been created.`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("success", "", `The voice channel **${channel.name}** has been created.`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     });

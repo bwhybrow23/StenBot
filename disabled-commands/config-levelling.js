@@ -29,7 +29,7 @@ module.exports = {
     }
 
     if (access == false) {
-      bot.createEmbed("error", "", `Error! You are not the owner or admin of this guild!`, [], `${message.guild.name}`, bot)
+      bot.createEmbed("error", "", `Error! You are not the owner or admin of this guild!`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -38,7 +38,7 @@ module.exports = {
     let setting = args[0];
 
     if (setting == undefined) {
-      bot.createEmbed("error","",`Error! You forgot to include a levelling setting.`,[],`${message.guild.name}`, bot)
+      bot.createEmbed("error","",`Error! You forgot to include a levelling setting.`,[],`${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -50,13 +50,13 @@ module.exports = {
     switch (setting) {
       case "enable":
         if (config.levelling_enabled == true) {
-          bot.createEmbed("error","",`Error! Levelling is already enabled.`,[],`${message.guild.name}`,bot)
+          bot.createEmbed("error","",`Error! Levelling is already enabled.`,[],`${message.guild.name}`,message)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
 
         bot.mutils.updateGuildById(message.guild.id, { levelling_enabled: true })
-        bot.createEmbed("success","",`Levelling has now been enabled.`,[],`${message.guild.name}`,bot)
+        bot.createEmbed("success","",`Levelling has now been enabled.`,[],`${message.guild.name}`,message)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
 
@@ -64,19 +64,19 @@ module.exports = {
 
       case "disable":
         if (config.levelling_enabled == false) {
-          bot.createEmbed("error","",`Error! Levelling is already disabled. `,[],`${message.guild.name}`,bot)
+          bot.createEmbed("error","",`Error! Levelling is already disabled. `,[],`${message.guild.name}`,message)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
 
         bot.mutils.updateGuildById(message.guild.id, { levelling_enabled: false })
-        bot.createEmbed("success","",`Levelling has now been disabled.`,[],`${message.guild.name}`,bot)
+        bot.createEmbed("success","",`Levelling has now been disabled.`,[],`${message.guild.name}`,message)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
         break;
 
       default:
-        bot.createEmbed("error","",`Error! No levelling setting called **${setting}**`,[],`${message.guild.name}`,bot)
+        bot.createEmbed("error","",`Error! No levelling setting called **${setting}**`,[],`${message.guild.name}`,message)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
     }

@@ -19,7 +19,7 @@ module.exports = {
       let setting = args[0];
   
       if (setting == undefined) {
-        bot.createEmbed("error", "", `Error! You forgot to include a log setting.`, [], `${message.guild.name}`, bot)
+        bot.createEmbed("error", "", `Error! You forgot to include a log setting.`, [], `${message.guild.name}`, message)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
       }
@@ -35,20 +35,20 @@ module.exports = {
           if (!targetchannel || targetchannel == "None") {
             config.logging.channel = "0";
             bot.mutils.updateGuildById(message.guild.id, config)
-            return bot.createEmbed("success", "", `Your logging channel has been removed`, [], `${message.guild.name}`, bot)
+            return bot.createEmbed("success", "", `Your logging channel has been removed`, [], `${message.guild.name}`, message)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
           }
   
           if (targetchannel.id == config.logging.channel) {
-            return bot.createEmbed("error", "", `Error! That channel is already set as the log channel.`, [], `${message.guild.name}`, bot)
+            return bot.createEmbed("error", "", `Error! That channel is already set as the log channel.`, [], `${message.guild.name}`, message)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
           }
   
           config.logging.channel = targetchannel.id;
           bot.mutils.updateGuildById(message.guild.id, config)
-          bot.createEmbed("success", "", `Your logging channel has been set to **${targetchannel.name}**`, [], `${message.guild.name}`, bot)
+          bot.createEmbed("success", "", `Your logging channel has been set to **${targetchannel.name}**`, [], `${message.guild.name}`, message)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
   
@@ -56,7 +56,7 @@ module.exports = {
         case "level":
           var level = args[1];
           if (level == undefined) {
-            return bot.createEmbed("error", "", `Error! You didn't mention a logging level. Choose between low, medium or high. For more information, check out the [documentation](https://docs.benwhybrow.com).`, [], `${message.guild.name}`, bot)
+            return bot.createEmbed("error", "", `Error! You didn't mention a logging level. Choose between low, medium or high. For more information, check out the [documentation](https://docs.benwhybrow.com).`, [], `${message.guild.name}`, message)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
           }
@@ -64,48 +64,48 @@ module.exports = {
           switch (level) {
             case "low":
               if (config.logging.level == "low") {
-                return bot.createEmbed("error", "", `Error! Logging is already set to that level.`, [], `${message.guild.name}`, bot)
+                return bot.createEmbed("error", "", `Error! Logging is already set to that level.`, [], `${message.guild.name}`, message)
                   .then((embed) => message.channel.send(embed))
                   .catch((error) => bot.log.post("error", error));
               }
   
               config.logging.level = "low";
               bot.mutils.updateGuildById(message.guild.id, config)
-              bot.createEmbed("success", "", `Logging level has been set to **LOW**.`, [], `${message.guild.name}`, bot)
+              bot.createEmbed("success", "", `Logging level has been set to **LOW**.`, [], `${message.guild.name}`, message)
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.log.post("error", error));
               break;
 
             case "medium":
               if (config.logging.level == "medium") {
-                return bot.createEmbed("error", "", `Error! Logging is already set to that level.`, [], `${message.guild.name}`, bot)
+                return bot.createEmbed("error", "", `Error! Logging is already set to that level.`, [], `${message.guild.name}`, message)
                   .then((embed) => message.channel.send(embed))
                   .catch((error) => bot.log.post("error", error));
               }
   
               config.logging.level = "medium";
               bot.mutils.updateGuildById(message.guild.id, config);
-              bot.createEmbed("success", "", `Logging level has been set to **MEDIUM**.`, [], `${message.guild.name}`, bot)
+              bot.createEmbed("success", "", `Logging level has been set to **MEDIUM**.`, [], `${message.guild.name}`, message)
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.log.post("error", error));
               break;
 
             case "high":
               if (config.logging.level == "high") {
-                return bot.createEmbed("error", "", `Error! Logging is already set to that level.`, [], `${message.guild.name}`, bot)
+                return bot.createEmbed("error", "", `Error! Logging is already set to that level.`, [], `${message.guild.name}`, message)
                   .then((embed) => message.channel.send(embed))
                   .catch((error) => bot.log.post("error", error));
               }
   
               config.logging.level = "high"
               bot.mutils.updateGuildById(message.guild.id, config)
-              bot.createEmbed("success", "", `Logging level has been set to **HIGH**.`, [], `${message.guild.name}`, bot)
+              bot.createEmbed("success", "", `Logging level has been set to **HIGH**.`, [], `${message.guild.name}`, message)
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.log.post("error", error));
               break;
 
             default:
-              return bot.createEmbed("error", "", `Error! There is no logging level called that.`, [], `${message.guild.name}`, bot)
+              return bot.createEmbed("error", "", `Error! There is no logging level called that.`, [], `${message.guild.name}`, message)
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.log.post("error", error));
           }
@@ -113,28 +113,28 @@ module.exports = {
 
         case "enable":
           if (config.logging.enabled == true) {
-            return bot.createEmbed("error", "", `Error! Logging is already enabled.`, [], `${message.guild.name}`, bot)
+            return bot.createEmbed("error", "", `Error! Logging is already enabled.`, [], `${message.guild.name}`, message)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
           }
   
           config.logging.enabled = true;
           bot.mutils.updateGuildById(message.guild.id, config);
-          bot.createEmbed("success", "", `Logging is now enabled.`, [], `${message.guild.name}`, bot)
+          bot.createEmbed("success", "", `Logging is now enabled.`, [], `${message.guild.name}`, message)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
           break;
   
         case "disable":
           if (config.logging.enabled == false) {
-            bot.createEmbed("error", "", `Error! Logging is already disabled`, [], `${message.guild.name}`, bot)
+            bot.createEmbed("error", "", `Error! Logging is already disabled`, [], `${message.guild.name}`, message)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
           }
   
           config.logging.enabled = true;
           bot.mutils.updateGuildById(message.guild.id, config)
-          bot.createEmbed("success", "", `Logging is now disabled.`, [], `${message.guild.name}`, bot)
+          bot.createEmbed("success", "", `Logging is now disabled.`, [], `${message.guild.name}`, message)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
           
@@ -149,20 +149,20 @@ module.exports = {
   
               var targetchannel = message.mentions.channels.first();
               if (targetchannel == undefined) {
-                return bot.createEmbed("error", "", `Error! You didn't mention a channel.`, [], `${message.guild.name}`, bot)
+                return bot.createEmbed("error", "", `Error! You didn't mention a channel.`, [], `${message.guild.name}`, message)
                   .then((embed) => message.channel.send(embed))
                   .catch((error) => bot.log.post("error", error));
               }
   
               if (config.logging.ignore.includes(targetchannel.id)) {
-                return bot.createEmbed("error", "", `Error! This channel is already in the ignored list.`, [], `${message.guild.name}`, bot)
+                return bot.createEmbed("error", "", `Error! This channel is already in the ignored list.`, [], `${message.guild.name}`, message)
                   .then((embed) => message.channel.send(embed))
                   .catch((error) => bot.log.post("error", error));
               }
   
               config.logging.ignore.push(targetchannel.id)
               bot.mutils.updateGuildById(message.guild.id, config);
-              bot.createEmbed("success", "", `The channel <#${targetchannel.id}> has been successfully added to the logging ignore list!`, [], `${message.guild.name}`, bot)
+              bot.createEmbed("success", "", `The channel <#${targetchannel.id}> has been successfully added to the logging ignore list!`, [], `${message.guild.name}`, message)
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.log.post("error", error));
   
@@ -172,13 +172,13 @@ module.exports = {
   
               var targetchannel = message.mentions.channels.first();
               if (targetchannel == undefined) {
-                return bot.createEmbed("error", "", `Error! You didn't mention a channel.`, [], `${message.guild.name}`, bot)
+                return bot.createEmbed("error", "", `Error! You didn't mention a channel.`, [], `${message.guild.name}`, message)
                   .then((embed) => message.channel.send(embed))
                   .catch((error) => bot.log.post("error", error));
               }
   
               if (!config.logging.ignore.includes(targetchannel.id)) {
-                return bot.createEmbed("error", "", `Error! This channel is currently not in the ignored list.`, [], `${message.guild.name}`, bot)
+                return bot.createEmbed("error", "", `Error! This channel is currently not in the ignored list.`, [], `${message.guild.name}`, message)
                   .then((embed) => message.channel.send(embed))
                   .catch((error) => bot.log.post("error", error));
               }
@@ -187,7 +187,7 @@ module.exports = {
   
               config.logging.ignore.splice(index, 1)
               bot.mutils.updateGuildById(message.guild.id, config);
-              bot.createEmbed("success", "", `The channel <#${targetchannel.id}> has been successfully removed from the logging ignore list!`, [], `${message.guild.name}`, bot)
+              bot.createEmbed("success", "", `The channel <#${targetchannel.id}> has been successfully removed from the logging ignore list!`, [], `${message.guild.name}`, message)
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.log.post("error", error));
   
@@ -197,14 +197,14 @@ module.exports = {
   
               config.logging.ignore = [];
               bot.mutils.updateGuildById(message.guild.id, config);
-              bot.createEmbed("success", "", `The logging ignore list has been succesfully cleared.`, [], `${message.guild.name}`, bot)
+              bot.createEmbed("success", "", `The logging ignore list has been succesfully cleared.`, [], `${message.guild.name}`, message)
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.log.post("error", error));
   
               break;
   
             default:
-              bot.createEmbed("error", "", `Error! No valid option given. Please specify whether you would like to add, remove or clear ignored channels.`, [], `${message.guild.name}`, bot)
+              bot.createEmbed("error", "", `Error! No valid option given. Please specify whether you would like to add, remove or clear ignored channels.`, [], `${message.guild.name}`, message)
                 .then((embed) => message.channel.send(embed))
                 .catch((error) => bot.log.post("error", error));
   
@@ -213,7 +213,7 @@ module.exports = {
           break;
   
         default:
-          bot.createEmbed("error", "", `Error! No log setting called **${setting}**`, [], `${message.guild.name}`, bot)
+          bot.createEmbed("error", "", `Error! No log setting called **${setting}**`, [], `${message.guild.name}`, message)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
       }

@@ -26,20 +26,20 @@ module.exports = {
     }
 
     if (!c) {
-      return bot.createEmbed("error", "", "Error! You forgot to mention a channel to remove!", [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", "Error! You forgot to mention a channel to remove!", [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     if (c.deletable == false) {
-      return bot.createEmbed("error", "", "Error! I am unable to delete that channel!", [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", "Error! I am unable to delete that channel!", [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     //Do the Magic
     c.delete().then((deleted) => {
-      return bot.createEmbed("success", "", `The channel **${deleted.name}** has been removed by administrator **${message.author}**`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("success", "", `The channel **${deleted.name}** has been removed by administrator **${message.author}**`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error))
     });

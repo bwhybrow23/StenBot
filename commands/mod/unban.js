@@ -35,7 +35,7 @@ module.exports = {
       })
       .catch(console.error)
       .then(
-        bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, bot)
+        bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error)));
 

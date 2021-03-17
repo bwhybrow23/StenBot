@@ -22,7 +22,7 @@ module.exports = {
     }
     let guild = bot.guilds.cache.get(guildid);
     if (!guild) {
-      return bot.createEmbed("error", "", `Error! The bot isn't in a guild with that ID.`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `Error! The bot isn't in a guild with that ID.`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -32,7 +32,7 @@ module.exports = {
     );
 
     if (!invitechannels) {
-      return bot.createEmbed("error", "", `Error! I don't have permission to create an invite in that guild.`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `Error! I don't have permission to create an invite in that guild.`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }

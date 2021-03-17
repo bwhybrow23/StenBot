@@ -23,7 +23,7 @@ module.exports = {
     }
 
     if (targetuser.roles.cache.has(config.moderation.staff_role)) {
-      return bot.createEmbed("error", "", `Error! You are not allowed to mute this person!`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `Error! You are not allowed to mute this person!`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -37,7 +37,7 @@ module.exports = {
     }
 
     if (!targetuser.kickable) {
-      return bot.createEmbed("error", "", `Error! I do not have permission to kick this user!`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `Error! I do not have permission to kick this user!`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -45,7 +45,7 @@ module.exports = {
     targetuser.kick(`By ${message.author.tag}\nReason: ${reason}`)
       .catch(console.error)
       .then(
-        bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, bot)
+        bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error))
         )

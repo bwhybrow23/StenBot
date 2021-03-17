@@ -43,7 +43,7 @@ module.exports = {
     var targetuser = message.mentions.members.first();
 
     if (targetuser == undefined) {
-      return bot.createEmbed("error", "", `Error! You need to include someone to clear the messages of!`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `Error! You need to include someone to clear the messages of!`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }

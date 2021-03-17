@@ -19,7 +19,7 @@ module.exports = {
     }
 
     await ecoUtils.getUser(person.id).then(async (user) => {
-      return bot.createEmbed("info", "", `${person} has ${user.balance} credits.`, [], ``, bot)
+      return bot.createEmbed("info", "", `${person} has ${user.balance} credits.`, [], ``, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     })

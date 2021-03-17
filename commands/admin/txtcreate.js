@@ -27,7 +27,7 @@ module.exports = {
     }
 
     if (n == undefined) {
-      return bot.createEmbed("error", "", `Error! You forgot to include a name for the channel!`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `Error! You forgot to include a name for the channel!`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -35,13 +35,13 @@ module.exports = {
     var ca = args.slice(1).join(" ") || "None";
 
     if (n.length > 100) {
-      return bot.createEmbed("error", "", `The channel name has to be between 1 and 100 in **length**`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `The channel name has to be between 1 and 100 in **length**`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     if (ca.length > 100) {
-      return bot.createEmbed("error", "", `The channel category has to be less than 100 characters.`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `The channel category has to be less than 100 characters.`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -67,7 +67,7 @@ module.exports = {
       reason: `Created by ${message.author.tag}`
     }).then((channel) => {
       channel.setParent(cat);
-      return bot.createEmbed("success", "", `The channel **${channel.name}** has been created.`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("success", "", `The channel **${channel.name}** has been created.`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     });

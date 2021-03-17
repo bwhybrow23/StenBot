@@ -25,19 +25,19 @@ module.exports = {
     }
 
     if (msg.length > 500) {
-      return bot.createEmbed("error", "", `Error! Your message it too long. It must be less that **500** characters.`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `Error! Your message it too long. It must be less that **500** characters.`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     if (msg.length < 2) {
-      return bot.createEmbed("error", "", `Error! Your message is too short.`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `Error! Your message is too short.`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     //Send the Message
-    return bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, bot)
+    return bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, message)
       .then((embed) => message.channel.send(embed))
       .catch((error) => bot.log.post("error", error));
   },

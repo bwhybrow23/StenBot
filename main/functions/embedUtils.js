@@ -1,3 +1,5 @@
+const { Message } = require("discord.js");
+
 const colours = {
     red: 14165566,
     green: 1295876,
@@ -5,7 +7,7 @@ const colours = {
     blue: 4886754,
   };
   
-  const createEmbed = (type, title, desc, fields, footer, bot) => {
+  const createEmbed = (type, title, desc, fields, footer, message) => {
     return new Promise((resolve, reject) => {
   
       let embedTemplate = {
@@ -53,6 +55,11 @@ const colours = {
       }
       //Footer
       if (typeof footer == "string" && footer.length < 2048) {
+        if(footer == message.guild.name) {
+          embedTemplate.embed.footer.icon_url = message.guild.iconURL();
+        } else if (footer == message.author.tag) {
+          embedTemplate.embed.footer.icon_url = message.author.displayAvatarURL();
+        }
         embedTemplate.embed.footer.text = footer;
       } else {
         embedTemplate.embed.footer.icon_url = "";

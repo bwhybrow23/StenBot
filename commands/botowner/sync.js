@@ -69,7 +69,7 @@ module.exports = {
 
     //Round up the goodies
     bot.log.post("info", `${amountSynced} server(s) have been synced.`)
-    bot.createEmbed("success", `**${amountSynced}** server(s) have been synced`, `\`\`\`${syncedServers}\`\`\``, [], `${message.guild.name}`, bot)
+    bot.createEmbed("success", `**${amountSynced}** server(s) have been synced`, `\`\`\`${syncedServers}\`\`\``, [], `${message.guild.name}`, message)
       .then((embed) => message.channel.send(embed))
       .catch((error) => bot.log.post("error", error));
 

@@ -1,34 +1,57 @@
 module.exports = {
   name: "server",
   category: "bot",
-  description: "Get some information about the server the command is ran in.",
-  usage: "",
-  example: "",
+  description: "Gather information about a specific server (or the server the command is ran in)",
+  usage: "[SERVER ID]",
+  example: "455782308293771264",
   options: { permission: "EVERYONE", aliases: ["server-info", "serverinfo"], enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
 
+    let guild, id;
+    if(!args[0]) {
+      guild = message.guild;
+    } else {
+      try {
+        id = parseInt(args[0]);
+      } catch (e) {
+        bot.log.post("error", e);
+      }
+      if(!id) {
+        return bot.createEmbed("error", "", "Specified server ID is invalid. Please make sure that it is a valid server ID.", [], message.author.tag, message)
+          .then((embed) => message.channel.send(embed));
+      }
+      try { 
+        guild = await bot.guilds.fetch(args[0], true, true);
+      }
+      catch (e) {
+        return bot.createEmbed("error", "", "Specified server cannot be found. Please make sure the bot is in the server.", [], message.author.tag, message)
+          .then((embed) => message.channel.send(embed));
+      }
+    }
+
     let txtChannelCount = 0;
     let vcChannelChannel = 0;
-    message.guild.channels.cache.forEach(channel => {
+    guild.channels.cache.forEach(channel => {
       if (channel.type == "text") return txtChannelCount++;
       if (channel.type == "voice") return vcChannelChannel++;
     });
 
     let embed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.blue)
-      .setThumbnail(message.guild.iconURL())
-      .addField(`Name:`, `${message.guild.name}`, true)
-      .addField(`Owner:`, `${bot.users.cache.get(message.guild.ownerID).tag}`, true)
-      .addField(`Region:`, `${message.guild.region.charAt(0).toUpperCase() + message.guild.region.slice(1)}`, true)
+      .setThumbnail(guild.iconURL())
+      .addField(`Name:`, `${guild.name}`, true)
+      .addField(`Owner:`, `${bot.users.cache.get(guild.ownerID).tag}`, true)
+      .addField(`Region:`, `${guild.region.charAt(0).toUpperCase() + guild.region.slice(1)}`, true)
+      .addField(`ID:`, `${guild.id}`, true)
       .addField(`Text Channels:`, `${txtChannelCount}`, true)
       .addField(`Voice Channels:`, `${vcChannelChannel}`, true)
-      .addField(`Roles:`, `${message.guild.roles.cache.size}`, true)
-      .addField(`Member Count:`, `${message.guild.memberCount}`, true)
-      .addField(`Bot Count:`, `${message.guild.members.cache.filter(member => member.user.bot).size}`, true)
+      .addField(`Roles:`, `${guild.roles.cache.size}`, true)
+      .addField(`Member Count:`, `${guild.memberCount}`, true)
+      .addField(`Bot Count:`, `${guild.members.cache.filter(member => member.user.bot).size}`, true)
       .setFooter(`Created`)
-      .setTimestamp(message.guild.createdAt);
+      .setTimestamp(guild.createdAt);
 
     message.channel.send(embed);
 

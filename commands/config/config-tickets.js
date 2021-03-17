@@ -19,7 +19,7 @@ module.exports = {
     let setting = args[0];
 
     if (setting == undefined) {
-      return bot.createEmbed("error", "", `Error! You forgot to include a ticket setting.`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `Error! You forgot to include a ticket setting.`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -32,7 +32,7 @@ module.exports = {
       case "enable":
         
         if (config.tickets.enabled == true) {
-          return bot.createEmbed("error", "", `Error! Tickets are already enabled.`, [], `${message.guild.name}`, bot)
+          return bot.createEmbed("error", "", `Error! Tickets are already enabled.`, [], `${message.guild.name}`, message)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
@@ -57,14 +57,14 @@ module.exports = {
           });
         }
 
-        bot.createEmbed("success", "", `Tickets have been enabled.`, [], `${message.guild.name}`, bot)
+        bot.createEmbed("success", "", `Tickets have been enabled.`, [], `${message.guild.name}`, message)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
 
         break;
       case "disable":
         if (config.tickets.enabled == false) {
-          return bot.createEmbed("error", "", `Error! Tickets are already disabled.`, [], `${message.guild.name}`, bot)
+          return bot.createEmbed("error", "", `Error! Tickets are already disabled.`, [], `${message.guild.name}`, message)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
@@ -73,7 +73,7 @@ module.exports = {
         //Find and delete tickets category
         message.guild.channels.cache.find(c => c.name == "Tickets" && c.type == "category").delete();
 
-        bot.createEmbed("success", "", `Tickets have been disabled.`, [], `${message.guild.name}`, bot)
+        bot.createEmbed("success", "", `Tickets have been disabled.`, [], `${message.guild.name}`, message)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
         break;
@@ -83,26 +83,26 @@ module.exports = {
         if (tmessage.length < 1 || tmessage == "None") {
           config.tickets.message = "**User:** ${user}\n**Reason:** ${reason}"
           bot.mutils.updateGuildById(message.guild.id, config);
-          return bot.createEmbed("success", "", `The ticket message has been reset.`, [], `${message.guild.name}`, bot)
+          return bot.createEmbed("success", "", `The ticket message has been reset.`, [], `${message.guild.name}`, message)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
 
         if (tmessage.length > 256) {
-          return bot.createEmbed("error", "", `Error! The message you have provided is too long! Make sure it is less than **256** characters.`, [], `${message.guild.name}`, bot)
+          return bot.createEmbed("error", "", `Error! The message you have provided is too long! Make sure it is less than **256** characters.`, [], `${message.guild.name}`, message)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
 
         config.tickets.message = message;
         bot.mutils.updateGuildById(message.guild.id, config);
-        bot.createEmbed("success", "", `Ticket message set!`, [], `${message.guild.name}`, bot)
+        bot.createEmbed("success", "", `Ticket message set!`, [], `${message.guild.name}`, message)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
 
         break;
       default:
-        return bot.createEmbed("error", "", `Error! There is no ticket config setting called **${setting}**.`, [], `${message.guild.name}`, bot)
+        return bot.createEmbed("error", "", `Error! There is no ticket config setting called **${setting}**.`, [], `${message.guild.name}`, message)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
     }

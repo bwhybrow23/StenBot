@@ -1,5 +1,5 @@
 {
-    "prefix": "sb!",
+    "prefix": "",
     "mode": "production",
     "connections": {
         "token": "",

@@ -52,7 +52,7 @@ module.exports = {
           `./data/accounts/${message.author.id}.json`
         );
         if (accountexists == true) {
-          return bot.createEmbed("error", "", `You already have a StenBot Account`, [], `${message.guild.name}`, bot)
+          return bot.createEmbed("error", "", `You already have a StenBot Account`, [], `${message.guild.name}`, message)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
         }
@@ -82,13 +82,13 @@ module.exports = {
         });
 
         //And return..
-        bot.createEmbed("success", "", `Your StenBot Account has been created! :white_check_mark:`, [], `${message.guild.name}`, bot)
+        bot.createEmbed("success", "", `Your StenBot Account has been created! :white_check_mark:`, [], `${message.guild.name}`, message)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
 
         break;
       default:
-        return bot.createEmbed("success", "", `Error! No account command called **${setting}**`, [], `${message.guild.name}`, bot)
+        return bot.createEmbed("success", "", `Error! No account command called **${setting}**`, [], `${message.guild.name}`, message)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
     }

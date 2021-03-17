@@ -31,7 +31,7 @@ module.exports = {
         }, {
           name: "Message",
           value: `${msg}`
-        }], `${message.guild.name}`, bot)
+        }], `${message.guild.name}`, message)
         .then((embed) => guild.owner.send(embed))
         .catch((error) => bot.log.post("error", error));
 

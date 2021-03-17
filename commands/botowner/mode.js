@@ -52,7 +52,7 @@ module.exports = {
           //Console Log
           bot.log.post("info", `StenBot has been converted to Production Mode. Running version: ${packageJSON.version} | Changed at ${date}`);
           //Reply Message
-          bot.createEmbed("success", "", `Bot Mode has been Sucessfully Updated to **Production**.`, [], `${message.guild.name}`, bot)
+          bot.createEmbed("success", "", `Bot Mode has been Sucessfully Updated to **Production**.`, [], `${message.guild.name}`, message)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
 
@@ -84,7 +84,7 @@ module.exports = {
           bot.log.post("info", `StenBot has been converted to Development Mode. | Changed at ${date}`);
 
           //Reply Message
-          bot.createEmbed("success", "", `Bot Mode has been Sucessfully Updated to **Development**.`, [], `${message.guild.name}`, bot)
+          bot.createEmbed("success", "", `Bot Mode has been Sucessfully Updated to **Development**.`, [], `${message.guild.name}`, message)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));
 
@@ -92,7 +92,7 @@ module.exports = {
 
         default:
           if (newMode == undefined) {
-            bot.createEmbed("error", "", `Error! You haven't included a new mode for the bot to be switched to.`, [], `${message.guild.name}`, bot)
+            bot.createEmbed("error", "", `Error! You haven't included a new mode for the bot to be switched to.`, [], `${message.guild.name}`, message)
               .then((embed) => message.channel.send(embed))
               .catch((error) => bot.log.post("error", error));
           }

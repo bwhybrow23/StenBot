@@ -25,7 +25,7 @@ module.exports = {
     let request = await fetch.get(args[1] ? url + `&port=${port}` : url + ip);
     let res = request.body;
     if (res.status == "error" && res.error == "server timeout") {
-      bot.createEmbed("error", "", `Error! The status couldn't be fetched, perhaps an invalid IP or Port.`, [], `${message.server.name}`, bot)
+      bot.createEmbed("error", "", `Error! The status couldn't be fetched, perhaps an invalid IP or Port.`, [], `${message.server.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -60,7 +60,7 @@ module.exports = {
         }, {
           name: `MOTD`,
           value: `${motd}`
-        }, ], `${message.server.name}`, bot)
+        }, ], `${message.server.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -72,7 +72,7 @@ module.exports = {
         }, {
           name: `Status`,
           value: `Offline`
-        }, ], `${message.server.name}`, bot)
+        }, ], `${message.server.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }

@@ -25,14 +25,14 @@ module.exports = {
     };
 
     if (targetuser.roles.cache.has(config.moderation.staff_role)) {
-      return bot.createEmbed("error", "", `Error! You are not allowed to warn this person!`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `Error! You are not allowed to warn this person!`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     };
 
     let reason = args.slice(1).join(" ");
     if (!reason) {
-      return bot.createEmbed("error", "", `Error! You have not provided a reason for the warning.`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `Error! You have not provided a reason for the warning.`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     };
@@ -53,7 +53,7 @@ module.exports = {
     });
 
     // User Output
-    bot.createEmbed("success", "", `**${targetuser.user.tag}** has been warned for **${reason}**.\nThey are on a total of ${Object.keys(total).length} warnings.`, [], `${message.guild.name}`, bot)
+    bot.createEmbed("success", "", `**${targetuser.user.tag}** has been warned for **${reason}**.\nThey are on a total of ${Object.keys(total).length} warnings.`, [], `${message.guild.name}`, message)
       .then((embed) => message.channel.send(embed))
       .catch((error) => bot.log.post("error", error));
 

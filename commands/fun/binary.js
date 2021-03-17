@@ -26,7 +26,7 @@ module.exports = {
       }, {
         name: "Binary",
         value: `${output}`
-      }, ], `${message.server.name}`, bot)
+      }, ], `${message.server.name}`, message)
       .then((embed) => message.channel.send(embed))
       .catch((error) => bot.log.post("error", error));
   },

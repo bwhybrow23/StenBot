@@ -13,7 +13,7 @@ module.exports = {
         return bot.createEmbed("success", "API Information", "Use the below token to connect to the [StenBot API](https://benwhybrow.com/api). It will be used a form of authentication to check that you can perform an action.", [{
           name: "API Token:",
           value: `**${authToken}**`
-        }], message.author.tag, bot).then(embed => message.author.send(embed));
+        }], message.author.tag, message).then(embed => message.author.send(embed));
       });
   
     }

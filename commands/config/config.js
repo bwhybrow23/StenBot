@@ -26,7 +26,7 @@ module.exports = {
     if (welcomerchannel == 0) {
       var welcomerchannel = "Not Set";
     } else {
-      var welcomerchannel = welcomerchannel;
+      var welcomerchannel = `<#${welcomerchannel}>`;
     }
     //Leave Channel? Default = undefined
     var leavechannel = config.gatekeeper.leave_channel;
@@ -110,7 +110,7 @@ module.exports = {
         }, {
           name: "Tickets",
           value: `Enabled: **${config.tickets.enabled ? "Yes" : "No"}**\nTicket Message: \`\`\`${ticketmessage}\`\`\``,
-        }, ], `${message.guild.name}`, bot)
+        }, ], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
   },

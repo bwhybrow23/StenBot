@@ -24,7 +24,7 @@ module.exports = {
     }
 
     if (targetuser.roles.cache.has(config.moderation.staff_role)) {
-      return bot.createEmbed("error", "", `Error! You are not allowed to mute this person!`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `Error! You are not allowed to mute this person!`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -40,7 +40,7 @@ module.exports = {
     //Role Check
     let muteRole = message.guild.roles.cache.find(r => r.name == "Muted")
     if (!muteRole) {
-      return bot.createEmbed("error", "", `Error! There is no valid "Muted" role which means that the role has been deleted or was never created. In order for the role to be created, a user has to be muted by StenBot.`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `Error! There is no valid "Muted" role which means that the role has been deleted or was never created. In order for the role to be created, a user has to be muted by StenBot.`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -52,7 +52,7 @@ module.exports = {
       mutedRoleID: muteRole
     }).then((muteData) => {
       //Response
-      bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, bot)
+      bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
       //Logging

@@ -24,7 +24,7 @@ module.exports = {
     }
 
     if (targetuser.roles.cache.has(config.moderation.staff_role)) {
-      return bot.createEmbed("error", "", `Error! You are not allowed to mute this person!`, [], `${message.guild.name}`, bot)
+      return bot.createEmbed("error", "", `Error! You are not allowed to mute this person!`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
     }
@@ -68,7 +68,7 @@ module.exports = {
       mutedRoleID: muteRole
     }).then((muteData) => {
       //Response
-      bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, bot)
+      bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, message)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));
       //DM User
