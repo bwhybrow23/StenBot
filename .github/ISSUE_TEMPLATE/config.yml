@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: StenBot Support
+    url: https://discord.benwhybrow.com/
+    about: If you require support, please use this Discord server for a quicker response.
+  - name: StenBot Wiki
+    url: https://wiki.benwhybrow.com
+    about: Check the Wiki for help as well!
