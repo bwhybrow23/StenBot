@@ -38,7 +38,7 @@ module.exports = async (bot, member) => {
               timeStyle: "medium"
             });
             //Fill in place holders
-            let themsg = format(config.gatekeeper.leave_channel, {
+            let themsg = format(config.gatekeeper.leave_message, {
               user: member.user.tag,
               usermention: member.user,
               username: member.user.name,
