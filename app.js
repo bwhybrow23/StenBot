@@ -167,8 +167,9 @@
       });
     });
   
+  //EXPORT BOT MODULE (DONT PUT ANYTHING BELOW THIS)
   module.exports = bot;
-  
+
   /**
    *
    * END OF APP.JS

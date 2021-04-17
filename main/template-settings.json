@@ -4,7 +4,12 @@
     "connections": {
         "token": "",
         "devToken": "",
-        "giphyAPI": ""
+        "giphyAPI": "",
+        "botslist": {
+            "bfd": "",
+            "dbl": "",
+            "topgg": ""
+        }
     },
     "ids": {
         "botOwner": "",

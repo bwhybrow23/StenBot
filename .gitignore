@@ -2,7 +2,6 @@
 node_modules/
 .npm
 build/Release
-package-lock.json
 
 # dotenv environment variables file
 .env
