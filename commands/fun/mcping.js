@@ -66,7 +66,7 @@ module.exports = {
     }
 
     if (!res.online) {
-      bot.createEmbed("success", "Server Status:", ``, [{
+      bot.createEmbed("error", "Server Status:", ``, [{
           name: "IP",
           value: `${ip}`
         }, {

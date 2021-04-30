@@ -80,4 +80,7 @@ module.exports = async (bot, guild) => {
     if (err) return bot.log.post("error", err);
   });
 
+  //Refresh cache
+  guild.members.fetch();
+
 };

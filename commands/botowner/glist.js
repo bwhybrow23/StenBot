@@ -19,11 +19,21 @@ module.exports = {
       guildList.push(`${guilds.name} ||  ${guilds.id}`);
     });
 
-    bot.createEmbed("info", "**Guild List**", "", [{
+    //Split arrays to every N amount
+    let n = 25;
+    let result = new Array(Math.ceil(guildList.length / n))
+      .fill()
+      .map(_ => guildList.splice(0, n));
+
+    let page = 1;
+    result.forEach((array) => {
+      bot.createEmbed("info", "**Guild List**", "", [{
         name: "Guilds",
-        value: `\`\`\`${guildList.join("\n")}\`\`\``
-      }], `${message.guild.name}`, message)
+        value: `\`\`\`${array.join("\n")}\`\`\``
+      }], `Page ${page}`, message)
       .then((embed) => message.channel.send(embed))
       .catch((error) => bot.log.post("error", error));
+      page++;
+    })
   }
 };

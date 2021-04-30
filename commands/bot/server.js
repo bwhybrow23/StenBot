@@ -31,6 +31,9 @@ module.exports = {
       }
     }
 
+    //Fetch members
+    guild.members.fetch();
+
     let txtChannelCount = 0;
     let vcChannelChannel = 0;
     guild.channels.cache.forEach(channel => {
@@ -54,6 +57,8 @@ module.exports = {
       .setTimestamp(guild.createdAt);
 
     message.channel.send(embed);
+
+    
 
   }
 };
