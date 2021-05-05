@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.0.4 - 05/05/2021
+* Added dependabot 
+* Updated NPM version
+* Fixed leave messages not formatting messages
+* Added Code-QL
+* Voting sites added
+* Fixed caching
+* Multiple pages on glist
+* Bot guild updates posted in StenBot server
+
 ## 2.0.3 - 17/03/2021
 * Server command now supports args
 * Uses message variable passed to createEmbed function to change the footer icon to what is being used (server or user)
