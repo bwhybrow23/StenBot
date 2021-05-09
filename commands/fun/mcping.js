@@ -4,7 +4,7 @@ module.exports = {
   description: "Ping a Minecraft Server to find out more information about it.",
   usage: "<SERVER IP>[:PORT]",
   example: "play.hypixel.net",
-  options: { permission: "EVERYONE", aliases: ["mc"], enabled: true, cooldown: 15, guildOnly: false },
+  options: { permission: "EVERYONE", aliases: ["mc"], enabled: true, cooldown: 1, guildOnly: false },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
@@ -17,12 +17,21 @@ module.exports = {
         .catch((error) => bot.log.post("error", error));
     }
 
-    const ip = args[0];
-    if (args[1]) {
-      const port = args[1];
+    let address = args[0].split(":");
+    let ip = address[0];
+    let port;
+    if (address[1]) {
+      port = address[1];
     }
 
-    let request = await fetch.get(args[1] ? url + ip + `&port=${port}` : url + ip);
+    let request;
+    if(port) {
+      request = await fetch.get(url + ip + `&port=${port}`);
+    }
+    else if (!port) {
+      request = await fetch.get(url + ip);
+    }
+
     let res = request.body;
     if (res.status == "error" && res.error == "server timeout") {
       bot.createEmbed("error", "", `Error! The status couldn't be fetched, perhaps an invalid IP or Port.`, [], `${message.server.name}`, message)
