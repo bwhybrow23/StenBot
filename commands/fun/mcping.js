@@ -9,6 +9,7 @@ module.exports = {
 
     const Discord = require("discord.js");
     const fetch = require("superagent");
+    const fs = require("fs");
     const url = "https://mcapi.us/server/status?ip=";
 
     if (!args.length || args[0] == "help") {
@@ -53,25 +54,17 @@ module.exports = {
       motd = res.motd;
     }
 
-    if (res.online) {
-      bot.createEmbed("success", "Server Status:", ``, [{
-          name: "IP",
-          value: `${ip}`
-        }, {
-          name: `Status`,
-          value: `Online`
-        }, {
-          name: `Player Count`,
-          value: `${players}/${res.players.max}`
-        }, {
-          name: `Server Version`,
-          value: `${res.server.name}`
-        }, {
-          name: `MOTD`,
-          value: `${motd}`
-        }, ], `${message.server.name}`, message)
-        .then((embed) => message.channel.send(embed))
-        .catch((error) => bot.log.post("error", error));
+    if (res.online) {        
+        let onlineEmbed = new Discord.MessageEmbed()
+          .setColor(1295876)
+          .setTitle("Server Status:")
+          .addField("IP:", address, true)
+          .addField("Status:", "Online", true)
+          .addField("Player Count:", `${players}/${res.players.max}`, true)
+          .addField("Server Version:", res.server.name, true)
+          .addField("MOTD:", motd, false)
+          .setFooter(message.server.name, message.server.iconURL());
+        message.channel.send(onlineEmbed);
     }
 
     if (!res.online) {

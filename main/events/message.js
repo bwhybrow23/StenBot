@@ -103,6 +103,7 @@ module.exports = async (bot, message) => {
       let botData = require("../../data/global/bot-data.json");
       botData.stats.commands[cmd.category][cmd.name]++;
       botData.stats.commands[cmd.category].total++;
+      botData.stats.commands.total++;
       fs.writeFileSync("./data/global/bot-data.json", JSON.stringify(botData, null, 4));
     }
   

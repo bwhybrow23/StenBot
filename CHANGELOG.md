@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.5 - 27/05/2021
+* Fixed mcping issue (wouldn't work with IP:Port config)
+* Changed status command to info
+* Cleaned up info embed and added uptime
+* Cleaned up mcping embed
+
 ## 2.0.4 - 05/05/2021
 * Added dependabot 
 * Updated NPM version
