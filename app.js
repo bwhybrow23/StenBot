@@ -113,7 +113,7 @@
    * MONGO CONNECTION
    *
    */
-  const connectionURL = `mongodb://${mongo.user}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.database}?authSource=test`;
+  const connectionURL = `mongodb://${mongo.user}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.database}?authSource=admin`;
   bot.log.post("info", `Creating MongoDB connection at ${mongo.host}:${mongo.port}`)
   
   mongoose.connect(connectionURL, {
