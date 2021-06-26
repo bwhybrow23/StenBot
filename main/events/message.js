@@ -9,7 +9,7 @@ module.exports = async (bot, message) => {
       if (message.guild) {
         const config = await bot.mutils.getGuildById(message.guild.id);
         //Check if its an url
-        if (config.staff_linkblock) {
+        if (config.moderation.link_block) {
           var checker = require("is-url");
           if (checker(message.content)) {
             if (message.member.hasPermission("ADMINISTRATOR") == true) return;
