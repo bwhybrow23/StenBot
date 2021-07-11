@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0.6 - 11/07/2021
+* Adjusted MongoDB settings for new host
+* Dependencies updates
+* Fixed a small bug on that some code was still present from the old storage system
+* Automatic deployment added (to main StenBot bot)
+* Disabled voting page updates due to unfixed bug in dependency
+
 ## 2.0.5 - 27/05/2021
 * Fixed mcping issue (wouldn't work with IP:Port config)
 * Changed status command to info
