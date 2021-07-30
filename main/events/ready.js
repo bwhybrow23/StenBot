@@ -25,10 +25,10 @@ module.exports = (bot) => {
 
     //Starting Status
     bot.user.setPresence({
-      activity: {
+      activities: [{
         name: "sb!help",
         type: 'WATCHING'
-      },
+      }],
       status: 'online'
     });
 
@@ -67,10 +67,10 @@ module.exports = (bot) => {
 
       //Set as presence
       bot.user.setPresence({
-        activity: {
+        activities: [{
           name: status.name,
           type: status.type
-        },
+        }],
         status: 'online'
       });
 
@@ -90,10 +90,10 @@ module.exports = (bot) => {
     //Status
     date = new Date();
     bot.user.setPresence({
-      activity: {
+      activities: [{
         name: `In Development Mode`,
         type: `PLAYING`
-      },
+      }],
       status: 'dnd'
     });
 

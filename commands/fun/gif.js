@@ -32,7 +32,7 @@ module.exports = {
         .setColor(bot.settings.color.yellow)
         .setFooter(`Powered by GIPHY`, `https://i.imgur.com/gJMxGvU.gif`);
   
-      message.channel.send(embed);
+      message.channel.send({embeds: [embed.toJSON()]});
   
     }
   }

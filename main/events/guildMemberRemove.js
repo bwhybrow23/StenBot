@@ -55,7 +55,7 @@ module.exports = async (bot, member) => {
               .setDescription(themsg);
   
             //Send the message.
-            bot.channels.cache.get(config.gatekeeper.leave_channel).send(leaveEmbed);
+            bot.channels.cache.get(config.gatekeeper.leave_channel).send({embeds: [leaveEmbed.toJSON()]});
           }
         }
       }

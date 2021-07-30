@@ -12,7 +12,7 @@ module.exports = {
 
     //Accesschecking:
     const ownersid = message.guild.ownerId;
-    const adminperm = message.member.hasPermission("ADMINISTRATOR");
+    const adminperm = message.member.permissions.has("ADMINISTRATOR");
     var access = true;
     if (adminperm == false) {
       var access = false;
@@ -40,7 +40,7 @@ module.exports = {
       .setFooter(message.author.tag, message.author.avatarURL)
       .setTimestamp();
 
-    if (!args[0]) return message.channel.send(helpE);
+    if (!args[0]) return message.channel.send({embeds: [helpE.toJSON()]});
     //Get the server config
     const config = await bot.mutils.getGuildById(message.guild.id);
     //actions library

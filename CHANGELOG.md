@@ -7,8 +7,9 @@
 * Added intents for the bot client
 * StenBot automatically joins a new thread
 * Replaced deprecated message event for messageCreate
-* Updated the embedUtils to the new embed sending method
+* Updated to the new embed sending method
 * Adjusted to new casing on thingID's
+* Updated channel types to uppercase
 * 
 
 ## 2.0.6 - 11/07/2021

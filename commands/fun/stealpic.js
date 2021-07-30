@@ -23,6 +23,6 @@ module.exports = {
       .setImage(stolenPic)
       .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png`);
 
-    message.channel.send(embed);
+    message.channel.send({embeds: [embed.toJSON()]});
   },
 };

@@ -33,7 +33,7 @@ module.exports = {
         embed.addField(`\`${prefix}${cmd.name} ${cmd.usage}\``, `${cmd.description}`)
       });
 
-      message.channel.send(embed);
+      message.channel.send({embeds: [embed.toJSON()]});
     } else if (!args[0]) {
       //Main Embed
       let embed = new Discord.MessageEmbed()
@@ -51,7 +51,7 @@ module.exports = {
         .setFooter("Help Command", bot.user.displayURL)
         .setTimestamp();
 
-      message.channel.send(embed);
+      message.channel.send({embeds: [embed.toJSON()]});
     } else if (bot.commands.filter((cmd) => cmd.name == args[0])) {
       //Command Specific Help
 

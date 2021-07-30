@@ -86,7 +86,7 @@ module.exports = {
   
                   //Send report with function
                   reportUtils.playerReport(bot, reObj, rObj, gObj, reason, evidence, rDate)
-                    .then(embed => bot.channels.cache.get("518729627586527232").send(embed))
+                    .then(embed => bot.channels.cache.get("518729627586527232").send({embeds: [embed.toJSON()]}))
                     .catch(error => console.error(error));
   
                   //Report Sent Message
@@ -133,7 +133,7 @@ module.exports = {
   
                 //Send report with function
                 reportUtils.serverReport(bot, reObj, gObj, reason, evidence, rDate)
-                  .then(embed => bot.channels.cache.get("518729627586527232").send(embed))
+                  .then(embed => bot.channels.cache.get("518729627586527232").send({embeds: [embed.toJSON()]}))
                   .catch(error => console.error(error));
   
                 //Report Sent Message
@@ -190,7 +190,7 @@ module.exports = {
   
                   //Send report with function
                   reportUtils.bugReport(bot, reObj, gObj, info, steps, evidence, rDate)
-                    .then(embed => bot.channels.cache.get("518729627586527232").send(embed))
+                    .then(embed => bot.channels.cache.get("518729627586527232").send({embeds: [embed.toJSON()]}))
                     .catch(error => console.error(error));
   
                   //Report Sent Message

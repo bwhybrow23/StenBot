@@ -35,7 +35,7 @@ module.exports = {
       .addField("Version:", packageJSON.version, true)
       .setFooter(message.guild.name, message.guild.iconURL());
 
-    message.channel.send(embed);
+    message.channel.send({embeds: [embed.toJSON()]});
 
   }
 };

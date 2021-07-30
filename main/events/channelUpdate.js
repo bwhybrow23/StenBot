@@ -2,7 +2,7 @@ module.exports = async (bot, oldChannel, newChannel) => {
   const Discord = require("discord.js");
   const efunctions = require("../functions/eventUtils.js");
 
-  if ((newChannel.type == "dm")) return;
+  if ((newChannel.type == "DM")) return;
 
   if (newChannel.name.startsWith("ticket-")) return;
 

@@ -64,7 +64,7 @@ module.exports = {
           .addField("Server Version:", res.server.name, true)
           .addField("MOTD:", motd, false)
           .setFooter(message.server.name, message.server.iconURL());
-        message.channel.send(onlineEmbed);
+        message.channel.send({embeds: [onlineEmbed.toJSON()]});
     }
 
     if (!res.online) {

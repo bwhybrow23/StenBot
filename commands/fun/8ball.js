@@ -33,7 +33,7 @@ module.exports = {
 
     message.channel.send("The 8ball is working it's magic! :tada:").then((m) => {
         setTimeout(() => {
-          m.edit(ballEmbed);
+          m.edit({embeds: [ballEmbed.toJSON()]});
         }, 1000);
       })
       .catch((e) => {

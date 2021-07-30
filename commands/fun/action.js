@@ -40,7 +40,7 @@ module.exports = {
             .setColor(bot.settings.color.yellow)
             .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
   
-          message.channel.send(cEmbed);
+          message.channel.send({embeds: [cEmbed.toJSON()]});
           break;
         case "feed":
           try {
@@ -60,7 +60,7 @@ module.exports = {
             .setColor(bot.settings.color.yellow)
             .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
   
-          message.channel.send(fEmbed);
+          message.channel.send({embeds: [fEmbed.toJSON()]});
           break;
         case "hug":
           try {
@@ -82,7 +82,7 @@ module.exports = {
             .setColor(bot.settings.color.yellow)
             .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
   
-          message.channel.send(hEmbed);
+          message.channel.send({embeds: [hEmbed.toJSON()]});
           break;
   
         case "kiss":
@@ -105,7 +105,7 @@ module.exports = {
             .setColor(bot.settings.color.yellow)
             .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
   
-          message.channel.send(kEmbed);
+          message.channel.send({embeds: [kEmbed.toJSON()]});
           break;
   
         case "pat":
@@ -128,7 +128,7 @@ module.exports = {
             .setColor(bot.settings.color.yellow)
             .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
   
-          message.channel.send(pEmbed);
+          message.channel.send({embeds: [pEmbed.toJSON()]});
   
           break;
   
@@ -152,7 +152,7 @@ module.exports = {
             .setColor(bot.settings.color.yellow)
             .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
   
-          message.channel.send(poEmbed);
+          message.channel.send({embeds: [poEmbed.toJSON()]});
   
           break;
   
@@ -176,7 +176,7 @@ module.exports = {
             .setColor(bot.settings.color.yellow)
             .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
   
-          message.channel.send(sEmbed);
+          message.channel.send({embeds: [sEmbed.toJSON()]});
           break;
   
         case "tickle":
@@ -199,7 +199,7 @@ module.exports = {
             .setColor(bot.settings.color.yellow)
             .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
   
-          message.channel.send(tEmbed);
+          message.channel.send({embeds: [tEmbed.toJSON()]});
   
           break;
   
@@ -220,7 +220,7 @@ module.exports = {
             .addField("`sb!action tickle @user`", "TICKLE MONSTER TIME")
             .setFooter(message.author.tag, message.author.avatarURL);
   
-          message.channel.send(helpEmbed);
+          message.channel.send({embeds: [helpEmbed]});
   
           break;
       }

@@ -9,7 +9,7 @@ module.exports = {
 
     const Discord = require("discord.js");
 
-    let invites = await message.guild.fetchInvites().catch((error) => {
+    let invites = await message.guild.invites.fetch().catch((error) => {
       return message.channel.send("Sorry, I don't have the proper permissions to view invites!");
     });
 
@@ -26,6 +26,6 @@ module.exports = {
       .addField("Invites", `\`\`\`${possibleinvites.join("\n")}\`\`\``)
       .setFooter(`${message.guild.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
-    message.channel.send(lbEmbed);
+    message.channel.send({embeds: [lbEmbed.toJSON()]});
   },
 };
