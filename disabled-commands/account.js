@@ -11,7 +11,7 @@ module.exports = {
     const fs = require("fs");
 
     //Accesschecking:
-    const ownersid = message.guild.ownerID;
+    const ownersid = message.guild.ownerId;
     const adminperm = message.member.hasPermission("ADMINISTRATOR");
     var access = true;
     if (adminperm == false) {

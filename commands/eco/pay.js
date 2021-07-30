@@ -38,8 +38,8 @@ module.exports = {
       );
     }
 
-    await ecoUtils.updateUser(payee.discordID, payee.balance - amount).then(async () => {
-      await ecoUtils.updateUser(toBePaid.discordID, toBePaid.balance + amount).then(async (user) => {
+    await ecoUtils.updateUser(payee.discordId, payee.balance - amount).then(async () => {
+      await ecoUtils.updateUser(toBePaid.discordId, toBePaid.balance + amount).then(async (user) => {
         return bot.createEmbed("success", "", `${amount} has now been transferred to ${message.mentions.users.first()}'s balance. Their new balance is ${user.balance}.`, [], ``, message)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
