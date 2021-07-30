@@ -8,7 +8,7 @@
 * StenBot automatically joins a new thread
 * Replaced deprecated message event for messageCreate
 * Updated the embedUtils to the new embed sending method
-* Adjusted to new casing on thingID's 
+* Adjusted to new casing on thingID's
 * 
 
 ## 2.0.6 - 11/07/2021
