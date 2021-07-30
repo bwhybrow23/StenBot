@@ -64,7 +64,7 @@ module.exports = {
         await ecoUtils.updateUser(victim.id, parseInt(victimBal - amountRobbed));
         await ecoUtils.updateUser(robber.id, parseInt(robberBal + amountRobbed));
         let rNewBalance = await ecoUtils.getUser(robber.id);
-        await bot.timeouts.new(robberr.id, "rob");
+        await bot.timeouts.new(robber.id, "rob");
         return bot.createEmbed("success", "", `${message.author}, you robbed ${victim} of **${amountRobbed} credits**. Your balance is now **${rNewBalance.balance}**.`, [], ``, message)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));
