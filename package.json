@@ -32,7 +32,7 @@
     "btoa": "^1.2.1",
     "chalk": "^4.1.1",
     "cors": "^2.8.5",
-    "dbots": "^9.0.0",
+    "dbots": "^9.0.1",
     "discord-moderation": "github:bwhybrow23/discord-moderation#master",
     "discord.js": "^12.5.3",
     "ejs": "^3.1.5",
