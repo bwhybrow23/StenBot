@@ -35,7 +35,7 @@ module.exports = {
           .setImage(url)
           .setFooter(`${message.server.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
-        message.channel.send({embeds: [catEmbed.toJSON()]});
+        message.channel.send(catEmbed);
         break;
 
       case "dog":
@@ -51,7 +51,7 @@ module.exports = {
           .setImage(url)
           .setFooter(`${message.server.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
-        message.channel.send({embeds: [dogEmbed.toJSON()]});
+        message.channel.send(dogEmbed);
 
         break;
 
@@ -67,7 +67,7 @@ module.exports = {
           .setImage(url)
           .setFooter(`${message.server.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
-        message.channel.send({embeds: [foxEmbed.toJSON()]});
+        message.channel.send(foxEmbed);
 
         break;
 
@@ -84,14 +84,14 @@ module.exports = {
           .setImage(url)
           .setFooter(`${message.server.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
-        message.channel.send({embeds: [gooseEmbed.toJSON()]});
+        message.channel.send(gooseEmbed);
 
         break;
 
       default:
 
         message.channel.send({
-          embeds: [{
+          embed: {
             title: "Command: Animal",
             color: 4886754,
             url: `https://wiki.benwhybrow.com/commands/animal`,
@@ -121,7 +121,7 @@ module.exports = {
               icon_url: "https://i.imgur.com/BkZY6H8.png",
               text: `Help Command | Syntax: <> = required, [] = optional`,
             },
-          }]
+          }
         })
 
         break;

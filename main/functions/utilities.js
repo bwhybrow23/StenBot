@@ -57,7 +57,7 @@ module.exports = {
 
     // And ofcourse, await the reactions
     return message
-      .awaitReactions({ filter, 
+      .awaitReactions(filter, {
         max: 1,
         time: time,
       })
@@ -124,7 +124,7 @@ module.exports = {
 
     // And ofcourse, await the reactions
     return message
-      .awaitReactions({ filter, 
+      .awaitReactions(filter, {
         max: 1,
         time: time
       })

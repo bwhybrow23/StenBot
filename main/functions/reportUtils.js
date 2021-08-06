@@ -16,8 +16,8 @@ const playerReport = (bot, reObj, rObj, gObj, reason, evidence, rDate) => {
       let playerEmbed = new Discord.MessageEmbed()
         .setColor(bot.settings.color.yellow)
         .setTitle(`New Player Report`)
-        .addField("Reporter Information", `Username: ${reObj.tag}\nUser ID: ${reObj.id}\nFrom Server ID: ${gObj}\nDate Reported: ${rDate}`)
-        .addField("Reported Information", `User ID: ${rObj}`)
+        .addField("Reporter Information", `Username: ${reObj.tag}\nUser ID: ${reObj.id}\nFrom Server: ${gObj.name}\nDate Reported: ${rDate}`)
+        .addField("Reported Information", `Username: <@${rObj.id}>\nUser ID: ${rObj.id}`)
         .addField("Report Information", `Reason: ${reason}\nEvidence: ${evidence}`)
         .setTimestamp();
   

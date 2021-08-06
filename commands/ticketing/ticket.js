@@ -78,18 +78,18 @@ module.exports = {
               channel.setTopic(`${message.author.tag}'s Ticket`);
 
               //Channel permissions
-              channel.permissionOverwrites.create(message.guild.roles.everyone.id, {
+              channel.createOverwrite(message.guild.roles.everyone.id, {
                 SEND_MESSAGES: false,
                 VIEW_CHANNEL: false
               });
-              channel.permissionOverwrites.create(
+              channel.createOverwrite(
                 message.guild.roles.cache.get(config.moderation.staff_role), {
                   SEND_MESSAGES: true,
                   VIEW_CHANNEL: true,
                   MANAGE_MESSAGES: true
                 }
               );
-              channel.permissionOverwrites.create(message.author, {
+              channel.createOverwrite(message.author, {
                 SEND_MESSAGES: true,
                 VIEW_CHANNEL: true
               });

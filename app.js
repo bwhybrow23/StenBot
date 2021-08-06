@@ -7,18 +7,7 @@
   const settings = require("./main/settings.json");
   const fs = require("fs");
   const mongoose = require("mongoose");
-  const bot = new Client({
-    "intents":[
-       "GUILDS",
-       "GUILD_MEMBERS",
-       "GUILD_BANS",
-       "GUILD_MESSAGES",
-       "GUILD_MESSAGE_REACTIONS",
-       "GUILD_PRESENCES",
-       "DIRECT_MESSAGES",
-       "DIRECT_MESSAGE_REACTIONS"
-    ]
- });
+  const bot = new Client();
 
   /**
    *
@@ -88,11 +77,11 @@
     const used = process.memoryUsage().heapUsed / 1024 / 1024;
     return Math.round(used * 100) / 100;
   };
-  setInterval(function() {
+  bot.setInterval(function() {
     botData.info.memoryUsage = getMemUsage();
     fs.writeFileSync("./data/global/bot-data.json", JSON.stringify(botData, null, 4));
   }, 300000);
-  setInterval(function() {
+  bot.setInterval(function() {
     let memoryusage = getMemUsage();
     let guilds = bot.guilds.cache.size;
     let ping = Math.floor(bot.ws.ping);

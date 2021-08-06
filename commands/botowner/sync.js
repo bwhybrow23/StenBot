@@ -26,7 +26,7 @@ module.exports = {
           info: {
             id: g.id,
             name: g.name,
-            owner_id: g.ownerId,
+            owner_id: g.ownerID,
             blacklisted: false
           },
           gatekeeper: {

@@ -55,7 +55,7 @@ module.exports = async (bot, member) => {
               .setDescription(themsg);
   
             //Send the message.
-            bot.channels.cache.get(config.gatekeeper.welcome_channel).send({embeds: [welcomeEmbed.toJSON()]});
+            bot.channels.cache.get(config.gatekeeper.welcome_channel).send(welcomeEmbed);
           }
         }
       }
