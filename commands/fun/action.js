@@ -4,7 +4,7 @@ module.exports = {
     description: "Do various actions such as hug or kiss.",
     usage: "<ACTION> <@USER>",
     example: "hug @Sam#9215",
-    options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: true },
+    options: { permission: "EVERYONE", enabled: true, cooldown: 3, guildOnly: true },
     run: async (bot, message, args) => {
   
       const Discord = require("discord.js");
@@ -22,7 +22,7 @@ module.exports = {
       switch (subc) {
         case "cuddle":
           try {
-            user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            user = message.mentions.users.first();
           } catch (error) {
             return message.channel.send("Make sure you mention someone!");
           }
@@ -40,11 +40,11 @@ module.exports = {
             .setColor(bot.settings.color.yellow)
             .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
   
-          message.channel.send(cEmbed);
+          message.channel.send({embeds: [cEmbed.toJSON()]});
           break;
         case "feed":
           try {
-            user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            user = message.mentions.users.first();
           } catch (error) {
             return message.channel.send("Make sure you mention someone!");
           }
@@ -60,11 +60,11 @@ module.exports = {
             .setColor(bot.settings.color.yellow)
             .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
   
-          message.channel.send(fEmbed);
+          message.channel.send({embeds: [fEmbed.toJSON()]});
           break;
         case "hug":
           try {
-            user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            user = message.mentions.users.first();
           } catch (error) {
             return message.channel.send("Make sure you mention someone!");
           }
@@ -82,12 +82,12 @@ module.exports = {
             .setColor(bot.settings.color.yellow)
             .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
   
-          message.channel.send(hEmbed);
+          message.channel.send({embeds: [hEmbed.toJSON()]});
           break;
   
         case "kiss":
           try {
-            user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            user = message.mentions.users.first();
           } catch (error) {
             return message.channel.send("Make sure you mention someone!");
           }
@@ -105,12 +105,12 @@ module.exports = {
             .setColor(bot.settings.color.yellow)
             .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
   
-          message.channel.send(kEmbed);
+          message.channel.send({embeds: [kEmbed.toJSON()]});
           break;
   
         case "pat":
           try {
-            user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            user = message.mentions.users.first();
           } catch (error) {
             return message.channel.send("Make sure you mention someone!");
           }
@@ -128,13 +128,13 @@ module.exports = {
             .setColor(bot.settings.color.yellow)
             .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
   
-          message.channel.send(pEmbed);
+          message.channel.send({embeds: [pEmbed.toJSON()]});
   
           break;
   
         case "poke":
           try {
-            user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            user = message.mentions.users.first();
           } catch (error) {
             return message.channel.send("Make sure you mention someone!");
           }
@@ -152,13 +152,13 @@ module.exports = {
             .setColor(bot.settings.color.yellow)
             .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
   
-          message.channel.send(poEmbed);
+          message.channel.send({embeds: [poEmbed.toJSON()]});
   
           break;
   
         case "slap":
           try {
-            user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            user = message.mentions.users.first();
           } catch (error) {
             return message.channel.send("Make sure you mention someone!");
           }
@@ -176,12 +176,12 @@ module.exports = {
             .setColor(bot.settings.color.yellow)
             .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
   
-          message.channel.send(sEmbed);
+          message.channel.send({embeds: [sEmbed.toJSON()]});
           break;
   
         case "tickle":
           try {
-            user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            user = message.mentions.users.first();
           } catch (error) {
             return message.channel.send("Make sure you mention someone!");
           }
@@ -199,7 +199,7 @@ module.exports = {
             .setColor(bot.settings.color.yellow)
             .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png"`);
   
-          message.channel.send(tEmbed);
+          message.channel.send({embeds: [tEmbed.toJSON()]});
   
           break;
   
@@ -220,7 +220,7 @@ module.exports = {
             .addField("`sb!action tickle @user`", "TICKLE MONSTER TIME")
             .setFooter(message.author.tag, message.author.avatarURL);
   
-          message.channel.send(helpEmbed);
+          message.channel.send({embeds: [helpEmbed]});
   
           break;
       }

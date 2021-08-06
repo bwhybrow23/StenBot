@@ -37,16 +37,15 @@ module.exports = {
     let txtChannelCount = 0;
     let vcChannelChannel = 0;
     guild.channels.cache.forEach(channel => {
-      if (channel.type == "text") return txtChannelCount++;
-      if (channel.type == "voice") return vcChannelChannel++;
+      if (channel.type == "GUILD_TEXT") return txtChannelCount++;
+      if (channel.type == "GUILD_VOICE" || "GUILD_STAGE_VOICE") return vcChannelChannel++;
     });
 
     let embed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.blue)
       .setThumbnail(guild.iconURL())
       .addField(`Name:`, `${guild.name}`, true)
-      .addField(`Owner:`, `${bot.users.cache.get(guild.ownerID).tag}`, true)
-      .addField(`Region:`, `${guild.region.charAt(0).toUpperCase() + guild.region.slice(1)}`, true)
+      .addField(`Owner:`, `${bot.users.cache.get(guild.ownerId).tag}`, true)
       .addField(`ID:`, `${guild.id}`, true)
       .addField(`Text Channels:`, `${txtChannelCount}`, true)
       .addField(`Voice Channels:`, `${vcChannelChannel}`, true)
@@ -56,7 +55,7 @@ module.exports = {
       .setFooter(`Created`)
       .setTimestamp(guild.createdAt);
 
-    message.channel.send(embed);
+    message.channel.send({ embeds: [embed.toJSON()]});
 
     
 

@@ -9,7 +9,13 @@ const userSchema = new mongoose.Schema({
   token: {
     type: String,
     required: [true, "An authorization token is required."]
-  }
+  },
+  tokens: [{
+    token: {
+        type: String,
+        required: true
+    }
+  }],
 
 }, {
   timestamps: true

@@ -4,7 +4,7 @@ module.exports = {
     description: "Search for a specific GIF",
     usage: "<QUERY>",
     example: "monkeys",
-    options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: false },
+    options: { permission: "EVERYONE", enabled: true, cooldown: 3, guildOnly: false },
     run: async (bot, message, args) => {
   
       let Discord = require("discord.js");
@@ -32,7 +32,7 @@ module.exports = {
         .setColor(bot.settings.color.yellow)
         .setFooter(`Powered by GIPHY`, `https://i.imgur.com/gJMxGvU.gif`);
   
-      message.channel.send(embed);
+      message.channel.send({embeds: [embed.toJSON()]});
   
     }
   }

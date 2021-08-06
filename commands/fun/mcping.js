@@ -4,7 +4,7 @@ module.exports = {
   description: "Ping a Minecraft Server to find out more information about it.",
   usage: "<SERVER IP>[:PORT]",
   example: "play.hypixel.net",
-  options: { permission: "EVERYONE", aliases: ["mc"], enabled: true, cooldown: 1, guildOnly: false },
+  options: { permission: "EVERYONE", aliases: ["mc"], enabled: true, cooldown: 3, guildOnly: false },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
@@ -58,13 +58,13 @@ module.exports = {
         let onlineEmbed = new Discord.MessageEmbed()
           .setColor(1295876)
           .setTitle("Server Status:")
-          .addField("IP:", address, true)
+          .addField("IP:", `${address}`, true)
           .addField("Status:", "Online", true)
           .addField("Player Count:", `${players}/${res.players.max}`, true)
           .addField("Server Version:", res.server.name, true)
           .addField("MOTD:", motd, false)
           .setFooter(message.server.name, message.server.iconURL());
-        message.channel.send(onlineEmbed);
+        message.channel.send({embeds: [onlineEmbed.toJSON()]});
     }
 
     if (!res.online) {

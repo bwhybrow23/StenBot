@@ -43,10 +43,10 @@ module.exports = {
           //Change Status
           let guilds = bot.guilds.cache.size;
           bot.user.setPresence({
-            activity: {
+            activities: [{
               name: `sb!help on ${guilds} servers!`,
               type: `WATCHING`
-            },
+            }],
             status: 'online'
           });
           //Console Log
@@ -73,10 +73,10 @@ module.exports = {
 
           //Change Status
           bot.user.setPresence({
-            activity: {
+            activities: [{
               name: `In Development Mode`,
               type: `PLAYING`
-            },
+            }],
             status: 'dnd'
           });
 

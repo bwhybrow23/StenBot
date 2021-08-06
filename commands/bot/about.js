@@ -7,7 +7,7 @@ module.exports = {
   options: { permission: "EVERYONE", enabled: true, guildOnly: false },
   run: async (bot, message) => {
 
-      return message.channel.send({embed: {
+      return message.channel.send({embeds: [{
         title: "Bot Information", 
         color: bot.settings.color.blue,
         thumbnail: bot.user.displayAvatarURL(),
@@ -33,7 +33,7 @@ module.exports = {
           icon_url: bot.user.displayAvatarURL(),
           text: message.server.name
         }
-      }})
+      }]})
 
   }
 };

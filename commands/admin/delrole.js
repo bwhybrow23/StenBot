@@ -26,7 +26,7 @@ module.exports = {
         .catch((error) => bot.log.post("error", error));
     }
 
-    if (message.member.hasPermission("ADMINISTRATOR") == false) {
+    if (message.member.permissions.has("ADMINISTRATOR") == false) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.channel.send(embed))
         .catch((error) => bot.log.post("error", error));

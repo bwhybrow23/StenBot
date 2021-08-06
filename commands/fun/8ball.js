@@ -31,13 +31,13 @@ module.exports = {
       .setImage(result.url)
       .setFooter(`${message.server.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
-    message.channel.send("The 8ball is working it's magic! :tada:").then((m) => {
-        setTimeout(() => {
-          m.edit(ballEmbed);
-        }, 1000);
-      })
-      .catch((e) => {
-        bot.log.post("error", e);
-      });
+    message.reply({ content: "The 8ball is working it's magic! :tada:" }).then((m) => {
+      setTimeout(() => {
+        m.edit({ content: "Your result!", embeds: [ballEmbed.toJSON()] });
+      }, 1000);
+    }).catch((e) => {
+      bot.log.post("error", e);
+    })
+    
   },
 };

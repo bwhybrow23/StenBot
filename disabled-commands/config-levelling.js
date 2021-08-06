@@ -14,7 +14,7 @@ module.exports = {
     let servertag = message.guild.name;
 
     const ownersid = message.guild.ownerID;
-    const adminperm = message.member.hasPermission("ADMINISTRATOR");
+    const adminperm = message.member.permissions.has("ADMINISTRATOR");
 
     var access = true;
 
