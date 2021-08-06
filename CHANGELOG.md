@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.1.0 - ??/??/2021
+## 2.1.0 - 06/08/2021
 * Fixed spelling mistake in rob command
 * The IP in the output of /api/test, actually outputs the IP now
 * Updated to v13 - changes are listed below
@@ -11,7 +11,6 @@
 * Adjusted to new casing on thingID's
 * Updated channel types to uppercase
 * Disabled broken commands (will be fixed)
-* 
 
 ## 2.0.6 - 11/07/2021
 * Adjusted MongoDB settings for new host
