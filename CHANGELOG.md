@@ -10,6 +10,7 @@
 * Updated to the new embed sending method
 * Adjusted to new casing on thingID's
 * Updated channel types to uppercase
+* Disabled broken commands (will be fixed)
 * 
 
 ## 2.0.6 - 11/07/2021

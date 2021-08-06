@@ -4,7 +4,7 @@ module.exports = {
   description: "Creates a voice channel.",
   usage: "<NAME>",
   example: "General VC",
-  options: { permission: "ADMIN", aliases: ["vc"], enabled: true, guildOnly: true, cooldown: 5 },
+  options: { permission: "ADMIN", aliases: ["vc"], enabled: false, guildOnly: true, cooldown: 5 },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
@@ -41,7 +41,7 @@ module.exports = {
 
     //Create the channel and do the stuff
     message.guild.channels.create(`${n}`, {
-      type: 'voice',
+      type: 'GUILD_VOICE',
       reason: `Created by ${message.author.tag}`
     }).then((channel) => {
       return bot.createEmbed("success", "", `The voice channel **${channel.name}** has been created.`, [], `${message.guild.name}`, message)

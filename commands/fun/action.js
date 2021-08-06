@@ -4,7 +4,7 @@ module.exports = {
     description: "Do various actions such as hug or kiss.",
     usage: "<ACTION> <@USER>",
     example: "hug @Sam#9215",
-    options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: true },
+    options: { permission: "EVERYONE", enabled: true, cooldown: 3, guildOnly: true },
     run: async (bot, message, args) => {
   
       const Discord = require("discord.js");
@@ -22,7 +22,7 @@ module.exports = {
       switch (subc) {
         case "cuddle":
           try {
-            user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            user = message.mentions.users.first();
           } catch (error) {
             return message.channel.send("Make sure you mention someone!");
           }
@@ -44,7 +44,7 @@ module.exports = {
           break;
         case "feed":
           try {
-            user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            user = message.mentions.users.first();
           } catch (error) {
             return message.channel.send("Make sure you mention someone!");
           }
@@ -64,7 +64,7 @@ module.exports = {
           break;
         case "hug":
           try {
-            user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            user = message.mentions.users.first();
           } catch (error) {
             return message.channel.send("Make sure you mention someone!");
           }
@@ -87,7 +87,7 @@ module.exports = {
   
         case "kiss":
           try {
-            user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            user = message.mentions.users.first();
           } catch (error) {
             return message.channel.send("Make sure you mention someone!");
           }
@@ -110,7 +110,7 @@ module.exports = {
   
         case "pat":
           try {
-            user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            user = message.mentions.users.first();
           } catch (error) {
             return message.channel.send("Make sure you mention someone!");
           }
@@ -134,7 +134,7 @@ module.exports = {
   
         case "poke":
           try {
-            user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            user = message.mentions.users.first();
           } catch (error) {
             return message.channel.send("Make sure you mention someone!");
           }
@@ -158,7 +158,7 @@ module.exports = {
   
         case "slap":
           try {
-            user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            user = message.mentions.users.first();
           } catch (error) {
             return message.channel.send("Make sure you mention someone!");
           }
@@ -181,7 +181,7 @@ module.exports = {
   
         case "tickle":
           try {
-            user = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[1]));
+            user = message.mentions.users.first();
           } catch (error) {
             return message.channel.send("Make sure you mention someone!");
           }

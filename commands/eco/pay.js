@@ -10,7 +10,13 @@ module.exports = {
     const Discord = require("discord.js");
     const ecoUtils = require("../../main/functions/ecoUtils");
 
-    let toBePaid = await ecoUtils.getUser(message.mentions.users.first().id);
+    let toBePaid
+    try {
+      toBePaid = await ecoUtils.getUser(message.mentions.users.first().id)
+    }
+    catch (error) {
+      return message.reply("No user mentioned")
+    }
     let payee = await ecoUtils.getUser(message.author.id);
     let amount;
     try {
