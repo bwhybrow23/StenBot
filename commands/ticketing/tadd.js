@@ -52,7 +52,7 @@ module.exports = {
         .catch((error) => bot.log.post("error", error));
     }
     try {
-      message.channel.permissionOverwrites.create(toBeAdded.id, {
+      message.channel.createOverwrite(toBeAdded.id, {
         SEND_MESSAGES: true,
         VIEW_CHANNEL: true
       });
@@ -67,6 +67,6 @@ module.exports = {
       .setAuthor(message.guild.name, `https://i.imgur.com/BkZY6H8.png`)
       .setTimestamp();
 
-    message.channel.send({embeds: [embed.toJSON()]});
+    message.channel.send(embed);
   },
 };

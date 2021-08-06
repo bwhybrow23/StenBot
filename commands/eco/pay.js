@@ -10,13 +10,7 @@ module.exports = {
     const Discord = require("discord.js");
     const ecoUtils = require("../../main/functions/ecoUtils");
 
-    let toBePaid
-    try {
-      toBePaid = await ecoUtils.getUser(message.mentions.users.first().id)
-    }
-    catch (error) {
-      return message.reply("No user mentioned")
-    }
+    let toBePaid = await ecoUtils.getUser(message.mentions.users.first().id);
     let payee = await ecoUtils.getUser(message.author.id);
     let amount;
     try {
@@ -44,8 +38,8 @@ module.exports = {
       );
     }
 
-    await ecoUtils.updateUser(payee.discordId, payee.balance - amount).then(async () => {
-      await ecoUtils.updateUser(toBePaid.discordId, toBePaid.balance + amount).then(async (user) => {
+    await ecoUtils.updateUser(payee.discordID, payee.balance - amount).then(async () => {
+      await ecoUtils.updateUser(toBePaid.discordID, toBePaid.balance + amount).then(async (user) => {
         return bot.createEmbed("success", "", `${amount} has now been transferred to ${message.mentions.users.first()}'s balance. Their new balance is ${user.balance}.`, [], ``, message)
           .then((embed) => message.channel.send(embed))
           .catch((error) => bot.log.post("error", error));

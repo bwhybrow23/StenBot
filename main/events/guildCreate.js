@@ -39,7 +39,7 @@ module.exports = async (bot, guild) => {
     info: {
       id: guild.id,
       name: guild.name,
-      owner_id: guild.ownerId,
+      owner_id: guild.ownerID,
       blacklisted: false
     },
     gatekeeper: {

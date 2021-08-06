@@ -23,6 +23,6 @@ module.exports = {
       .setThumbnail(bicon)
       .setFooter(`${message.server.name}`, `https://i.imgur.com/BkZY6H8.png`);
 
-    message.channel.send({embeds: [inviteEmbed.toJSON()]});
+    message.channel.send(inviteEmbed);
   },
 };

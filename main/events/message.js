@@ -12,14 +12,14 @@ module.exports = async (bot, message) => {
         if (config.moderation.link_block) {
           var checker = require("is-url");
           if (checker(message.content)) {
-            if (message.member.permissions.has("ADMINISTRATOR") == true) return;
+            if (message.member.hasPermission("ADMINISTRATOR") == true) return;
             message.delete();
             return;
           }
         }
         //Check if it contains words from filter
         if (config.moderation.filter.some((word) => message.content.toLowerCase().includes(word))) {
-          if (message.member.permissions.has("ADMINISTRATOR") == true) return;
+          if (message.member.hasPermission("ADMINISTRATOR") == true) return;
           message.delete();
           return;
         }
@@ -60,7 +60,7 @@ module.exports = async (bot, message) => {
     }
 
     //Pass author as guild if command is ran in DMs
-    if(message.channel.type == "DM") {
+    if(message.channel.type == "dm") {
       if(!message.guild) {
         message.server = message.author;
         message.server.name = message.author.username;

@@ -42,13 +42,15 @@ module.exports = {
     if (!muteRole) {
       try {
         muteRole = await message.guild.roles.create({
-          name: "Muted",
-          color: "#000000",
-          permissions: [],
+          data: {
+            name: "Muted",
+            color: "#000000",
+            permissions: []
+          },
           reason: "StenBot Muted Role"
         })
         message.guild.channels.cache.forEach(async (channel, id) => {
-          await channel.permissionOverwrites.create(muteRole, {
+          await channel.createOverwrite(muteRole, {
             SEND_MESSAGES: false,
             ADD_REACTIONS: false
           });

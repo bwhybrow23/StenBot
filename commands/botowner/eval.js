@@ -34,7 +34,7 @@ module.exports = {
         .addField(":outbox_tray: Output", `\`\`\`js\n${code}\n\`\`\``)
         .setFooter(`Eval Command`, bot.user.displayURL)
         .setTimestamp();
-      message.channel.send({embeds: [embed.toJSON()]});
+      message.channel.send(embed);
     } catch (e) {
       message.channel.send(`\`\`\`js\n${e}\n\`\`\``);
     }

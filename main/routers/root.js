@@ -54,9 +54,10 @@ router.get("/api/dependencies", (req, res) => {
 //Test Token and Output
 router.get("/api/test", Auth.discord, (req, res) => {
 
-  var ip = req.headers['x-forwarded-for'] ||
-            req.socket.remoteAddress ||
-            null;
+  var ip = req.headers['x-forwarded-for'] || 
+     req.connection.remoteAddress || 
+     req.socket.remoteAddress ||
+     (req.connection.socket ? req.connection.socket.remoteAddress : null);
 
   res.status(200).json({
     message: "Test completed successfully, please see data below and confirm it is valid.",

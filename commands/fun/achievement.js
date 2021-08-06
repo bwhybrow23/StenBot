@@ -28,10 +28,10 @@ module.exports = {
   
       function downloadJS() {
         download("https://minecraftskinstealer.com/achievement/13/Achievement%20unlocked/" + achievement, dir, function() {
-          message.channel.send({
-            content: `${message.author} has earned a new achievement.`,
+          message.channel.send(`${message.author} has earned a new achievement.`, {
             files: [{
-              attachment: dir
+              attachment: dir,
+              name: `${message.author.id}.png`
             }]
           });
         });
@@ -47,7 +47,7 @@ module.exports = {
             }
   
             fs.unlink(
-              `././data/images/temp/${message.author.id}.png`,
+              `././data/images/temp/${message.server.id}-${message.author.id}.png`,
               function(err) {
                 if (err) return bot.log.post("error", err);
               }

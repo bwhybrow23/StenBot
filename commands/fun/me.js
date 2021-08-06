@@ -17,10 +17,10 @@ module.exports = {
 
       let member, user;
       if(message.mentions.members.first()) {
-        member = await message.guild.members.fetch({ user: message.mentions.members.first().id, force: true });
+        member = await message.guild.members.fetch(message.mentions.members.first().id);
         user = await (bot.users.fetch(message.mentions.members.first().id, true, true));
       } else {
-        member = await message.guild.members.fetch({ user: message.author, force: true});
+        member = await message.guild.members.fetch(message.author);
         user = await (bot.users.fetch(message.author.id, true, true));
       }
     
@@ -31,7 +31,7 @@ module.exports = {
       }
   
       let userStatus;
-      switch (member.presence.status) {
+      switch (user.presence.status) {
         case "dnd":
           userStatus = "Do Not Disturb";
           break;
@@ -45,20 +45,10 @@ module.exports = {
           userStatus = "Offline";
           break;
         default:
-          userStatus = member.presence.status;
+          userStatus = user.presence.status;
           break;
       }
-
-      let activities = [];
-      member.presence.activities.forEach(activity => {
-        if (activity.type === "CUSTOM") {
-          activities.push(`${activity.emoji} ${activity.state}`)
-        } else if (activity.type === "PLAYING") {
-          activities.push(`:video_game: ${activity.name}`)
-        }
-        if(!activity) activities.push("Not playing")
-      });
-
+  
       let meEmbed = new Discord.MessageEmbed()
         .setThumbnail(user.displayAvatarURL())
         .setColor(14672927)
@@ -67,14 +57,14 @@ module.exports = {
         .addField("Nickname", `${member.nickname !== null ? `Nickname: ${member.nickname}` : "None"}`, true)
         .addField("Bot", `${bot}`, true, true)
         .addField("Status", userStatus, true)
-        .addField("Activities", activities.join("\n"))
+        .addField("Activities", `${user.presence.activities}` ? `${user.presence.activities.map((a)=>a.type == "CUSTOM_STATUS" ? a.state : a.toString()).join("\n")}` : "Not playing")
         .addField("Roles", `${member.roles.cache.filter(r => r.id !== message.guild.id).map(roles => `\`${roles.name}\``).join(" **|** ") || "No Roles"}`)
-        // .addField("Joined Discord At", user.createdAt)
-        // .addField("Joined this Guild At", member.joinedAt)
+        .addField("Joined Discord At", user.createdAt)
+        .addField("Joined this Guild At", member.joinedAt)
         .setFooter(`Information about ${user.username}`)
         .setTimestamp();
   
-      message.channel.send({embeds: [meEmbed.toJSON()]});
+      message.channel.send(meEmbed);
   
     }
   };

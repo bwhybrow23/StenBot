@@ -25,17 +25,17 @@ module.exports = {
       .setThumbnail(bot.user.avatarURL())
       .setDescription("Here you can find all information about StenBot!")
       .addField("\u200b", "**Connection Info:**", false)
-      .addField("Ping:", `${ping.toString()}ms`, true)
-      .addField("Memory Usage:", `${memUsed.toString()}MB`, true)
+      .addField("Ping:", `${ping}ms`, true)
+      .addField("Memory Usage:", `${memUsed}MB`, true)
       .addField("Uptime:", `${uptime}s`, true)
       .addField("\u200b", "**Bot Stats:**", false)
-      .addField("Total Guilds:", totalGuilds.toString(), true)
-      .addField("Total Members:", totalMembers.toString(), true)
-      .addField("Total Commands:", totalCommands.toString(), true)
-      .addField("Version:", packageJSON.version.toString(), true)
+      .addField("Total Guilds:", totalGuilds, true)
+      .addField("Total Members:", totalMembers, true)
+      .addField("Total Commands:", totalCommands, true)
+      .addField("Version:", packageJSON.version, true)
       .setFooter(message.guild.name, message.guild.iconURL());
 
-    message.channel.send({embeds: [embed.toJSON()]});
+    message.channel.send(embed);
 
   }
 };
