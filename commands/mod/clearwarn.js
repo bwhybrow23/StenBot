@@ -20,7 +20,7 @@ module.exports = {
     var targetuser = message.mentions.members.first();
     if (!targetuser || args[0] == "help") {
       return bot.helpEmbed("clearwarn", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     };
     
@@ -30,7 +30,7 @@ module.exports = {
     
     if (Object.keys(warnings).length < 0) {
       return bot.createEmbed("error", "", "Error! This user has no warnings.", [], `${message.guild.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -41,7 +41,7 @@ module.exports = {
     await bot.mutils.updateGuildById(message.guild.id, config);
     //Post success embed to user
     bot.createEmbed("success", "", `Successfully removed all warnings from **${targetuser.user.tag}**.`, [], `${message.guild.name}`, message)
-    .then((embed) => message.channel.send(embed))
+    .then((embed) => message.reply(embed))
     .catch((error) => bot.log.post("error", error));
 
     //Logging

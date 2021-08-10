@@ -13,7 +13,7 @@ module.exports = {
     var input = args.join(" ");
     if (!input || args[0] == "help") {
       return bot.helpEmbed("binary", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
     for (var i = 0; i < input.length; i++) {
@@ -27,7 +27,7 @@ module.exports = {
         name: "Binary",
         value: `${output}`
       }, ], `${message.server.name}`, message)
-      .then((embed) => message.channel.send(embed))
+      .then((embed) => message.reply(embed))
       .catch((error) => bot.log.post("error", error));
   },
 };

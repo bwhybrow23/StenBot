@@ -13,7 +13,7 @@ module.exports = {
 
     function errsend(msg) {
       message.channel.send({
-        embed: {
+        embeds: [{
           color: bot.settings.color.red,
           description: `Error! ${msg}`,
           timestamp: Date.now(),
@@ -21,7 +21,7 @@ module.exports = {
             icon_url: "https://i.imgur.com/BkZY6H8.png",
             text: `${message.guild.name}`,
           },
-        },
+        }],
       });
     }
 
@@ -48,7 +48,7 @@ module.exports = {
     let toBeAdded = message.mentions.members.first();
     if (!toBeAdded || args[0] == "help") {
       return bot.helpEmbed("tadd", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
     try {

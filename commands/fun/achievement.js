@@ -15,7 +15,7 @@ module.exports = {
   
       if (!achievement || args[0] == "help") {
         return bot.helpEmbed("achievement", bot)
-          .then((embed) => message.channel.send(embed))
+          .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
       }
   

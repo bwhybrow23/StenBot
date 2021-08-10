@@ -12,7 +12,7 @@ module.exports = {
     let stolen = message.mentions.users.first();
     if (!stolen || args[0] == "help") {
       return bot.helpEmbed("stealpic", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
     let stolenPic = stolen.avatarURL();

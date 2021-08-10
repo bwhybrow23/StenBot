@@ -29,7 +29,7 @@ module.exports = {
         return stdout = "None"
       }
       msg.edit({
-        embed: {
+        embeds: [{
           title: "Bash Results",
           fields: [{
             name: "Input",
@@ -51,8 +51,8 @@ module.exports = {
             icon_url: "https://i.imgur.com/BkZY6H8.png"
           },
           timestamp: Date.now()
-        },
-        content: ""
+        }],
+        content: "Output:"
       });
 
     });

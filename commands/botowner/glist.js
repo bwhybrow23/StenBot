@@ -31,7 +31,7 @@ module.exports = {
         name: "Guilds",
         value: `\`\`\`${array.join("\n")}\`\`\``
       }], `Page ${page}`, message)
-      .then((embed) => message.channel.send(embed))
+      .then((embed) => message.reply(embed))
       .catch((error) => bot.log.post("error", error));
       page++;
     })

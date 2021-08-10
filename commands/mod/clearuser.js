@@ -18,25 +18,25 @@ module.exports = {
     var amount = args[1];
     if (!amount || amount == undefined || isNaN(amount) || args[0] == "help") {
       return bot.helpEmbed("clearuser", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     if (amount > 100) {
       return message.channel.send({
-        embed: {
+        embeds: [{
           color: bot.settings.color.red,
           description: `Error! You cant clear more than 100 messsages at a time!`
-        }
+        }]
       });
     };
 
     if (amount < 1) {
       return message.channel.send({
-        embed: {
+        embeds: [{
           color: bot.settings.color.red,
           description: `Error! You cant clear less than 1 message!`
-        }
+        }]
       });
     };
 
@@ -44,7 +44,7 @@ module.exports = {
 
     if (targetuser == undefined) {
       return bot.createEmbed("error", "", `Error! You need to include someone to clear the messages of!`, [], `${message.guild.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -57,10 +57,10 @@ module.exports = {
     });
 
     message.channel.send({
-      embed: {
+      embeds: [{
         color: bot.settings.color.green,
         description: `Successfully cleared **${amount}** messages from **${targetuser.user.tag}**`
-      }
+      }]
     });
 
     //Logging

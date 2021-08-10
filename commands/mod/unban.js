@@ -18,7 +18,7 @@ module.exports = {
     var targetuser = args[0];
     if (!targetuser || typeof targetuser == 'number' || args[0] == "help") {
       return bot.helpEmbed("unban", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -36,7 +36,7 @@ module.exports = {
       .catch(console.error)
       .then(
         bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error)));
 
     //Logging

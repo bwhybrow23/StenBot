@@ -87,7 +87,7 @@ module.exports = async (bot, guild) => {
   let totalGuilds = bot.guilds.cache.size;
   let totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
   await bot.channels.cache.get("839509992041218049").send({
-    embed: {
+    embeds: [{
       "title": "Joined Guild!",
       "thumbnail": {
         "url": guild.iconURL()
@@ -124,7 +124,7 @@ module.exports = async (bot, guild) => {
           inline: true
         }
       ]
-    }
+    }]
   })
 
 };

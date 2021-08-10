@@ -20,13 +20,13 @@ module.exports = {
     var targetuser = message.mentions.members.first();
     if (!targetuser || args[0] == "help") {
       return bot.helpEmbed("tempmute", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     if (targetuser.roles.cache.has(config.moderation.staff_role)) {
       return bot.createEmbed("error", "", `Error! You are not allowed to mute this person!`, [], `${message.guild.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -69,7 +69,7 @@ module.exports = {
     }).then((muteData) => {
       //Response
       bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
       //DM User
       bot.eventEmbed("c70011", targetuser.user, "You have been temporarily muted!", `**Mute Date:** ${new Date()}\n**Muted By:** ${message.author.tag}\n\n**Reason:** ${reason}\n**Duration:** ${args[1]}`, [], `${message.guild.name}`, bot)

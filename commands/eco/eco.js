@@ -26,7 +26,7 @@ module.exports = {
             let value = user.balance + IntAmount;
             await ecoUtils.updateUser(person.id, value).then((user) => {
               return bot.createEmbed("info", "", `${amount} has now been added to ${person}'s balance. Their new balance is ${user.balance}.`, [], ``, message)
-                .then((embed) => message.channel.send(embed))
+                .then((embed) => message.reply(embed))
                 .catch((error) => bot.log.post("error", error));
             })
           })
@@ -39,7 +39,7 @@ module.exports = {
             if (value < 0) return message.reply("I cannot do this as the user will go into a negative balance.");
             await ecoUtils.updateUser(person.id, value).then((user) => {
               return bot.createEmbed("info", "", `${amount} has now been subtracted from ${person}'s balance. Their new balance is ${user.balance}.`, [], ``, message)
-                .then((embed) => message.channel.send(embed))
+                .then((embed) => message.reply(embed))
                 .catch((error) => bot.log.post("error", error));
             })
           })
@@ -48,7 +48,7 @@ module.exports = {
         case "set":
           await ecoUtils.updateUser(person.id, amount).then((user) => {
             return bot.createEmbed("info", "", `${person}'s balance has now been set to ${user.balance}.`, [], ``, message)
-              .then((embed) => message.channel.send(embed))
+              .then((embed) => message.reply(embed))
               .catch((error) => bot.log.post("error", error));
           })
           break;

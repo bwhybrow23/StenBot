@@ -18,7 +18,7 @@ module.exports = {
       let codein = args.join(" ");
       if (!codein || args[0] == "help") {
         return bot.helpEmbed("eval", bot)
-          .then((embed) => message.channel.send(embed))
+          .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
       }
       let code = eval(codein);

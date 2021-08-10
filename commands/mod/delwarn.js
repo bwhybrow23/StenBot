@@ -20,7 +20,7 @@ module.exports = {
     var targetuser = message.mentions.members.first();
     if (!targetuser || args[0] == "help") {
       return bot.helpEmbed("delwarn", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     };
     
@@ -30,20 +30,20 @@ module.exports = {
     
     if (Object.keys(warnings).length < 0) {
       return bot.createEmbed("error", "", "Error! This user has no warnings.", [], `${message.guild.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     let removedID = parseInt(args[1]);
     if(removedID === NaN) {
       return bot.createEmbed("error", "", "Error! The ID you have provided isn't a valid number.", [], `${message.guild.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.logg.post("error", error));
     }
 
     if (!warnings[removedID]) {
       return bot.createEmbed("error", "", "Error! The ID you have provided doesn't exist as a warning on this user.", [], `${message.guild.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -54,7 +54,7 @@ module.exports = {
     await bot.mutils.updateGuildById(message.guild.id, config);
     //Post success embed to user
     bot.createEmbed("success", "", `Successfully removed warning ID ${removedID} from **${targetuser.user.tag}**. They now have ${Object.keys(warnings).length} warnings.`, [], `${message.guild.name}`, message)
-    .then((embed) => message.channel.send(embed))
+    .then((embed) => message.reply(embed))
     .catch((error) => bot.log.post("error", error));
 
     //Logging

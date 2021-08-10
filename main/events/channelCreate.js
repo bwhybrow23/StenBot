@@ -4,6 +4,26 @@ module.exports = async (bot, channel) => {
 
   if ((channel.type == "DM")) return;
 
+  let muteRole = message.guild.roles.cache.find(r => r.name == "Muted")
+  if (!muteRole) {
+    try {
+        muteRole = await channel.guild.roles.create({
+          name: "Muted",
+          color: "#000000",
+          permissions: [],
+          reason: "StenBot Muted Role"
+        })
+        channel.guild.channels.cache.forEach(async (channel, id) => {
+          await channel.permissionOverwrites.create(muteRole, {
+            SEND_MESSAGES: false,
+            ADD_REACTIONS: false
+          });
+        });
+      } catch (e) {
+        bot.log.post("error", error);
+      }
+    };
+
   if (channel.name.startsWith("ticket-")) return;
 
   //Get Config

@@ -20,7 +20,7 @@ module.exports = {
       let command = args[0];
       if (!command || args[0] == "help") {
         return bot.helpEmbed("reload", bot)
-          .then((embed) => message.channel.send(embed))
+          .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
       }
   

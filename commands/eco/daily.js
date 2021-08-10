@@ -21,7 +21,7 @@ module.exports = {
       let check = await bot.timeouts.check(person.id, "daily")
       if (check != false) {
         return bot.createEmbed("error", "", `You've already redeemed your daily money for today. \nCome back in **${check}** and you'll be able to redeem it again.`, [], ``, message)
-          .then((embed) => message.channel.send(embed))
+          .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
       }
   
@@ -33,7 +33,7 @@ module.exports = {
           // Create a new daily for the user
           await bot.timeouts.new(person.id, "daily");
           return bot.createEmbed("success", "", `You have claimed your daily reward of **${reward}**. Come back in 24 hours to claim it again!`, [], ``, message)
-            .then((embed) => message.channel.send(embed))
+            .then((embed) => message.reply(embed))
             .catch((error) => bot.log.post("error", error));
         })
       })

@@ -19,13 +19,13 @@ module.exports = {
 
     if (!targetuser || args[0] == "help") {
       return bot.helpEmbed("ban", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     if (targetuser.roles.cache.has(config.moderation.staff_role)) {
       return bot.createEmbed("error", "", `Error! You are not allowed to mute this person!`, [], `${message.guild.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -39,7 +39,7 @@ module.exports = {
 
     if (!targetuser.bannable) {
       return bot.createEmbed("error", "", `Error! I do not have permission to ban this user!`, [], `${message.guild.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -49,7 +49,7 @@ module.exports = {
       .catch(console.error)
       .then(
         bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error))
         )
       .then(

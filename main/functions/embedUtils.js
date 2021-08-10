@@ -132,6 +132,7 @@ const helpEmbed = (command, bot) => {
       }
 
       if (cmd.category == "botowner") return;
+      if (cmd.enabled == false) return;
 
       //Set up variables for the embed
       let prefix = bot.settings.prefix;

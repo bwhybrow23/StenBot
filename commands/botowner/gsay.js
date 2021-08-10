@@ -17,12 +17,13 @@ module.exports = {
     let msg = args.slice(0).join(" ");
     if (!msg || args[0] == "help") {
       return bot.helpEmbed("gsay", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     const date = new Date();
     const timestamp = date.getTime();
+    let user;
 
     bot.guilds.cache.forEach(async (guild) => {
       bot.createEmbed("info", "Message from StenBot Owner", `You have been sent this message by the owner of StenBot (Stentorian#9524) to inform you. The bot has seen that you are the server owner of **${guild.name}** so it has been sent to you. Feel free to communicate the below message to other people.`, [{
@@ -32,7 +33,9 @@ module.exports = {
           name: "Message",
           value: `${msg}`
         }], `${message.guild.name}`, message)
-        .then((embed) => guild.owner.send(embed))
+        .then(async (embed) => {
+          await bot.users.cache.get(guild.ownerId).send(embed)
+        })
         .catch((error) => bot.log.post("error", error));
 
       message.reply(`Your message has been sent to **${guild.name}** succesfully.`);
