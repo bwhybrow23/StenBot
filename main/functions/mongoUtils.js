@@ -56,7 +56,8 @@ const getAllGuilds = async () => {
 
 //Fetch guild by id
 const getGuildById = async (id) => {
-  const guild = await Guild.findOne({"info.id": id})
+  const guild = await Guild.findOne({"info.id": id});
+  if(!guild) return;
   return guild;
   /*
   EXAMPLE
@@ -66,7 +67,8 @@ const getGuildById = async (id) => {
 
 //Fetch guild by name
 const getGuildByName = async (name) => {
-  const guild = await Guild.findOne({"info.name": name})
+  const guild = await Guild.findOne({"info.name": name});
+  if(!guild) return;
   return guild;
   /*
   EXAMPLE

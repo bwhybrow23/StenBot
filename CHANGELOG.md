@@ -1,6 +1,13 @@
 # Changelog
 
-## 2.1.0 - 06/08/2021
+## 2.1.1 - 13/08/2021
+* Me command now doesn't break if you don't have activities
+* Fixed issue with adding muted role to new channels
+* Logging on bot sites enabled again
+* Error handling fixed in mongo utils
+* Updated to the latest packages
+
+## 2.1.0 - 10/08/2021
 * Fixed spelling mistake in rob command
 * The IP in the output of /api/test, actually outputs the IP now
 * Updated to v13 - changes are listed below
@@ -10,7 +17,7 @@
 * Updated to the new embed sending method
 * Adjusted to new casing on thingID's
 * Updated channel types to uppercase
-* Disabled broken commands (will be fixed)
+* Commands now reply directly using Discord's reply feature
 
 ## 2.0.6 - 11/07/2021
 * Adjusted MongoDB settings for new host
