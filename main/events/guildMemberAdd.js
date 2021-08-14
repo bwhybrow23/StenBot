@@ -1,6 +1,8 @@
 module.exports = async (bot, member) => {
+
     const Discord = require("discord.js");
     const config = await bot.mutils.getGuildById(member.guild.id);
+    if(!config) return;
     const fs = require("fs");
     var format = require("string-template");
     const efunctions = require("../functions/eventUtils.js");

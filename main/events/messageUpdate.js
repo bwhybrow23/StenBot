@@ -3,9 +3,10 @@ module.exports = async (bot, oldMessage, newMessage) => {
   const efunctions = require("../functions/eventUtils.js");
   const checker = require("is-url");
 
-  if (newMessage.type == "dm") return;
+  if (newMessage.type == "DM") return;
   if (!newMessage.guild) return;
   let config = await bot.mutils.getGuildById(newMessage.guild.id);
+  if(!config) return;
 
   if (config.logging.enabled == true) {
     if (config.logging.ignore.includes(oldMessage.channel.id)) return;

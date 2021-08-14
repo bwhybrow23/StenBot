@@ -4,6 +4,7 @@ module.exports = async (bot, guild, user) => {
   const efunctions = require("../functions/eventUtils.js");
 
   let config = await bot.mutils.getGuildById(guild.id);
+  if(!config) return;
 
   if (config.logging.enabled == true) {
     if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {

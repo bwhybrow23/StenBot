@@ -4,7 +4,9 @@ module.exports = async (bot, oldRole, newRole) => {
   const ColorAPIURL = "http://thecolorapi.com/id?format=json&hex=";
   const request = require("superagent");
 
-  let config = await bot.mutils.getGuildById(newRole.guild.id)
+  let config = await bot.mutils.getGuildById(newRole.guild.id);
+  if(!config) return;
+  
   if (config.logging.enabled == true) {
     if (config.logging.level == "high") {
       if (efunctions.checkChannel(config.logging.channel, bot) == true) {

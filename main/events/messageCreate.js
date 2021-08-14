@@ -8,6 +8,7 @@ module.exports = async (bot, message) => {
     if (message.content.indexOf(bot.settings.prefix) !== 0) {
       if (message.guild) {
         const config = await bot.mutils.getGuildById(message.guild.id);
+        if(!config) return;
         //Check if its an url
         if (config.moderation.link_block) {
           var checker = require("is-url");

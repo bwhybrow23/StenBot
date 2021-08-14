@@ -6,6 +6,7 @@ module.exports = async (bot, oldMember, newMember) => {
     if (newMember.user == bot.user) return;
   
     let config = await bot.mutils.getGuildById(newMember.guild.id);
+    if(!config) return;
   
     if (config.logging.enabled == true) {
       if (config.logging.level == "high") {
