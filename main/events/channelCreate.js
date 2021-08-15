@@ -20,7 +20,7 @@ module.exports = async (bot, channel) => {
           });
         });
       } catch (e) {
-        bot.log.post("error", error);
+        bot.log.post("error", e);
       }
     };
 
