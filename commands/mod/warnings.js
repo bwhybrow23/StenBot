@@ -25,7 +25,7 @@ module.exports = {
     };
     
     let warnings = config.moderation.warnings.filter(function(warning) {
-      return warning.user = targetuser.id;
+      return warning.user === targetuser.id;
     });
     
     if (Object.keys(warnings).length < 0) {
