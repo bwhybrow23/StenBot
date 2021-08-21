@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.1.2 - 21/08/2021
+* Fixed issue with bot crashing when no config
+* Fixed error checking on channelCreate
+* Added meme command
+* Little cosmetic changes here and there
+* Fixed warn command - Thanks (dode5656)[https://go.benwhybrow.com/crdg]! 
+* Removed body-parser (deprecated)
+* Fixed a mistype and added embed in the config command
+* Fixed an issue with guild.owner not working 
+
 ## 2.1.1 - 13/08/2021
 * Me command now doesn't break if you don't have activities
 * Fixed issue with adding muted role to new channels

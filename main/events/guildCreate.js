@@ -2,6 +2,7 @@ module.exports = async (bot, guild) => {
 
   const Discord = require("discord.js");
   const fs = require("fs");
+  let gOwner = await bot.users.cache.get(guild.ownerId);
 
   //When bot joins new server, create that servers file system.
   //Check if the server is blacklisted
@@ -16,13 +17,13 @@ module.exports = async (bot, guild) => {
   if (serverstats != undefined) {
     if (serverstats.info.blacklisted == true) {
       bot.createEmbed("error", "", `I'm afraid that StenBot cannot join your server **${guild.name}** as your server is blacklisted from the bot. If you believe this is an error, please contact **Stentorian#9524** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${guild.name}`, bot)
-        .then(embed => guild.owner.send(embed))
+        .then(embed => gOwner.send(embed))
         .catch(error => console.error(error))
       guild.leave();
       return bot.log.post("info", `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
     } else {
       bot.createEmbed("error", "", `I'm afraid that StenBot cannot join your server **${guild.name}** as it failed to create the configuration for the server. Please try again and if this issue persists, please join the **[Discord](https://discord.benwhybrow.com)** and gain help.`, [], `${guild.name}`, bot)
-        .then(embed => guild.owner.send(embed))
+        .then(embed => gOwner.send(embed))
         .catch(error => console.error(error))
       guild.leave();
       return bot.log.post("error", `Left guild: ${guild.name} | ${guild.id} because there was an error creating the server's config!`);
@@ -105,7 +106,7 @@ module.exports = async (bot, guild) => {
         },
         {
           name: "Server Owner",
-          value: `${guild.owner.user.tag} || ${guild.owner.id}`,
+          value: `${gOwner.user.tag} || ${gOwner.id}`,
           inline: true
         },
         {

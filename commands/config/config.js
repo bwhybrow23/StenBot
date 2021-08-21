@@ -33,7 +33,7 @@ module.exports = {
     if (leavechannel == 0) {
       var leavechannel = "Not Set";
     } else {
-      var leavechannel = `<#${welcomerchannel}>`;
+      var leavechannel = `<#${leavechannel}>`;
     }
     //User on-join role default 0
     var userjoinrole = config.userjoin.role;
@@ -94,10 +94,10 @@ module.exports = {
     //Embed
       return bot.createEmbed("warning", `${servertag} Configuration`, `Your Configuration`, [{
           name: "Gatekeeper Welcomer",
-          value: `Enabled: **${config.gatekeeper.welcome_enabled ? "Yes" : "No"} **\nWelcomer Channel: **${welcomerchannel}**\nWelcomer Message: **${config.gatekeeper.welcome_message}**`,
+          value: `Enabled: **${config.gatekeeper.welcome_enabled ? "Yes" : "No"} **\nWelcomer Channel: **${welcomerchannel}**\nWelcomer Message: \`\`\`${config.gatekeeper.welcome_message}\`\`\``,
         }, {
           name: "Gatekeeper Leave",
-          value: `Enabled: **${config.gatekeeper.leave_enabled ? "Yes" : "No"} **\nLeave Channel: **${leavechannel}**\nLeave Message: **${config.gatekeeper.leave_message}**`,
+          value: `Enabled: **${config.gatekeeper.leave_enabled ? "Yes" : "No"} **\nLeave Channel: **${leavechannel}**\nLeave Message: \`\`\`${config.gatekeeper.leave_message}\`\`\``,
         }, {
           name: "User Join",
           value: `Enabled: **${config.userjoin.enabled ? "Yes" : "No"}**\nAdd Role: **${userjoinrole}**\nSet Nick: **${userjoinnick}**`,

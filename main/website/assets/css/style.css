@@ -1,243 +1,243 @@
 @font-face {
-    font-family: 'Fira Sans';
-    src: url('../fonts/FiraSans-Light.eot');
-    src: local('Fira Sans Light'),
-      url('../fonts/FiraSans-Light.eot') format('embedded-opentype'),
-      url('../fonts/FiraSans-Light.woff') format('woff'),
-      url('../fonts/FiraSans-Light.ttf') format('truetype');
-    font-weight: 300;
-    font-style: normal;
-  }
-  
-  @font-face {
-    font-family: 'Fira Sans';
-    src: url('../fonts/FiraSans-Regular.eot');
-    src: local('Fira Sans Regular'),
-      url('../fonts/FiraSans-Regular.eot') format('embedded-opentype'),
-      url('../fonts/FiraSans-Regular.woff') format('woff'),
-      url('../fonts/FiraSans-Regular.ttf') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-  
-  }
-  
-  @font-face {
-    font-family: 'Fira Sans';
-    src: url('../fonts/FiraSans-Bold.eot');
-    src: local('Fira Sans Bold'),
-      url('../fonts/FiraSans-Bold.eot') format('embedded-opentype'),
-      url('../fonts/FiraSans-Bold.woff') format('woff'),
-      url('../fonts/FiraSans-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
-  }
-  
-  html {
-    overflow: hidden;
-  }
-  
-  body {
-    overflow: auto;
-    height: 100vh;
-    background: #40055c bottom left;
-    background-repeat: repeat;
-  }
-  
-  /* Typography */
-  body,
-  p,
-  a,
-  th,
-  td,
-  li,
-  dl,
-  .form-control {
-    font: normal normal 300 18px/2em 'Fira Sans';
-  }
-  
-  b,
-  strong,
-  dt {
-    font-weight: 400;
-  }
-  
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    line-height: 2em;
-  }
-  
-  /* Material Shadow */
-  .shadow-top-down {
-    box-shadow: 0px 8px 8px -4px rgba(0, 0, 0, 0.75);
-    transition: all .5s;
-  }
-  
-  .shadow-top-down:hover {
-    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);
-  }
-  
-  /* Material Form Elements */
-  form {
-    max-width: 500px;
-    margin: 0 auto;
-    margin-top: 30px;
-  }
-  
-  form .form-group {
-    margin-top: 30px;
-  }
-  
-  form input.form-control,
-  form button.form-control,
-  form textarea.form-control,
-  form select.form-control {
-    border: 0px;
-    background-color: transparent;
-    border-bottom: 3px solid #233842;
-    border-radius: 0px;
-    height: 45px;
-  }
-  
-  form input.form-control:focus,
-  form button.form-control:focus,
-  form textarea.form-control:focus {
-    border-bottom-color: #c0c0c0;
-    box-shadow: none;
-  }
-  
-  form button.form-control {
-    background-color: #275267;
-    transition: .5s;
-  }
-  
-  form button.form-control[type=reset] {
-    background-color: transparent;
-  }
-  
-  form button.form-control:hover,
-  form button.form-control:focus {
-    border-bottom-color: #275267;
-    background-color: #1c2d35;
-  }
-  
-  form textarea.form-control {
-    min-height: 120px;
-  }
-  
-  form .input-group-addon {
-    border: 0px;
-    background-color: transparent;
-    border-bottom: 3px solid #233842;
-    vertical-align: top;
-    border-radius: 0;
-    color: white;
-  }
-  
-  form .input-group-addon i {
-    padding-top: 10px;
-    color: #000;
-  }
-  
-  form .checkbox input[type=checkbox] {
-    margin-top: 12px;
-  }
-  
-  /* FontAwesome */
-  #fontawesome {
-    margin-top: 17px;
-    font-size: 1.5em;
-    vertical-align: center;
-  }
-  
-  /* Home */
-  #home {
-    /* background: #154558 url(../images/jumbo_background.jpg) fixed; */
-    /*background:  url(../images/.jpg) fixed;*/
-    /* background-size: cover; */
-    /* min-height: 100vh; */
-    padding-bottom: 130px;
-    color: #fff;
-  }
-  
-  #home .home_inner_wapper {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-  }
-  
-  #home h1 {
-    margin-top: 20vh;
-    font: normal normal 400 70px/80px 'Fira Sans', sans-serif;
-  }
-  
-  #home h2 {
-    font: normal normal 100 36px/40px 'Fira Sans', sans-serif;
-  }
-  
-  #home p {
-    margin: 50px 0 50px 0;
-    font: normal normal 100 18px/40px 'Fira Sans', sans-serif;
-  }
-  
-  #home p a {
-    background-color: rgba(255, 255, 255, .6);
-    border-bottom: 1px dotted #000;
-    text-decoration: none;
-    padding: 5px;
-    color: #000;
-  }
-  
-  #home p a:hover {
-    background-color: rgba(255, 255, 255, .75);
-    border-bottom: 0px dotted #000;
-  }
-  
-  #home a.btn_wapper {
-    margin-bottom: 150px;
-  }
-  
-  #home a.btn {
-    font: normal normal 300 18px/60px 'Fira Sans', sans-serif;
-    margin-bottom: 30px;
-    border-radius: 25px;
-    background: #fff;
-    height: 63px;
-    color: #000;
-    padding: 0;
-    text-align: center;
-    vertical-align: center;
-  }
-  
-  .btn2 {
-    font: normal normal 300 18px/60px 'Fira Sans', sans-serif;
-    top: -5px;
-    position: relative;
-  }
-  
-  /* Footer */
-  footer {
-    padding: 20px 0 16px 0;
-    text-align: center;
-    /* background: #fff; */
-  }
-  
-  .footer-copyright p {
-    margin: 20px auto 20px auto;
-    text-align: center;
-    line-height: 32px;
-    color: white;
-  }
-  
-  .footer-copyright a {
-    border-bottom: 1px dotted #fff;
-    color: white;
-  }
-  
-  .footer-copyright a:hover {
-    color: #989c99;
-    border: 0;
-  }
+  font-family: 'Fira Sans';
+  src: url('../fonts/FiraSans-Light.eot');
+  src: local('Fira Sans Light'),
+    url('../fonts/FiraSans-Light.eot') format('embedded-opentype'),
+    url('../fonts/FiraSans-Light.woff') format('woff'),
+    url('../fonts/FiraSans-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('../fonts/FiraSans-Regular.eot');
+  src: local('Fira Sans Regular'),
+    url('../fonts/FiraSans-Regular.eot') format('embedded-opentype'),
+    url('../fonts/FiraSans-Regular.woff') format('woff'),
+    url('../fonts/FiraSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('../fonts/FiraSans-Bold.eot');
+  src: local('Fira Sans Bold'),
+    url('../fonts/FiraSans-Bold.eot') format('embedded-opentype'),
+    url('../fonts/FiraSans-Bold.woff') format('woff'),
+    url('../fonts/FiraSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+html {
+  overflow: hidden;
+}
+
+body {
+  overflow: auto;
+  height: 100vh;
+  background: #40055c bottom left;
+  background-repeat: repeat;
+}
+
+/* Typography */
+body,
+p,
+a,
+th,
+td,
+li,
+dl,
+.form-control {
+  font: normal normal 300 18px/2em 'Fira Sans';
+}
+
+b,
+strong,
+dt {
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 2em;
+}
+
+/* Material Shadow */
+.shadow-top-down {
+  box-shadow: 0px 8px 8px -4px rgba(0, 0, 0, 0.75);
+  transition: all .5s;
+}
+
+.shadow-top-down:hover {
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* Material Form Elements */
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+
+form .form-group {
+  margin-top: 30px;
+}
+
+form input.form-control,
+form button.form-control,
+form textarea.form-control,
+form select.form-control {
+  border: 0px;
+  background-color: transparent;
+  border-bottom: 3px solid #233842;
+  border-radius: 0px;
+  height: 45px;
+}
+
+form input.form-control:focus,
+form button.form-control:focus,
+form textarea.form-control:focus {
+  border-bottom-color: #c0c0c0;
+  box-shadow: none;
+}
+
+form button.form-control {
+  background-color: #275267;
+  transition: .5s;
+}
+
+form button.form-control[type=reset] {
+  background-color: transparent;
+}
+
+form button.form-control:hover,
+form button.form-control:focus {
+  border-bottom-color: #275267;
+  background-color: #1c2d35;
+}
+
+form textarea.form-control {
+  min-height: 120px;
+}
+
+form .input-group-addon {
+  border: 0px;
+  background-color: transparent;
+  border-bottom: 3px solid #233842;
+  vertical-align: top;
+  border-radius: 0;
+  color: white;
+}
+
+form .input-group-addon i {
+  padding-top: 10px;
+  color: #000;
+}
+
+form .checkbox input[type=checkbox] {
+  margin-top: 12px;
+}
+
+/* FontAwesome */
+#fontawesome {
+  margin-top: 17px;
+  font-size: 1.5em;
+  vertical-align: center;
+}
+
+/* Home */
+#home {
+  /* background: #154558 url(../images/jumbo_background.jpg) fixed; */
+  /*background:  url(../images/.jpg) fixed;*/
+  /* background-size: cover; */
+  /* min-height: 100vh; */
+  padding-bottom: 130px;
+  color: #fff;
+}
+
+#home .home_inner_wapper {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+#home h1 {
+  margin-top: 20vh;
+  font: normal normal 400 70px/80px 'Fira Sans', sans-serif;
+}
+
+#home h2 {
+  font: normal normal 100 36px/40px 'Fira Sans', sans-serif;
+}
+
+#home p {
+  margin: 50px 0 50px 0;
+  font: normal normal 100 18px/40px 'Fira Sans', sans-serif;
+}
+
+#home p a {
+  background-color: rgba(255, 255, 255, .6);
+  border-bottom: 1px dotted #000;
+  text-decoration: none;
+  padding: 5px;
+  color: #000;
+}
+
+#home p a:hover {
+  background-color: rgba(255, 255, 255, .75);
+  border-bottom: 0px dotted #000;
+}
+
+#home a.btn_wapper {
+  margin-bottom: 150px;
+}
+
+#home a.btn {
+  font: normal normal 300 18px/60px 'Fira Sans', sans-serif;
+  margin-bottom: 30px;
+  border-radius: 25px;
+  background: #fff;
+  height: 63px;
+  color: #000;
+  padding: 0;
+  text-align: center;
+  vertical-align: center;
+}
+
+.btn2 {
+  font: normal normal 300 18px/60px 'Fira Sans', sans-serif;
+  top: -5px;
+  position: relative;
+}
+
+/* Footer */
+footer {
+  padding: 20px 0 16px 0;
+  text-align: center;
+  /* background: #fff; */
+}
+
+.footer-copyright p {
+  margin: 20px auto 20px auto;
+  text-align: center;
+  line-height: 32px;
+  color: white;
+}
+
+.footer-copyright a {
+  border-bottom: 1px dotted #fff;
+  color: white;
+}
+
+.footer-copyright a:hover {
+  color: #989c99;
+  border: 0;
+}
