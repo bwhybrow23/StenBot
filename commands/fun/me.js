@@ -31,6 +31,7 @@ module.exports = {
       }
   
       let userStatus;
+      if(!member.presence.status) userStatus = "N/A";
       switch (member.presence.status) {
         case "dnd":
           userStatus = "Do Not Disturb";

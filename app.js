@@ -131,11 +131,7 @@ bot.login(token);
 const connectionURL = `mongodb://${mongo.user}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.database}?authSource=admin`;
 bot.log.post("info", `Creating MongoDB connection at ${mongo.host}:${mongo.port}`)
 
-mongoose.connect(connectionURL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true
-}).then(() => {
+mongoose.connect(connectionURL).then(() => {
   bot.log.post("success", "MongoDB connection successful")
 }).catch(error => bot.log.post("error", `MongoDB connection unsuccessful: ${error}`));
 

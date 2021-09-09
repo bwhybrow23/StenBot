@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.1.3 - 09/09/2021
+* Reminders module - List, add and remove - One time or reoccuring
+* Updated embed footer logo
+* Removed parameters for connecting to Mongo (deprecated)
+* Updated NPM packages
+* Fixed command handler not picking up new commands
+* Ban command now works with users not in the server
+* Fixed me command crashing bot
+
 ## 2.1.2 - 21/08/2021
 * Fixed issue with bot crashing when no config
 * Fixed error checking on channelCreate

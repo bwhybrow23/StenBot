@@ -27,7 +27,7 @@ function errsend(msg) {
       description: `Error! ${msg}`,
       timestamp: Date.now(),
       footer: {
-        icon_url: "https://i.imgur.com/BkZY6H8.png",
+        icon_url: "https://i.imgur.com/klY5xCe.png",
         text: `${message.guild.name}`,
       },
     }, ]

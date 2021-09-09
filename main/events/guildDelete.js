@@ -24,7 +24,7 @@ module.exports = async (bot, guild) => {
         "url": guild.iconURL()
       },
       "footer": {
-        "icon_url": "https://i.imgur.com/BkZY6H8.png",
+        "icon_url": "https://i.imgur.com/klY5xCe.png",
         "text": guild.id
       },
       "color": 16711680,

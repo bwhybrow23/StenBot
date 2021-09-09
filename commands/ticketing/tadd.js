@@ -18,7 +18,7 @@ module.exports = {
           description: `Error! ${msg}`,
           timestamp: Date.now(),
           footer: {
-            icon_url: "https://i.imgur.com/BkZY6H8.png",
+            icon_url: "https://i.imgur.com/klY5xCe.png",
             text: `${message.guild.name}`,
           },
         }],
@@ -64,7 +64,7 @@ module.exports = {
     let embed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.green)
       .setDescription(`The user **${toBeAdded.user.tag}** has been added to the ticket.`)
-      .setAuthor(message.guild.name, `https://i.imgur.com/BkZY6H8.png`)
+      .setAuthor(message.guild.name, `https://i.imgur.com/klY5xCe.png`)
       .setTimestamp();
 
     message.channel.send({embeds: [embed.toJSON()]});

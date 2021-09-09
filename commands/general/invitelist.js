@@ -27,7 +27,7 @@ module.exports = {
       .setTitle(`**INVITE LIST**`)
       .setColor(bot.settings.color.yellow)
       .addField("Invites", `\`\`\`${possibleinvites.join("\n")}\`\`\``)
-      .setFooter(`${message.guild.name}`, `https://i.imgur.com/BkZY6H8.png`);
+      .setFooter(`${message.guild.name}`, `https://i.imgur.com/klY5xCe.png`);
 
     message.channel.send({embeds: [lbEmbed.toJSON()]});
   },

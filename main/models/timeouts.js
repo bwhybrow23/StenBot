@@ -13,6 +13,16 @@ const timeoutsSchema = new mongoose.Schema({
   expires: { //Date for when the timeout expires
     type: Number,
     required: [true, "A timeout expiration date is required."]
+  },
+  reoccuring: {
+    type: Boolean,
+    required: [true, "Specification on if this is reoccuring or not is required."]
+  },
+  reoccuringPeriod: {
+    type: Number
+  },
+  message: {
+    type: String
   }
 
 }, {

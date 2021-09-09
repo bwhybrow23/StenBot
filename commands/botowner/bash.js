@@ -48,7 +48,7 @@ module.exports = {
           }],
           footer: {
             text: message.guild.name,
-            icon_url: "https://i.imgur.com/BkZY6H8.png"
+            icon_url: "https://i.imgur.com/klY5xCe.png"
           },
           timestamp: Date.now()
         }],
