@@ -5,13 +5,15 @@
 <p align="center">
     <a href="https://shields.io/" target="_blank">
         <img src="https://img.shields.io/github/languages/top/bwhybrow23/StenBot?color=brightgreenn" alt="Main Lang"/>
-    </a>
+  </a>
      <a href="https://github.com/bwhybrow23" target="_blank">
         <img src="https://img.shields.io/badge/GitHub-bwhybrow23-blue.svg?logo=github&logoColor=FFF" alt="GitHub"/>
   </a>
     <a href="http://discord.benwhybrow.com/" target="_blank">
     <img src="https://img.shields.io/discord/455782308293771264?color=blueviolet&label=Discord" alt="Discord" />
-    </a>
+  </a>
+    <a href="https://www.codacy.com/gh/bwhybrow23/StenBot/dashboard?tm_source=github.com&amp;utm_medium=referral&amp;utm_content=bwhybrow23/StenBot&amp;utm_campaign=Badge_Grade">
+    <img src="https://app.codacy.com/project/badge/Grade/6fed3e02b701434cbe629c37e3c11f26"/></a>
 </p>
 
 <!-- Content -->
