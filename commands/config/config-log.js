@@ -18,7 +18,7 @@ module.exports = {
       //Check if they included a setting
       let setting = args[0];
   
-      if (setting === undefined) {
+      if (!setting) {
         bot.createEmbed("error", "", `Error! You forgot to include a log setting.`, [], `${message.guild.name}`, message)
           .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
@@ -26,11 +26,14 @@ module.exports = {
   
       //Get the server config
       let config = await bot.mutils.getGuildById(message.guild.id);
+
+      let targetchannel;
   
       //Settings library
       switch (setting) {
         case "channel":
-          var targetchannel = message.mentions.channels.first();
+
+          targetchannel = message.mentions.channels.first();
   
           if (!targetchannel || targetchannel === "None") {
             config.logging.channel = "0";
@@ -55,7 +58,7 @@ module.exports = {
           break;
         case "level":
           var level = args[1];
-          if (level === undefined) {
+          if (!level) {
             return bot.createEmbed("error", "", `Error! You didn't mention a logging level. Choose between low, medium or high. For more information, check out the [documentation](https://docs.benwhybrow.com).`, [], `${message.guild.name}`, message)
               .then((embed) => message.reply(embed))
               .catch((error) => bot.log.post("error", error));
@@ -147,8 +150,8 @@ module.exports = {
   
             case "add":
   
-              var targetchannel = message.mentions.channels.first();
-              if (targetchannel === undefined) {
+              targetchannel = message.mentions.channels.first();
+              if (!targetchannel) {
                 return bot.createEmbed("error", "", `Error! You didn't mention a channel.`, [], `${message.guild.name}`, message)
                   .then((embed) => message.reply(embed))
                   .catch((error) => bot.log.post("error", error));

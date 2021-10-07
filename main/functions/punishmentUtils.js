@@ -141,7 +141,7 @@ class PunishmentUtils {
           dMember = await guild.members.cache.get(user);
           dGuild = guild;
         })
-        .catch((error) => this.bot.log.post("error", error))
+        .catch((error) => this.bot.log.post("error", error));
       return [dMember, dGuild];
     } catch (error) {
       // this.bot.log.post("error", error);

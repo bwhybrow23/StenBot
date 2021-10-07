@@ -55,10 +55,10 @@ module.exports = {
                   return;
                 }
               })
-            .catch(error => bot.log.post("error", error));;
+            .catch(error => bot.log.post("error", error));
 
       })
-      .catch(error => bot.log.post("error", error));;
+      .catch(error => bot.log.post("error", error));
 
     //Logging
     if (config.logging.enabled === true) {
@@ -67,7 +67,7 @@ module.exports = {
           let lchannel = bot.channels.cache.get(config.logging.channel);
           bot.eventEmbed("c70011", targetuser.user, "Member Kicked", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n**Kick Date:** ${new Date()}\n**Kicked By:** ${message.author.tag}\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)
             .then(embed => lchannel.send(embed))
-            .catch(error => bot.log.post("error", error));;
+            .catch(error => bot.log.post("error", error));
         }
       }
     }

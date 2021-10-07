@@ -87,7 +87,7 @@ module.exports = {
                   //Send report with function
                   reportUtils.playerReport(bot, reObj, rObj, gObj, reason, evidence, rDate)
                     .then(embed => bot.channels.cache.get("518729627586527232").send({embeds: [embed.toJSON()]}))
-                    .catch(error => bot.log.post("error", error));;
+                    .catch(error => bot.log.post("error", error));
   
                   //Report Sent Message
                   bot.createEmbed("success", "Player Report Sent", `Your player report has been sent and will be reviewed by the Staff Team of StenBot. Thank you for your help.`, [], `${message.author.tag}`, message)
@@ -134,7 +134,7 @@ module.exports = {
                 //Send report with function
                 reportUtils.serverReport(bot, reObj, gObj, reason, evidence, rDate)
                   .then(embed => bot.channels.cache.get("518729627586527232").send({embeds: [embed.toJSON()]}))
-                  .catch(error => bot.log.post("error", error));;
+                  .catch(error => bot.log.post("error", error));
   
                 //Report Sent Message
                 bot.createEmbed("success", "Server Report Sent", `Your server report has been sent and will be reviewed by the Staff Team of StenBot. Thank you for your help.`, [], `${message.author.tag}`, message)
@@ -191,7 +191,7 @@ module.exports = {
                   //Send report with function
                   reportUtils.bugReport(bot, reObj, gObj, info, steps, evidence, rDate)
                     .then(embed => bot.channels.cache.get("518729627586527232").send({embeds: [embed.toJSON()]}))
-                    .catch(error => bot.log.post("error", error));;
+                    .catch(error => bot.log.post("error", error));
   
                   //Report Sent Message
                   bot.createEmbed("success", "Bug Report Sent", `Your bug report has been sent and will be reviewed by the Developers of StenBot. Thank you for your help.`, [], `${message.author.tag}`, message)

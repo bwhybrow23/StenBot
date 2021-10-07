@@ -101,7 +101,7 @@ module.exports = {
                   return;
                 }
               })
-      .catch(error => bot.log.post("error", error));;
+      .catch(error => bot.log.post("error", error));
 
     //Logging
     if (config.logging.enabled === true) {
@@ -109,7 +109,7 @@ module.exports = {
         let lchannel = bot.channels.cache.get(config.logging.channel);
         bot.eventEmbed("c70011", targetuser.user, "Member Temporarily Muted", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n**Mute Date:** ${new Date()}\n**Muted By:** ${message.author.tag}\n\n**Reason:** ${reason ? `${reason}\n` : `None provided\n`}**Duration:** ${args[1]}`, [], `${message.guild.name}`, bot)
           .then(embed => lchannel.send(embed))
-          .catch(error => bot.log.post("error", error));;
+          .catch(error => bot.log.post("error", error));
       }
     }
 

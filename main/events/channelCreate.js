@@ -4,7 +4,7 @@ module.exports = async (bot, channel) => {
 
   if ((channel.type === "DM")) return;
 
-  let muteRole = channel.guild.roles.cache.find(r => r.name === "Muted")
+  let muteRole = channel.guild.roles.cache.find(r => r.name === "Muted");
   if (!muteRole) {
     try {
         muteRole = await channel.guild.roles.create({

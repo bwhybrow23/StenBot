@@ -18,7 +18,7 @@ module.exports = {
     //Check if they included a setting
     let setting = args[0];
 
-    if (setting === undefined) {
+    if (!setting) {
       return bot.createEmbed("error", "", `Error! You forgot to include a userjoin config setting.`, [], `${message.guild.name}`, message)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -96,7 +96,7 @@ module.exports = {
       case "name":
         var name = args.slice(1).join(" ");
 
-        if (name === undefined || "None") {
+        if (!name || name === "None") {
           config.userjoin.nickname = "None";
           bot.mutils.updateGuildById(message.guild.id, config);
           return bot.createEmbed("success", "", `The userjoin nickname has been reset.`, [], `${message.guild.name}`, message)

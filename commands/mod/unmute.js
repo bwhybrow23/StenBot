@@ -38,7 +38,7 @@ module.exports = {
     }
 
     //Role Check
-    let muteRole = message.guild.roles.cache.find(r => r.name === "Muted")
+    let muteRole = message.guild.roles.cache.find(r => r.name === "Muted");
     if (!muteRole) {
       return bot.createEmbed("error", "", `Error! There is no valid "Muted" role which means that the role has been deleted or was never created. In order for the role to be created, a user has to be muted by StenBot.`, [], `${message.guild.name}`, message)
         .then((embed) => message.reply(embed))

@@ -18,7 +18,7 @@ module.exports = {
       //Check if they included a setting
       let setting = args[0];
   
-      if (setting === undefined) {
+      if (!setting) {
         bot.createEmbed("error", "", `Error! You forgot to include a staff setting.`, [], `${message.guild.name}`, message)
           .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));

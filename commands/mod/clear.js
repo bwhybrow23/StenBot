@@ -50,7 +50,7 @@ module.exports = {
           let lchannel = bot.channels.cache.get(config.logging.channel);
           bot.eventEmbed("c70011", message.author, "Bulk Delete", `**Amount:** ${amount}\n**Channel:** ${message.channel.name}`, [], `${message.guild.name}`, bot)
             .then(embed => lchannel.send(embed))
-            .catch(error => bot.log.post("error", error));;
+            .catch(error => bot.log.post("error", error));
         }
       }
     }

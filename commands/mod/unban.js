@@ -46,7 +46,7 @@ module.exports = {
           let lchannel = bot.channels.cache.get(config.logging.channel);
           bot.eventEmbed("7ae727", message.author, "Member Unbanned", `**User ID:** ${targetuser}\n**Unban Date:** ${new Date()}\n**Unbanned By:** ${message.author.tag}\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)
             .then(embed => lchannel.send(embed))
-            .catch(error => bot.log.post("error", error));;
+            .catch(error => bot.log.post("error", error));
         }
       }
     }

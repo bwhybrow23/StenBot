@@ -66,7 +66,7 @@ module.exports = {
         let lchannel = bot.channels.cache.get(config.logging.channel);
         bot.eventEmbed("c70011", targetuser.user, "Warning Removed", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n**Warning ID:** ${removedID}\n\n**Removed on:** ${new Date()}\n**Removed by:** ${message.author.tag}`, [], `${message.guild.name}`, bot)
           .then(embed => lchannel.send(embed))
-          .catch(error => bot.log.post("error", error));;
+          .catch(error => bot.log.post("error", error));
       }
     };
 

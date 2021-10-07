@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.1 - ??/??/2021
+* Coding style/errors fixed
+* 
+
 ## 2.2.0 - 07/10/2021
 * An expired reminder, still sends a reminder message when available to (with an apology)
 * All punishments are now logged

@@ -59,7 +59,7 @@ module.exports = {
               let lchannel = bot.channels.cache.get(config.logging.channel);
               bot.eventEmbed("c70011", targetuser, "Member Banned", `**User tag:** ${targetuser.username + targetuser.discriminator}\n**User ID:** ${targetuser.id}\n**Ban Date:** ${new Date()}\n**Banned By:** ${message.author.tag} ${ reason ? `\n**Reason:** ${reason}` : ``}`, [], `${message.guild.name}`, bot)
                 .then(embed => lchannel.send(embed))
-                .catch(error => bot.log.post("error", error));;
+                .catch(error => bot.log.post("error", error));
             }
           }
         }
