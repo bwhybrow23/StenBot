@@ -1,4 +1,5 @@
 module.exports = async (bot, guild) => {
+
   const Discord = require("discord.js");
   const fs = require("fs");
 
@@ -15,14 +16,16 @@ module.exports = async (bot, guild) => {
   //StenBot Server Updates
   let totalGuilds = bot.guilds.cache.size;
   let totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
+  let gOwner = await guild.fetchOwner();
+  
   await bot.channels.cache.get("839509992041218049").send({
-    embed: {
+    embeds: [{
       "title": "Left Guild!",
       "thumbnail": {
         "url": guild.iconURL()
       },
       "footer": {
-        "icon_url": "https://i.imgur.com/BkZY6H8.png",
+        "icon_url": "https://i.imgur.com/klY5xCe.png",
         "text": guild.id
       },
       "color": 16711680,
@@ -34,26 +37,26 @@ module.exports = async (bot, guild) => {
         },
         {
           name: "Server Owner",
-          value: `${guild.owner.user.tag} || ${guild.owner.id}`,
+          value: `${gOwner.tag} || ${guild.ownerId}`,
           inline: true
         },
         {
           name: "Member Count",
-          value: guild.memberCount,
+          value: `${guild.memberCount}`,
           inline: false
         },
         {
           name: "New Guild Count",
-          value: totalGuilds,
+          value: `${totalGuilds}`,
           inline: true
         },
         {
           name: "New Member Count",
-          value: totalUsers,
+          value: `${totalUsers}`,
           inline: true
         }
       ]
-    }
+    }]
   })
 
 };

@@ -1,9 +1,12 @@
+const { messages } = require("dbots/lib/Utils/DBotsError");
+
 module.exports = async (bot, member) => {
+
     const Discord = require("discord.js");
     const config = await bot.mutils.getGuildById(member.guild.id);
+    if(!config) return;
     const fs = require("fs");
     var format = require("string-template");
-    const efunctions = require("../functions/eventUtils.js");
   
     if (member.user == bot.user) return;
 
@@ -67,7 +70,15 @@ module.exports = async (bot, member) => {
       if (config.userjoin.role != 0) {
         //Add the role to the member
         let toaddrole = member.guild.roles.cache.get(config.userjoin.role);
-        member.roles.add(toaddrole).catch();
+        if(!toaddrole) {
+          try {
+            member.guild.owner.send("Hi! This is StenBot just DM'ing you to let you know that the role you have configured for new members in your server cannot be found. /nThis may be because it has been deleted. Please re-add the role by doing `sb!config-userjoin role <@ROLE>`. \n\nThank you for your understanding and if you have any further questions, please contact Stentorian#9524 or run the `sb!invite` command for the support server.");
+          } catch (error) {
+            return;
+          }
+        } else {
+          member.roles.add(toaddrole);
+        }
       }
     }
   
@@ -81,11 +92,11 @@ module.exports = async (bot, member) => {
   
     if (config.logging.enabled == true) {
       if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
-        if (efunctions.checkChannel(config.logging.channel, bot) == true) {
+        if (bot.efunctions.checkChannel(config.logging.channel, bot) == true) {
           let lchannel = bot.channels.cache.get(config.logging.channel);
           bot.eventEmbed("c9c600", member.user, "Member Joined", `**Name:** ${member.user.tag}\n**Id:** ${member.id}\n**Created At:** ${member.user.createdAt}`, [], `${lchannel.guild.name}`, bot)
             .then(embed => lchannel.send(embed))
-            .catch(error => console.error(error))
+            .catch(error => bot.log.post("error", error))
         }
       }
     }

@@ -1,7 +1,7 @@
 module.exports = {
   name: "server",
   category: "bot",
-  description: "Gather information about a specific server (or the server the command is ran in)",
+  description: "Gather information about a server",
   usage: "[SERVER ID]",
   example: "455782308293771264",
   options: { permission: "EVERYONE", aliases: ["server-info", "serverinfo"], enabled: true, guildOnly: true },
@@ -20,14 +20,14 @@ module.exports = {
       }
       if(!id) {
         return bot.createEmbed("error", "", "Specified server ID is invalid. Please make sure that it is a valid server ID.", [], message.author.tag, message)
-          .then((embed) => message.channel.send(embed));
+          .then((embed) => message.reply(embed));
       }
       try { 
         guild = await bot.guilds.fetch(args[0], true, true);
       }
       catch (e) {
         return bot.createEmbed("error", "", "Specified server cannot be found. Please make sure the bot is in the server.", [], message.author.tag, message)
-          .then((embed) => message.channel.send(embed));
+          .then((embed) => message.reply(embed));
       }
     }
 

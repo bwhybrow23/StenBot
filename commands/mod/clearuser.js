@@ -8,70 +8,58 @@ module.exports = {
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
+    const config = await bot.mutils.getGuildById(message.guild.id);
 
-    var config = await bot.mutils.getGuildById(message.guild.id);
-
+    //Perm Check
     if (!message.member.permissions.has("MANAGE_MESSAGES")) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot);
     }
 
-    var amount = args[1];
+    //Arg Check
+    let amount = args[1];
     if (!amount || amount == undefined || isNaN(amount) || args[0] == "help") {
       return bot.helpEmbed("clearuser", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
-    if (amount > 100) {
-      return message.channel.send({
-        embed: {
-          color: bot.settings.color.red,
-          description: `Error! You cant clear more than 100 messsages at a time!`
-        }
-      });
+    if (amount > 100 || amount < 1) {
+      return bot.createEmbed("error", "", `The amount of messages to clear must be in-between 1 and 100.`, [], `${message.guild.name}`, message)
+        .then((embed) => message.reply(embed))
+        .catch((error) => bot.log.post("error", error));
     };
 
-    if (amount < 1) {
-      return message.channel.send({
-        embed: {
-          color: bot.settings.color.red,
-          description: `Error! You cant clear less than 1 message!`
-        }
-      });
-    };
-
-    var targetuser = message.mentions.members.first();
-
-    if (targetuser == undefined) {
+    let targetuser = message.mentions.members.first();
+    if (targetuser === undefined) {
       return bot.createEmbed("error", "", `Error! You need to include someone to clear the messages of!`, [], `${message.guild.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
+    //Fetch messages
     message.channel.messages.fetch({
       limit: amount,
     }).then((messages) => {
+      //Filter them
       const filterBy = targetuser ? targetuser.id : bot.user.id;
-      messages = messages.filter(m => m.author.id == filterBy).array().slice(0, amount);
+      messages = messages.filter(m => m.author.id == filterBy).slice(0, amount);
+      //Bulk delete
       message.channel.bulkDelete(messages).catch(error => bot.log.post("error", error.stack));
     });
 
-    message.channel.send({
-      embed: {
-        color: bot.settings.color.green,
-        description: `Successfully cleared **${amount}** messages from **${targetuser.user.tag}**`
-      }
-    });
+    //Success message
+    bot.createEmbed("success", "", `Successfully cleared **${amount}** messages from **${targetuser.user.tag}**`, [], `${message.guild.name}`, message)
+          .then((embed) => message.reply(embed))
+          .catch((error) => bot.log.post("error", error))
 
     //Logging
-    const efunctions = require('../../main/functions/eventUtils.js');
     if (config.logging.enabled == true) {
       if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
-        if (efunctions.checkChannel(config.logging.channel, bot) == true) {
+        if (bot.efunctions.checkChannel(config.logging.channel, bot) == true) {
           let lchannel = bot.channels.cache.get(config.logging.channel);
           bot.eventEmbed("c70011", message.author, "Bulk Delete", `**Amount:** ${amount}\n**Channel:** ${message.channel.name}\n**Filter:** From ${targetuser.user.tag}`, [], `${message.guild.name}`, bot)
             .then(embed => lchannel.send(embed))
-            .catch(error => console.error(error))
+            .catch(error => bot.log.post("error", error))
         }
       }
     }

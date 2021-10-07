@@ -13,15 +13,15 @@ module.exports = {
 
     function errsend(msg) {
       message.channel.send({
-        embed: {
+        embeds: [{
           color: bot.settings.color.red,
           description: `Error! ${msg}`,
           timestamp: Date.now(),
           footer: {
-            icon_url: "https://i.imgur.com/BkZY6H8.png",
+            icon_url: "https://i.imgur.com/klY5xCe.png",
             text: `${message.guild.name}`,
           },
-        },
+        }],
       });
     }
 
@@ -48,7 +48,7 @@ module.exports = {
     let toBeAdded = message.mentions.members.first();
     if (!toBeAdded || args[0] == "help") {
       return bot.helpEmbed("tadd", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
     try {
@@ -64,7 +64,7 @@ module.exports = {
     let embed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.green)
       .setDescription(`The user **${toBeAdded.user.tag}** has been added to the ticket.`)
-      .setAuthor(message.guild.name, `https://i.imgur.com/BkZY6H8.png`)
+      .setAuthor(message.guild.name, `https://i.imgur.com/klY5xCe.png`)
       .setTimestamp();
 
     message.channel.send({embeds: [embed.toJSON()]});

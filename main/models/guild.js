@@ -75,9 +75,15 @@ const guildSchema = new mongoose.Schema({
             type: [String],
             required: true
         },
+        mute_role: {
+            type: String,
+        },
         warnings: {
             type: [Object],
-        }
+        },
+        punishments: {
+            type: [Object],
+        },
     },
     logging: {
         enabled: {
@@ -111,5 +117,5 @@ const guildSchema = new mongoose.Schema({
         timestamps: true
 })
 
-const Guild = mongoose.model("Guild", guildSchema)
+const Guild = mongoose.model("Guild", guildSchema);
 module.exports = Guild;

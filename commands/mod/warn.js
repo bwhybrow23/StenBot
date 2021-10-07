@@ -20,58 +20,60 @@ module.exports = {
     var targetuser = message.mentions.members.first();
     if (!targetuser || args[0] == "help") {
       return bot.helpEmbed("warn", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     };
 
     if (targetuser.roles.cache.has(config.moderation.staff_role)) {
       return bot.createEmbed("error", "", `Error! You are not allowed to warn this person!`, [], `${message.guild.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     };
 
     let reason = args.slice(1).join(" ");
     if (!reason) {
       return bot.createEmbed("error", "", `Error! You have not provided a reason for the warning.`, [], `${message.guild.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     };
 
-    //Push the warning to the storage
-    config.moderation.warnings.push({
-      "user": targetuser.id,
-      "reason": reason,
-      "issuer": message.author.id,
-      "timestamp": Date.now()
-    });
-    //Save the storage
-    await bot.mutils.updateGuildById(message.guild.id, config);
+    await bot.punishments.new("warn", message.guild.id, targetuser.id, message.author.id, reason)
+    .then(async () => {
 
     //Calculate total
-    let total = config.moderation.warnings.filter(function(user) {
-      return user.user == targetuser.id;
-    });
+    let total;
+    await bot.punishments.fetch(message.guild.id, targetuser.id)
+    .then((punishments) => {
+      total = punishments.warns;
+    })
 
     // User Output
     bot.createEmbed("success", "", `**${targetuser.user.tag}** has been warned for **${reason}**.\nThey are on a total of ${Object.keys(total).length} warnings.`, [], `${message.guild.name}`, message)
-      .then((embed) => message.channel.send(embed))
+      .then((embed) => message.reply(embed))
       .catch((error) => bot.log.post("error", error));
 
     //DM User
     bot.eventEmbed("c70011", targetuser.user, "You have been warned!", `**Warn Date:** ${new Date()}\n**Warned By:** ${message.author.tag}\n\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)
-          .then(embed => targetuser.send(embed))
-          .catch(error => console.error(error))
+          .then((embed) => {
+                try {
+                  targetuser.send(embed)
+                } catch (e) {
+                  return;
+                }
+              })
+          .catch(error => bot.log.post("error", error))
 
     //Logging
-    const efunctions = require('../../main/functions/eventUtils.js');
     if (config.logging.enabled == true) {
-      if (efunctions.checkChannel(config.logging.channel, bot) == true) {
+      if (bot.efunctions.checkChannel(config.logging.channel, bot) == true) {
         let lchannel = bot.channels.cache.get(config.logging.channel);
         bot.eventEmbed("c70011", targetuser.user, "Member Warned", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n**Warn Date:** ${new Date()}\n**Warned By:** ${message.author.tag}\n\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)
           .then(embed => lchannel.send(embed))
-          .catch(error => console.error(error))
+          .catch(error => bot.log.post("error", error))
       }
     };
+
+  })
 
   },
 }

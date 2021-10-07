@@ -14,7 +14,7 @@ module.exports = {
       const victim = message.mentions.users.first();
       if (!victim) {
         return bot.createEmbed("error", "", `You forgot to mention a user.`, [], ``, message)
-          .then((embed) => message.channel.send(embed))
+          .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
       }
   
@@ -22,7 +22,7 @@ module.exports = {
       let check = await bot.timeouts.check(robber.id, "rob")
       if (check != false) {
         return bot.createEmbed("error", "", `Woah! Calm down there, you're gonna get ahead of yourself. You've still got another **${check}** left until you can rob someone. Be patient.`, [], ``, message)
-          .then((embed) => message.channel.send(embed))
+          .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
       }
   
@@ -30,7 +30,7 @@ module.exports = {
       let victimUser = await ecoUtils.getUser(victim.id);
       if (victimUser.balance < 0) {
         return bot.createEmbed("error", "", `This user doesn't have enough money in their balance to be robbed. Try another user.`, [], ``, message)
-          .then((embed) => message.channel.send(embed))
+          .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
       }
   
@@ -66,7 +66,7 @@ module.exports = {
         let rNewBalance = await ecoUtils.getUser(robber.id);
         await bot.timeouts.new(robber.id, "rob");
         return bot.createEmbed("success", "", `${message.author}, you robbed ${victim} of **${amountRobbed} credits**. Your balance is now **${rNewBalance.balance}**.`, [], ``, message)
-          .then((embed) => message.channel.send(embed))
+          .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
       } else {
         await ecoUtils.updateUser(victim.id, parseInt(victimBal + 500));
@@ -74,7 +74,7 @@ module.exports = {
         let rNewBalance = await ecoUtils.getUser(robber.id);
         await bot.timeouts.new(robber.id, "rob");
         return bot.createEmbed("error", "", `${message.author}, you got caught and you had to pay ${victim} **500 credits**. Your balance is now **${rNewBalance.balance}**.`, [], ``, message)
-          .then((embed) => message.channel.send(embed))
+          .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
       }
   

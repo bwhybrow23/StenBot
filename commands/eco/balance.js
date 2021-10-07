@@ -14,13 +14,13 @@ module.exports = {
 
     if (!person || args[0] == "help") {
       return bot.helpEmbed("balance", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     await ecoUtils.getUser(person.id).then(async (user) => {
-      return bot.createEmbed("info", "", `${person} has ${user.balance} credits.`, [], ``, message)
-        .then((embed) => message.channel.send(embed))
+      return bot.createEmbed("info", "", `${person} has **${user.balance}** credits.`, [], ``, message)
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     })
 

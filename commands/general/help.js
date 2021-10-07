@@ -58,10 +58,10 @@ module.exports = {
       let input = args[0];
 
       return bot.helpEmbed(input, bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => {
           bot.createEmbed("error", "", `Cannot find a command under the name of ${input}`, [], message.author.tag, bot)
-            .then((embed) => message.channel.send(embed))
+            .then((embed) => message.reply(embed))
             .then(console.log(error))
         });
 

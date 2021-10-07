@@ -23,7 +23,7 @@ const verifiedRole = (reaction, user) => {
         // console.log(`Verified ${user.username}.`)
       }
     })
-    .catch((err) => console.error(err));
+    .catch((err) => bot.log.post("error", error));
 };
 
 module.exports = {

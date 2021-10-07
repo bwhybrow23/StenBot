@@ -20,7 +20,7 @@ module.exports = {
     let newMode = args[0];
     if (!newMode || args[0] == "help") {
       return bot.helpEmbed("mode", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -53,7 +53,7 @@ module.exports = {
           bot.log.post("info", `StenBot has been converted to Production Mode. Running version: ${packageJSON.version} | Changed at ${date}`);
           //Reply Message
           bot.createEmbed("success", "", `Bot Mode has been Sucessfully Updated to **Production**.`, [], `${message.guild.name}`, message)
-            .then((embed) => message.channel.send(embed))
+            .then((embed) => message.reply(embed))
             .catch((error) => bot.log.post("error", error));
 
           break;
@@ -85,7 +85,7 @@ module.exports = {
 
           //Reply Message
           bot.createEmbed("success", "", `Bot Mode has been Sucessfully Updated to **Development**.`, [], `${message.guild.name}`, message)
-            .then((embed) => message.channel.send(embed))
+            .then((embed) => message.reply(embed))
             .catch((error) => bot.log.post("error", error));
 
           break;
@@ -93,7 +93,7 @@ module.exports = {
         default:
           if (newMode == undefined) {
             bot.createEmbed("error", "", `Error! You haven't included a new mode for the bot to be switched to.`, [], `${message.guild.name}`, message)
-              .then((embed) => message.channel.send(embed))
+              .then((embed) => message.reply(embed))
               .catch((error) => bot.log.post("error", error));
           }
           break;

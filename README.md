@@ -5,13 +5,15 @@
 <p align="center">
     <a href="https://shields.io/" target="_blank">
         <img src="https://img.shields.io/github/languages/top/bwhybrow23/StenBot?color=brightgreenn" alt="Main Lang"/>
-    </a>
+  </a>
      <a href="https://github.com/bwhybrow23" target="_blank">
         <img src="https://img.shields.io/badge/GitHub-bwhybrow23-blue.svg?logo=github&logoColor=FFF" alt="GitHub"/>
   </a>
     <a href="http://discord.benwhybrow.com/" target="_blank">
     <img src="https://img.shields.io/discord/455782308293771264?color=blueviolet&label=Discord" alt="Discord" />
-    </a>
+  </a>
+    <a href="https://www.codacy.com/gh/bwhybrow23/StenBot/dashboard?tm_source=github.com&amp;utm_medium=referral&amp;utm_content=bwhybrow23/StenBot&amp;utm_campaign=Badge_Grade">
+    <img src="https://app.codacy.com/project/badge/Grade/6fed3e02b701434cbe629c37e3c11f26"/></a>
 </p>
 
 <!-- Content -->
@@ -34,7 +36,7 @@ Please refer to the [wiki site](https://wiki.benwhybrow.com) for more on how to 
 <!-- License & Contributing -->
 ## License and Contributing
 The current license for this project is **Don't Be a Dick (DBAD)**. You can see the official license [here](https://github.com/bwhybrow23/StenBot/blob/master/LICENSE.md)
-#### The current license means you can:
+#### The current license means:
 You can basically do whatever you want with the code, just don't be a dick. By that it means, don't perform copyright infringement (redistributing under a different name), selling the code on this repo without authorisation, modifying the code with malicious/harmful content. 
 > If you don't do the above, your version of said software can be removed without notice as it violates the license. 
 
@@ -42,12 +44,12 @@ If you would like to contribute, please use your common sense. Make sure you sub
 
 ## Donating
 
-You can also help me, the project out and future projects out by contributing through a [donation on PayPal](https://paypal.me/benwhybrow).
+You can also help me, the project out and future projects out by contributing by [buying me a "coffee"](http://buymeacoff.ee/benwhybrow).
 <br>
 Donations will help fund things like hosting but may also fund an occasional coffee whilst working on projects.
 <p>
-    <a href="https://paypal.me/benwhybrow" target="_blank">
-        <img src="https://img.shields.io/badge/PayPal-Ben%20Whybrow-blue.svg?logo=paypal&logoColor=00457C" alt="PayPal"/>
+    <a href="http://buymeacoff.ee/benwhybrow" target="_blank">
+        <img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=benwhybrow&button_colour=5F7FFF&font_colour=ffffff&font_family=Poppins&outline_colour=000000&coffee_colour=FFDD00" alt="BuyMeACoffee"/>
     </a>
 </p>
 
@@ -63,5 +65,5 @@ Not found what you need here?
 * _or,_ You can join my Discord server and talk to one of the support team (or me) in order to get help with this project and other projects on my GitHub. 
 
 <a href="http://discord.benwhybrow.com/" target="_blank">
-    <img src="https://img.shields.io/discord/455782308293771264?color=blueviolet&label=Discord" alt="Discord" height="25">
+    <img src="https://discord.com/assets/ff41b628a47ef3141164bfedb04fb220.png" alt="Discord" height="60">
 </a>

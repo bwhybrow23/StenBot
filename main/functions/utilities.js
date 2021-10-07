@@ -82,7 +82,7 @@ module.exports = {
 
     serverChannel
       .send({
-        embed: {
+        embeds: [{
           title: "SERVER VERIFICATION",
           description: "Make sure to read <#624316687537405954> and then click the ✅ to get access to the rest of the discord.",
           color: bot.settings.color.yellow,
@@ -92,7 +92,7 @@ module.exports = {
             }),
             text: "If you have any issues DM Stentorian#9524 on Discord!",
           },
-        },
+        }],
       })
       .then((message) => {
         botData.verifMsgID = message.id;

@@ -1,11 +1,11 @@
 {
   "name": "stenbot",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "StenBot is a free to use public Discord bot made by Ben Whybrow (Stentorian#9524)",
   "main": "app.js",
   "engines": {
-    "node": "v14.15.4",
-    "npm": "7.6.0"
+    "node": "v16.6.1",
+    "npm": "7.20.5"
   },
   "scripts": {
     "run": "node app.js",
@@ -26,23 +26,22 @@
     "url": "https://github.com/sponsors/bwhybrow23"
   },
   "dependencies": {
-    "ascii-table": "0.0.9",
-    "bcrypt": "^5.0.0",
-    "body-parser": "^1.19.0",
+    "ascii-table": "^0.0.9",
+    "bcrypt": "^5.0.1",
     "btoa": "^1.2.1",
     "chalk": "^4.1.2",
     "cors": "^2.8.5",
-    "dbots": "^9.0.0",
+    "dbots": "^9.0.1",
     "discord-moderation": "github:bwhybrow23/discord-moderation#master",
-    "discord.js": "^13.0.0",
-    "ejs": "^3.1.5",
+    "discord.js": "^13.1.0",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
     "is-url": "^1.2.4",
     "jsonwebtoken": "^8.5.1",
-    "moment": "^2.27.0",
-    "moment-timezone": "^0.5.31",
-    "mongoose": "^5.13.5",
-    "ms": "^2.1.2",
+    "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
+    "mongoose": "^6.0.5",
+    "ms": "^2.1.3",
     "nekos.life": "^2.0.7",
     "node-fetch": "^2.6.1",
     "path": "^0.12.7",

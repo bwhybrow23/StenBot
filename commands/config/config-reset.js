@@ -11,13 +11,13 @@ module.exports = {
   
       if (message.member.permissions.has("ADMINISTRATOR") == false) {
         return bot.noPermsEmbed(`${message.guild.name}`, bot)
-          .then((embed) => message.channel.send(embed))
+          .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
       }
   
       //Confirmation
       bot.createEmbed("warning", "", `Are you sure you would like to reset the config of this server?\n React with :white_check_mark: if you are sure, or :x: to cancel resetting. \nThis will automatically cancel if there isn't a response in 30 seconds.`, [], `${message.guild.name}`, message)
-        .then((embed) => message.channel.send(embed).then((m) => {
+        .then((embed) => message.reply(embed).then((m) => {
           m.react('✅').then(r => {
             m.react('❌');
           });
@@ -31,9 +31,9 @@ module.exports = {
   
               bot.mutils.updateGuildById(message.guild.id, {
                 info: {
-                  id: guild.id,
-                  name: guild.name,
-                  owner_id: guild.ownerId,
+                  id: g.id,
+                  name: g.name,
+                  owner_id: g.ownerId,
                   blacklisted: false
                 },
                 gatekeeper: {
@@ -46,13 +46,16 @@ module.exports = {
                 },
                 userjoin: {
                   enabled: false,
-                  roles: [],
+                  role: "0",
                   nickname: "None"
                 },
                 moderation: {
                   staff_role: "0",
                   link_block: false,
-                  filter: []
+                  filter: [],
+                  mute_role: "",
+                  warnings: [],
+                  punishments: []
                 },
                 logging: {
                   enabled: false,
@@ -67,7 +70,7 @@ module.exports = {
               });
   
               bot.createEmbed("success", "", `Server Config has been reset.`, [], `${message.guild.name}`, message)
-                .then((embed) => message.channel.send(embed))
+                .then((embed) => message.reply(embed))
                 .catch((error) => bot.log.post("error", error));
             }
             if (collected.first().emoji.name == '❌') {

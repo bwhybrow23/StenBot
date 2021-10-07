@@ -11,7 +11,7 @@ module.exports = {
   
       if (args[0] == "help") {
         return bot.helpEmbed("me", bot)
-          .then((embed) => message.channel.send(embed))
+          .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
       }
 
@@ -31,6 +31,7 @@ module.exports = {
       }
   
       let userStatus;
+      if(!member.presence.status) userStatus = "N/A";
       switch (member.presence.status) {
         case "dnd":
           userStatus = "Do Not Disturb";
@@ -55,9 +56,13 @@ module.exports = {
           activities.push(`${activity.emoji} ${activity.state}`)
         } else if (activity.type === "PLAYING") {
           activities.push(`:video_game: ${activity.name}`)
+        } else {
+          activities.push("Not playing")
         }
-        if(!activity) activities.push("Not playing")
       });
+      if(!activities == []) {
+        activities.push("Not playing");
+      }
 
       let meEmbed = new Discord.MessageEmbed()
         .setThumbnail(user.displayAvatarURL())
@@ -69,8 +74,8 @@ module.exports = {
         .addField("Status", userStatus, true)
         .addField("Activities", activities.join("\n"))
         .addField("Roles", `${member.roles.cache.filter(r => r.id !== message.guild.id).map(roles => `\`${roles.name}\``).join(" **|** ") || "No Roles"}`)
-        // .addField("Joined Discord At", user.createdAt)
-        // .addField("Joined this Guild At", member.joinedAt)
+        .addField("Joined Discord At", `${user.createdAt}`)
+        .addField("Joined this Guild At", `${member.joinedAt}`)
         .setFooter(`Information about ${user.username}`)
         .setTimestamp();
   

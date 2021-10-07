@@ -1,5 +1,7 @@
 const Timeout = require("../models/timeouts");
 const moment = require('moment');
+const ms = require('ms');
+const bot = require("../../app");
 
 class TimeoutUtils {
   constructor(bot) {
@@ -9,18 +11,54 @@ class TimeoutUtils {
     this.bot = bot;
     this.activeTimeouts = 0;
 
+    //Fetch all timeouts
     this.fetchAll()
       .then(allTimeouts => {
         let removedTimeouts = 0;
+        //For each timeout
         allTimeouts.forEach(timeout => {
+          //If not expired, 
           if (this.expired(timeout.expires)) {
-            removedTimeouts++;
-            this.removeSync(timeout.user, timeout.command);
+            //Reschedule if reoccuring
+            if (timeout.reoccuring === true) {
+              this.updateSync(timeout._id, timeout.reoccuringPeriod);
+              this.activeTimeouts++
+            } else {
+              //Check if reminder
+              if (timeout.command === "reminder") {
+                //Send reminder message
+                let targetuser = this.bot.users.cache.get(timeout.user);
+
+                //Prevent bot from crashing on closed DMs
+                try {
+                  targetuser.send({
+                    embeds: [{
+                      "title": `Reminder!`,
+                      "description": `${timeout.message}\n\nI am aware this is late, there was bot issues. *sorry*`,
+                      "thumbnail": {
+                        "url": "https://i.imgur.com/kLRvtVg.png"
+                      },
+                      "color": this.bot.settings.color.yellow,
+                      "footer": {
+                        "icon_url": "https://i.imgur.com/klY5xCe.png",
+                        "text": `Reminder set ${moment(timeout.createdAt).fromNow()}`
+                      }
+                    }]
+                  })
+                } catch (error) {
+                  return;
+                }
+              }
+              //Remove if not
+              removedTimeouts++;
+              this.removeSync(timeout._id);
+            }
           } else {
+            //Set up new timeout for ones that haven't expired
             this.activeTimeouts++;
             let present = moment();
             setTimeout(() => {
-              this.removeSync(timeout.user, timeout.command);
+              this.removeSync(timeout._id);
             }, (timeout.expires - present.unix()) * 1000)
           }
         })
@@ -42,7 +80,7 @@ class TimeoutUtils {
   }
 
   //Adds a new timeout to the database
-  new(user, command) {
+  new(user, command, time, reoccuring, reoccuringPeriod, message) {
     return new Promise(async (resolve, reject) => {
       try {
         if (!user) {
@@ -55,28 +93,68 @@ class TimeoutUtils {
           case "daily":
             present.add(1, "d");
             break;
+
           case "rob":
             present.add(2, "h");
             break;
+
+          case "reminder":
+            if (!time) reject("Please specify a timeframe.")
+            present.add(time, "ms");
+
+            //Save new reminder
+            const timeout = new Timeout({
+              user,
+              command,
+              expires: present.unix(),
+              reoccuring: reoccuring,
+              reoccuringPeriod: reoccuringPeriod,
+              message: message
+            })
+            await timeout.save();
+
+            let newPresent = moment();
+            this.activeTimeouts++;
+
+            setTimeout(() => {
+              if (timeout.reoccuring === true) {
+                this.updateSync(timeout._id, timeout.reoccuringPeriod);
+              } else {
+                this.removeSync(timeout._id);
+              }
+
+              //Send the message
+              let targetuser = this.bot.users.cache.get(user);
+
+              //Prevent bot from crashing on closed DMs
+              try {
+                targetuser.send({
+                  embeds: [{
+                    "title": `Reminder!`,
+                    "description": `${timeout.message}`,
+                    "thumbnail": {
+                      "url": "https://i.imgur.com/kLRvtVg.png"
+                    },
+                    "color": this.bot.settings.color.yellow,
+                    "footer": {
+                      "icon_url": "https://i.imgur.com/klY5xCe.png",
+                      "text": `Reminder set ${moment(timeout.createdAt).fromNow()}`
+                    }
+                  }]
+                })
+              } catch (error) {
+                return;
+              }
+
+
+            }, (present.unix() - newPresent.unix()) * 1000)
+            resolve(timeout);
+            break;
+
           default:
-            reject(`Invalid command: ${command}`)
+            reject(`Invalid command: ${command}`);
+            break;
         }
-        //Save new timeout
-        const timeout = new Timeout({
-          user,
-          command,
-          expires: present.unix()
-        })
-        await timeout.save();
-
-        let newPresent = moment();
-        this.activeTimeouts++;
-
-        setTimeout(() => {
-          this.removeSync(user, command);
-        }, (present.unix() - newPresent.unix()) * 1000)
-        resolve(timeout)
-
       } catch (error) {
         reject(error)
       }
@@ -94,12 +172,11 @@ class TimeoutUtils {
   }
 
   //Remove a timeout from the database (returns undefined on success)
-  removeSync(user, command) {
+  removeSync(id) {
     return new Promise(async (resolve, reject) => {
       try {
         await Timeout.findOneAndDelete({
-          user,
-          command
+          "_id": id
         })
         resolve();
       } catch (error) {
@@ -108,13 +185,33 @@ class TimeoutUtils {
     })
   }
 
+  //Update a timeout from the database
+  updateSync(id, expiry) {
+    return new Promise(async (resolve, reject) => {
+      let present = moment();
+      try {
+        //Fetch timeout data
+        const timeoutData = await Timeout.findOne({
+          "_id": id
+        });
+        //Add expiry to present
+        present.add(expiry, "ms");
+        //Set new expiry
+        timeoutData.expiry = present.unix();
+        //Save
+        timeoutData.save();
+      } catch (error) {
+        reject(error);
+      }
+    })
+  }
+
   //Checks if a timeout exists and if it does, returns how long is left on it
-  check(user, command) {
+  check(id) {
     return new Promise(async (resolve, reject) => {
       try {
         let timeout = await Timeout.findOne({
-          user,
-          command
+          "_id": id
         });
         if (timeout) {
 

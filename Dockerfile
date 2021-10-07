@@ -1,4 +1,4 @@
-FROM node:14.17.3
+FROM node:16.6.1
 
 # Install Nano
 RUN ["apt-get", "update"]
@@ -13,8 +13,6 @@ WORKDIR /srv/StenBot
 COPY package*.json ./
 
 RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
 
 # Bundle app source
 COPY . .

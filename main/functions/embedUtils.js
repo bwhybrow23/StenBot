@@ -15,7 +15,7 @@ const createEmbed = (type, title, desc, fields, footer, message) => {
               color: 0,
               // timestamp: Date.now(),
               footer: {
-                  icon_url: "https://i.imgur.com/BkZY6H8.png",
+                  icon_url: "https://i.imgur.com/klY5xCe.png",
                   text: ``,
               },
               fields: [],
@@ -90,7 +90,7 @@ const noPermsEmbed = (footer, bot) => {
               color: 0,
               timestamp: Date.now(),
               footer: {
-                  icon_url: "https://i.imgur.com/BkZY6H8.png",
+                  icon_url: "https://i.imgur.com/klY5xCe.png",
                   text: ``,
               },
               fields: [],
@@ -132,6 +132,7 @@ const helpEmbed = (command, bot) => {
       }
 
       if (cmd.category == "botowner") return;
+      if (cmd.enabled == false) return;
 
       //Set up variables for the embed
       let prefix = bot.settings.prefix;
@@ -166,7 +167,7 @@ const helpEmbed = (command, bot) => {
               color: colours.blue,
               url: `https://wiki.benwhybrow.com/commands/${cmd.name}`,
               footer: {
-                  icon_url: "https://i.imgur.com/BkZY6H8.png",
+                  icon_url: "https://i.imgur.com/klY5xCe.png",
                   text: `Help Command | Syntax: <> = required, [] = optional`,
               },
               fields: [{
@@ -208,7 +209,7 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
               color: 0,
               timestamp: Date.now(),
               footer: {
-                  icon_url: "https://i.imgur.com/BkZY6H8.png",
+                  icon_url: "https://i.imgur.com/klY5xCe.png",
                   text: ``,
               },
               author: {
@@ -226,7 +227,7 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
               color: 0,
               timestamp: Date.now(),
               footer: {
-                  icon_url: "https://i.imgur.com/BkZY6H8.png",
+                  icon_url: "https://i.imgur.com/klY5xCe.png",
                   text: ``,
               },
               fields: [],
@@ -274,9 +275,16 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
       } else {
           //Colour
           embedTemplate.embeds[0].color = decimalColour;
-          //Author
+          //Author Name
           embedTemplate.embeds[0].author.name = `${author.username}#${author.discriminator}`;
-          embedTemplate.embeds[0].author.icon_url = `${author.displayAvatarURL({ dynamic: true, format: "png" })}`;
+          //Author Icon
+          let iconURL;
+          if(author.avatar) {
+            iconURL = `https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.jpg`
+          } else {
+            iconURL = `${author.displayAvatarURL({ dynamic: true, format: "png" })}`
+          }
+          embedTemplate.embeds[0].author.icon_url = `${iconURL}`;
           //Title
           if (typeof title == "string" && title.length < 256) {
               embedTemplate.embeds[0].title = title;

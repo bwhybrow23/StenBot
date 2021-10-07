@@ -18,7 +18,7 @@ module.exports = {
     var targetuser = args[0];
     if (!targetuser || typeof targetuser == 'number' || args[0] == "help") {
       return bot.helpEmbed("unban", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -36,18 +36,17 @@ module.exports = {
       .catch(console.error)
       .then(
         bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error)));
 
     //Logging
-    const efunctions = require('../../main/functions/eventUtils.js');
     if (config.logging.enabled == true) {
       if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
-        if (efunctions.checkChannel(config.logging.channel, bot) == true) {
+        if (bot.efunctions.checkChannel(config.logging.channel, bot) == true) {
           let lchannel = bot.channels.cache.get(config.logging.channel);
           bot.eventEmbed("7ae727", message.author, "Member Unbanned", `**User ID:** ${targetuser}\n**Unban Date:** ${new Date()}\n**Unbanned By:** ${message.author.tag}\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)
             .then(embed => lchannel.send(embed))
-            .catch(error => console.error(error))
+            .catch(error => bot.log.post("error", error))
         }
       }
     }

@@ -6,11 +6,12 @@ const botData = require("../../data/global/bot-data.json");
 
 module.exports = (client) => {
   fs.readdirSync("./commands/").forEach((dir) => {
+
     const commands = fs.readdirSync(`./commands/${dir}/`).filter((f) =>
       f.endsWith(".js")
     );
 
-    for (let file of commands) {
+    commands.forEach((file) => {
       let pull = require(`../../commands/${dir}/${file}`);
 
       if (pull.options.enabled == false) return;
@@ -27,14 +28,13 @@ module.exports = (client) => {
           client.commands.set(pull.name, pull);
           table.addRow(file, "✅");
         } else {
-          table.addRow(file, "❌ -> Missing Something??");
-          continue;
+          return table.addRow(file, "❌ -> Missing Something??");
         }
 
         if (pull.options.aliases && Array.isArray(pull.options.aliases)) {
           pull.options.aliases.forEach((alias) => client.aliases.set(alias, pull.name));
         }
       }
-    }
+    })
   });
 };

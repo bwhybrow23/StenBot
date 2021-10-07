@@ -1,6 +1,46 @@
 # Changelog
 
-## 2.1.0 - 06/08/2021
+## 2.2.0 - 07/10/2021
+* An expired reminder, still sends a reminder message when available to (with an apology)
+* All punishments are now logged
+* The way of handling temp-mutes has been re-written to use the Mongo database and not a dependancy
+* Moderation commands now base off permissions, not the staff role
+* Made event utils a global variable
+* Fixed issue that caused a crash when doing clearuser command
+* Fixed a crash that occured when the userjoin role didn't exist anymore
+* Bot now doesn't crash when a user is punished and their DMs are closed
+* Reminder command will now send a test DM to check DMs are open
+* Trycatch statements have been added to prevent the bot from crashing on closed DMs for a reminder
+* Join and leave guild embeds are now fixed
+* Reminders can now succesfully be removed
+
+## 2.1.3 - 09/09/2021
+* Reminders module - List, add and remove - One time or reoccuring
+* Updated embed footer logo
+* Removed parameters for connecting to Mongo (deprecated)
+* Updated NPM packages
+* Fixed command handler not picking up new commands
+* Ban command now works with users not in the server
+* Fixed me command crashing bot
+
+## 2.1.2 - 21/08/2021
+* Fixed issue with bot crashing when no config
+* Fixed error checking on channelCreate
+* Added meme command
+* Little cosmetic changes here and there
+* Fixed warn command - Thanks (dode5656)[https://go.benwhybrow.com/crdg]! 
+* Removed body-parser (deprecated)
+* Fixed a mistype and added embed in the config command
+* Fixed an issue with guild.owner not working 
+
+## 2.1.1 - 13/08/2021
+* Me command now doesn't break if you don't have activities
+* Fixed issue with adding muted role to new channels
+* Logging on bot sites enabled again
+* Error handling fixed in mongo utils
+* Updated to the latest packages
+
+## 2.1.0 - 10/08/2021
 * Fixed spelling mistake in rob command
 * The IP in the output of /api/test, actually outputs the IP now
 * Updated to v13 - changes are listed below
@@ -10,7 +50,7 @@
 * Updated to the new embed sending method
 * Adjusted to new casing on thingID's
 * Updated channel types to uppercase
-* Disabled broken commands (will be fixed)
+* Commands now reply directly using Discord's reply feature
 
 ## 2.0.6 - 11/07/2021
 * Adjusted MongoDB settings for new host

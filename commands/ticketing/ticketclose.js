@@ -17,10 +17,10 @@ module.exports = {
         if (config.logging.enabled) {
           if (eventFunctions.checkChannel(config.logging.channel, bot)) {
             message.guild.channels.cache.get(config.logging.channel).send({
-              embed: {
+              embeds: [{
                 color: bot.settings.color.yellow,
                 description: `**Ticket Closed**\n**Channel:** ${message.channel.name}\n**ID:** ${message.channel.id}`,
-              },
+              }],
             });
           }
         }

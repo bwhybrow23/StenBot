@@ -14,7 +14,7 @@ module.exports = {
 
     if (!args.length || args[0] == "help") {
       return bot.helpEmbed("mcping", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -36,7 +36,7 @@ module.exports = {
     let res = request.body;
     if (res.status == "error" && res.error == "server timeout") {
       bot.createEmbed("error", "", `Error! The status couldn't be fetched, perhaps an invalid IP or Port.`, [], `${message.server.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -75,7 +75,7 @@ module.exports = {
           name: `Status`,
           value: `Offline`
         }, ], `${message.server.name}`, message)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
   },

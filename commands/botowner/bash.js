@@ -29,7 +29,7 @@ module.exports = {
         return stdout = "None"
       }
       msg.edit({
-        embed: {
+        embeds: [{
           title: "Bash Results",
           fields: [{
             name: "Input",
@@ -48,11 +48,11 @@ module.exports = {
           }],
           footer: {
             text: message.guild.name,
-            icon_url: "https://i.imgur.com/BkZY6H8.png"
+            icon_url: "https://i.imgur.com/klY5xCe.png"
           },
           timestamp: Date.now()
-        },
-        content: ""
+        }],
+        content: "Output:"
       });
 
     });

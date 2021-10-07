@@ -2,6 +2,9 @@ module.exports = async (bot, guild) => {
 
   const Discord = require("discord.js");
   const fs = require("fs");
+  const Punishment = require("../models/punishment.js");
+
+  let gOwner = await guild.fetchOwner();
 
   //When bot joins new server, create that servers file system.
   //Check if the server is blacklisted
@@ -16,14 +19,14 @@ module.exports = async (bot, guild) => {
   if (serverstats != undefined) {
     if (serverstats.info.blacklisted == true) {
       bot.createEmbed("error", "", `I'm afraid that StenBot cannot join your server **${guild.name}** as your server is blacklisted from the bot. If you believe this is an error, please contact **Stentorian#9524** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${guild.name}`, bot)
-        .then(embed => guild.owner.send(embed))
-        .catch(error => console.error(error))
+        .then(embed => gOwner.send(embed))
+        .catch(error => bot.log.post("error", error))
       guild.leave();
       return bot.log.post("info", `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
     } else {
       bot.createEmbed("error", "", `I'm afraid that StenBot cannot join your server **${guild.name}** as it failed to create the configuration for the server. Please try again and if this issue persists, please join the **[Discord](https://discord.benwhybrow.com)** and gain help.`, [], `${guild.name}`, bot)
-        .then(embed => guild.owner.send(embed))
-        .catch(error => console.error(error))
+        .then(embed => gOwner.send(embed))
+        .catch(error => bot.log.post("error", error))
       guild.leave();
       return bot.log.post("error", `Left guild: ${guild.name} | ${guild.id} because there was an error creating the server's config!`);
     }
@@ -35,6 +38,7 @@ module.exports = async (bot, guild) => {
    * MONGO STORAGE 
    * 
    */
+  if(serverstats === undefined) {
   await bot.mutils.createGuild({
     info: {
       id: guild.id,
@@ -58,7 +62,8 @@ module.exports = async (bot, guild) => {
     moderation: {
       staff_role: "0",
       link_block: false,
-      filter: []
+      filter: [],
+      mute_role: ""
     },
     logging: {
       enabled: false,
@@ -71,6 +76,20 @@ module.exports = async (bot, guild) => {
       message: "**User:** {user}\n**Reason:** {reason}"
     }
   })
+}
+
+  if(!Punishment.findOne({ guildId: guild.id })) {
+  //Punishment Config Create
+  await new Punishment({
+      guildId: guild.id,
+      bans: [],
+      kicks: [],
+      mutes: [],
+      tempmutes: [],
+      warns: []
+  });
+
+}
 
   //Update bot-data.json
   let botdata = require("../../data/global/bot-data.json");
@@ -87,13 +106,13 @@ module.exports = async (bot, guild) => {
   let totalGuilds = bot.guilds.cache.size;
   let totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
   await bot.channels.cache.get("839509992041218049").send({
-    embed: {
+    embeds: [{
       "title": "Joined Guild!",
       "thumbnail": {
         "url": guild.iconURL()
       },
       "footer": {
-        "icon_url": "https://i.imgur.com/BkZY6H8.png",
+        "icon_url": "https://i.imgur.com/klY5xCe.png",
         "text": guild.id
       },
       "color": 982784,
@@ -105,26 +124,26 @@ module.exports = async (bot, guild) => {
         },
         {
           name: "Server Owner",
-          value: `${guild.owner.user.tag} || ${guild.owner.id}`,
+          value: `${gOwner.tag} || ${gOwner.id}`,
           inline: true
         },
         {
           name: "Member Count",
-          value: guild.memberCount,
+          value: `${guild.memberCount}`,
           inline: false
         },
         {
           name: "New Guild Count",
-          value: totalGuilds,
+          value: `${totalGuilds}`,
           inline: true
         },
         {
           name: "New Member Count",
-          value: totalUsers,
+          value: `${totalUsers}`,
           inline: true
         }
       ]
-    }
+    }]
   })
 
 };

@@ -22,7 +22,7 @@ module.exports = {
   
           if (targetserver == '455782308293771264') {
             return bot.createEmbed("error", "", `Error! You do not have permission to blacklist the bot's main guild.`, [], `${message.guild.name}`, message)
-              .then((embed) => message.channel.send(embed))
+              .then((embed) => message.reply(embed))
               .catch((error) => bot.log.post("error", error));
           }
   
@@ -36,7 +36,7 @@ module.exports = {
             var targetserverfile = await bot.mutils.getGuildById(message.guild.id);
           } catch (err) {
             return bot.createEmbed("error", "", `Error! I cannot find the server for the ID you provided.`, [], `${message.guild.name}`, message)
-              .then((embed) => message.channel.send(embed))
+              .then((embed) => message.reply(embed))
               .catch((error) => bot.log.post("error", error));
           }
   
@@ -52,7 +52,7 @@ module.exports = {
   
             //Black list success message
             await bot.createEmbed("success", "", `Success!\nServer: **${targetguild.name} | ${targetguild.id}** has been blacklisted.`, [], `${message.guild.name}`, message)
-              .then((embed) => message.channel.send(embed))
+              .then((embed) => message.reply(embed))
               .catch((error) => bot.log.post("error", error));
   
             //Log message
@@ -77,7 +77,7 @@ module.exports = {
           var targetuser = message.mentions.members.first();
           if (!targetuser) {
             return bot.helpEmbed("blacklist", bot)
-              .then((embed) => message.channel.send(embed))
+              .then((embed) => message.reply(embed))
               .catch((error) => bot.log.post("error", error));
           }
           var reason = args.slice(2).join(" ");
@@ -96,7 +96,7 @@ module.exports = {
           }).then(async () => {
             //Black list success message
             await bot.createEmbed("success", "", `Success!\nUser: **${targetuser.user.tag} | ${targetuser.id}** has been blacklisted.`, [], `${message.guild.name}`, message)
-              .then((embed) => message.channel.send(embed))
+              .then((embed) => message.reply(embed))
               .catch((error) => bot.log.post("error", error));
   
             //Log message
@@ -106,7 +106,13 @@ module.exports = {
   
             //DM Guild Owner
             await bot.createEmbed("error", "", `I'm afraid that you have been blacklisted from using StenBot for the reason **${reason}**. If you believe this is an error, please contact **Stentorian#9524** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${message.guild.name}`, message)
-              .then((embed) => targetuser.send(embed))
+              .then((embed) => {
+                try {
+                  targetuser.send(embed)
+                } catch (e) {
+                  return;
+                }
+              })
               .catch((error) => bot.log.post("error", error));
           });
   

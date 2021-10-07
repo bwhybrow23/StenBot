@@ -12,7 +12,7 @@ module.exports = {
     let stolen = message.mentions.users.first();
     if (!stolen || args[0] == "help") {
       return bot.helpEmbed("stealpic", bot)
-        .then((embed) => message.channel.send(embed))
+        .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
     let stolenPic = stolen.avatarURL();
@@ -21,7 +21,7 @@ module.exports = {
       .setColor(bot.settings.color.yellow)
       .setDescription(`**${message.author.username}** has stolen **${stolen.username}**'s profile picture!\n\nFind it here: [${stolen.username}'s Profile Picture](${stolenPic})`)
       .setImage(stolenPic)
-      .setFooter(message.guild.name, `https://i.imgur.com/BkZY6H8.png`);
+      .setFooter(message.guild.name, `https://i.imgur.com/klY5xCe.png`);
 
     message.channel.send({embeds: [embed.toJSON()]});
   },

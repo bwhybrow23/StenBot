@@ -112,7 +112,7 @@ module.exports = (bot) => {
    * Bot Lists
    * 
    */
-  /*const dbots = require("dbots");
+  const dbots = require("dbots");
   const poster = new dbots.Poster({
     clientID: '452053607383302145',
     apiKeys: {
@@ -138,7 +138,7 @@ module.exports = (bot) => {
 
   setTimeout(() => {
     post();
-  }, 1800000); // Every 30 minutes! */
+  }, 1800000); // Every 30 minutes! 
 
   //Refresh Cache
   bot.guilds.cache.forEach(async (guild) => {
