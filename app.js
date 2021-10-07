@@ -28,14 +28,21 @@ const bot = new Client({
 //Logger
 const logUtils = require("./main/functions/logUtils.js");
 bot.log = logUtils;
+
 //Settings File
 bot.settings = settings;
+
 //Embed Functions
 const embedUtils = require("./main/functions/embedUtils.js");
 bot.createEmbed = embedUtils.createEmbed;
 bot.noPermsEmbed = embedUtils.noPermsEmbed;
 bot.helpEmbed = embedUtils.helpEmbed;
 bot.eventEmbed = embedUtils.eventEmbed;
+
+//Event Functions
+const efunctions = require("./main/functions/eventUtils.js");
+bot.efunctions = efunctions;
+
 //Timeout Utilities
 const {
   TimeoutUtils
@@ -43,15 +50,12 @@ const {
 const timeouts = new TimeoutUtils(bot);
 bot.timeouts = timeouts;
 
-//Discord-Moderation Module (For Muting)
+//Punishment Utilities
 const {
-  Moderator
-} = require("discord-moderation");
-const moderator = new Moderator(bot, {
-  storage: './data/global/cases.json',
-  updateCountdownEvery: 5000
-});
-bot.moderator = moderator;
+  PunishmentUtils
+} = require("./main/functions/punishmentUtils.js");
+const punishments = new PunishmentUtils(bot);
+bot.punishments = punishments;
 
 /**
  *
@@ -131,7 +135,7 @@ bot.login(token);
 const connectionURL = `mongodb://${mongo.user}:${mongo.password}@${mongo.host}:${mongo.port}/${mongo.database}?authSource=admin`;
 bot.log.post("info", `Creating MongoDB connection at ${mongo.host}:${mongo.port}`)
 
-mongoose.connect(connectionURL, { useNewUrlParser: true }).then(() => {
+mongoose.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
   bot.log.post("success", "MongoDB connection successful")
 }).catch(error => bot.log.post("error", `MongoDB connection unsuccessful: ${error}`));
 

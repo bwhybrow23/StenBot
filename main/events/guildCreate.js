@@ -2,7 +2,9 @@ module.exports = async (bot, guild) => {
 
   const Discord = require("discord.js");
   const fs = require("fs");
-  let gOwner = await bot.users.cache.get(guild.ownerId);
+  const Punishment = require("../models/punishment.js");
+
+  let gOwner = await guild.fetchOwner();
 
   //When bot joins new server, create that servers file system.
   //Check if the server is blacklisted
@@ -18,13 +20,13 @@ module.exports = async (bot, guild) => {
     if (serverstats.info.blacklisted == true) {
       bot.createEmbed("error", "", `I'm afraid that StenBot cannot join your server **${guild.name}** as your server is blacklisted from the bot. If you believe this is an error, please contact **Stentorian#9524** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${guild.name}`, bot)
         .then(embed => gOwner.send(embed))
-        .catch(error => console.error(error))
+        .catch(error => bot.log.post("error", error))
       guild.leave();
       return bot.log.post("info", `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
     } else {
       bot.createEmbed("error", "", `I'm afraid that StenBot cannot join your server **${guild.name}** as it failed to create the configuration for the server. Please try again and if this issue persists, please join the **[Discord](https://discord.benwhybrow.com)** and gain help.`, [], `${guild.name}`, bot)
         .then(embed => gOwner.send(embed))
-        .catch(error => console.error(error))
+        .catch(error => bot.log.post("error", error))
       guild.leave();
       return bot.log.post("error", `Left guild: ${guild.name} | ${guild.id} because there was an error creating the server's config!`);
     }
@@ -36,6 +38,7 @@ module.exports = async (bot, guild) => {
    * MONGO STORAGE 
    * 
    */
+  if(serverstats === undefined) {
   await bot.mutils.createGuild({
     info: {
       id: guild.id,
@@ -59,7 +62,8 @@ module.exports = async (bot, guild) => {
     moderation: {
       staff_role: "0",
       link_block: false,
-      filter: []
+      filter: [],
+      mute_role: ""
     },
     logging: {
       enabled: false,
@@ -72,6 +76,20 @@ module.exports = async (bot, guild) => {
       message: "**User:** {user}\n**Reason:** {reason}"
     }
   })
+}
+
+  if(!Punishment.findOne({ guildId: guild.id })) {
+  //Punishment Config Create
+  await new Punishment({
+      guildId: guild.id,
+      bans: [],
+      kicks: [],
+      mutes: [],
+      tempmutes: [],
+      warns: []
+  });
+
+}
 
   //Update bot-data.json
   let botdata = require("../../data/global/bot-data.json");
@@ -106,22 +124,22 @@ module.exports = async (bot, guild) => {
         },
         {
           name: "Server Owner",
-          value: `${gOwner.user.tag} || ${gOwner.id}`,
+          value: `${gOwner.tag} || ${gOwner.id}`,
           inline: true
         },
         {
           name: "Member Count",
-          value: guild.memberCount,
+          value: `${guild.memberCount}`,
           inline: false
         },
         {
           name: "New Guild Count",
-          value: totalGuilds,
+          value: `${totalGuilds}`,
           inline: true
         },
         {
           name: "New Member Count",
-          value: totalUsers,
+          value: `${totalUsers}`,
           inline: true
         }
       ]

@@ -16,7 +16,8 @@ module.exports = async (bot, guild) => {
   //StenBot Server Updates
   let totalGuilds = bot.guilds.cache.size;
   let totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
-  let gOwner = await bot.users.cache.get(guild.ownerId);
+  let gOwner = await guild.fetchOwner();
+  
   await bot.channels.cache.get("839509992041218049").send({
     embeds: [{
       "title": "Left Guild!",
@@ -36,22 +37,22 @@ module.exports = async (bot, guild) => {
         },
         {
           name: "Server Owner",
-          value: `${gOwner.user.tag} || ${guild.ownerId}`,
+          value: `${gOwner.tag} || ${guild.ownerId}`,
           inline: true
         },
         {
           name: "Member Count",
-          value: guild.memberCount,
+          value: `${guild.memberCount}`,
           inline: false
         },
         {
           name: "New Guild Count",
-          value: totalGuilds,
+          value: `${totalGuilds}`,
           inline: true
         },
         {
           name: "New Member Count",
-          value: totalUsers,
+          value: `${totalUsers}`,
           inline: true
         }
       ]

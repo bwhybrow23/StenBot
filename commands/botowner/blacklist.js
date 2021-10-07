@@ -106,7 +106,13 @@ module.exports = {
   
             //DM Guild Owner
             await bot.createEmbed("error", "", `I'm afraid that you have been blacklisted from using StenBot for the reason **${reason}**. If you believe this is an error, please contact **Stentorian#9524** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${message.guild.name}`, message)
-              .then((embed) => targetuser.send(embed))
+              .then((embed) => {
+                try {
+                  targetuser.send(embed)
+                } catch (e) {
+                  return;
+                }
+              })
               .catch((error) => bot.log.post("error", error));
           });
   

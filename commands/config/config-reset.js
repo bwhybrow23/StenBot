@@ -31,9 +31,9 @@ module.exports = {
   
               bot.mutils.updateGuildById(message.guild.id, {
                 info: {
-                  id: guild.id,
-                  name: guild.name,
-                  owner_id: guild.ownerId,
+                  id: g.id,
+                  name: g.name,
+                  owner_id: g.ownerId,
                   blacklisted: false
                 },
                 gatekeeper: {
@@ -46,13 +46,16 @@ module.exports = {
                 },
                 userjoin: {
                   enabled: false,
-                  roles: [],
+                  role: "0",
                   nickname: "None"
                 },
                 moderation: {
                   staff_role: "0",
                   link_block: false,
-                  filter: []
+                  filter: [],
+                  mute_role: "",
+                  warnings: [],
+                  punishments: []
                 },
                 logging: {
                   enabled: false,

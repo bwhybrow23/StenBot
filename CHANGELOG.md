@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.2.0 - 07/10/2021
+* An expired reminder, still sends a reminder message when available to (with an apology)
+* All punishments are now logged
+* The way of handling temp-mutes has been re-written to use the Mongo database and not a dependancy
+* Moderation commands now base off permissions, not the staff role
+* Made event utils a global variable
+* Fixed issue that caused a crash when doing clearuser command
+* Fixed a crash that occured when the userjoin role didn't exist anymore
+* Bot now doesn't crash when a user is punished and their DMs are closed
+* Reminder command will now send a test DM to check DMs are open
+* Trycatch statements have been added to prevent the bot from crashing on closed DMs for a reminder
+* Join and leave guild embeds are now fixed
+* Reminders can now succesfully be removed
+
 ## 2.1.3 - 09/09/2021
 * Reminders module - List, add and remove - One time or reoccuring
 * Updated embed footer logo

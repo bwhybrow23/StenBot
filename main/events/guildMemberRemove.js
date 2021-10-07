@@ -3,7 +3,6 @@ module.exports = async (bot, member) => {
   const Discord = require("discord.js");
   const config = await bot.mutils.getGuildById(member.guild.id);
   if(!config) return;
-  const efunctions = require("../functions/eventUtils.js");
   var format = require("string-template");
   const fs = require("fs");
 
@@ -65,11 +64,11 @@ module.exports = async (bot, member) => {
 
   if (config.logging.enabled == true) {
     if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
-      if (efunctions.checkChannel(config.logging.channel, bot)) {
+      if (bot.efunctions.checkChannel(config.logging.channel, bot)) {
         let lchannel = bot.channels.cache.get(config.logging.channel);
         bot.eventEmbed("c9c600", member.user, "Member Left", `**Name:** ${member.user.tag}\n**Id:** ${member.id}\n**Created At:** ${member.user.createdAt}`, [], `${lchannel.guild.name}`, bot)
           .then(embed => lchannel.send(embed))
-          .catch(error => console.error(error))
+          .catch(error => bot.log.post("error", error))
       }
     }
   }

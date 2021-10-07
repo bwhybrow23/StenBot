@@ -1,7 +1,7 @@
 module.exports = {
   name: "say",
   category: "admin",
-  description: "Get StenBot to say something",
+  description: "Get StenBot to say whatever you want",
   usage: "<MESSAGE>",
   example: "Hello World!",
   options: { permission: "ADMIN", enabled: true, cooldown: 5, guildOnly: true, cooldown: 5 },

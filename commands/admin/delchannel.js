@@ -1,7 +1,7 @@
 module.exports = {
   name: "delchannel",
   category: "admin",
-  description: "Removes the mentioned channel.",
+  description: "Deletes a mentioned channel",
   usage: "<#CHANNEL>",
   example: "#general",
   options: { permission: "ADMIN", aliases: ["dchannel"], enabled: true, guildOnly: true, cooldown: 5 },

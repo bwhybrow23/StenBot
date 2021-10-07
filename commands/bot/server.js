@@ -1,7 +1,7 @@
 module.exports = {
   name: "server",
   category: "bot",
-  description: "Gather information about a specific server (or the server the command is ran in)",
+  description: "Gather information about a server",
   usage: "[SERVER ID]",
   example: "455782308293771264",
   options: { permission: "EVERYONE", aliases: ["server-info", "serverinfo"], enabled: true, guildOnly: true },

@@ -43,7 +43,7 @@ module.exports = {
           `././data/images/temp/${message.author.id}.png`,
           function(err, stats) {
             if (err) {
-              return console.error(err);
+              return bot.log.post("error", error);
             }
   
             fs.unlink(

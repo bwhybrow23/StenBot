@@ -1,7 +1,7 @@
 module.exports = {
   name: "delrole",
   category: "admin",
-  description: "Removes the mentioned role.",
+  description: "Removes a mentioned role",
   usage: "<@ROLE>",
   example: "@Members",
   options: { permission: "ADMIN", aliases: ["drole"], enabled: true, guildOnly: true, cooldown: 5 },

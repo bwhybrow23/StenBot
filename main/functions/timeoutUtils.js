@@ -11,19 +11,50 @@ class TimeoutUtils {
     this.bot = bot;
     this.activeTimeouts = 0;
 
+    //Fetch all timeouts
     this.fetchAll()
       .then(allTimeouts => {
         let removedTimeouts = 0;
+        //For each timeout
         allTimeouts.forEach(timeout => {
+          //If not expired, 
           if (this.expired(timeout.expires)) {
+            //Reschedule if reoccuring
             if (timeout.reoccuring === true) {
               this.updateSync(timeout._id, timeout.reoccuringPeriod);
               this.activeTimeouts++
             } else {
+              //Check if reminder
+              if (timeout.command === "reminder") {
+                //Send reminder message
+                let targetuser = this.bot.users.cache.get(timeout.user);
+
+                //Prevent bot from crashing on closed DMs
+                try {
+                  targetuser.send({
+                    embeds: [{
+                      "title": `Reminder!`,
+                      "description": `${timeout.message}\n\nI am aware this is late, there was bot issues. *sorry*`,
+                      "thumbnail": {
+                        "url": "https://i.imgur.com/kLRvtVg.png"
+                      },
+                      "color": this.bot.settings.color.yellow,
+                      "footer": {
+                        "icon_url": "https://i.imgur.com/klY5xCe.png",
+                        "text": `Reminder set ${moment(timeout.createdAt).fromNow()}`
+                      }
+                    }]
+                  })
+                } catch (error) {
+                  return;
+                }
+              }
+              //Remove if not
               removedTimeouts++;
               this.removeSync(timeout._id);
             }
           } else {
+            //Set up new timeout for ones that haven't expired
             this.activeTimeouts++;
             let present = moment();
             setTimeout(() => {
@@ -62,11 +93,13 @@ class TimeoutUtils {
           case "daily":
             present.add(1, "d");
             break;
+
           case "rob":
             present.add(2, "h");
             break;
+
           case "reminder":
-            if (!time) reject("Please specify a timeframe in minutes.")
+            if (!time) reject("Please specify a timeframe.")
             present.add(time, "ms");
 
             //Save new reminder
@@ -75,7 +108,7 @@ class TimeoutUtils {
               command,
               expires: present.unix(),
               reoccuring: reoccuring,
-              reoccuringPeriod: reoccuringPeriod, 
+              reoccuringPeriod: reoccuringPeriod,
               message: message
             })
             await timeout.save();
@@ -89,27 +122,38 @@ class TimeoutUtils {
               } else {
                 this.removeSync(timeout._id);
               }
-              
+
               //Send the message
               let targetuser = this.bot.users.cache.get(user);
-              targetuser.send({ embeds: [ {
-                "title": `Reminder!`, 
-                "description": `${timeout.message}`,
-                "thumbnail": {
-                  "url": "https://i.imgur.com/kLRvtVg.png"
-                },
-                "color": this.bot.settings.color.yellow,
-                "footer": {
-                  "icon_url": "https://i.imgur.com/klY5xCe.png",
-                  "text": `Reminder set ${moment(timeout.createdAt).fromNow()}`
-                }
-              } ] })
+
+              //Prevent bot from crashing on closed DMs
+              try {
+                targetuser.send({
+                  embeds: [{
+                    "title": `Reminder!`,
+                    "description": `${timeout.message}`,
+                    "thumbnail": {
+                      "url": "https://i.imgur.com/kLRvtVg.png"
+                    },
+                    "color": this.bot.settings.color.yellow,
+                    "footer": {
+                      "icon_url": "https://i.imgur.com/klY5xCe.png",
+                      "text": `Reminder set ${moment(timeout.createdAt).fromNow()}`
+                    }
+                  }]
+                })
+              } catch (error) {
+                return;
+              }
+
 
             }, (present.unix() - newPresent.unix()) * 1000)
             resolve(timeout);
             break;
+
           default:
-            reject(`Invalid command: ${command}`)
+            reject(`Invalid command: ${command}`);
+            break;
         }
       } catch (error) {
         reject(error)

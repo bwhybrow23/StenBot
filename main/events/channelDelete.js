@@ -1,6 +1,5 @@
 module.exports = async (bot, channel) => {
   const Discord = require("discord.js");
-  const efunctions = require("../functions/eventUtils.js");
 
   if ((channel.type == "DM"));
 
@@ -24,11 +23,11 @@ module.exports = async (bot, channel) => {
 
     //Log
     if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
-      if (efunctions.checkChannel(config.logging.channel, bot) == true) {
+      if (bot.efunctions.checkChannel(config.logging.channel, bot) == true) {
         let lchannel = bot.channels.cache.get(config.logging.channel);
         bot.eventEmbed("c70011", "None", "Channel Deleted", `**Name:** ${channel.name}\n**Id:** ${channel.id}`, [], `${channel.guild.name}`, bot)
           .then(embed => lchannel.send(embed))
-          .catch(error => console.error(error))
+          .catch(error => bot.log.post("error", error))
       }
     }
   }

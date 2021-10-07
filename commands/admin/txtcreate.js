@@ -1,7 +1,7 @@
 module.exports = {
   name: "txtcreate",
   category: "admin",
-  description: "Creates a text channel.",
+  description: "Creates a text channel",
   usage: "<NAME> [CATEGORY]",
   example: "general-chat Community",
   options: { permission: "ADMIN", aliases: ["txt"], enabled: true, guildOnly: true, cooldown: 5 },

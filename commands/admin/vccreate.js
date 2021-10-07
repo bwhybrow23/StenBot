@@ -1,7 +1,7 @@
 module.exports = {
   name: "vccreate",
   category: "admin",
-  description: "Creates a voice channel.",
+  description: "Creates a voice channel",
   usage: "<NAME>",
   example: "General VC",
   options: { permission: "ADMIN", aliases: ["vc"], enabled: true, guildOnly: true, cooldown: 5 },

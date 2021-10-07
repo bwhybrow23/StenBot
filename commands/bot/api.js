@@ -1,7 +1,7 @@
 module.exports = {
     name: "api",
     category: "bot",
-    description: "Generate an API token to use at https://benwhybrow.com/api",
+    description: "Generate an API token to use at https://sb.benwhybrow.com/api",
     usage: "",
     example: "",
     options: { permission: "EVERYONE", enabled: true, cooldown: 60, guildOnly: false },
