@@ -18,7 +18,7 @@ module.exports = (bot) => {
   });
 
   //Production Mode
-  if (bot.settings.mode == "production") {
+  if (bot.settings.mode === "production") {
     //Static Status
     // let guilds = bot.guilds.cache.size;
     // bot.user.setPresence({ activity: { name: `sb!help on ${guilds} servers!`, type: `WATCHING` }, status: 'online' });
@@ -76,7 +76,7 @@ module.exports = (bot) => {
 
       //Incrementation and Reset
       l++;
-      if (l == statuses.length) l = 0;
+      if (l === statuses.length) l = 0;
 
     }, 300000) // 5 MINUTES
 
@@ -86,7 +86,7 @@ module.exports = (bot) => {
   }
 
   //Development Mode
-  if (bot.settings.mode == "development") {
+  if (bot.settings.mode === "development") {
     //Status
     date = new Date();
     bot.user.setPresence({

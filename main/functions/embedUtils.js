@@ -40,22 +40,22 @@ const createEmbed = (type, title, desc, fields, footer, message) => {
               reject("Invald embed type.");
       }
       //Title
-      if (typeof title == "string" && title.length < 256) {
+      if (typeof title === "string" && title.length < 256) {
           embedTemplate.embeds[0].title = title;
       } else {
           reject("Title is invalid.");
       }
       //Desc
-      if (typeof desc == "string" && desc.length < 2048) {
+      if (typeof desc === "string" && desc.length < 2048) {
           embedTemplate.embeds[0].description = desc;
       } else {
           reject("Description is invalid.");
       }
       //Footer
-      if (typeof footer == "string" && footer.length < 2048) {
-          if (footer == message.guild.name) {
+      if (typeof footer === "string" && footer.length < 2048) {
+          if (footer === message.guild.name) {
               embedTemplate.embeds[0].footer.icon_url = message.guild.iconURL();
-          } else if (footer == message.author.tag) {
+          } else if (footer === message.author.tag) {
               embedTemplate.embeds[0].footer.icon_url = message.author.displayAvatarURL();
           }
           embedTemplate.embeds[0].footer.text = footer;
@@ -102,7 +102,7 @@ const noPermsEmbed = (footer, bot) => {
       //Desc
       embedTemplate.embeds[0].description = `Error! You do not have permission to issue this command!`;
       //Footer
-      if (typeof footer == "string" && footer.length < 2048) {
+      if (typeof footer === "string" && footer.length < 2048) {
           embedTemplate.embeds[0].footer.text = footer;
       } else {
           reject("Footer is invalid.");
@@ -122,7 +122,7 @@ const helpEmbed = (command, bot) => {
 
       //Get command info
       let cmd;
-      if (bot.aliases.get(command.toLowerCase()) == undefined) {
+      if (bot.aliases.get(command.toLowerCase()) === undefined) {
           cmd = bot.commands.get(command.toLowerCase())
       } else {
           cmd = bot.commands.get(bot.aliases.get(command.toLowerCase()));
@@ -131,8 +131,8 @@ const helpEmbed = (command, bot) => {
           reject(`Cannot find command under the name of ${command}`);
       }
 
-      if (cmd.category == "botowner") return;
-      if (cmd.enabled == false) return;
+      if (cmd.category === "botowner") return;
+      if (cmd.enabled === false) return;
 
       //Set up variables for the embed
       let prefix = bot.settings.prefix;
@@ -144,12 +144,12 @@ const helpEmbed = (command, bot) => {
       let aliases;
       if (cmd.usage != "") {
           usage = `\`${prefix}${cmd.name} ${cmd.usage}\``
-      } else if (cmd.usage == "") {
+      } else if (cmd.usage === "") {
           usage = `\`${prefix}${cmd.name}\``
       };
       if (cmd.example != "") {
           example = `\`${prefix}${cmd.name} ${cmd.example}\``
-      } else if (cmd.example == "") {
+      } else if (cmd.example === "") {
           example = `\`${prefix}${cmd.name}\``
       }
       if (!cmd.options.aliases) {
@@ -238,23 +238,23 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
       let decimalColour = parseInt(colour, 16);
 
       //Author Check
-      if (author == "None") {
+      if (author === "None") {
           //Colour
           noAuthorEmbedTemplate.embeds[0].color = decimalColour;
           //Title
-          if (typeof title == "string" && title.length < 256) {
+          if (typeof title === "string" && title.length < 256) {
               noAuthorEmbedTemplate.embeds[0].title = title;
           } else {
               reject("Title is invalid.");
           }
           //Desc
-          if (typeof desc == "string" && desc.length < 2048) {
+          if (typeof desc === "string" && desc.length < 2048) {
               noAuthorEmbedTemplate.embeds[0].description = desc;
           } else {
               reject("Description is invalid.");
           }
           //Footer
-          if (typeof footer == "string" && footer.length < 2048) {
+          if (typeof footer === "string" && footer.length < 2048) {
               noAuthorEmbedTemplate.embeds[0].footer.text = footer;
           } else {
               reject("Footer is invalid.");
@@ -286,19 +286,19 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
           }
           embedTemplate.embeds[0].author.icon_url = `${iconURL}`;
           //Title
-          if (typeof title == "string" && title.length < 256) {
+          if (typeof title === "string" && title.length < 256) {
               embedTemplate.embeds[0].title = title;
           } else {
               reject("Title is invalid.");
           }
           //Desc
-          if (typeof desc == "string" && desc.length < 2048) {
+          if (typeof desc === "string" && desc.length < 2048) {
               embedTemplate.embeds[0].description = desc;
           } else {
               reject("Description is invalid.");
           }
           //Footer
-          if (typeof footer == "string" && footer.length < 2048) {
+          if (typeof footer === "string" && footer.length < 2048) {
               embedTemplate.embeds[0].footer.text = footer;
           } else {
               reject("Footer is invalid.");

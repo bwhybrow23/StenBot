@@ -17,7 +17,7 @@ module.exports = {
 
     //Args Check
     var targetuser = message.mentions.members.first();
-    if (!targetuser || args[0] == "help") {
+    if (!targetuser || args[0] === "help") {
       return bot.helpEmbed("unmute", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -38,7 +38,7 @@ module.exports = {
     }
 
     //Role Check
-    let muteRole = message.guild.roles.cache.find(r => r.name == "Muted")
+    let muteRole = message.guild.roles.cache.find(r => r.name === "Muted")
     if (!muteRole) {
       return bot.createEmbed("error", "", `Error! There is no valid "Muted" role which means that the role has been deleted or was never created. In order for the role to be created, a user has to be muted by StenBot.`, [], `${message.guild.name}`, message)
         .then((embed) => message.reply(embed))
@@ -56,13 +56,13 @@ module.exports = {
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
       //Logging
-      if (config.logging.enabled == true) {
-        if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
-          if (bot.efunctions.checkChannel(config.logging.channel, bot) == true) {
+      if (config.logging.enabled === true) {
+        if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
+          if (bot.efunctions.checkChannel(config.logging.channel, bot) === true) {
             let lchannel = bot.channels.cache.get(config.logging.channel);
             bot.eventEmbed("7ae727", targetuser.user, "Member Unmuted", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n**Unmute Date:** ${new Date()}\n**Unmuted By:** ${message.author.tag}\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)
               .then(embed => lchannel.send(embed))
-              .catch(error => bot.log.post("error", error))
+              .catch(error => bot.log.post("error", error));
           }
         }
       }

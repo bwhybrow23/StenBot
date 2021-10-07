@@ -18,7 +18,7 @@ module.exports = {
 
     //Check for Arg
     let newMode = args[0];
-    if (!newMode || args[0] == "help") {
+    if (!newMode || args[0] === "help") {
       return bot.helpEmbed("mode", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -27,12 +27,11 @@ module.exports = {
     let date = new Date();
 
     //Subcommand Stuff
-    if (newMode == "production" || newMode == "development") {
       switch (newMode) {
         //Production
         case "production":
           //Check if bot is already in Production mode
-          if (bot.settings.mode == "production") {
+          if (bot.settings.mode === "production") {
             return message.channel.send("The bot is already in that mode.");
           }
           //Change Setting
@@ -61,7 +60,7 @@ module.exports = {
           //Development
         case "development":
           //Check if bot is already in Development mode
-          if (bot.settings.mode == "development") {
+          if (bot.settings.mode === "development") {
             return message.channel.send("The bot is already in that mode.");
           }
 
@@ -91,13 +90,10 @@ module.exports = {
           break;
 
         default:
-          if (newMode == undefined) {
             bot.createEmbed("error", "", `Error! You haven't included a new mode for the bot to be switched to.`, [], `${message.guild.name}`, message)
               .then((embed) => message.reply(embed))
               .catch((error) => bot.log.post("error", error));
-          }
           break;
       }
-    }
   },
 };

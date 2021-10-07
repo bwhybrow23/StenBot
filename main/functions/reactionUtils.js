@@ -1,5 +1,4 @@
-const fs = require("fs");
-const utils = require("./utilities.js");
+const bot = require("../../app.js");
 
 /**
  *
@@ -10,9 +9,7 @@ const utils = require("./utilities.js");
 const verifiedRole = (reaction, user) => {
   reaction.users.remove(user);
 
-  const role = reaction.message.guild.roles.cache.find(
-    (r) => r.id == "455794398438096896"
-  );
+  const role = reaction.message.guild.roles.cache.find((r) => r.id === "455794398438096896");
 
   reaction.message.guild.members.fetch(user)
     .then((u) => {
@@ -23,7 +20,7 @@ const verifiedRole = (reaction, user) => {
         // console.log(`Verified ${user.username}.`)
       }
     })
-    .catch((err) => bot.log.post("error", error));
+    .catch((err) => bot.log.post("error", err));
 };
 
 module.exports = {

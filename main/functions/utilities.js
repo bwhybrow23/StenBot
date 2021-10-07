@@ -53,7 +53,7 @@ module.exports = {
     // Only allow reactions from the author,
     // and the emoji must be in the array we provided.
     const filter = (reaction, user) =>
-      validReactions.includes(reaction.emoji.name) && user.id == author.id;
+      validReactions.includes(reaction.emoji.name) && user.id === author.id;
 
     // And ofcourse, await the reactions
     return message
@@ -71,7 +71,7 @@ module.exports = {
     let serverGuild = bot.guilds.cache.get(bot.settings.ids.mainGuild);
 
     let serverChannel = serverGuild.channels.cache.find((channel) => {
-      if (channel.name == "verification") {
+      if (channel.name === "verification") {
         return channel;
       }
     });
@@ -120,7 +120,7 @@ module.exports = {
     // Only allow reactions from the author,
     // and the emoji must be in the array we provided.
     const filter = (reaction, user) =>
-      validReactions.includes(reaction.emoji.name) && user.id == author.id;
+      validReactions.includes(reaction.emoji.name) && user.id === author.id;
 
     // And ofcourse, await the reactions
     return message

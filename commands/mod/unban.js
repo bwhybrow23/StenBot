@@ -16,7 +16,7 @@ module.exports = {
     }
 
     var targetuser = args[0];
-    if (!targetuser || typeof targetuser == 'number' || args[0] == "help") {
+    if (!targetuser || typeof targetuser == 'number' || args[0] === "help") {
       return bot.helpEmbed("unban", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -33,20 +33,20 @@ module.exports = {
     message.guild.members.unban(targetuser, {
         reason: `By ${message.author.tag}\nReason: ${reason}`
       })
-      .catch(console.error)
+      .catch((error) => bot.log.post("error", error))
       .then(
         bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, message)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error)));
 
     //Logging
-    if (config.logging.enabled == true) {
-      if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
-        if (bot.efunctions.checkChannel(config.logging.channel, bot) == true) {
+    if (config.logging.enabled === true) {
+      if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
+        if (bot.efunctions.checkChannel(config.logging.channel, bot) === true) {
           let lchannel = bot.channels.cache.get(config.logging.channel);
           bot.eventEmbed("7ae727", message.author, "Member Unbanned", `**User ID:** ${targetuser}\n**Unban Date:** ${new Date()}\n**Unbanned By:** ${message.author.tag}\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)
             .then(embed => lchannel.send(embed))
-            .catch(error => bot.log.post("error", error))
+            .catch(error => bot.log.post("error", error));;
         }
       }
     }

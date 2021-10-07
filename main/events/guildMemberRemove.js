@@ -6,7 +6,7 @@ module.exports = async (bot, member) => {
   var format = require("string-template");
   const fs = require("fs");
 
-  if (member.user == bot.user) return;
+  if (member.user === bot.user) return;
 
   //Update bot-data.json
   let botdata = require("../../data/global/bot-data.json");
@@ -18,7 +18,7 @@ module.exports = async (bot, member) => {
 
   //Leave Module
     //Check if leave is enabled
-    if (config.gatekeeper.leave_enabled == true) {
+    if (config.gatekeeper.leave_enabled === true) {
       //Check if there is a channel set
       if (config.gatekeeper.leave_channel != 0) {
         //Check if channel is valid
@@ -27,7 +27,7 @@ module.exports = async (bot, member) => {
           //Check if the bot has perms to welcome
           let botasmember = member.guild.members.cache.get(bot.user.id);
           if (
-            botasmember.permissionsIn(member.guild.channels.cache.get("" + config.gatekeeper.leave_channel + "")).has("SEND_MESSAGES") == true
+            botasmember.permissionsIn(member.guild.channels.cache.get("" + config.gatekeeper.leave_channel + "")).has("SEND_MESSAGES") === true
           ) {
             //Get the current time
             const date = new Date();
@@ -62,13 +62,13 @@ module.exports = async (bot, member) => {
       }
     }
 
-  if (config.logging.enabled == true) {
-    if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
+  if (config.logging.enabled === true) {
+    if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
       if (bot.efunctions.checkChannel(config.logging.channel, bot)) {
         let lchannel = bot.channels.cache.get(config.logging.channel);
         bot.eventEmbed("c9c600", member.user, "Member Left", `**Name:** ${member.user.tag}\n**Id:** ${member.id}\n**Created At:** ${member.user.createdAt}`, [], `${lchannel.guild.name}`, bot)
           .then(embed => lchannel.send(embed))
-          .catch(error => bot.log.post("error", error))
+          .catch(error => bot.log.post("error", error));
       }
     }
   }

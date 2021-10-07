@@ -77,7 +77,7 @@ module.exports = {
       if (!config) {
 
         //Create config
-        await bot.mutils.createGuild(data);
+        await bot.mutils.createGuild(guildData);
 
         bot.log.post("info", `Synced guild ${g.name} | ${g.id}`);
         syncedServers += `\n${g.name} | ${g.id}`;

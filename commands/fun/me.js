@@ -9,7 +9,7 @@ module.exports = {
   
       const Discord = require("discord.js");
   
-      if (args[0] == "help") {
+      if (args[0] === "help") {
         return bot.helpEmbed("me", bot)
           .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
@@ -24,7 +24,7 @@ module.exports = {
         user = await (bot.users.fetch(message.author.id, true, true));
       }
     
-      if (user.bot == true) {
+      if (user.bot === true) {
         bot = "Yes";
       } else {
         bot = "No";
@@ -60,7 +60,7 @@ module.exports = {
           activities.push("Not playing")
         }
       });
-      if(!activities == []) {
+      if(!activities === []) {
         activities.push("Not playing");
       }
 

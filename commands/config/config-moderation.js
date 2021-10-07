@@ -9,7 +9,7 @@ module.exports = {
   
       const Discord = require("discord.js");
   
-      if (message.member.permissions.has("ADMINISTRATOR") == false) {
+      if (message.member.permissions.has("ADMINISTRATOR") === false) {
         return bot.noPermsEmbed(`${message.guild.name}`, bot)
           .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
@@ -18,7 +18,7 @@ module.exports = {
       //Check if they included a setting
       let setting = args[0];
   
-      if (setting == undefined) {
+      if (setting === undefined) {
         bot.createEmbed("error", "", `Error! You forgot to include a staff setting.`, [], `${message.guild.name}`, message)
           .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
@@ -31,7 +31,7 @@ module.exports = {
       switch (setting) {
         case "role":
           var targetrole = message.mentions.roles.first();
-          if (targetrole == undefined | "None") {
+          if (targetrole === undefined | "None") {
             config.moderation.staff_role = "0";
             bot.mutils.updateGuildById(message.guild.id, config);
             return bot.createEmbed("success", "", `Your server's staff role has now been removed.`, [], `${message.guild.name}`, message)
@@ -48,14 +48,14 @@ module.exports = {
           break;
         case "linkblock":
           var status = args[1];
-          if (status == undefined) {
+          if (status === undefined) {
             return bot.createEmbed("error", "", `Error! You forgot to include a status, enable/disable.`, [], `${message.guild.name}`, message)
               .then((embed) => message.reply(embed))
               .catch((error) => bot.log.post("error", error));
           }
   
-          if (status == "enable") {
-            if (config.staff_linkblock == true) {
+          if (status === "enable") {
+            if (config.staff_linkblock === true) {
               return bot.createEmbed("error", "", `Error! Link blocker is already enabled.`, [], `${message.guild.name}`, message)
                 .then((embed) => message.reply(embed))
                 .catch((error) => bot.log.post("error", error));
@@ -67,8 +67,8 @@ module.exports = {
               .then((embed) => message.reply(embed))
               .catch((error) => bot.log.post("error", error));
   
-          } else if (status == "disable") {
-            if (config.staff_linkblock == false) {
+          } else if (status === "disable") {
+            if (config.staff_linkblock === false) {
               return bot.createEmbed("error", "", `Error! Link blocker is already disabled.`, [], `${message.guild.name}`, message)
                 .then((embed) => message.reply(embed))
                 .catch((error) => bot.log.post("error", error));

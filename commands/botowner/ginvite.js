@@ -15,7 +15,7 @@ module.exports = {
     };
 
     let guildid = args[0];
-    if (!guildid || args[0] == "help") {
+    if (!guildid || args[0] === "help") {
       return bot.helpEmbed("ginvite", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));

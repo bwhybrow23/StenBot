@@ -12,7 +12,7 @@ module.exports = {
 const config = await bot.mutils.getGuildById(message.guild.id);
 
 var reason = args.slice(0).join(" ");
-if (!reason || args[0] == "help") {
+if (!reason || args[0] === "help") {
   return bot.helpEmbed("ticket", bot)
     .then((embed) => message.reply(embed))
     .catch((error) => bot.log.post("error", error));
@@ -39,17 +39,17 @@ if (!config.tickets.enabled) {
   return errsend("Tickets are not enabled in the servers config.");
 }
 
-if (config.moderation.staff_role == "0") {
+if (config.moderation.staff_role === "0") {
   return bot.createEmbed("error", "", `Error! A staff role has not been set. An owner or admin can set one using \`sb!config-moderation role <@ROLE>\``, [], `${message.guild.name}`, message)
     .then((embed) => message.reply(embed))
     .catch((error) => bot.log.post("error", error));
 }
 
 let staffrole = message.guild.roles.cache.find(
-  (r) => r.id == config.moderation.staff_role
+  (r) => r.id === config.moderation.staff_role
 );
 
-if (staffrole == undefined) {
+if (staffrole === undefined) {
   return bot.createEmbed("error", "", `Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`sb!config-moderation role <@ROLE>\``, [], `${message.guild.name}`, message)
     .then((embed) => message.channel.send(embed))
     .catch((error) => bot.log.post("error", error));
@@ -68,8 +68,8 @@ if (reason.length > 200) {
 }
 
 function createChan(element) {
-  if (element.constructor.name == "CategoryChannel") {
-    if (element.name == "Tickets") {
+  if (element.constructor.name === "CategoryChannel") {
+    if (element.name === "Tickets") {
       message.guild.channels.create(`ticket-${tnum}`, {
           type: "GUILD_TEXT"
         })

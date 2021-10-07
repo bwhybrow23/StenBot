@@ -32,7 +32,7 @@ module.exports = {
 
     //Check if staff role is valid or set
     if (config.moderation.staff_role) {
-      if (message.guild.roles.cache.get(config.moderation.staff_role == undefined)) {
+      if (message.guild.roles.cache.get(config.moderation.staff_role === undefined)) {
         return errsend("The staff role set is no longer valid.");
       }
     } else {
@@ -46,7 +46,7 @@ module.exports = {
 
     //add user
     let toBeAdded = message.mentions.members.first();
-    if (!toBeAdded || args[0] == "help") {
+    if (!toBeAdded || args[0] === "help") {
       return bot.helpEmbed("tadd", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));

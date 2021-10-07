@@ -12,7 +12,7 @@ module.exports = {
     //Config and Permission Check
     const config = await bot.mutils.getGuildById(message.guild.id);
 
-    if (message.member.permissions.has("MANAGE_CHANNELS") == false) {
+    if (message.member.permissions.has("MANAGE_CHANNELS") === false) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -20,13 +20,13 @@ module.exports = {
 
     //Input validation
     var n = args[0];
-    if (!n || args[0] == "help") {
+    if (!n || args[0] === "help") {
       return bot.helpEmbed("txtcreate", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
-    if (n == undefined) {
+    if (n === undefined) {
       return bot.createEmbed("error", "", `Error! You forgot to include a name for the channel!`, [], `${message.guild.name}`, message)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -49,7 +49,7 @@ module.exports = {
     //If a category is provided find it (create it if it doesn't exist)
     let cat;
     try {
-      cat = message.guild.channels.cache.find(channel => channel.name == ca && channel.type == "GUILD_CATEGORY");
+      cat = message.guild.channels.cache.find(channel => channel.name === ca && channel.type === "GUILD_CATEGORY");
     } catch (error) {
       await message.guild.channels.create(ca, {
         type: 'GUILD_CATEGORY'

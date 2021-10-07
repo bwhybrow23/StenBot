@@ -11,7 +11,7 @@ module.exports = {
     const fetch = require("node-fetch");
 
     let question = args.slice(0).join(" ");
-    if (!question || args[0] == "help") {
+    if (!question || args[0] === "help") {
       return bot.helpEmbed("8ball", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));

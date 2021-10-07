@@ -18,7 +18,7 @@ module.exports = {
 
     //Args Check
     let targetuser = message.mentions.members.first();
-    if (!targetuser || args[0] == "help") {
+    if (!targetuser || args[0] === "help") {
       return bot.helpEmbed("tempmute", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -28,10 +28,10 @@ module.exports = {
     let msg = `Succesfully tempmuted **${targetuser.user.tag}** for **${args[1]}** ${reason ? `for **${reason}**.` : `.`}`;
 
     //Role Check by config
-    let muteRole = message.guild.roles.cache.find(r => r.id == config.moderation.mute_role);
+    let muteRole = message.guild.roles.cache.find(r => r.id === config.moderation.mute_role);
     if (!muteRole) {
       //Role check by search
-      muteRole = message.guild.roles.cache.find(r => r.name == "Muted");
+      muteRole = message.guild.roles.cache.find(r => r.name === "Muted");
 
       //If search is sucessful, update config with mute role
       if(muteRole) {
@@ -62,7 +62,7 @@ module.exports = {
           config.moderation.mute_role = muteRole.id;
           await bot.mutils.updateGuildByID(message.guild.id, config);
 
-        } catch (e) {
+        } catch (error) {
           message.reply("Error, check console");
           bot.log.post("error", error);
         }
@@ -76,11 +76,10 @@ module.exports = {
       punishments.tempmutes.forEach(punishment => {
         if(!punishment.expiry) return;
 
-        if(punishment.expiry) {
-          return message.reply("This user already has an ongoing mute. Please unmute them and try again.");
-        }
-      })
-    })
+        return message.reply("This user already has an ongoing mute. Please unmute them and try again.");
+
+      });
+    });
     
     //Mute the user
     targetuser.roles.add(muteRole, `Temporarily muted by ${message.author.tag} for the duration of ${args[1]} ${reason ? `with reason: **${reason}` : ``}`);
@@ -97,20 +96,20 @@ module.exports = {
     bot.eventEmbed("c70011", targetuser.user, "You have been temporarily muted!", `**Mute Date:** ${new Date()}\n**Muted By:** ${message.author.tag}\n\n**Reason:** ${reason ? `${reason}\n` : `None provided\n`}**Duration:** ${args[1]}`, [], `${message.guild.name}`, bot)
       .then((embed) => {
                 try {
-                  targetuser.send(embed)
+                  targetuser.send(embed);
                 } catch (e) {
                   return;
                 }
               })
-      .catch(error => bot.log.post("error", error))
+      .catch(error => bot.log.post("error", error));;
 
     //Logging
-    if (config.logging.enabled == true) {
-      if (bot.efunctions.checkChannel(config.logging.channel, bot) == true) {
+    if (config.logging.enabled === true) {
+      if (bot.efunctions.checkChannel(config.logging.channel, bot) === true) {
         let lchannel = bot.channels.cache.get(config.logging.channel);
         bot.eventEmbed("c70011", targetuser.user, "Member Temporarily Muted", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n**Mute Date:** ${new Date()}\n**Muted By:** ${message.author.tag}\n\n**Reason:** ${reason ? `${reason}\n` : `None provided\n`}**Duration:** ${args[1]}`, [], `${message.guild.name}`, bot)
           .then(embed => lchannel.send(embed))
-          .catch(error => bot.log.post("error", error))
+          .catch(error => bot.log.post("error", error));;
       }
     }
 

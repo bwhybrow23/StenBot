@@ -17,7 +17,7 @@ module.exports = {
 
     //Args Check
     var targetuser = message.mentions.members.first();
-    if (!targetuser || args[0] == "help") {
+    if (!targetuser || args[0] === "help") {
       return bot.helpEmbed("mute", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -27,10 +27,10 @@ module.exports = {
     let msg = `Succesfully muted **${targetuser.user.tag}**${reason ? ` with reason ${reason}.` : `.`}`;
 
     //Role Check by config
-    let muteRole = message.guild.roles.cache.find(r => r.id == config.moderation.mute_role);
+    let muteRole = message.guild.roles.cache.find(r => r.id === config.moderation.mute_role);
     if (!muteRole) {
       //Role check by search
-      muteRole = message.guild.roles.cache.find(r => r.name == "Muted");
+      muteRole = message.guild.roles.cache.find(r => r.name === "Muted");
 
       //If search is sucessful, update config with mute role
       if(muteRole) {
@@ -61,7 +61,7 @@ module.exports = {
           config.moderation.mute_role = muteRole.id;
           await bot.mutils.updateGuildByID(message.guild, config);
 
-        } catch (e) {
+        } catch (error) {
           message.reply("Error, check console");
           bot.log.post("error", error);
         }
@@ -84,20 +84,20 @@ module.exports = {
     bot.eventEmbed("c70011", targetuser.user, "You have been muted!", `**Mute Date:** ${new Date()}\n**Muted By:** ${message.author.tag}\n\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)
           .then((embed) => {
                 try {
-                  targetuser.send(embed)
+                  targetuser.send(embed);
                 } catch (e) {
                   return;
                 }
               })
-          .catch(error => bot.log.post("error", error))
+          .catch(error => bot.log.post("error", error));;
 
     //Logging
-    if (config.logging.enabled == true) {
-      if (bot.efunctions.checkChannel(config.logging.channel, bot) == true) {
+    if (config.logging.enabled === true) {
+      if (bot.efunctions.checkChannel(config.logging.channel, bot) === true) {
         let lchannel = bot.channels.cache.get(config.logging.channel);
         bot.eventEmbed("c70011", targetuser.user, "Member Muted", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n**Mute Date:** ${new Date()}\n**Muted By:** ${message.author.tag}\n\n**Reason:** ${reason}`, [], `${message.guild.name}`, bot)
           .then(embed => lchannel.send(embed))
-          .catch(error => bot.log.post("error", error))
+          .catch(error => bot.log.post("error", error));;
       }
     }
   },

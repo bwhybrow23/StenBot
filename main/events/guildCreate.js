@@ -8,28 +8,20 @@ module.exports = async (bot, guild) => {
 
   //When bot joins new server, create that servers file system.
   //Check if the server is blacklisted
-  var serverstats = undefined;
+  var serverstats;
   try {
     var serverstats = mutils.getGuildById(guild.id)
   } catch (err) {
-    var serverstats = undefined;
+    bot.log.post("error", err);
   }
 
   //Leave the guild if its blacklisted
-  if (serverstats != undefined) {
-    if (serverstats.info.blacklisted == true) {
-      bot.createEmbed("error", "", `I'm afraid that StenBot cannot join your server **${guild.name}** as your server is blacklisted from the bot. If you believe this is an error, please contact **Stentorian#9524** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${guild.name}`, bot)
-        .then(embed => gOwner.send(embed))
-        .catch(error => bot.log.post("error", error))
-      guild.leave();
-      return bot.log.post("info", `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
-    } else {
-      bot.createEmbed("error", "", `I'm afraid that StenBot cannot join your server **${guild.name}** as it failed to create the configuration for the server. Please try again and if this issue persists, please join the **[Discord](https://discord.benwhybrow.com)** and gain help.`, [], `${guild.name}`, bot)
-        .then(embed => gOwner.send(embed))
-        .catch(error => bot.log.post("error", error))
-      guild.leave();
-      return bot.log.post("error", `Left guild: ${guild.name} | ${guild.id} because there was an error creating the server's config!`);
-    }
+  if (serverstats.info.blacklisted === true) {
+    bot.createEmbed("error", "", `I'm afraid that StenBot cannot join your server **${guild.name}** as your server is blacklisted from the bot. If you believe this is an error, please contact **Stentorian#9524** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${guild.name}`, bot)
+      .then(embed => gOwner.send(embed))
+      .catch(error => bot.log.post("error", error));
+    guild.leave();
+    return bot.log.post("info", `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
   }
   bot.log.post("info", `Joined guild ${guild.name} | ${guild.id}`);
 
@@ -38,7 +30,7 @@ module.exports = async (bot, guild) => {
    * MONGO STORAGE 
    * 
    */
-  if(serverstats === undefined) {
+  if(!serverstats) {
   await bot.mutils.createGuild({
     info: {
       id: guild.id,

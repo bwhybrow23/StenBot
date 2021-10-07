@@ -17,7 +17,7 @@ module.exports = {
     
     //Args Check
     let targetuser = message.mentions.members.first();
-    if (!targetuser || args[0] == "help") {
+    if (!targetuser || args[0] === "help") {
       return bot.helpEmbed("clearwarn", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -47,12 +47,12 @@ module.exports = {
     .catch((error) => bot.log.post("error", error));
 
     //Logging
-    if (config.logging.enabled == true) {
-      if (bot.efunctions.checkChannel(config.logging.channel, bot) == true) {
+    if (config.logging.enabled === true) {
+      if (bot.efunctions.checkChannel(config.logging.channel, bot) === true) {
         let lchannel = bot.channels.cache.get(config.logging.channel);
         bot.eventEmbed("c70011", targetuser.user, "Warnings Cleared", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n\n**Removed on:** ${new Date()}\n**Removed by:** ${message.author.tag}`, [], `${message.guild.name}`, bot)
           .then(embed => lchannel.send(embed))
-          .catch(error => bot.log.post("error", error))
+          .catch(error => bot.log.post("error", error));;
       }
     };
 

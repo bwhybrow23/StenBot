@@ -11,7 +11,7 @@ module.exports = {
 
     let servertag = message.guild.name;
 
-    if (message.member.permissions.has("ADMINISTRATOR") == false) {
+    if (message.member.permissions.has("ADMINISTRATOR") === false) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -23,33 +23,33 @@ module.exports = {
     //Set the undefined ect variables to proper english
     //Welcomer channel? Default = undefined
     var welcomerchannel = config.gatekeeper.welcome_channel;
-    if (welcomerchannel == 0) {
+    if (welcomerchannel === 0) {
       var welcomerchannel = "Not Set";
     } else {
       var welcomerchannel = `<#${welcomerchannel}>`;
     }
     //Leave Channel? Default = undefined
     var leavechannel = config.gatekeeper.leave_channel;
-    if (leavechannel == 0) {
+    if (leavechannel === 0) {
       var leavechannel = "Not Set";
     } else {
       var leavechannel = `<#${leavechannel}>`;
     }
     //User on-join role default 0
     var userjoinrole = config.userjoin.role;
-    if (userjoinrole == 0) {
+    if (userjoinrole === 0) {
       var userjoinrole = "Not Set";
     } else {
       var userjoinrole = `<@&${userjoinrole}>`;
     }
     //User onjoin set nick default undefined
     var userjoinnick = config.userjoin.nickname;
-    if (userjoinnick == 0) {
+    if (userjoinnick === 0) {
       var userjoinnick = "Not Set";
     }
     //Staff role default false
     var staffrole = config.moderation.staff_role;
-    if (staffrole == "0") {
+    if (staffrole === "0") {
       var staffrole = "Not Set";
     } else {
       var staffrole = `<@&${staffrole}>`;
@@ -57,7 +57,7 @@ module.exports = {
     //word filter by default is empty
     var stafffilter = config.moderation.filter;
     let stafffilter1 = [];
-    if (stafffilter.length == 0) {
+    if (stafffilter.length === 0) {
       stafffilter1.push("Empty");
     } else {
       stafffilter.forEach(word => {
@@ -71,14 +71,14 @@ module.exports = {
     // }
     //Logging channel by default is 0
     var logchannel = config.logging.channel;
-    if (logchannel == 0) {
+    if (logchannel === 0) {
       var logchannel = "Not Set";
     } else {
       var logchannel = `<#${logchannel}>`;
     }
     var loggingignore = config.logging.ignore;
     let loggingignore1 = [];
-    if (loggingignore.length == 0) {
+    if (loggingignore.length === 0) {
       loggingignore1.push("Empty");
     } else {
       loggingignore.forEach(id => {
@@ -87,7 +87,7 @@ module.exports = {
     }
     //Ticket message by default is undefined
     var ticketmessage = config.tickets.message;
-    if (ticketmessage == 0) {
+    if (ticketmessage === 0) {
       var ticketmessage = "Default";
     }
 

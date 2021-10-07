@@ -71,7 +71,7 @@ class PunishmentUtils {
                 .catch(error => bot.log.post("error", error));
 
               })
-              .catch(error => console.log(error))
+              .catch(error => bot.log.post("error", error));
 
               })(this);
 
@@ -97,13 +97,13 @@ class PunishmentUtils {
                     //Remove role & send message
                     arg.unmute(discordGuild, guild.guildId, discordMember);
 
-                  })
+                  });
 
                 })(this);
 
                 //Stop the timeout and remove it from timeouts array
-                let timeout = this.timeouts.filter(timeout => timeout.id === punishment.id)
-                clearTimeout(timeout.timeout)
+                let timeout = this.timeouts.filter(timeout => timeout.id === punishment.id);
+                clearTimeout(timeout.timeout);
                 this.timeouts.splice(timeout, 1);
 
               }, (punishment.expiry - present.unix()) * 1000);
@@ -122,7 +122,7 @@ class PunishmentUtils {
         this.bot.log.post("success", `[+] Rebooted ${this.activeMutes} active mutes`);
       })
       // .catch(error => this.bot.log.post("error", error))
-      .catch(error => console.log(error))
+      .catch(error => this.bot.log.post("error", error));
 
   }
 
@@ -141,11 +141,11 @@ class PunishmentUtils {
           dMember = await guild.members.cache.get(user);
           dGuild = guild;
         })
-        .catch((error) => console.log(error))
+        .catch((error) => this.bot.log.post("error", error))
       return [dMember, dGuild];
     } catch (error) {
       // this.bot.log.post("error", error);
-      console.log(error)
+      this.bot.log.post("error", error);
     }
   }
 
@@ -156,9 +156,9 @@ class PunishmentUtils {
   fetchAll() {
     return new Promise(async (resolve, reject) => {
       try {
-        resolve(await Punishment.find({}))
+        resolve(await Punishment.find({}));
       } catch (error) {
-        reject(error)
+        reject(error);
       }
     })
   }
@@ -180,13 +180,13 @@ class PunishmentUtils {
 
       try {
         if (!guild) {
-          reject("Please specify a guild ID.")
+          reject("Please specify a guild ID.");
         }
         if (!user) {
-          reject("Please specify a user ID.")
+          reject("Please specify a user ID.");
         }
         if (!punisher) {
-          reject("Please specify a punisher ID.")
+          reject("Please specify a punisher ID.");
         }
         present = moment();
 
@@ -208,10 +208,10 @@ class PunishmentUtils {
               "date": Date.now(),
               "user": user,
               "punisher": punisher
-            }
+            };
             if (reason) {
               data.reason = reason;
-            }
+            };
 
             //Push it to outstanding data and save
             guildObj[types].push(data);
@@ -224,7 +224,7 @@ class PunishmentUtils {
           case "tempmute":
 
             if (!duration) {
-              reject("Please specify a punishment duration.")
+              reject("Please specify a punishment duration.");
             }
             present.add(ms(duration), "ms");
 
@@ -266,8 +266,8 @@ class PunishmentUtils {
               this.unmute(guild, guildObj.guildId, discordMember);
 
               //Stop the timeout and remove it from timeouts array
-              timeout = this.timeouts.filter(timeout => timeout.id === id)
-              clearTimeout(timeout.timeout)
+              timeout = this.timeouts.filter(timeout => timeout.id === id);
+              clearTimeout(timeout.timeout);
               this.timeouts.splice(timeout, 1);
 
             }, (present.unix() - newPresent.unix()) * 1000)
@@ -311,13 +311,13 @@ class PunishmentUtils {
       }
 
       //Send unmute message to log channel
-      if (guildConfig.logging.enabled == true) {
-        if (guildConfig.logging.level == "low" || guildConfig.logging.level == "medium" || guildConfig.logging.level == "high") {
-          if (this.bot.efunctions.checkChannel(guildConfig.logging.channel, this.bot) == true) {
+      if (guildConfig.logging.enabled === true) {
+        if (guildConfig.logging.level === "low" || guildConfig.logging.level === "medium" || guildConfig.logging.level === "high") {
+          if (this.bot.efunctions.checkChannel(guildConfig.logging.channel, this.bot) === true) {
             let lchannel = this.bot.channels.cache.get(guildConfig.logging.channel);
             this.bot.eventEmbed("7ae727", user.user, "Member Auto-Unmuted", `**User tag:** ${user.user.tag}\n**User ID:** ${user.user.id}\n**Unmute Date:** ${new Date()}`, [], `${user.guild.name}`, this.bot)
               .then(embed => lchannel.send(embed))
-              .catch(error => this.bot.log.post("error", error))
+              .catch(error => this.bot.log.post("error", error));
           }
         }
       }
@@ -332,11 +332,11 @@ class PunishmentUtils {
    * @returns 
    */
   expired(expiry) {
-    const present = moment()
+    const present = moment();
     if (present.unix() > expiry) {
-      return true
+      return true;
     } else {
-      return false
+      return false;
     }
   }
 
@@ -374,10 +374,10 @@ class PunishmentUtils {
 
       //Arg Check
       if (!guild) {
-        reject("Please specify a guild ID.")
+        reject("Please specify a guild ID.");
       }
       if (!user) {
-        reject("Please specify a user ID")
+        reject("Please specify a user ID");
       }
 
       //Create basis object

@@ -12,7 +12,7 @@ module.exports = {
     const fs = require("fs");
     const url = "https://mcapi.us/server/status?ip=";
 
-    if (!args.length || args[0] == "help") {
+    if (!args.length || args[0] === "help") {
       return bot.helpEmbed("mcping", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -34,7 +34,7 @@ module.exports = {
     }
 
     let res = request.body;
-    if (res.status == "error" && res.error == "server timeout") {
+    if (res.status === "error" && res.error === "server timeout") {
       bot.createEmbed("error", "", `Error! The status couldn't be fetched, perhaps an invalid IP or Port.`, [], `${message.server.name}`, message)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));

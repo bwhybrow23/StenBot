@@ -12,7 +12,7 @@ module.exports = {
     //Config and Permission Check
     const config = await bot.mutils.getGuildById(message.guild.id);
 
-    if (message.member.permissions.has("ADMINISTRATOR") == false) {
+    if (message.member.permissions.has("ADMINISTRATOR") === false) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -20,7 +20,7 @@ module.exports = {
 
     //Input Validation
     var n = args.slice(0).join(" ");
-    if (!n || args[0] == "help") {
+    if (!n || args[0] === "help") {
       return bot.helpEmbed("vccreate", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));

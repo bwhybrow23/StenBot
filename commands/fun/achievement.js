@@ -13,7 +13,7 @@ module.exports = {
       var request = require("request");
       var fs = require("fs");
   
-      if (!achievement || args[0] == "help") {
+      if (!achievement || args[0] === "help") {
         return bot.helpEmbed("achievement", bot)
           .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
@@ -43,7 +43,7 @@ module.exports = {
           `././data/images/temp/${message.author.id}.png`,
           function(err, stats) {
             if (err) {
-              return bot.log.post("error", error);
+              return bot.log.post("error", err);
             }
   
             fs.unlink(
