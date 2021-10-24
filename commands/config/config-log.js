@@ -173,7 +173,7 @@ module.exports = {
   
             case "remove":
   
-              var targetchannel = message.mentions.channels.first();
+              targetchannel = message.mentions.channels.first();
               if (targetchannel === undefined) {
                 return bot.createEmbed("error", "", `Error! You didn't mention a channel.`, [], `${message.guild.name}`, message)
                   .then((embed) => message.reply(embed))

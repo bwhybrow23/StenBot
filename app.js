@@ -122,7 +122,8 @@ if (bot.settings.mode === "production") {
 } else if (bot.settings.mode === "development") {
   mongo = bot.settings.mongoDev;
 
-  token = bot.settings.connections.devToken
+  // token = bot.settings.connections.devToken;
+  token = bot.settings.connections.token;
 }
 //Connect to Discord's API
 bot.login(token);

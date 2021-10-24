@@ -141,8 +141,12 @@ module.exports = (bot) => {
   }, 1800000); // Every 30 minutes! 
 
   //Refresh Cache
+  try {
   bot.guilds.cache.forEach(async (guild) => {
     await guild.members.fetch();
   });
+  } catch (e) {
+    console.log(e);
+  }
 
 };
