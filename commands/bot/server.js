@@ -32,7 +32,12 @@ module.exports = {
     }
 
     //Fetch members
-    guild.members.fetch();
+    try {
+      await guild.members.fetch();
+    } catch (e) {
+      message.reply("An error has occured.");
+      return console.log(e)
+    }
 
     let txtChannelCount = 0;
     let vcChannelChannel = 0;

@@ -92,7 +92,11 @@ module.exports = async (bot, guild) => {
   });
 
   //Refresh cache
-  guild.members.fetch();
+  try {
+    await guild.members.fetch();
+  } catch (e) {
+    console.log(e);
+  }
 
   //StenBot Server Updates
   let totalGuilds = bot.guilds.cache.size;

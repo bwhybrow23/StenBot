@@ -142,9 +142,9 @@ module.exports = (bot) => {
 
   //Refresh Cache
   try {
-  bot.guilds.cache.forEach(async (guild) => {
-    await guild.members.fetch();
-  });
+    bot.guilds.cache.forEach(async (guild) => {
+      await guild.members.fetch();
+    });
   } catch (e) {
     console.log(e);
   }
