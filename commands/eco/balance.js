@@ -12,7 +12,7 @@ module.exports = {
 
     let person = message.mentions.users.first() || message.author;
 
-    if (!person || args[0] == "help") {
+    if (!person || args[0] === "help") {
       return bot.helpEmbed("balance", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));

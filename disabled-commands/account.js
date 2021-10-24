@@ -14,15 +14,15 @@ module.exports = {
     const ownersid = message.guild.ownerId;
     const adminperm = message.member.permissions.has("ADMINISTRATOR");
     var access = true;
-    if (adminperm == false) {
+    if (adminperm === false) {
       var access = false;
     }
-    if (access == false) {
-      if (ownersid == message.author.id) {
+    if (access === false) {
+      if (ownersid === message.author.id) {
         var access = true;
       }
     }
-    if (access == false) {
+    if (access === false) {
       return message.channel.send({
         embed: {
           color: bot.settings.color.red,
@@ -51,7 +51,7 @@ module.exports = {
         let accountexists = fs.existsSync(
           `./data/accounts/${message.author.id}.json`
         );
-        if (accountexists == true) {
+        if (accountexists= == true) {
           return bot.createEmbed("error", "", `You already have a StenBot Account`, [], `${message.guild.name}`, message)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));

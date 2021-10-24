@@ -12,7 +12,7 @@ module.exports = {
     const config = await bot.mutils.getGuildById(message.guild.id);
     const eventFunctions = require(`../../main/functions/eventUtils.js`);
 
-    if (message.channel.parent.name == "Tickets") {
+    if (message.channel.parent.name === "Tickets") {
       if (message.channel.name.startsWith("ticket-")) {
         if (config.logging.enabled) {
           if (eventFunctions.checkChannel(config.logging.channel, bot)) {

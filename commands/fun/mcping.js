@@ -4,15 +4,14 @@ module.exports = {
   description: "Ping a Minecraft Server to find out more information about it.",
   usage: "<SERVER IP>[:PORT]",
   example: "play.hypixel.net",
-  options: { permission: "EVERYONE", aliases: ["mc"], enabled: true, cooldown: 3, guildOnly: false },
+  options: { permission: "EVERYONE", aliases: ["mc"], enabled: true, cooldown: 5, guildOnly: false },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    const fetch = require("superagent");
-    const fs = require("fs");
+    const fetch = require("node-fetch");
     const url = "https://mcapi.us/server/status?ip=";
 
-    if (!args.length || args[0] == "help") {
+    if (!args.length || args[0] === "help") {
       return bot.helpEmbed("mcping", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -25,16 +24,15 @@ module.exports = {
       port = address[1];
     }
 
-    let request;
     if(port) {
-      request = await fetch.get(url + ip + `&port=${port}`);
+      request = await fetch(url + ip + `&port=${port}`);
     }
     else if (!port) {
-      request = await fetch.get(url + ip);
+      request = await fetch(url + ip);
     }
 
-    let res = request.body;
-    if (res.status == "error" && res.error == "server timeout") {
+    let res = await request.json();
+    if (res.status === "error" && res.error === "server timeout") {
       bot.createEmbed("error", "", `Error! The status couldn't be fetched, perhaps an invalid IP or Port.`, [], `${message.server.name}`, message)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -48,10 +46,10 @@ module.exports = {
     }
 
     let motd;
-    if (!res.motd) {
+    if (!res.motd_json) {
       motd = "None";
     } else {
-      motd = res.motd;
+      motd = res.motd_json.trim();
     }
 
     if (res.online) {        
@@ -62,9 +60,9 @@ module.exports = {
           .addField("Status:", "Online", true)
           .addField("Player Count:", `${players}/${res.players.max}`, true)
           .addField("Server Version:", res.server.name, true)
-          .addField("MOTD:", motd, false)
+          .addField("MOTD:", `\`\`\`${motd}\`\`\``, false)
           .setFooter(message.server.name, message.server.iconURL());
-        message.channel.send({embeds: [onlineEmbed.toJSON()]});
+        message.reply({embeds: [onlineEmbed.toJSON()]});
     }
 
     if (!res.online) {

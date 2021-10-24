@@ -27,7 +27,7 @@ module.exports = {
         .catch((error) => bot.log.post("error", error));
     }
 
-    if (!toBePaid || !amount || args[0] == "help") {
+    if (!toBePaid || !amount || args[0] === "help") {
       return bot.helpEmbed("pay", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));

@@ -9,7 +9,7 @@ module.exports = {
 
     const Discord = require("discord.js");
 
-    if (message.member.permissions.has("ADMINISTRATOR") == false) {
+    if (message.member.permissions.has("ADMINISTRATOR") === false) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -18,7 +18,7 @@ module.exports = {
     //Check if they included a setting
     let setting = args[0];
 
-    if (setting == undefined) {
+    if (!setting) {
       return bot.createEmbed("error", "", `Error! You forgot to include a ticket setting.`, [], `${message.guild.name}`, message)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -31,7 +31,7 @@ module.exports = {
     switch (setting) {
       case "enable":
         
-        if (config.tickets.enabled == true) {
+        if (config.tickets.enabled === true) {
           return bot.createEmbed("error", "", `Error! Tickets are already enabled.`, [], `${message.guild.name}`, message)
             .then((embed) => message.reply(embed))
             .catch((error) => bot.log.post("error", error));
@@ -63,7 +63,7 @@ module.exports = {
 
         break;
       case "disable":
-        if (config.tickets.enabled == false) {
+        if (config.tickets.enabled === false) {
           return bot.createEmbed("error", "", `Error! Tickets are already disabled.`, [], `${message.guild.name}`, message)
             .then((embed) => message.reply(embed))
             .catch((error) => bot.log.post("error", error));
@@ -71,7 +71,7 @@ module.exports = {
         config.tickets.enabled = false;
         bot.mutils.updateGuildById(message.guild.id, config);
         //Find and delete tickets category
-        message.guild.channels.cache.find(c => c.name == "Tickets" && c.type == "category").delete();
+        message.guild.channels.cache.find(c => c.name === "Tickets" && c.type === "category").delete();
 
         bot.createEmbed("success", "", `Tickets have been disabled.`, [], `${message.guild.name}`, message)
           .then((embed) => message.reply(embed))
@@ -80,7 +80,7 @@ module.exports = {
       case "message":
         var tmessage = args.slice(1).join(" ");
 
-        if (tmessage.length < 1 || tmessage == "None") {
+        if (tmessage.length < 1 || tmessage === "None") {
           config.tickets.message = "**User:** ${user}\n**Reason:** ${reason}"
           bot.mutils.updateGuildById(message.guild.id, config);
           return bot.createEmbed("success", "", `The ticket message has been reset.`, [], `${message.guild.name}`, message)

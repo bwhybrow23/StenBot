@@ -103,7 +103,7 @@ module.exports = {
     
           //Try to send user a DM
           try {
-            message.author.send("Just checking to see if I can message you :)")
+            message.author.send("Just checking to see if I can message you :)");
           } catch (error) {
             //Error message to user
             return message.reply("I'm afraid there was an issue when I tried to DM you. Please make sure your DMs are open and try again. If they are open and you still get issues. Please use `sb!invite` for the link to the support server.");
@@ -179,7 +179,7 @@ module.exports = {
         let reminder = reminders[wantedReminder];
         await bot.timeouts.removeSync(reminder._id)
           .then(() => {
-            return message.reply(`Reminder ID ${wantedReminder + 1} has been successfully deleted.`)
+            return message.reply(`Reminder ID ${wantedReminder + 1} has been successfully deleted.`);
           })
           .catch((error) => {
             message.reply("An error has occured. Please retry and/or contact Stentorian if the issue persists.")
@@ -191,7 +191,7 @@ module.exports = {
       default:
         return bot.helpEmbed("reminder", bot)
           .then((embed) => message.reply(embed))
-          .catch((error) => console.log(error));
+          .catch((error) => bot.log.post("error", error));
     
         break;
     }

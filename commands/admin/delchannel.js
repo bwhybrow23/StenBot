@@ -11,7 +11,7 @@ module.exports = {
     var c = message.mentions.channels.first();
 
     //Permission, Args and Config Check
-    if (!c || args[0] == "help") {
+    if (!c || args[0] === "help") {
       return bot.helpEmbed("delchannel", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -19,7 +19,7 @@ module.exports = {
 
     const config = await bot.mutils.getGuildById(message.guild.id);
 
-    if (message.member.permissions.has("ADMINISTRATOR") == false) {
+    if (message.member.permissions.has("ADMINISTRATOR") === false) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -31,7 +31,7 @@ module.exports = {
         .catch((error) => bot.log.post("error", error));
     }
 
-    if (c.deletable == false) {
+    if (c.deletable === false) {
       return bot.createEmbed("error", "", "Error! I am unable to delete that channel!", [], `${message.guild.name}`, message)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));

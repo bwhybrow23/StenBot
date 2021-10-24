@@ -8,6 +8,7 @@ module.exports = {
   run: async (bot, message, args) => {
     
     const Discord = require("discord.js");
+    const config = await bot.mutils.getGuildById(message.guild.id);
     
     //Perm Check
     if (!message.member.permissions.has("MANAGE_MESSAGES")) {
@@ -16,7 +17,7 @@ module.exports = {
     
     //Args Check
     var targetuser = message.mentions.members.first();
-    if (!targetuser || args[0] == "help") {
+    if (!targetuser || args[0] === "help") {
       return bot.helpEmbed("delwarn", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -27,7 +28,7 @@ module.exports = {
     await bot.punishments.fetch(message.guild.id, targetuser.id)
     .then((punishments) => {
       warnings = punishments.warns;
-    })
+    });
     
     //If no warnings
     if (Object.keys(warnings).length < 0) {
@@ -60,12 +61,12 @@ module.exports = {
     .catch((error) => bot.log.post("error", error));
 
     //Logging
-    if (config.logging.enabled == true) {
-      if (bot.efunctions.checkChannel(config.logging.channel, bot) == true) {
+    if (config.logging.enabled === true) {
+      if (bot.efunctions.checkChannel(config.logging.channel, bot) === true) {
         let lchannel = bot.channels.cache.get(config.logging.channel);
         bot.eventEmbed("c70011", targetuser.user, "Warning Removed", `**User tag:** ${targetuser.user.tag}\n**User ID:** ${targetuser.user.id}\n**Warning ID:** ${removedID}\n\n**Removed on:** ${new Date()}\n**Removed by:** ${message.author.tag}`, [], `${message.guild.name}`, bot)
           .then(embed => lchannel.send(embed))
-          .catch(error => bot.log.post("error", error))
+          .catch(error => bot.log.post("error", error));
       }
     };
 

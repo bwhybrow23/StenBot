@@ -52,7 +52,7 @@ module.exports = {
         .setTimestamp();
 
       message.channel.send({embeds: [embed.toJSON()]});
-    } else if (bot.commands.filter((cmd) => cmd.name == args[0])) {
+    } else if (bot.commands.filter((cmd) => cmd.name === args[0])) {
       //Command Specific Help
 
       let input = args[0];

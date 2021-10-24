@@ -24,7 +24,7 @@ router.get("/api/guilds", Auth.discord, async (req, res) => {
       error: true,
       message: "Unauthorized: Not bot owner"
     });
-  } else if (member.id == bot.settings.ids.botOwner) {
+  } else if (member.id === bot.settings.ids.botOwner) {
 
     //Do the magic
     return mutils.getAllGuilds().then(data => {
@@ -87,7 +87,7 @@ router.get("/api/guild/:id", Auth.discord, async (req, res) => {
 
   //Do and send the magic
   return mutils.getGuildById(req.params.id).then(data => {
-    if(data == null) {
+    if(data === null) {
       return res.status(400).json({
         error: true,
         message: "Guild cannot be found, check it is the correct ID or the bot is in the guild."

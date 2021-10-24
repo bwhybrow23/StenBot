@@ -10,7 +10,7 @@ module.exports = {
       const Discord = require("discord.js");
       const format = require("string-template");
   
-      if (message.member.permissions.has("ADMINISTRATOR") == false) {
+      if (message.member.permissions.has("ADMINISTRATOR") === false) {
         return bot.noPermsEmbed(`${message.guild.name}`, bot)
           .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
@@ -20,7 +20,7 @@ module.exports = {
       let setting = args[0];
       let setting2 = args[1];
   
-      if (setting == undefined) {
+      if (!setting) {
         return bot.createEmbed("error", "", `Error! You forgot to include a config setting to change.`, [], `${message.guild.name}`, message)
           .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
@@ -65,7 +65,7 @@ module.exports = {
             case "channel":
   
               var targetchannel = message.mentions.channels.first();
-              if (!args[1] || args[1] == "None") {
+              if (!args[1] || args[1] === "None") {
                 config.gatekeeper.welcome_channel = "0";
                 bot.mutils.updateGuildById(message.guild.id, config)
                 return bot.createEmbed("success", "", `The welcomer channel has been reset.`, [], `${message.guild.name}`, message)
@@ -73,7 +73,7 @@ module.exports = {
                   .catch((error) => bot.log.post("error", error));
               }
   
-              if (targetchannel.id == config.gatekeeper.welcome_channel) {
+              if (targetchannel.id === config.gatekeeper.welcome_channel) {
                 return bot.createEmbed("error", "", `Error! That channel is already set as the welcomer channel!`, [], `${message.guild.name}`, message)
                   .then((embed) => message.reply(embed))
                   .catch((error) => bot.log.post("error", error));
@@ -90,7 +90,7 @@ module.exports = {
             case "message":
               var setmessage = args.slice(2).join(" ");
   
-              if (setmessage.length < 1 || setmessage == "None") {
+              if (setmessage.length < 1 || setmessage === "None") {
                 config.gatekeeper.welcome_message = "Welcome {user} to {server}!"
                 bot.mutils.updateGuildById(message.guild.id, config)
                 return bot.createEmbed("success", "", `The welcomer message has been reset.`, [], `${message.guild.name}`, message)
@@ -104,7 +104,7 @@ module.exports = {
                   .catch((error) => bot.log.post("error", error));
               }
   
-              if (setmessage == config.gatekeeper.welcome_message) {
+              if (setmessage === config.gatekeeper.welcome_message) {
                 return bot.createEmbed("error", "", `Error! Your message is the same as the current one!`, [], `${message.guild.name}`, message)
                   .then((embed) => message.reply(embed))
                   .catch((error) => bot.log.post("error", error));
@@ -126,27 +126,27 @@ module.exports = {
   
             case "test":
               //Check if enabled
-              if (config.gatekeeper.welcome_enabled == false) {
+              if (config.gatekeeper.welcome_enabled === false) {
                 return bot.createEmbed("error", "", `Error! Your configuration didn't work. This was because you haven't enabled welcomer yet! You can do so by doing **sb!config-gatekeeper welcome enable**`, [], `${message.guild.name}`, message)
                   .then((embed) => message.reply(embed))
                   .catch((error) => bot.log.post("error", error));
               }
               //Check if channel is set
-              if (config.gatekeeper.welcome_channel == 0) {
+              if (config.gatekeeper.welcome_channel === 0) {
                 return bot.createEmbed("error", "", `Error! Your configuration didn't work. This was because you haven't set a channel for your welcome messages. You can do so by doing **sb!config-gatekeeper welcome channel <#CHANNEL>**`, [], `${message.guild.name}`, message)
                   .then((embed) => message.reply(embed))
                   .catch((error) => bot.log.post("error", error));
               }
               //Check if channel is accessible by bot or exists
               let testingchannel = bot.channels.cache.get("" + config.gatekeeper.welcome_channel + "");
-              if (testingchannel == undefined) {
+              if (testingchannel === undefined) {
                 return bot.createEmbed("error", "", `Error! Your configuration didn't work. This is beacuse the channel you have set no longer exists. Please set a new channel by doing **sb!config-gatekeeper welcome channel <#CHANNEL>**`, [], `${message.guild.name}`, message)
                   .then((embed) => message.reply(embed))
                   .catch((error) => bot.log.post("error", error));
               }
               //Check if the bot has perms to send messages in that channel
               let botmember = message.guild.members.cache.get(bot.user.id);
-              if (botmember.permissionsIn(message.guild.channels.cache.get("" + config.gatekeeper.welcome_channel + "")).has("SEND_MESSAGES") == false) {
+              if (botmember.permissionsIn(message.guild.channels.cache.get("" + config.gatekeeper.welcome_channel + "")).has("SEND_MESSAGES") === false) {
                 return bot.createEmbed("error", "", `Error! Your configuration didn't work. This is because the bot is unable to send messages in the configured channel you have set.`, [], `${message.guild.name}`, message)
                   .then((embed) => message.reply(embed))
                   .catch((error) => bot.log.post("error", error));
@@ -226,7 +226,7 @@ module.exports = {
             case "channel":
   
               var targetchannel = message.mentions.channels.first();
-              if (!args[1] || args[1] == "None") {
+              if (!args[1] || args[1] === "None") {
                 config.gatekeeper.leave_channel = "0";
                 bot.mutils.updateGuildById(message.guild.id, config)
                 return bot.createEmbed("success", "", `The leave channel has been reset.`, [], `${message.guild.name}`, message)
@@ -234,7 +234,7 @@ module.exports = {
                   .catch((error) => bot.log.post("error", error));
               }
   
-              if (targetchannel.id == config.gatekeeper.leave_channel) {
+              if (targetchannel.id === config.gatekeeper.leave_channel) {
                 return bot.createEmbed("error", "", `Error! That channel is already set as the leave channel!`, [], `${message.guild.name}`, message)
                   .then((embed) => message.reply(embed))
                   .catch((error) => bot.log.post("error", error));
@@ -251,7 +251,7 @@ module.exports = {
             case "message":
               var setmessage = args.slice(2).join(" ");
   
-              if (setmessage.length < 1 || setmessage == "None") {
+              if (setmessage.length < 1 || setmessage === "None") {
                 config.gatekeeper.leave_message = "Welcome {user} to {server}!";
                 bot.mutils.updateGuildById(message.guild.id, config)
                 return bot.createEmbed("success", "", `The leave message has been reset.`, [], `${message.guild.name}`, message)
@@ -265,7 +265,7 @@ module.exports = {
                   .catch((error) => bot.log.post("error", error));
               }
   
-              if (setmessage == config.gatekeeper.leave_message) {
+              if (setmessage === config.gatekeeper.leave_message) {
                 return bot.createEmbed("error", "", `Error! Your message is the same as the current one!`, [], `${message.guild.name}`, message)
                   .then((embed) => message.reply(embed))
                   .catch((error) => bot.log.post("error", error));
@@ -287,27 +287,27 @@ module.exports = {
   
             case "test":
               //Check if enabled
-              if (config.gatekeeper.leave_enabled == false) {
+              if (config.gatekeeper.leave_enabled === false) {
                 return bot.createEmbed("error", "", `Error! Your configuration didn't work. This was because you haven't enabled leave yet! You can do so by doing **sb!config-gatekeeper leave enable**`, [], `${message.guild.name}`, message)
                   .then((embed) => message.reply(embed))
                   .catch((error) => bot.log.post("error", error));
               }
               //Check if channel is set
-              if (config.gatekeeper.leave_channel == 0) {
+              if (config.gatekeeper.leave_channel === 0) {
                 return bot.createEmbed("error", "", `Error! Your configuration didn't work. This was because you haven't set a channel for your welcome messages. You can do so by doing **sb!config-gatekeeper leave channel <#CHANNEL>**`, [], `${message.guild.name}`, message)
                   .then((embed) => message.reply(embed))
                   .catch((error) => bot.log.post("error", error));
               }
               //Check if channel is accessible by bot or exists
               let testingchannel = bot.channels.cache.get("" + config.gatekeeper.leave_channel + "");
-              if (testingchannel == undefined) {
+              if (testingchannel === undefined) {
                 return bot.createEmbed("error", "", `Error! Your configuration didn't work. This is beacuse the channel you have set no longer exists. Please set a new channel by doing **sb!config-gatekeeper leave channel <#CHANNEL>**`, [], `${message.guild.name}`, message)
                   .then((embed) => message.reply(embed))
                   .catch((error) => bot.log.post("error", error));
               }
               //Check if the bot has perms to send messages in that channel
               let botmember = message.guild.members.cache.get(bot.user.id);
-              if (botmember.permissionsIn(message.guild.channels.cache.get("" + config.gatekeeper.leave_channel + "")).has("SEND_MESSAGES") == false) {
+              if (botmember.permissionsIn(message.guild.channels.cache.get("" + config.gatekeeper.leave_channel + "")).has("SEND_MESSAGES") === false) {
                 return bot.createEmbed("error", "", `Error! Your configuration didn't work. This is because the bot is unable to send messages in the configured channel you have set.`, [], `${message.guild.name}`, message)
                   .then((embed) => message.reply(embed))
                   .catch((error) => bot.log.post("error", error));

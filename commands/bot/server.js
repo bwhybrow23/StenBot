@@ -37,8 +37,8 @@ module.exports = {
     let txtChannelCount = 0;
     let vcChannelChannel = 0;
     guild.channels.cache.forEach(channel => {
-      if (channel.type == "GUILD_TEXT") return txtChannelCount++;
-      if (channel.type == "GUILD_VOICE" || "GUILD_STAGE_VOICE") return vcChannelChannel++;
+      if (channel.type === "GUILD_TEXT") return txtChannelCount++;
+      if (channel.type === "GUILD_VOICE" || "GUILD_STAGE_VOICE") return vcChannelChannel++;
     });
 
     let embed = new Discord.MessageEmbed()

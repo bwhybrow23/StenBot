@@ -17,7 +17,7 @@ const compare = (a1, a2) => {
 //Check channel from channel id to see if it exists
 var checkChannel = (id, client) => {
   let tchannel = client.channels.cache.get(id);
-  if (tchannel == undefined) {
+  if (!tchannel) {
     return false;
   } else {
     return true;

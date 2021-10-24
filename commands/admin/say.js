@@ -4,13 +4,13 @@ module.exports = {
   description: "Get StenBot to say whatever you want",
   usage: "<MESSAGE>",
   example: "Hello World!",
-  options: { permission: "ADMIN", enabled: true, cooldown: 5, guildOnly: true, cooldown: 5 },
+  options: { permission: "ADMIN", enabled: true, cooldown: 5, guildOnly: true },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
 
     //Permission Check
-    if (message.member.permissions.has("ADMINISTRATOR") == false) {
+    if (message.member.permissions.has("ADMINISTRATOR") === false) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -18,7 +18,7 @@ module.exports = {
 
     //Input Validation
     var msg = args.slice(0).join(" ");
-    if (!msg || args[0] == "help") {
+    if (!msg || args[0] === "help") {
       return bot.helpEmbed("say", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));

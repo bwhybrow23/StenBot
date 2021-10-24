@@ -15,7 +15,7 @@ module.exports = {
     };
 
     let msg = args.slice(0).join(" ");
-    if (!msg || args[0] == "help") {
+    if (!msg || args[0] === "help") {
       return bot.helpEmbed("gsay", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));

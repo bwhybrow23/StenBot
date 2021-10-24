@@ -23,7 +23,7 @@ const punishmentSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true
-})
+});
 
 const Punishment = mongoose.model("Punishment", punishmentSchema);
 module.exports = Punishment;

@@ -16,7 +16,7 @@ module.exports = {
     
     //Args Check
     var targetuser = message.mentions.members.first();
-    if (!targetuser || args[0] == "help") {
+    if (!targetuser || args[0] === "help") {
       return bot.helpEmbed("warnings", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -26,7 +26,7 @@ module.exports = {
     await bot.punishments.fetch(message.guild.id, targetuser.id)
     .then((punishments) => {
       warnings = punishments.warns;
-    })
+    });
     
     let embed = {
       "color": 4325423,

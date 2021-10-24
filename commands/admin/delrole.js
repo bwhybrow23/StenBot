@@ -11,7 +11,7 @@ module.exports = {
     var r = message.mentions.roles.first();
 
     //Help Embed
-    if (!r || args[0] == "help") {
+    if (!r || args[0] === "help") {
       return bot.helpEmbed("delrole", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -20,13 +20,13 @@ module.exports = {
     //Config, Args and Permission Check
     const config = await bot.mutils.getGuildById(message.guild.id);
 
-    if (r == undefined) {
+    if (r === undefined) {
       return bot.createEmbed("error", "", `Error! You forgot to mention a role to remove!`, [], `${message.guild.name}`, message)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
-    if (message.member.permissions.has("ADMINISTRATOR") == false) {
+    if (message.member.permissions.has("ADMINISTRATOR") === false) {
       return bot.noPermsEmbed(`${message.guild.name}`, bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));

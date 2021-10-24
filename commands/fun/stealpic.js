@@ -10,7 +10,7 @@ module.exports = {
     const Discord = require("discord.js");
 
     let stolen = message.mentions.users.first();
-    if (!stolen || args[0] == "help") {
+    if (!stolen || args[0] === "help") {
       return bot.helpEmbed("stealpic", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));

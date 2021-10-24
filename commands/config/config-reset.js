@@ -9,7 +9,7 @@ module.exports = {
   
       const Discord = require("discord.js");
   
-      if (message.member.permissions.has("ADMINISTRATOR") == false) {
+      if (message.member.permissions.has("ADMINISTRATOR") === false) {
         return bot.noPermsEmbed(`${message.guild.name}`, bot)
           .then((embed) => message.reply(embed))
           .catch((error) => bot.log.post("error", error));
@@ -22,18 +22,18 @@ module.exports = {
             m.react('❌');
           });
   
-          m.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '✅' || reaction.emoji.name == '❌'), {
+          m.awaitReactions((reaction, user) => user.id === message.author.id && (reaction.emoji.name === '✅' || reaction.emoji.name === '❌'), {
             max: 1,
             time: 30000
           }).then(collected => {
   
-            if (collected.first().emoji.name == '✅') {
+            if (collected.first().emoji.name === '✅') {
   
               bot.mutils.updateGuildById(message.guild.id, {
                 info: {
-                  id: g.id,
-                  name: g.name,
-                  owner_id: g.ownerId,
+                  id: message.guild.id,
+                  name: message.guild.name,
+                  owner_id: message.guild.ownerId,
                   blacklisted: false
                 },
                 gatekeeper: {
@@ -53,9 +53,7 @@ module.exports = {
                   staff_role: "0",
                   link_block: false,
                   filter: [],
-                  mute_role: "",
-                  warnings: [],
-                  punishments: []
+                  mute_role: ""
                 },
                 logging: {
                   enabled: false,
@@ -73,7 +71,7 @@ module.exports = {
                 .then((embed) => message.reply(embed))
                 .catch((error) => bot.log.post("error", error));
             }
-            if (collected.first().emoji.name == '❌') {
+            if (collected.first().emoji.name === '❌') {
               message.reply('Reset Cancelled.');
             }
           }).catch(() => {

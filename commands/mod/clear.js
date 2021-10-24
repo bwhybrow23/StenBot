@@ -17,7 +17,7 @@ module.exports = {
 
     //Args check
     let amount = args[0];
-    if (!amount || amount == undefined || isNaN(amount) || args[0] == "help") {
+    if (!amount || amount === undefined || isNaN(amount) || args[0] === "help") {
       return bot.helpEmbed("clear", bot)
         .then((embed) => message.reply(embed))
         .catch((error) => bot.log.post("error", error));
@@ -41,16 +41,16 @@ module.exports = {
     //Send success message
     bot.createEmbed("success", "", `Successfully cleared **${amount}** messages.`, [], `${message.guild.name}`, message)
           .then((embed) => message.reply(embed))
-          .catch((error) => bot.log.post("error", error))
+          .catch((error) => bot.log.post("error", error));
 
     //Logging
-    if (config.logging.enabled == true) {
-      if (config.logging.level == "low" || config.logging.level == "medium" || config.logging.level == "high") {
-        if (bot.efunctions.checkChannel(config.logging.channel, bot) == true) {
+    if (config.logging.enabled === true) {
+      if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
+        if (bot.efunctions.checkChannel(config.logging.channel, bot) === true) {
           let lchannel = bot.channels.cache.get(config.logging.channel);
           bot.eventEmbed("c70011", message.author, "Bulk Delete", `**Amount:** ${amount}\n**Channel:** ${message.channel.name}`, [], `${message.guild.name}`, bot)
             .then(embed => lchannel.send(embed))
-            .catch(error => bot.log.post("error", error))
+            .catch(error => bot.log.post("error", error));
         }
       }
     }

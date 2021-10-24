@@ -20,7 +20,7 @@ module.exports = {
         case "server":
           var targetserver = args[1];
   
-          if (targetserver == '455782308293771264') {
+          if (targetserver === '455782308293771264') {
             return bot.createEmbed("error", "", `Error! You do not have permission to blacklist the bot's main guild.`, [], `${message.guild.name}`, message)
               .then((embed) => message.reply(embed))
               .catch((error) => bot.log.post("error", error));
@@ -86,7 +86,7 @@ module.exports = {
           }
   
           //Check if Sten
-          if (targetuser == "346246641595973633") return message.reply("You can't blacklist Sten, you dumbass.");
+          if (targetuser === "346246641595973633") return message.reply("You can't blacklist Sten, you dumbass.");
   
           //Modify database
           await bot.mutils.blacklistUser({
@@ -108,7 +108,7 @@ module.exports = {
             await bot.createEmbed("error", "", `I'm afraid that you have been blacklisted from using StenBot for the reason **${reason}**. If you believe this is an error, please contact **Stentorian#9524** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${message.guild.name}`, message)
               .then((embed) => {
                 try {
-                  targetuser.send(embed)
+                  targetuser.send(embed);
                 } catch (e) {
                   return;
                 }

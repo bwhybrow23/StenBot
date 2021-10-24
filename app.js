@@ -115,14 +115,15 @@ setInterval(function() {
  *
  */
 let mongo, token;
-if (bot.settings.mode == "production") {
+if (bot.settings.mode === "production") {
   mongo = bot.settings.mongo;
 
   token = bot.settings.connections.token;
-} else if (bot.settings.mode == "development") {
+} else if (bot.settings.mode === "development") {
   mongo = bot.settings.mongoDev;
 
-  token = bot.settings.connections.devToken
+  // token = bot.settings.connections.devToken;
+  token = bot.settings.connections.token;
 }
 //Connect to Discord's API
 bot.login(token);
@@ -174,7 +175,7 @@ app.listen(port, () => {
 fs.promises.readdir(path.join(__dirname, "./main/routers"))
   .then(files => {
     files.forEach(file => {
-      if (file.split(".")[1] == "js") {
+      if (file.split(".")[1] === "js") {
         let router = require(`./main/routers/${file}`);
         app.use(router);
       };
