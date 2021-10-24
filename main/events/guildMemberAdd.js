@@ -102,6 +102,6 @@ module.exports = async (bot, member) => {
     }
 
     //Refresh Cache
-    member.guild.members.fetch();
+    // member.guild.members.fetch();
   
   };
