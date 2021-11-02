@@ -1,5 +1,3 @@
-const { messages } = require("dbots/lib/Utils/DBotsError");
-
 module.exports = async (bot, member) => {
 
     const Discord = require("discord.js");
@@ -7,7 +5,7 @@ module.exports = async (bot, member) => {
     if(!config) return;
     const fs = require("fs");
     var format = require("string-template");
-  
+
     if (member.user === bot.user) return;
 
     //Update bot-data.json
