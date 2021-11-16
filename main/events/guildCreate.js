@@ -10,7 +10,7 @@ module.exports = async (bot, guild) => {
   //Check if the server is blacklisted
   var serverstats;
   try {
-    var serverstats = mutils.getGuildById(guild.id)
+    var serverstats = bot.mutils.getGuildById(guild.id)
   } catch (err) {
     bot.log.post("error", err);
   }
