@@ -35,7 +35,7 @@ module.exports = {
       //If search is sucessful, update config with mute role
       if(muteRole) {
         config.moderation.mute_role = muteRole.id;
-        await bot.mutils.updateGuildByID(message.guild, config);
+        await bot.mutils.updateGuildById(message.guild, config);
       }
 
       //If there's still no mute role, create it 
@@ -59,7 +59,7 @@ module.exports = {
 
           //Save new role to config
           config.moderation.mute_role = muteRole.id;
-          await bot.mutils.updateGuildByID(message.guild, config);
+          await bot.mutils.updateGuildById(message.guild, config);
 
         } catch (error) {
           message.reply("Error, check console");

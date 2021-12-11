@@ -60,7 +60,7 @@ module.exports = {
 
           //Save new role to config
           config.moderation.mute_role = muteRole.id;
-          await bot.mutils.updateGuildByID(message.guild.id, config);
+          await bot.mutils.updateGuildById(message.guild.id, config);
 
         } catch (error) {
           message.reply("Error, check console");

@@ -16,7 +16,16 @@ module.exports = async (bot, guild) => {
   //StenBot Server Updates
   let totalGuilds = bot.guilds.cache.size;
   let totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
-  let gOwner = await guild.fetchOwner();
+
+  //If no guild name (most likely deleted), return empty
+  if(!guild.name) return;
+
+  let gOwner;
+  try {
+    gOwner = await guild.fetchOwner();
+  } catch (error) {
+    gOwner = { tag: "N/A" }
+  }
   
   await bot.channels.cache.get("839509992041218049").send({
     embeds: [{

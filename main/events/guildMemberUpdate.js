@@ -1,7 +1,7 @@
 module.exports = async (bot, oldMember, newMember) => {
 
     const Discord = require("discord.js");
-  
+
     if (newMember.user === bot.user) return;
   
     let config = await bot.mutils.getGuildById(newMember.guild.id);

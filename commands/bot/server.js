@@ -33,10 +33,10 @@ module.exports = {
 
     //Fetch members
     try {
-      await guild.members.fetch();
+      guild.members.fetch();
     } catch (e) {
-      message.reply("An error has occured.");
-      return console.log(e)
+      message.reply("An error occured.");
+      return console.log(e);
     }
 
     let txtChannelCount = 0;
