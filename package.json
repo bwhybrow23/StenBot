@@ -35,7 +35,7 @@
     "dbots": "^9.0.1",
     "discord-api-types": "^0.24.0",
     "discord-moderation": "github:bwhybrow23/discord-moderation#master",
-    "discord.js": "^13.1.0",
+    "discord.js": "^13.5.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "is-url": "^1.2.4",
