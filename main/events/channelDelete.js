@@ -6,7 +6,8 @@ module.exports = async (bot, channel) => {
   if (channel.name.startsWith("ticket-")) return;
 
   //Get Config
-  let config = await bot.mutils.getGuildById(channel.guild.id)
+  let config = await bot.mutils.getGuildById(channel.guild.id);
+  if(!config) return;
 
   //Check config and send message
   if (config.logging.enabled === true) {

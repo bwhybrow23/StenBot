@@ -12,7 +12,7 @@ module.exports = async (bot, guild) => {
   try {
     var serverstats = bot.mutils.getGuildById(guild.id)
   } catch (err) {
-    bot.log.post("error", err);
+    return bot.log.post("error", err);
   }
 
   //Leave the guild if its blacklisted

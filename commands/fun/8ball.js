@@ -29,7 +29,7 @@ module.exports = {
       .addField("Question", question)
       .addField("Answer", result.response)
       .setImage(result.url)
-      .setFooter(`${message.server.name}`, `https://i.imgur.com/klY5xCe.png`);
+      .setFooter({ text: `${message.server.name}`, iconURL: `https://i.imgur.com/klY5xCe.png` });
 
     message.reply({ content: "The 8ball is working it's magic! :tada:" }).then((m) => {
       setTimeout(() => {

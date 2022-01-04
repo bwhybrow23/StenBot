@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.2 - 04/01/2022
+* Fixed issue with me command when user has no activities
+* Fixed errors where bot would crash if no config is available
+* Updated footers to non-deprecated version (pointless change but discord.js says so)
+* The format of activities given in the sb!me command is cleaner. Also shows currently playing song on Spotify.
+
 ## 2.2.1 - 24/10/2021
 * Coding style/errors fixed
 * Removed need to save a temp file for the achievement command

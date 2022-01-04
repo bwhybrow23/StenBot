@@ -4,7 +4,7 @@ module.exports = {
     description: "Find out some of the information the bot knows about you.",
     usage: "[@USER]",
     example: "@Danny#7013",
-    options: { permission: "EVERYONE", enabled: true, guildOnly: true },
+    options: { permission: "EVERYONE", aliases: ["user", "whois"], enabled: true, guildOnly: true },
     run: async (bot, message, args) => {
   
       const Discord = require("discord.js");
@@ -24,12 +24,6 @@ module.exports = {
         user = await (bot.users.fetch(message.author.id, true, true));
       }
     
-      if (user.bot === true) {
-        bot = "Yes";
-      } else {
-        bot = "No";
-      }
-  
       let userStatus;
       if(!member.presence.status) userStatus = "N/A";
       switch (member.presence.status) {
@@ -53,16 +47,27 @@ module.exports = {
       let activities = [];
       member.presence.activities.forEach(activity => {
         if (activity.type === "CUSTOM") {
-          activities.push(`${activity.emoji} ${activity.state}`)
+          if(!activity.emoji) {
+            activities.push(`:speech_balloon: \`${activity.state}\``);
+          } else if (!activity.state) {
+            activities.push(`:speech_balloon: \`${activity.emoji}\``)
+          } else {
+            activities.push(`:speech_balloon: \`${activity.emoji} ${activity.state}\``)
+          }
         } else if (activity.type === "PLAYING") {
-          activities.push(`:video_game: ${activity.name}`)
+          activities.push(`:video_game: \`${activity.name}\``)
+        } else if (activity.type === "LISTENING") {
+          if(activity.name != 'Spotify') return;
+          activities.push(`:musical_note: \`${activity.details} - ${activity.state}\``)
         } else {
           activities.push("Not playing")
         }
       });
-      if(!activities === []) {
+      if(!activities[0]) {
         activities.push("Not playing");
       }
+
+      let roles = member.roles.cache.filter(r => r.id !== message.guild.id).map(roles => `\`${roles.name}\``).join(" **|** ");
 
       let meEmbed = new Discord.MessageEmbed()
         .setThumbnail(user.displayAvatarURL())
@@ -70,13 +75,12 @@ module.exports = {
         .addField("Full Username", `${user.tag}`, true)
         .addField("ID", user.id, true)
         .addField("Nickname", `${member.nickname !== null ? `Nickname: ${member.nickname}` : "None"}`, true)
-        .addField("Bot", `${bot}`, true, true)
-        .addField("Status", userStatus, true)
+        .addField("Roles", `${roles.length} in total.`, true)
+        .addField("Account Created", `${user.createdAt.toDateString()}`, true)
+        .addField("Joined Guild", `${member.joinedAt.toDateString()}`, true)
+        .addField("Status", userStatus)
         .addField("Activities", activities.join("\n"))
-        .addField("Roles", `${member.roles.cache.filter(r => r.id !== message.guild.id).map(roles => `\`${roles.name}\``).join(" **|** ") || "No Roles"}`)
-        .addField("Joined Discord At", `${user.createdAt}`)
-        .addField("Joined this Guild At", `${member.joinedAt}`)
-        .setFooter(`Information about ${user.username}`)
+        .setFooter({ text: `Information about ${user.username}` })
         .setTimestamp();
   
       message.channel.send({embeds: [meEmbed.toJSON()]});

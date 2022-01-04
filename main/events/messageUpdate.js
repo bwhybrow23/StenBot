@@ -3,6 +3,7 @@ module.exports = async (bot, oldMessage, newMessage) => {
   const checker = require("is-url");
 
   if (newMessage.type === "DM") return;
+  if (!newMessage) return;
   if (!newMessage.guild) return;
   let config = await bot.mutils.getGuildById(newMessage.guild.id);
   if(!config) return;

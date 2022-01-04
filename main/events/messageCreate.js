@@ -2,6 +2,8 @@ module.exports = async (bot, message) => {
 
     const Discord = require("discord.js");
     const fs = require("fs");
+
+    if(!message) return;
   
     //Link Blocker & Filter
     if (message.author.bot) return;

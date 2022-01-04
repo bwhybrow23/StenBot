@@ -25,7 +25,7 @@ module.exports = {
       const embed = new Discord.MessageEmbed()
         .setColor(bot.settings.color.blue)
         .setTitle(capitalize(args[0]))
-        .setFooter(`Help Command | Syntax: <> = required, [] = optional`, bot.user.displayURL)
+        .setFooter({ text: `Help Command | Syntax: <> = required, [] = optional`, iconURL: bot.user.displayURL})
         .setTimestamp();
 
       bot.commands.forEach(cmd => {
@@ -48,7 +48,7 @@ module.exports = {
         .addField(`General Commands`, `\`${prefix}help general\``, true)
         .addField(`Moderation Commands`, `\`${prefix}help mod\``, true)
         .addField(`Ticketing Commands`, `\`${prefix}help ticketing\``, true)
-        .setFooter("Help Command", bot.user.displayURL)
+        .setFooter({ text: "Help Command", iconURL: bot.user.displayURL})
         .setTimestamp();
 
       message.channel.send({embeds: [embed.toJSON()]});

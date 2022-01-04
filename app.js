@@ -99,15 +99,13 @@ function getMemUsage() {
 setInterval(function() {
   botData.info.memoryUsage = getMemUsage();
   fs.writeFileSync("./data/global/bot-data.json", JSON.stringify(botData, null, 4));
-}, 300000);
+}, 600000);
 setInterval(function() {
   let memoryusage = getMemUsage();
   let guilds = bot.guilds.cache.size;
   let ping = Math.floor(bot.ws.ping);
-  bot.log.post("info", `Memory Usage: ${memoryusage}`)
-  bot.log.post("info", `Ping: ${ping}`)
-  bot.log.post("info", `Guilds: ${guilds}`)
-}, 300000);
+  bot.log.post("info", `Memory Usage: ${memoryusage} || Ping: ${ping} || Guilds: ${guilds}`);
+}, 600000);
 
 /**
  *
@@ -122,8 +120,8 @@ if (bot.settings.mode === "production") {
 } else if (bot.settings.mode === "development") {
   mongo = bot.settings.mongoDev;
 
-  // token = bot.settings.connections.devToken;
-  token = bot.settings.connections.token;
+  token = bot.settings.connections.devToken;
+  // token = bot.settings.connections.token;
 }
 //Connect to Discord's API
 bot.login(token);
@@ -168,7 +166,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
 app.listen(port, () => {
-  bot.log.post("success", `Webserver server started on ${port}`);
+  bot.log.post("success", `Webserver server started on port ${port}`);
 });
 
 //Routers

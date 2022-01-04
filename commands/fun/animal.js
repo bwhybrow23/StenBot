@@ -33,7 +33,7 @@ module.exports = {
           .setTitle("Aww... Kitty!")
           .setColor("#ff9900")
           .setImage(url)
-          .setFooter(`${message.server.name}`, `https://i.imgur.com/klY5xCe.png`);
+          .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
 
         message.channel.send({embeds: [catEmbed.toJSON()]});
         break;
@@ -49,7 +49,7 @@ module.exports = {
           .setTitle("Aww... Doggo!")
           .setColor("#ff9900")
           .setImage(url)
-          .setFooter(`${message.server.name}`, `https://i.imgur.com/klY5xCe.png`);
+          .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
 
         message.channel.send({embeds: [dogEmbed.toJSON()]});
 
@@ -65,7 +65,7 @@ module.exports = {
           .setTitle("Aww... Fox!")
           .setColor("#ff9900")
           .setImage(url)
-          .setFooter(`${message.server.name}`, `https://i.imgur.com/klY5xCe.png`);
+          .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
 
         message.channel.send({embeds: [foxEmbed.toJSON()]});
 
@@ -82,7 +82,7 @@ module.exports = {
           .setTitle("Hjonk!")
           .setColor("#ff9900")
           .setImage(url)
-          .setFooter(`${message.server.name}`, `https://i.imgur.com/klY5xCe.png`);
+          .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
 
         message.channel.send({embeds: [gooseEmbed.toJSON()]});
 

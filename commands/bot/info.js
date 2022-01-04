@@ -33,7 +33,7 @@ module.exports = {
       .addField("Total Members:", totalMembers.toString(), true)
       .addField("Total Commands:", totalCommands.toString(), true)
       .addField("Version:", packageJSON.version.toString(), true)
-      .setFooter(message.guild.name, message.guild.iconURL());
+      .setFooter({ text: message.guild.name, iconURL: message.guild.iconURL()});
 
     message.channel.send({embeds: [embed.toJSON()]});
 

@@ -30,7 +30,7 @@ module.exports = {
         .setImage(toBeUsed.images.original.url)
         .setURL(toBeUsed.url)
         .setColor(bot.settings.color.yellow)
-        .setFooter(`Powered by GIPHY`, `https://i.imgur.com/gJMxGvU.gif`);
+        .setFooter({ text: `Powered by GIPHY`, iconURL: `https://i.imgur.com/gJMxGvU.gif`});
   
       message.channel.send({embeds: [embed.toJSON()]});
   

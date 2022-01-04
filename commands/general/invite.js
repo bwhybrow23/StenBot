@@ -21,7 +21,7 @@ module.exports = {
       .addField("Support Server", "https://discord.benwhybrow.com")
       .addField("Donation Link", "https://paypal.me/benwhybrow")
       .setThumbnail(bicon)
-      .setFooter(`${message.server.name}`, `https://i.imgur.com/klY5xCe.png`);
+      .setFooter({ text: `${message.server.name}`, iconURL: `https://i.imgur.com/klY5xCe.png` });
 
     message.channel.send({embeds: [inviteEmbed.toJSON()]});
   },

@@ -5,6 +5,8 @@ module.exports = async (bot, message) => {
 
   const Discord = require("discord.js");
 
+  if(!message) return;
+
   if ((message.channel.type === "DM")) return;
 
   let config = await bot.mutils.getGuildById(message.guild.id);

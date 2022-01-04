@@ -24,7 +24,7 @@ module.exports = async (bot, guild) => {
   try {
     gOwner = await guild.fetchOwner();
   } catch (error) {
-    gOwner = { tag: "N/A" }
+    gOwner = { user: { tag: "N/A" }}
   }
   
   await bot.channels.cache.get("839509992041218049").send({
@@ -46,7 +46,7 @@ module.exports = async (bot, guild) => {
         },
         {
           name: "Server Owner",
-          value: `${gOwner.tag} || ${guild.ownerId}`,
+          value: `${gOwner.user.tag} || ${guild.ownerId}`,
           inline: true
         },
         {
