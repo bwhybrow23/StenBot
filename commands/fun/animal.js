@@ -88,6 +88,23 @@ module.exports = {
 
         break;
 
+        case "lizard":
+
+          await apiFetch("lizard");
+          if (!url) {
+            await apiFetch("lizard");
+          }
+  
+          const lizardEmbed = new Discord.MessageEmbed()
+            .setTitle("Hjonk!")
+            .setColor("#ff9900")
+            .setImage(url)
+            .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
+  
+          message.channel.send({embeds: [lizardEmbed.toJSON()]});
+  
+          break;
+
       default:
 
         message.channel.send({
@@ -114,7 +131,7 @@ module.exports = {
               },
               {
                 name: "Possible Values:",
-                value: "Cat, Dog, Fox, Goose"
+                value: "Cat, Dog, Fox, Goose, Lizard"
               }
             ],
             footer: {

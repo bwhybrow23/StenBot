@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.2.3 - 
+* Updates to latest NPM versions - includes security fixes
+* Added neko command
+* Added lizard subcommand to the animal command
+* 
+
 ## 2.2.2 - 04/01/2022
 * Fixed issue with me command when user has no activities
 * Fixed errors where bot would crash if no config is available

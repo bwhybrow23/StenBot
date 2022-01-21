@@ -26,14 +26,14 @@
     "url": "https://github.com/sponsors/bwhybrow23"
   },
   "dependencies": {
-    "@discordjs/rest": "^0.1.0-canary.0",
+    "@discordjs/rest": "^0.2.0-canary.0",
     "ascii-table": "^0.0.9",
     "bcrypt": "^5.0.1",
     "btoa": "^1.2.1",
     "chalk": "^4.1.2",
     "cors": "^2.8.5",
-    "dbots": "^9.0.1",
-    "discord-api-types": "^0.24.0",
+    "dbots": "^11.0.0",
+    "discord-api-types": "^0.26.1",
     "discord-moderation": "github:bwhybrow23/discord-moderation#master",
     "discord.js": "^13.1.0",
     "ejs": "^3.1.6",
@@ -48,6 +48,6 @@
     "node-fetch": "^2.6.6",
     "path": "^0.12.7",
     "string-template": "^1.0.0",
-    "superagent": "^6.1.0"
+    "superagent": "^7.1.1"
   }
 }
