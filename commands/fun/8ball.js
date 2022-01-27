@@ -4,7 +4,7 @@ module.exports = {
   description: "Ask a question to the magic ball and it will answer.",
   usage: "<QUESTION>",
   example: "Will I ever stop losing the game?",
-  options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: false },
+  options: { permission: "EVERYONE", enabled: true, cooldown: 5, guildOnly: false },
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
@@ -22,7 +22,6 @@ module.exports = {
     await fetch(`https://nekos.life/api/v2/8ball`)
       .then(res => res.json())
       .then(json => result = json)
-
 
     let ballEmbed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.yellow)

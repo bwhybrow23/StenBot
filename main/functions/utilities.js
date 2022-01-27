@@ -90,7 +90,7 @@ module.exports = {
             icon_url: bot.user.avatarURL({
               format: "png"
             }),
-            text: "If you have any issues DM Stentorian#9524 on Discord!",
+            text: "If you have any issues DM Stentorian#6969 on Discord!",
           },
         }],
       })

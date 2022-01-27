@@ -1,10 +1,15 @@
 # Changelog
 
-## 2.2.3 - 
+## 2.2.3 - 27/01/2022
 * Updates to latest NPM versions - includes security fixes
 * Added neko command
 * Added lizard subcommand to the animal command
-* 
+* Bot now doesn't crash everytime it joins a new server
+* Args on the blacklist command are now dealt with properly 
+* Fixed some small issues regarding the new embed footer update
+* Cooldown now doesn't apply to bot owner
+* Reduced cooldown on 8ball command to 5 seconds
+* Update my Discord tag in messages **Discord Nitro babyyy**
 
 ## 2.2.2 - 04/01/2022
 * Fixed issue with me command when user has no activities

@@ -16,13 +16,16 @@ module.exports = async (bot, guild) => {
   }
 
   //Leave the guild if its blacklisted
-  if (serverstats.info.blacklisted === true) {
-    bot.createEmbed("error", "", `I'm afraid that StenBot cannot join your server **${guild.name}** as your server is blacklisted from the bot. If you believe this is an error, please contact **Stentorian#9524** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${guild.name}`, bot)
-      .then(embed => gOwner.send(embed))
-      .catch(error => bot.log.post("error", error));
-    guild.leave();
-    return bot.log.post("info", `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
-  }
+  if(serverstats) {
+    if (serverstats.info.blacklisted === true) {
+      bot.createEmbed("error", "", `I'm afraid that StenBot cannot join your server **${guild.name}** as your server is blacklisted from the bot. If you believe this is an error, please contact **Stentorian#6969** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${guild.name}`, bot)
+        .then(embed => gOwner.send(embed))
+        .catch(error => bot.log.post("error", error));
+      guild.leave();
+      return bot.log.post("info", `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
+    } 
+  } else {
+
   bot.log.post("info", `Joined guild ${guild.name} | ${guild.id}`);
 
   /**
@@ -30,7 +33,6 @@ module.exports = async (bot, guild) => {
    * MONGO STORAGE 
    * 
    */
-  if(!serverstats) {
   await bot.mutils.createGuild({
     info: {
       id: guild.id,

@@ -6,4 +6,4 @@ The supported (most up-to-date) version of the bot is the one that is currently 
 
 ## Reporting a Vulnerability
 
-If you find a vulnerability, please report it using the Issues tab or by contacting Stentorian#9524 on Discord.
+If you find a vulnerability, please report it using the Issues tab or by contacting Stentorian#6969 on Discord.

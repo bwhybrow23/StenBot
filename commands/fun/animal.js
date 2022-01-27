@@ -96,7 +96,7 @@ module.exports = {
           }
   
           const lizardEmbed = new Discord.MessageEmbed()
-            .setTitle("Hjonk!")
+            .setTitle("Cute lil lizard!")
             .setColor("#ff9900")
             .setImage(url)
             .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });

@@ -57,7 +57,7 @@ module.exports = {
       .addField(`Roles:`, `${guild.roles.cache.size}`, true)
       .addField(`Member Count:`, `${guild.memberCount}`, true)
       .addField(`Bot Count:`, `${guild.members.cache.filter(member => member.user.bot).size}`, true)
-      .setFooter({ text: `Created` })
+      .setFooter({ text: 'Created' })
       .setTimestamp(guild.createdAt);
 
     message.channel.send({ embeds: [embed.toJSON()]});
