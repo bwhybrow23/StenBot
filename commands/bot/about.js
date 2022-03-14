@@ -26,7 +26,6 @@ module.exports = {
         },
         {
           name: "Why was StenBot Created?",
-          // value: "It was mainly created to save me from the pain of creating multiple bots for clients. I also don't like some of the features that are included with major Discord bots. It started as a copy and paste bot that i was going to publish \"Open Source\" on Github. Then I recieved some help from a friend called Samb8104 who gave me some old code from a bot he was working on and I was able to add per server configs and cool features that you're seeing today!",
           value: "StenBot was originally created with the idea in mind of reducing the amount of Discord bots every server needs. It was also to take the stress off making so many Discord bots for friends and just giving them this bot instead. It contains a plethra of features and more to come in the future with consistent updates."
         }],
         footer: {
