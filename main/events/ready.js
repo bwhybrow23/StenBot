@@ -112,33 +112,33 @@ module.exports = (bot) => {
    * Bot Lists
    * 
    */
-  const dbots = require("dbots");
-  const poster = new dbots.Poster({
-    clientID: '452053607383302145',
-    apiKeys: {
-      botsfordiscord: bot.settings.connections.botslist.bfd,
-      discordbotlist: bot.settings.connections.botslist.dbl,
-      topgg: bot.settings.connections.botslist.topgg
-    }, 
-    clientLibrary: 'discord.js',
-    serverCount: async () => bot.guilds.cache.size,
-    userCount: async () => bot.memberCount,
-    voiceConnections: async () => 0
-  });
+  // const dbots = require("dbots");
+  // const poster = new dbots.Poster({
+  //   clientID: '452053607383302145',
+  //   apiKeys: {
+  //     botsfordiscord: bot.settings.connections.botslist.bfd,
+  //     discordbotlist: bot.settings.connections.botslist.dbl,
+  //     topgg: bot.settings.connections.botslist.topgg
+  //   }, 
+  //   clientLibrary: 'discord.js',
+  //   serverCount: async () => bot.guilds.cache.size,
+  //   userCount: async () => bot.memberCount,
+  //   voiceConnections: async () => 0
+  // });
   
-  // Posting Function
-  let post = () => {
-    poster.post('botsfordiscord');
-    poster.post('discordbotlist');
-    // poster.post('topgg');
-    return bot.log.post("success", "Voting sites updated with guild and user information");
-  }
-  //Initial post
-  post();
+  // // Posting Function
+  // let post = () => {
+  //   poster.post('botsfordiscord');
+  //   poster.post('discordbotlist');
+  //   // poster.post('topgg');
+  //   return bot.log.post("success", "Voting sites updated with guild and user information");
+  // }
+  // //Initial post
+  // post();
 
-  setTimeout(() => {
-    post();
-  }, 1800000); // Every 30 minutes! 
+  // setTimeout(() => {
+  //   post();
+  // }, 1800000); // Every 30 minutes! 
 
   //Refresh Cache
   // try {
