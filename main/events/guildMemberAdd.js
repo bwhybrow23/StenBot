@@ -70,7 +70,7 @@ module.exports = async (bot, member) => {
         let toaddrole = member.guild.roles.cache.get(config.userjoin.role);
         if(!toaddrole) {
           try {
-            member.guild.owner.send("Hi! This is StenBot just DM'ing you to let you know that the role you have configured for new members in your server cannot be found. /nThis may be because it has been deleted. Please re-add the role by doing `sb!config-userjoin role <@ROLE>`. \n\nThank you for your understanding and if you have any further questions, please contact Stentorian#9524 or run the `sb!invite` command for the support server.");
+            member.guild.owner.send("Hi! This is StenBot just DM'ing you to let you know that the role you have configured for new members in your server cannot be found. /nThis may be because it has been deleted. Please re-add the role by doing `sb!config-userjoin role <@ROLE>`. \n\nThank you for your understanding and if you have any further questions, please contact Stentorian#6969 or run the `sb!invite` command for the support server.");
           } catch (error) {
             return;
           }

@@ -34,7 +34,7 @@ const discord = async (req, res, next) => {
     bot.log.post("error", error);
     res.status(400).json({
       error: true,
-      message: "Unauthorized: An error occured. Please contact Stentorian#9524 with a close timestamp of this occurance so the issue can be resolved."
+      message: "Unauthorized: An error occured. Please contact Stentorian#6969 with a close timestamp of this occurance so the issue can be resolved."
     })
   }
 }

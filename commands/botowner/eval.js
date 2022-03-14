@@ -32,7 +32,7 @@ module.exports = {
         .setColor(bot.settings.color.yellow)
         .addField(":inbox_tray: Input", `\`\`\`js\n${codein}\`\`\``)
         .addField(":outbox_tray: Output", `\`\`\`js\n${code}\n\`\`\``)
-        .setFooter(`Eval Command`, bot.user.displayURL)
+        .setFooter(`Eval Command`, bot.user.avatarURL())
         .setTimestamp();
       message.channel.send({embeds: [embed.toJSON()]});
     } catch (e) {

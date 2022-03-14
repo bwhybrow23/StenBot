@@ -19,7 +19,7 @@ module.exports = {
         .setTitle("Random Fact")
         .setDescription(fact)
         .setColor(bot.settings.color.yellow)
-        .setFooter(message.server.name, `https://i.imgur.com/klY5xCe.png"`);
+        .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
   
       message.channel.send({embeds: [embed.toJSON()]});
   

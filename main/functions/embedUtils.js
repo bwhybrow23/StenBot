@@ -75,7 +75,7 @@ const createEmbed = (type, title, desc, fields, footer, message) => {
           }
       });
       //Footer icon
-      // embedTemplate.footer.icon_url = bot.user.displayAvatarURL()
+      // embedTemplate.footer.icon_url = bot.user.avatarURL()
       resolve(embedTemplate);
   });
 };
@@ -316,7 +316,7 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
               }
           });
           //Footer icon
-          // embedTemplate.footer.icon_url = bot.user.displayAvatarURL()
+          // embedTemplate.footer.icon_url = bot.user.avatarURL()
           resolve(embedTemplate);
       }
   });

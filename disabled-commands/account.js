@@ -51,7 +51,7 @@ module.exports = {
         let accountexists = fs.existsSync(
           `./data/accounts/${message.author.id}.json`
         );
-        if (accountexists= == true) {
+        if (accountexists === true) {
           return bot.createEmbed("error", "", `You already have a StenBot Account`, [], `${message.guild.name}`, message)
             .then((embed) => message.channel.send(embed))
             .catch((error) => bot.log.post("error", error));

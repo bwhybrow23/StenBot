@@ -38,7 +38,7 @@ module.exports = {
             .setDescription(`${userNick} cuddles ${argsMsg}`)
             .setImage(url)
             .setColor(bot.settings.color.yellow)
-            .setFooter(message.guild.name, `https://i.imgur.com/klY5xCe.png"`);
+            .setFooter({ text: message.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
   
           message.channel.send({embeds: [cEmbed.toJSON()]});
           break;
@@ -58,8 +58,8 @@ module.exports = {
             .setDescription(`${userNick} feeds ${argsMsg}`)
             .setImage(url)
             .setColor(bot.settings.color.yellow)
-            .setFooter(message.guild.name, `https://i.imgur.com/klY5xCe.png"`);
-  
+            .setFooter({ text: message.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
+
           message.channel.send({embeds: [fEmbed.toJSON()]});
           break;
         case "hug":
@@ -80,7 +80,7 @@ module.exports = {
             .setDescription(`${userNick} hugs ${argsMsg}`)
             .setImage(url)
             .setColor(bot.settings.color.yellow)
-            .setFooter(message.guild.name, `https://i.imgur.com/klY5xCe.png"`);
+            .setFooter({ text: message.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
   
           message.channel.send({embeds: [hEmbed.toJSON()]});
           break;
@@ -103,7 +103,7 @@ module.exports = {
             .setDescription(`${userNick} kisses ${argsMsg}`)
             .setImage(url)
             .setColor(bot.settings.color.yellow)
-            .setFooter(message.guild.name, `https://i.imgur.com/klY5xCe.png"`);
+            .setFooter({ text: message.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
   
           message.channel.send({embeds: [kEmbed.toJSON()]});
           break;
@@ -126,7 +126,7 @@ module.exports = {
             .setDescription(`${userNick} pats ${argsMsg}`)
             .setImage(url)
             .setColor(bot.settings.color.yellow)
-            .setFooter(message.guild.name, `https://i.imgur.com/klY5xCe.png"`);
+            .setFooter({ text: message.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
   
           message.channel.send({embeds: [pEmbed.toJSON()]});
   
@@ -150,7 +150,7 @@ module.exports = {
             .setDescription(`${userNick} pokes ${argsMsg}`)
             .setImage(url)
             .setColor(bot.settings.color.yellow)
-            .setFooter(message.guild.name, `https://i.imgur.com/klY5xCe.png"`);
+            .setFooter({ text: message.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
   
           message.channel.send({embeds: [poEmbed.toJSON()]});
   
@@ -174,7 +174,7 @@ module.exports = {
             .setDescription(`${userNick} slapped ${argsMsg}`)
             .setImage(url)
             .setColor(bot.settings.color.yellow)
-            .setFooter(message.guild.name, `https://i.imgur.com/klY5xCe.png"`);
+            .setFooter({ text: message.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
   
           message.channel.send({embeds: [sEmbed.toJSON()]});
           break;
@@ -197,7 +197,7 @@ module.exports = {
             .setDescription(`${userNick} tickles ${argsMsg}`)
             .setImage(url)
             .setColor(bot.settings.color.yellow)
-            .setFooter(message.guild.name, `https://i.imgur.com/klY5xCe.png"`);
+            .setFooter({ text: message.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
   
           message.channel.send({embeds: [tEmbed.toJSON()]});
   
@@ -218,7 +218,7 @@ module.exports = {
             .addField("`sb!action poke @user`", "*pokes* hehe")
             .addField("`sb!action slap @user`", "Give someone a good ol' right hander.")
             .addField("`sb!action tickle @user`", "TICKLE MONSTER TIME")
-            .setFooter(message.author.tag, message.author.avatarURL);
+            .setFooter({ text: message.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
   
           message.channel.send({embeds: [helpEmbed]});
   

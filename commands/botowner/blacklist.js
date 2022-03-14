@@ -26,7 +26,7 @@ module.exports = {
               .catch((error) => bot.log.post("error", error));
           }
   
-          var reason = args[2].join(" ");
+          var reason = args.slice(2).join(" ");
           if (!reason) {
             reason = "N/A"
           }
@@ -61,7 +61,7 @@ module.exports = {
               .catch((error) => bot.log.post("error", error));
   
             //DM Guild Owner
-            await bot.createEmbed("error", "", `I'm afraid that your server **${targetguild.name}** has been blacklisted from StenBot for the reason **${reason}**. If you believe this is an error, please contact **Stentorian#9524** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${message.guild.name}`, message)
+            await bot.createEmbed("error", "", `I'm afraid that your server **${targetguild.name}** has been blacklisted from StenBot for the reason **${reason}**. If you believe this is an error, please contact **Stentorian#6969** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${message.guild.name}`, message)
               .then((embed) => targetguild.owner.send(embed))
               .catch((error) => bot.log.post("error", error));
   
@@ -105,7 +105,7 @@ module.exports = {
               .catch((error) => bot.log.post("error", error));
   
             //DM Guild Owner
-            await bot.createEmbed("error", "", `I'm afraid that you have been blacklisted from using StenBot for the reason **${reason}**. If you believe this is an error, please contact **Stentorian#9524** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${message.guild.name}`, message)
+            await bot.createEmbed("error", "", `I'm afraid that you have been blacklisted from using StenBot for the reason **${reason}**. If you believe this is an error, please contact **Stentorian#6969** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${message.guild.name}`, message)
               .then((embed) => {
                 try {
                   targetuser.send(embed);

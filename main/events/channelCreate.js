@@ -28,6 +28,7 @@ module.exports = async (bot, channel) => {
 
   //Get Config
   let config = await bot.mutils.getGuildById(channel.guild.id);
+  if(!config) return;
 
   //Check config and send message
   if (config.logging.enabled === true) {

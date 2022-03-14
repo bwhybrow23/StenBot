@@ -61,7 +61,7 @@ module.exports = {
           .addField("Player Count:", `${players}/${res.players.max}`, true)
           .addField("Server Version:", res.server.name, true)
           .addField("MOTD:", `\`\`\`${motd}\`\`\``, false)
-          .setFooter(message.server.name, message.server.iconURL());
+          .setFooter({ text: message.server.name, iconURL: message.server.iconURL()});
         message.reply({embeds: [onlineEmbed.toJSON()]});
     }
 

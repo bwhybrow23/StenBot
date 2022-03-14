@@ -33,7 +33,7 @@ module.exports = {
           .setTitle("Aww... Kitty!")
           .setColor("#ff9900")
           .setImage(url)
-          .setFooter(`${message.server.name}`, `https://i.imgur.com/klY5xCe.png`);
+          .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
 
         message.channel.send({embeds: [catEmbed.toJSON()]});
         break;
@@ -49,7 +49,7 @@ module.exports = {
           .setTitle("Aww... Doggo!")
           .setColor("#ff9900")
           .setImage(url)
-          .setFooter(`${message.server.name}`, `https://i.imgur.com/klY5xCe.png`);
+          .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
 
         message.channel.send({embeds: [dogEmbed.toJSON()]});
 
@@ -65,7 +65,7 @@ module.exports = {
           .setTitle("Aww... Fox!")
           .setColor("#ff9900")
           .setImage(url)
-          .setFooter(`${message.server.name}`, `https://i.imgur.com/klY5xCe.png`);
+          .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
 
         message.channel.send({embeds: [foxEmbed.toJSON()]});
 
@@ -82,11 +82,28 @@ module.exports = {
           .setTitle("Hjonk!")
           .setColor("#ff9900")
           .setImage(url)
-          .setFooter(`${message.server.name}`, `https://i.imgur.com/klY5xCe.png`);
+          .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
 
         message.channel.send({embeds: [gooseEmbed.toJSON()]});
 
         break;
+
+        case "lizard":
+
+          await apiFetch("lizard");
+          if (!url) {
+            await apiFetch("lizard");
+          }
+  
+          const lizardEmbed = new Discord.MessageEmbed()
+            .setTitle("Cute lil lizard!")
+            .setColor("#ff9900")
+            .setImage(url)
+            .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
+  
+          message.channel.send({embeds: [lizardEmbed.toJSON()]});
+  
+          break;
 
       default:
 
@@ -114,7 +131,7 @@ module.exports = {
               },
               {
                 name: "Possible Values:",
-                value: "Cat, Dog, Fox, Goose"
+                value: "Cat, Dog, Fox, Goose, Lizard"
               }
             ],
             footer: {

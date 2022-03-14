@@ -1,4 +1,4 @@
-FROM node:16.6.1
+FROM node:16.13.1
 
 # Install Nano
 RUN ["apt-get", "update"]
@@ -8,8 +8,6 @@ RUN ["apt-get", "-y", "install", "nano"]
 WORKDIR /srv/StenBot
 
 # Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
 COPY package*.json ./
 
 RUN npm install
