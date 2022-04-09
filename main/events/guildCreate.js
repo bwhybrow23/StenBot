@@ -15,75 +15,77 @@ module.exports = async (bot, guild) => {
     return bot.log.post("error", err);
   }
 
-  //Leave the guild if its blacklisted
-  if(serverstats) {
+  if (!serverstats.info) {
+
+    bot.log.post("info", `Joined guild ${guild.name} | ${guild.id}`);
+
+    /**
+     * 
+     * MONGO STORAGE 
+     * 
+     */
+    await bot.mutils.createGuild({
+      info: {
+        id: guild.id,
+        name: guild.name,
+        owner_id: guild.ownerId,
+        blacklisted: false
+      },
+      gatekeeper: {
+        welcome_enabled: false,
+        welcome_channel: "0",
+        welcome_message: "Welcome {user} to {server}",
+        leave_enabled: false,
+        leave_channel: "0",
+        leave_message: "Goodbye {user} from {server}"
+      },
+      userjoin: {
+        enabled: false,
+        role: "0",
+        nickname: "None"
+      },
+      moderation: {
+        staff_role: "0",
+        link_block: false,
+        filter: [],
+        mute_role: ""
+      },
+      logging: {
+        enabled: false,
+        channel: "0",
+        level: "medium",
+        ignore: []
+      },
+      tickets: {
+        enabled: false,
+        message: "**User:** {user}\n**Reason:** {reason}"
+      }
+    })
+  } else {
+    //Leave the guild if its blacklisted
     if (serverstats.info.blacklisted === true) {
       bot.createEmbed("error", "", `I'm afraid that StenBot cannot join your server **${guild.name}** as your server is blacklisted from the bot. If you believe this is an error, please contact **Stentorian#6969** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${guild.name}`, bot)
         .then(embed => gOwner.send(embed))
         .catch(error => bot.log.post("error", error));
       guild.leave();
       return bot.log.post("info", `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
-    } 
-  } else {
-
-  bot.log.post("info", `Joined guild ${guild.name} | ${guild.id}`);
-
-  /**
-   * 
-   * MONGO STORAGE 
-   * 
-   */
-  await bot.mutils.createGuild({
-    info: {
-      id: guild.id,
-      name: guild.name,
-      owner_id: guild.ownerId,
-      blacklisted: false
-    },
-    gatekeeper: {
-      welcome_enabled: false,
-      welcome_channel: "0",
-      welcome_message: "Welcome {user} to {server}",
-      leave_enabled: false,
-      leave_channel: "0",
-      leave_message: "Goodbye {user} from {server}"
-    },
-    userjoin: {
-      enabled: false,
-      role: "0",
-      nickname: "None"
-    },
-    moderation: {
-      staff_role: "0",
-      link_block: false,
-      filter: [],
-      mute_role: ""
-    },
-    logging: {
-      enabled: false,
-      channel: "0",
-      level: "medium",
-      ignore: []
-    },
-    tickets: {
-      enabled: false,
-      message: "**User:** {user}\n**Reason:** {reason}"
     }
-  })
-}
+  }
 
-  if(!Punishment.findOne({ guildId: guild.id })) {
-  //Punishment Config Create
-  await new Punishment({
+  if (!Punishment.findOne({
+      guildId: guild.id
+    })) {
+    //Punishment Config Create
+    await new Punishment({
       guildId: guild.id,
       bans: [],
       kicks: [],
       mutes: [],
       tempmutes: [],
       warns: []
-  });
+    });
 
-}
+  }
 
   //Update bot-data.json
   let botdata = require("../../data/global/bot-data.json");
@@ -122,7 +124,7 @@ module.exports = async (bot, guild) => {
         },
         {
           name: "Server Owner",
-          value: `${gOwner.tag} || ${gOwner.id}`,
+          value: `${gOwner.user.tag} || ${gOwner.id}`,
           inline: true
         },
         {

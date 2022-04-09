@@ -3,7 +3,7 @@ module.exports = {
   category: "mod",
   description: "Permanently ban a user from the server.",
   usage: "<@USER> [REASON]",
-  example: "@Ash#2307 Bullying",
+  example: "@James#2307 Bullying",
   options: { permission: "STAFF", enabled: true, guildOnly: true },
   run: async (bot, message, args) => {
 
