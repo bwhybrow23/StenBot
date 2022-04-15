@@ -26,7 +26,7 @@
     "url": "https://github.com/sponsors/bwhybrow23"
   },
   "dependencies": {
-    "@discordjs/rest": "^0.4.0-dev.1647259762.2297c2b",
+    "@discordjs/rest": "^0.4.0-dev.1649937819-b01f414",
     "ascii-table": "^0.0.9",
     "bcrypt": "^5.0.1",
     "btoa": "^1.2.1",
