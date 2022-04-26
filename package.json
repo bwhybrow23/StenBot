@@ -33,7 +33,7 @@
     "chalk": "^4.1.2",
     "cors": "^2.8.5",
     "dbots": "^11.0.0",
-    "discord-api-types": "^0.29.0",
+    "discord-api-types": "^0.32.0",
     "discord-moderation": "github:bwhybrow23/discord-moderation#master",
     "discord.js": "^13.6.0",
     "ejs": "^3.1.6",
