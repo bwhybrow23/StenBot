@@ -1,7 +1,7 @@
 const { DiscordAPIError, VoiceConnection } = require("discord.js");
 
 module.exports = (bot) => {
-  const utils = require("../functions/utilities.js");
+  const utils = require("../functions/utils.js");
 
   //Mode Checker
   const fs = require("fs");

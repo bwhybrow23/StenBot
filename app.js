@@ -43,19 +43,23 @@ bot.eventEmbed = embedUtils.eventEmbed;
 const efunctions = require("./main/functions/eventUtils.js");
 bot.efunctions = efunctions;
 
-//Timeout Utilities
+//Timeout Utils
 const {
   TimeoutUtils
 } = require("./main/functions/timeoutUtils");
 const timeouts = new TimeoutUtils(bot);
 bot.timeouts = timeouts;
 
-//Punishment Utilities
+//Punishment Utils
 const {
   PunishmentUtils
 } = require("./main/functions/punishmentUtils.js");
 const punishments = new PunishmentUtils(bot);
 bot.punishments = punishments;
+
+//General Utils
+const utils = require("./main/functions/utils.js");
+bot.utils = utils;
 
 /**
  *

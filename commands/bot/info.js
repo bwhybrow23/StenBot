@@ -14,7 +14,7 @@ module.exports = {
 
     let ping = Math.floor(bot.ws.ping);
     let memUsed = Math.floor(memusage.info.memoryUsage);
-    let uptime = new Date(process.uptime() * 1000).toISOString().substr(11, 8);
+    let uptime = bot.utils.formatTime(process.uptime());
     let totalGuilds = bot.guilds.cache.size;
     let totalMembers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
     let totalCommands = require("../../data/global/bot-data.json").stats.commands.total;

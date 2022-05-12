@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.5 - 
+* Removed un-needed functions from utils.js
+* Renamed utilities.js to utils.js
+* Updated sb!info so it shows uptime correctly
+
 ## 2.2.4 - 09/04/2022
 * StenBot no longer crashes when joining a new server (yes, it took this long to fix the bug)
 * The "New Server" embed actually shows the server owner's name and not "undefined" 
