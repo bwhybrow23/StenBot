@@ -58,6 +58,11 @@ module.exports = {
   
     return pad(hours) + ':' + pad(minutes) + ':' + pad(seconds);
 
+  },
+
+  capitalize: function (string) {
+    if (typeof string !== "string") return "";
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
   
 };

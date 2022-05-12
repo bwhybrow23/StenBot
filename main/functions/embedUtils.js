@@ -114,11 +114,6 @@ const noPermsEmbed = (footer, bot) => {
 
 const helpEmbed = (command, bot) => {
   return new Promise((resolve, reject) => {
-      //Capitalize function
-      const capitalize = (s) => {
-          if (typeof s !== "string") return "";
-          return s.charAt(0).toUpperCase() + s.slice(1);
-      };
 
       //Get command info
       let cmd;
@@ -136,7 +131,7 @@ const helpEmbed = (command, bot) => {
 
       //Set up variables for the embed
       let prefix = bot.settings.prefix;
-      let name = capitalize(cmd.name);
+      let name = bot.utils.capitalize(cmd.name);
       let description = cmd.description;
       // let permission = capitalize(cmd.permission);
       let usage;

@@ -1,10 +1,13 @@
 # Changelog
 
-## 2.2.5 - 
+## 2.2.5 - 12/05/2022
 * Removed un-needed functions from utils.js
 * Renamed utilities.js to utils.js
 * Updated sb!info so it shows uptime correctly
-* Updated commands that ran off nekos.life database to v3 (they removed the nsfw ones :/)
+* Update NPM packages
+* Switched to new image API (old one is going to deprecate a lot of what StenBot uses)
+* Added lewd command (18+)
+* Put capitalize function in utils.js
 
 ## 2.2.4 - 09/04/2022
 * StenBot no longer crashes when joining a new server (yes, it took this long to fix the bug)

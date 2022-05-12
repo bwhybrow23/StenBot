@@ -11,7 +11,7 @@ module.exports = {
       let fetch = require("node-fetch");
   
       let query = args.slice(0).join(" ");
-      if (!query) return message.channel.send("Please provide a search query.")
+      if (!query) return message.reply("Please provide a search query.")
   
       let response;
       await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${bot.settings.connections.giphyAPI}&q=${query}&limit=10&offset=0&rating=pg-13&lang=en`)

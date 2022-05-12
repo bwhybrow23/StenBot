@@ -12,13 +12,7 @@ module.exports = {
     const moment = require("moment");
     const ms = require("ms");
     const TimeoutUtils = require("../../main/functions/timeoutUtils");
-    
-    //Capitalize function
-    const capitalize = (s) => {
-      if (typeof s !== "string") return "";
-      return s.charAt(0).toUpperCase() + s.slice(1);
-    };
-    
+
     let command = "reminder";
     let user = message.author.id;
     let reminders;
@@ -49,7 +43,7 @@ module.exports = {
             value: `**Expiry:** ${moment(moment.unix(reminder.expires)).format("H:mm DD/MM/YYYY z")} \n**Reoccuring:** ${reminder.reoccuring ? "Yes" : "No"}`
           }
           if (reminder.reoccuring === true) {
-            data.value += `\n**Reoccurs Every:** ${capitalize(moment.duration(reminder.reoccuringPeriod).humanize())}`
+            data.value += `\n**Reoccurs Every:** ${bot.utils.capitalize(moment.duration(reminder.reoccuringPeriod).humanize())}`
           }
           listEmbed.fields.push(data);
         });
@@ -120,7 +114,7 @@ module.exports = {
           "color": bot.settings.color.green,
           "fields": [{
               "name": "Time:",
-              "value": capitalize(moment.duration(time).humanize())
+              "value": bot.utils.capitalize(moment.duration(time).humanize())
             },
             {
               "name": "Message:",
@@ -139,7 +133,7 @@ module.exports = {
         if (reoccuring === true) {
           addEmbed.fields.push({
             "name": "Reoccuring Period",
-            "value": capitalize(moment.duration(reoccuringPeriod).humanize())
+            "value": bot.utils.capitalize(moment.duration(reoccuringPeriod).humanize())
           })
         }
     

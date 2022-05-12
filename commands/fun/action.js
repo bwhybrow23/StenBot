@@ -8,9 +8,7 @@ module.exports = {
     run: async (bot, message, args) => {
   
       const Discord = require("discord.js");
-  
-      const nekos = require('nekos.life');
-      const neko = new nekos();
+      const fetch = require("node-fetch");
   
       const subc = args[0];
   
@@ -227,8 +225,9 @@ module.exports = {
   
       // Fetch function
       async function apiFetch(action) {
-        await neko[action]()
-          .then(data => url = data.url)
+        await fetch(`http://api.nekos.fun:8080/api/${action}`)
+        .then(res => res.json())
+        .then(json => url = json.image)
       }
     },
   };

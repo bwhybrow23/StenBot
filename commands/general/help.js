@@ -10,12 +10,6 @@ module.exports = {
     const Discord = require("discord.js");
     let prefix = bot.settings.prefix;
 
-    //Capitalize function
-    const capitalize = (s) => {
-      if (typeof s !== "string") return "";
-      return s.charAt(0).toUpperCase() + s.slice(1);
-    };
-
     if (bot.categories.includes(args[0])) {
       //Category specific help
 
@@ -24,7 +18,7 @@ module.exports = {
       //Embed to Send
       const embed = new Discord.MessageEmbed()
         .setColor(bot.settings.color.blue)
-        .setTitle(capitalize(args[0]))
+        .setTitle(bot.utils.capitalize(args[0]))
         .setFooter({ text: `Help Command | Syntax: <> = required, [] = optional`, iconURL: bot.user.avatarURL() })
         .setTimestamp();
 
