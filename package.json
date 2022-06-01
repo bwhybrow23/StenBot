@@ -48,6 +48,6 @@
     "node-fetch": "^2.6.6",
     "path": "^0.12.7",
     "string-template": "^1.0.0",
-    "superagent": "^7.1.1"
+    "superagent": "^7.1.6"
   }
 }
