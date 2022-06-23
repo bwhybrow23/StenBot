@@ -1,28 +1,27 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-  name: "stealpic",
+  data: new SlashCommandBuilder()
+    .setName("stealpic").setDescription("Steal a user's avatar.")
+    .addUserOption(option => option.setName("user").setDescription("The user to steal the avatar from.")),
   category: "fun",
   description: "Steal a user's avatar.",
   usage: "<@USER>",
   example: "@Jake#4012",
   options: { permission: "EVERYONE", enabled: true, guildOnly: true },
-  run: async (bot, message, args) => {
+  run: async (bot, interaction) => {
 
     const Discord = require("discord.js");
 
-    let stolen = message.mentions.users.first();
-    if (!stolen || args[0] === "help") {
-      return bot.helpEmbed("stealpic", bot)
-        .then((embed) => message.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
+    let stolen = interaction.options.getUser("user");
     let stolenPic = stolen.avatarURL();
 
     let embed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.yellow)
-      .setDescription(`**${message.author.username}** has stolen **${stolen.username}**'s profile picture!\n\nFind it here: [${stolen.username}'s Profile Picture](${stolenPic})`)
+      .setDescription(`**${interaction.user.username}** has stolen **${stolen.username}**'s profile picture!\n\nFind it here: [${stolen.username}'s Profile Picture](${stolenPic})`)
       .setImage(stolenPic)
-      .setFooter({ text: message.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png` });
+      .setFooter({ text: interaction.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png` });
 
-    message.channel.send({embeds: [embed.toJSON()]});
+    interaction.reply({embeds: [embed.toJSON()]});
   },
 };

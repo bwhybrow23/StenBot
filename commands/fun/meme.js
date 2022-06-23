@@ -1,13 +1,12 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-  name: "meme",
+  data: new SlashCommandBuilder()
+    .setName("meme").setDescription("Generate a random Reddit meme."),
   category: "fun",
-  description: "Generate a random Reddit meme",
-  usage: "",
-  example: "",
   options: { permission: "EVERYONE", enabled: true, cooldown: 2, guildOnly: false },
-  run: async (bot, message, args) => {
+  run: async (bot, interaction) => {
     
-    const Discord = require("discord.js");
     let fetch = require("node-fetch");
 
     let meme;
@@ -16,7 +15,7 @@ module.exports = {
       .then(json => meme = json)
       .catch((error) => {
         bot.log.post("error", error)
-        return message.reply("Command issue. Please contact the bot owner.");
+        return interaction.reply({ content: "An error occured while generating a meme. This could be because the API is down. Please try again later and if the issue persists, contact the bot owner.", ephemeral: "true" });
       })
 
     let embed = [{
@@ -31,7 +30,7 @@ module.exports = {
       }
     }]
 
-    message.reply({embeds: embed});
+    interaction.reply({embeds: embed});
 
   },
 }

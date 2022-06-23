@@ -1,51 +1,35 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-  name: "vccreate",
+  data: new SlashCommandBuilder()
+    .setName("vccreate").setDescription("Create a voice channel")
+    .addStringOption(option => option.setName("name").setDescription("The name of the channel you want to create").setRequired(true)),
   category: "admin",
-  description: "Creates a voice channel",
-  usage: "<NAME>",
-  example: "General VC",
   options: { permission: "ADMIN", aliases: ["vc"], enabled: true, guildOnly: true, cooldown: 5 },
-  run: async (bot, message, args) => {
+  run: async (bot, interaction) => {
 
-    const Discord = require("discord.js");
-
-    //Config and Permission Check
-    const config = await bot.mutils.getGuildById(message.guild.id);
-
-    if (message.member.permissions.has("ADMINISTRATOR") === false) {
-      return bot.noPermsEmbed(`${message.guild.name}`, bot)
-        .then((embed) => message.reply(embed))
+    if (interaction.member.permissions.has("ADMINISTRATOR") === false) {
+      return bot.noPermsEmbed(`${interaction.guild.name}`, bot)
+        .then((embed) => interaction.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     //Input Validation
-    var n = args.slice(0).join(" ");
-    if (!n || args[0] === "help") {
-      return bot.helpEmbed("vccreate", bot)
-        .then((embed) => message.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
+    var channelName = interaction.options.getString("name");
 
-    if (n.length < 1) {
-      return bot.createEmbed("error", "", `Error! You forgot to include a name for the channel!`, [], `${message.guild.name}`, message)
-        .then((embed) => message.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
-
-
-    if (n.length > 100) {
-      return bot.createEmbed("error", "", `The voice channel name has to be between 1 and 100 in **length**`, [], `${message.guild.name}`, message)
-        .then((embed) => message.reply(embed))
+    if (channelName.length > 100) {
+      return bot.createEmbed("error", "", `The voice channel name has to be between 1 and 100 in **length**`, [], `${interaction.guild.name}`, interaction, true)
+        .then((embed) => interaction.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     //Create the channel and do the stuff
-    message.guild.channels.create(`${n}`, {
+    interaction.guild.channels.create(`${channelName}`, {
       type: 'GUILD_VOICE',
-      reason: `Created by ${message.author.tag}`
+      reason: `Created by ${interaction.user.tag}`
     }).then((channel) => {
-      return bot.createEmbed("success", "", `The voice channel **${channel.name}** has been created.`, [], `${message.guild.name}`, message)
-        .then((embed) => message.reply(embed))
+      return bot.createEmbed("success", "", `The voice channel **${channel.name}** has been created.`, [], `${interaction.guild.name}`, interaction)
+        .then((embed) => interaction.reply(embed))
         .catch((error) => bot.log.post("error", error));
     });
   },

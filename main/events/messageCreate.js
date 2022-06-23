@@ -30,14 +30,51 @@ module.exports = async (bot, message) => {
     }
   };
 
+  //Message about new slash commands
+  if (message.content.startsWith(bot.settings.prefix)) {
+    if (message.author.id != bot.settings.ids.botOwner) {
+      //If it's not the bot owner
+      message.reply("StenBot has now moved over to using slash commands. Please ensure that the bot has the correct permissions. If you're unsure, invite the bot again through https://sbinvite.benwhybrow.com. \n\nFrom there, you can do `/` and it will show what commands are available. \n\nIf you have any questions, please join the Discord server and we'll be glad to help! https://discord.gg/PGfSYct");
+    } else if (message.author.id === bot.settings.ids.botOwner) {
+      //If it's the bot owner:
+      const args = message.content.slice(prefix.length).trim().split(/ +/g);
+      const cmd = args.shift().toLowerCase();
+
+      if (cmd.length === 0) return;
+
+      let command = bot.commands.get(cmd);
+      if (!command) command = bot.commands.get(bot.aliases.get(cmd));
+      if (!command) return;
+
+      //Check command is botowner only command
+      //This is so that botowner commands do not publicly appear on slash commands
+      if(command.category != "botowner") return;
+      if (command) {
+        command.run(bot, message, args);
+        logToStats(command);
+      }
+    
+      //Log to stats json
+      function logToStats(cmd) {
+        let botData = require("../../data/global/bot-data.json");
+        botData.stats.commands[cmd.category][cmd.name]++;
+        botData.stats.commands[cmd.category].total++;
+        botData.stats.commands.total++;
+        fs.writeFileSync("./data/global/bot-data.json", JSON.stringify(botData, null, 4));
+      }
+    }
+  }
+
+
+  /**
+   * OLD COMMAND HANDLER
+   * DEPRECATED
+   */
+  /*
   //Command Handler
   const prefix = bot.settings.prefix;
 
-  if (message.author.bot) return;
-  // if (!message.guild) return;
   if (!message.content.startsWith(prefix)) return;
-  // if (!message.member)
-  //   message.member = await message.guild.fetchMember(message);
 
   // Ignore if blacklisted
   var bStatus;
@@ -66,7 +103,7 @@ module.exports = async (bot, message) => {
   if (message.channel.type === "DM") {
     if (!message.guild) {
       message.server = message.author;
-      message.server.name = message.author.username;
+      interaction.guild.name = message.author.username;
     }
   } else {
     message.server = message.guild;
@@ -114,5 +151,6 @@ module.exports = async (bot, message) => {
     botData.stats.commands.total++;
     fs.writeFileSync("./data/global/bot-data.json", JSON.stringify(botData, null, 4));
   }
+  */
 
 };

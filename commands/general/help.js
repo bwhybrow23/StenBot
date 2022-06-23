@@ -4,8 +4,8 @@ module.exports = {
   description: "Returns all commands, or information about one specific command.",
   usage: "[CATEGORY | COMMAND]",
   example: "ban",
-  options: { permission: "EVERYONE", enabled: true, guildOnly: false },
-  run: async (bot, message, args) => {
+  options: { permission: "EVERYONE", enabled: false, guildOnly: false },
+  run: async (bot, interaction) => {
 
     const Discord = require("discord.js");
     let prefix = bot.settings.prefix;
@@ -33,7 +33,7 @@ module.exports = {
         embed.addField(`\`${prefix}${cmd.name} ${cmd.usage}\``, `${cmd.description}`)
       });
 
-      message.channel.send({embeds: [embed.toJSON()]});
+      interaction.channel.send({embeds: [embed.toJSON()]});
     } else if (!args[0]) {
       //Main Embed
       let embed = new Discord.MessageEmbed()
@@ -51,17 +51,17 @@ module.exports = {
         .setFooter({ text: 'Help Command', iconURL: bot.user.avatarURL() })
         .setTimestamp();
 
-      message.channel.send({embeds: [embed.toJSON()]});
+      interaction.reply({embeds: [embed.toJSON()]});
     } else if (bot.commands.filter((cmd) => cmd.name === args[0])) {
       //Command Specific Help
 
       let input = args[0];
 
       return bot.helpEmbed(input, bot)
-        .then((embed) => message.reply(embed))
+        .then((embed) => interaction.reply(embed))
         .catch((error) => {
-          bot.createEmbed("error", "", `Cannot find a command under the name of ${input}`, [], message.author.tag, bot)
-            .then((embed) => message.reply(embed))
+          bot.createEmbed("error", "", `Cannot find a command under the name of ${input}`, [], interaction.user.tag, bot)
+            .then((embed) => interaction.reply(embed))
             .then(console.log(error))
         });
 

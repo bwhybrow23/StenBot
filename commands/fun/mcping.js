@@ -1,23 +1,37 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-  name: "mcping",
+  data: new SlashCommandBuilder()
+    .setName("balance").setDescription("Check yours or another user's balance.")
+    .addUserOption(option => option.setName("user").setDescription("The user to check the balance of.")),
+  category: "eco",
+  options: { permission: "EVERYONE", aliases: ["bal", "money"], enabled: true, cooldown: 5, guildOnly: false },
+  run: async (bot, interaction) => {
+
+    const ecoUtils = require("../../main/functions/ecoUtils");
+
+    let person = interaction.options.getUser("user") || interaction.user;
+
+    await ecoUtils.getUser(person.id).then(async (user) => {
+      return bot.createEmbed("info", "", `${person} has **${user.balance}** credits.`, [], ``, interaction)
+        .then((embed) => interaction.reply(embed))
+        .catch((error) => bot.log.post("error", error));
+    })
+
+  }
+};module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("mcping").setDescription("Ping a Minecraft server to find out more information about it")
+    .addStringOption(option => option.setName("server").setDescription("The server to ping.").setRequired(true)),
   category: "fun",
-  description: "Ping a Minecraft Server to find out more information about it.",
-  usage: "<SERVER IP>[:PORT]",
-  example: "play.hypixel.net",
   options: { permission: "EVERYONE", aliases: ["mc"], enabled: true, cooldown: 5, guildOnly: false },
-  run: async (bot, message, args) => {
+  run: async (bot, interaction) => {
 
     const Discord = require("discord.js");
     const fetch = require("node-fetch");
     const url = "https://mcapi.us/server/status?ip=";
 
-    if (!args.length || args[0] === "help") {
-      return bot.helpEmbed("mcping", bot)
-        .then((embed) => message.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
-
-    let address = args[0].split(":");
+    let address = interaction.options.getString("server").split(":");
     let ip = address[0];
     let port;
     if (address[1]) {
@@ -33,8 +47,8 @@ module.exports = {
 
     let res = await request.json();
     if (res.status === "error" && res.error === "server timeout") {
-      bot.createEmbed("error", "", `Error! The status couldn't be fetched, perhaps an invalid IP or Port.`, [], `${message.server.name}`, message)
-        .then((embed) => message.reply(embed))
+      bot.createEmbed("error", "", `Error! The status couldn't be fetched, perhaps an invalid IP or Port.`, [], `${interaction.guild.name}`, interaction, true)
+        .then((embed) => interaction.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -61,8 +75,8 @@ module.exports = {
           .addField("Player Count:", `${players}/${res.players.max}`, true)
           .addField("Server Version:", res.server.name, true)
           .addField("MOTD:", `\`\`\`${motd}\`\`\``, false)
-          .setFooter({ text: message.server.name, iconURL: message.server.iconURL()});
-        message.reply({embeds: [onlineEmbed.toJSON()]});
+          .setFooter({ text: interaction.guild.name, iconURL: interaction.guild.iconURL()});
+        interaction.reply({embeds: [onlineEmbed.toJSON()]});
     }
 
     if (!res.online) {
@@ -72,8 +86,8 @@ module.exports = {
         }, {
           name: `Status`,
           value: `Offline`
-        }, ], `${message.server.name}`, message)
-        .then((embed) => message.reply(embed))
+        }, ], `${interaction.guild.name}`, interaction)
+        .then((embed) => interaction.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
   },

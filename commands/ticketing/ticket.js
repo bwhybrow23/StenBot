@@ -1,34 +1,29 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-  name: "ticket",
+  data: new SlashCommandBuilder()
+    .setName("ticket").setDescription("Create a ticket")
+    .addStringOption(option => option.setName("reason").setDescription("The reason for the ticket.").setRequired(true)),
   category: "ticketing",
-  description: "Create a ticket (if enabled)",
-  usage: "<REASON>",
-  example: "I need help!",
   options: { permission: "EVERYONE", aliases: ["t"], enabled: true, guildOnly: true },
-  run: async (bot, message, args) => {
+  run: async (bot, interaction) => {
 
-    const Discord = require("discord.js");
+const config = await bot.mutils.getGuildById(interaction.guild.id);
 
-const config = await bot.mutils.getGuildById(message.guild.id);
+var reason = interaction.options.getString("reason");
 
-var reason = args.slice(0).join(" ");
-if (!reason || args[0] === "help") {
-  return bot.helpEmbed("ticket", bot)
-    .then((embed) => message.reply(embed))
-    .catch((error) => bot.log.post("error", error));
-}
 var format = require("string-template");
 var tnum = Math.floor(Math.random() * 1000001);
 
 function errsend(msg) {
-  message.channel.send({
+  interaction.reply({
     embeds: [{
       color: bot.settings.color.red,
       description: `Error! ${msg}`,
       timestamp: Date.now(),
       footer: {
         icon_url: "https://i.imgur.com/klY5xCe.png",
-        text: `${message.guild.name}`,
+        text: `${interaction.guild.name}`,
       },
     }, ]
   });
@@ -40,18 +35,18 @@ if (!config.tickets.enabled) {
 }
 
 if (config.moderation.staff_role === "0") {
-  return bot.createEmbed("error", "", `Error! A staff role has not been set. An owner or admin can set one using \`sb!config-moderation role <@ROLE>\``, [], `${message.guild.name}`, message)
-    .then((embed) => message.reply(embed))
+  return bot.createEmbed("error", "", `Error! A staff role has not been set. An owner or admin can set one using \`sb!config-moderation role <@ROLE>\``, [], `${interaction.guild.name}`, interaction)
+    .then((embed) => interaction.reply(embed))
     .catch((error) => bot.log.post("error", error));
 }
 
-let staffrole = message.guild.roles.cache.find(
+let staffrole = interaction.guild.roles.cache.find(
   (r) => r.id === config.moderation.staff_role
 );
 
 if (staffrole === undefined) {
-  return bot.createEmbed("error", "", `Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`sb!config-moderation role <@ROLE>\``, [], `${message.guild.name}`, message)
-    .then((embed) => message.channel.send(embed))
+  return bot.createEmbed("error", "", `Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`sb!config-moderation role <@ROLE>\``, [], `${interaction.guild.name}`, interaction)
+    .then((embed) => interaction.reply(embed))
     .catch((error) => bot.log.post("error", error));
 }
 
@@ -70,28 +65,28 @@ if (reason.length > 200) {
 function createChan(element) {
   if (element.constructor.name === "CategoryChannel") {
     if (element.name === "Tickets") {
-      message.guild.channels.create(`ticket-${tnum}`, {
+      interaction.guild.channels.create(`ticket-${tnum}`, {
           type: "GUILD_TEXT"
         })
         .then((channel) => {
           channel.setParent(element.id);
-          channel.setTopic(`${message.author.tag}'s Ticket`);
+          channel.setTopic(`${interaction.user.tag}'s Ticket`);
 
           //Channel permissions
-          channel.permissionOverwrites.create(message.guild.roles.everyone, {
+          channel.permissionOverwrites.create(interaction.guild.roles.everyone, {
             SEND_MESSAGES: false,
             VIEW_CHANNEL: false
           });
 
           channel.permissionOverwrites.create(
-            message.guild.roles.cache.get(config.moderation.staff_role), {
+            interaction.guild.roles.cache.get(config.moderation.staff_role), {
               SEND_MESSAGES: true,
               VIEW_CHANNEL: true,
               MANAGE_MESSAGES: true
             }
           );
 
-          channel.permissionOverwrites.create(message.author, {
+          channel.permissionOverwrites.create(interaction.user, {
             SEND_MESSAGES: true,
             VIEW_CHANNEL: true
           });
@@ -100,7 +95,7 @@ function createChan(element) {
           var tMessage = [];
           tMessage.push(
             format(config.tickets.message, {
-              user: message.author.tag,
+              user: interaction.user.tag,
               reason: reason,
             })
           );
@@ -114,7 +109,7 @@ function createChan(element) {
             content: `<@&${config.moderation.staff_role}>`
           });
 
-          message.channel.send({
+          interaction.reply({
             embeds: [{
               color: bot.settings.color.green,
               description: `Your ticket ${channel} has been created, ${message.member.displayName}`,
@@ -126,10 +121,10 @@ function createChan(element) {
 
           if (config.logging.enabled) {
             if (eventFunctions.checkChannel(config.logging.channel, bot)) {
-              message.guild.channels.cache.get(config.logging.channel).send({
+              interaction.guild.channels.cache.get(config.logging.channel).send({
                 embeds: [{
                   color: bot.settings.color.yellow,
-                  description: `**Ticket Created**\n**Created By:** ${message.author.tag}\n**Channel:** ${channel.name}\n**Id:** ${channel.id}\n\n**Reason:** ${reason}`,
+                  description: `**Ticket Created**\n**Created By:** ${interaction.user.tag}\n**Channel:** ${channel.name}\n**Id:** ${channel.id}\n\n**Reason:** ${reason}`,
                 }],
               });
             }
@@ -138,7 +133,7 @@ function createChan(element) {
     }
   }
 }
-  createChan(message.guild.channels.cache.some(createChan)); //Run the beast
+  createChan(interaction.guild.channels.cache.some(createChan)); //Run the beast
 }
 
 };

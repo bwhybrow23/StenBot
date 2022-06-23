@@ -1,53 +1,34 @@
-module.exports = {
-  name: "pay",
-  category: "eco",
-  description: "Give some money to another user.",
-  usage: "<@USER> <VALUE>",
-  example: "@Steve#6942 100",
-  options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: true },
-  run: async (bot, message, args) => {
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
-    const Discord = require("discord.js");
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("pay").setDescription("Give some money to another user.")
+    .addUserOption(option => option.setName("user").setDescription("The user to give money to.").setRequired(true))
+    .addIntegerOption(option => option.setName("amount") .setDescription("The amount of money to give.").setRequired(true)),
+  category: "eco",
+  options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: true },
+  run: async (bot, interaction) => {
+
     const ecoUtils = require("../../main/functions/ecoUtils");
 
-    let toBePaid
-    try {
-      toBePaid = await ecoUtils.getUser(message.mentions.users.first().id)
-    }
-    catch (error) {
-      return message.reply("No user mentioned")
-    }
-    let payee = await ecoUtils.getUser(message.author.id);
-    let amount;
-    try {
-      amount = parseInt(args[1]);
-    } catch (error) {
-      return bot.helpEmbed("pay", bot)
-        .then((embed) => message.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
+    let toBePaid = await ecoUtils.getUser(interaction.options.getUser("user").id);
 
-    if (!toBePaid || !amount || args[0] === "help") {
-      return bot.helpEmbed("pay", bot)
-        .then((embed) => message.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
+    let payee = await ecoUtils.getUser(interaction.user.id);
+    let amount = interaction.options.getInteger("amount");
 
-    if (message.content.includes("-")) {
-      // if the message includes "-" do this.
-      return message.channel.send("Negative money can not be paid.");
-    }
+    // if (amount.includes("-")) {
+    //   // if the message includes "-" do this.
+    //   return interaction.reply("Negative money can not be paid.");
+    // }
 
     if (payee.balance < amount) {
-      return message.reply(
-        `That's more money than you've got in your balance.`
-      );
+      return interaction.reply({ content: "You do not have enough money to pay that amount.", ephemeral: "true" });
     }
 
-    await ecoUtils.updateUser(payee.discordId, payee.balance - amount).then(async () => {
-      await ecoUtils.updateUser(toBePaid.discordId, toBePaid.balance + amount).then(async (user) => {
-        return bot.createEmbed("success", "", `${amount} has now been transferred to ${message.mentions.users.first()}'s balance. Their new balance is ${user.balance}.`, [], ``, message)
-          .then((embed) => message.reply(embed))
+    await ecoUtils.updateUser(payee.discordID, payee.balance - amount).then(async () => {
+      await ecoUtils.updateUser(toBePaid.discordID, toBePaid.balance + amount).then(async (user) => {
+        return bot.createEmbed("success", "", `${amount} has now been transferred to ${interaction.options.getUser("user").tag}'s balance. Their new balance is ${user.balance}.`, [], ``, interaction)
+          .then((embed) => interaction.reply(embed))
           .catch((error) => bot.log.post("error", error));
       })
     })

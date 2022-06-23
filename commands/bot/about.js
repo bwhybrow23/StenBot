@@ -1,13 +1,13 @@
-module.exports = {
-  name: "about",
-  category: "bot",
-  description: "Gives some information about StenBot.",
-  usage: "",
-  example: "",
-  options: { permission: "EVERYONE", enabled: true, guildOnly: false },
-  run: async (bot, message) => {
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
-      return message.channel.send({embeds: [{
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("about").setDescription("Get some information about StenBot"),
+  category: "bot",
+  options: { permission: "EVERYONE", enabled: true, guildOnly: false },
+  run: async (bot, interaction) => {
+
+      return interaction.reply({embeds: [{
         title: "Bot Information", 
         color: bot.settings.color.blue,
         thumbnail: bot.user.avatarURL(),
@@ -30,7 +30,7 @@ module.exports = {
         }],
         footer: {
           icon_url: bot.user.avatarURL(),
-          text: `${message.server.name}`
+          text: `${interaction.guild.name}`
         }
       }]})
 

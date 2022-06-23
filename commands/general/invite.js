@@ -1,11 +1,11 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-  name: "invite",
+  data: new SlashCommandBuilder()
+    .setName("invite").setDescription("Information on how to invite the bot to your Discord server!"),
   category: "general",
-  description: "Information on how to invite the bot to your Discord server.",
-  usage: "",
-  example: "",
   options: { permission: "EVERYONE", enabled: true, guildOnly: false },
-  run: async (bot, message, args) => {
+  run: async (bot, interaction) => {
 
     const Discord = require("discord.js");
 
@@ -21,8 +21,8 @@ module.exports = {
       .addField("Support Server", "https://discord.benwhybrow.com")
       .addField("Donation Link", "https://paypal.me/benwhybrow")
       .setThumbnail(bicon)
-      .setFooter({ text: `${message.server.name}`, iconURL: `https://i.imgur.com/klY5xCe.png` });
+      .setFooter({ text: `${interaction.guild.name}`, iconURL: `https://i.imgur.com/klY5xCe.png` });
 
-    message.channel.send({embeds: [inviteEmbed.toJSON()]});
+    interaction.reply({embeds: [inviteEmbed.toJSON()]});
   },
 };

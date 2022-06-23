@@ -1,26 +1,21 @@
-module.exports = {
-  name: "balance",
-  category: "eco",
-  description: "Check your balance.",
-  usage: "[@USER]",
-  example: "@Steve#1234",
-  options: { permission: "EVERYONE", aliases: ["bal", "money"], enabled: true, cooldown: 5, guildOnly: false },
-  run: async (bot, message, args) => {
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
-    const Discord = require("discord.js");
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("balance").setDescription("Check yours or another user's balance.")
+    .addUserOption(option => option.setName("user").setDescription("The user to check the balance of.")),
+  category: "eco",
+  options: { permission: "EVERYONE", aliases: ["bal", "money"], enabled: true, cooldown: 5, guildOnly: false },
+  run: async (bot, interaction) => {
+
     const ecoUtils = require("../../main/functions/ecoUtils");
 
-    let person = message.mentions.users.first() || message.author;
-
-    if (!person || args[0] === "help") {
-      return bot.helpEmbed("balance", bot)
-        .then((embed) => message.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
+    let person = interaction.options.getUser("user") || interaction.user;
 
     await ecoUtils.getUser(person.id).then(async (user) => {
-      return bot.createEmbed("info", "", `${person} has **${user.balance}** credits.`, [], ``, message)
-        .then((embed) => message.reply(embed))
+      console.log(user)
+      return bot.createEmbed("info", "", `${person} has **${user.balance}** credits.`, [], ``, interaction)
+        .then((embed) => interaction.reply(embed))
         .catch((error) => bot.log.post("error", error));
     })
 

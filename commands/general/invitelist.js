@@ -1,16 +1,19 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-  name: "invitelist",
+  data: new SlashCommandBuilder()
+    .setName("invitelist").setDescription("Get a list of all the invites in the Discord server."),
   category: "general",
   description: "Get a list of all the invites in the Discord server.",
   usage: "",
   example: "",
   options: { permission: "EVERYONE", enabled: true, guildOnly: true },
-  run: async (bot, message, args) => {
+  run: async (bot, interaction) => {
 
     const Discord = require("discord.js");
 
-    let invites = await message.guild.invites.fetch().catch((error) => {
-      return message.channel.send("Sorry, I don't have the proper permissions to view invites!");
+    let invites = await interaction.guild.invites.fetch().catch((error) => {
+      return interaction.reply({ content: "Sorry, I don't have the proper permissions to view invites!", ephemeral: true });
     });
 
     let possibleinvites = [];
@@ -27,8 +30,8 @@ module.exports = {
       .setTitle(`**INVITE LIST**`)
       .setColor(bot.settings.color.yellow)
       .addField("Invites", `\`\`\`${possibleinvites.join("\n")}\`\`\``)
-      .setFooter({ text: `${message.guild.name}`, iconURL: `https://i.imgur.com/klY5xCe.png` });
+      .setFooter({ text: `${interaction.guild.name}`, iconURL: `https://i.imgur.com/klY5xCe.png` });
 
-    message.channel.send({embeds: [lbEmbed.toJSON()]});
+    interaction.reply({embeds: [lbEmbed.toJSON()]});
   },
 };

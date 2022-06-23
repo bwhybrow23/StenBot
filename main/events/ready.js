@@ -1,10 +1,14 @@
 const { DiscordAPIError, VoiceConnection } = require("discord.js");
+const { REST } = require("@discordjs/rest");
+const fs = require("fs");
+const { Routes } = require("discord-api-types/v9");
 
 module.exports = (bot) => {
+
   const utils = require("../functions/utilities.js");
+  let token;
 
   //Mode Checker
-  const fs = require("fs");
   const packageJSON = require("../../package.json");
 
   //Update bot-data.json
@@ -19,9 +23,8 @@ module.exports = (bot) => {
 
   //Production Mode
   if (bot.settings.mode === "production") {
-    //Static Status
-    // let guilds = bot.guilds.cache.size;
-    // bot.user.setPresence({ activity: { name: `sb!help on ${guilds} servers!`, type: `WATCHING` }, status: 'online' });
+    
+    token = bot.settings.connections.token;
 
     //Starting Status
     bot.user.setPresence({
@@ -87,6 +90,9 @@ module.exports = (bot) => {
 
   //Development Mode
   if (bot.settings.mode === "development") {
+
+    token = bot.settings.connections.devToken;
+
     //Status
     date = new Date();
     bot.user.setPresence({
@@ -106,6 +112,36 @@ module.exports = (bot) => {
     utils.resetVerif(bot);
   }
 
+  //Slash commands
+  const rest = new REST({
+    version: "9"
+  }).setToken(token);
+
+  (async () => {
+    try {
+      if (bot.settings.mode === "production") {
+        await rest.put(Routes.applicationCommands(bot.user.id), {
+          body: bot.commandsArray
+        });
+
+        bot.log.post("success", "Pushed slash commands globally");
+
+      } else if (bot.settings.mode === "development") {
+        await rest.put(Routes.applicationGuildCommands(bot.user.id, bot.settings.ids.testGuild), {
+          body: bot.commandsArray
+        });
+
+        bot.log.post("success", "Pushed guild-only slash commands")
+        
+
+      }
+    } catch (error) {
+      if (error) return bot.log.post("error", err);
+      // fs.writeFileSync(`./data/logs/slashOutput.json`, JSON.stringify(error, null, 4), (err) => {
+      //   if (err) return bot.log.post("error", err);
+      // });
+    }
+  })()
   
   /**
    * 

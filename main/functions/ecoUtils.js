@@ -13,11 +13,9 @@ const createUser = async (userid, balance) => {
 
 const getUser = async (userid) => {
   let user;
-  user = await Economy.findOne({
-    discordID: userid
-  }, (err, user) => {})
+  user = await Economy.findOne({ discordID: userid }).clone();
   if (!user) {
-    return user = await createUser(userid, 500);
+    user = await createUser(userid, 500);
   }
   return user;
 }

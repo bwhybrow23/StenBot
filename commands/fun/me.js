@@ -1,27 +1,22 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-    name: "me",
+    data: new SlashCommandBuilder()
+      .setName("me").setDescription("Find out some information the bot knows about you or another person.")
+      .addUserOption(option => option.setName("user").setDescription("The user to check the information of.")),
     category: "fun",
-    description: "Find out some of the information the bot knows about you.",
-    usage: "[@USER]",
-    example: "@Danny#7013",
     options: { permission: "EVERYONE", aliases: ["user", "whois"], enabled: true, guildOnly: true },
-    run: async (bot, message, args) => {
+    run: async (bot, interaction) => {
   
       const Discord = require("discord.js");
-  
-      if (args[0] === "help") {
-        return bot.helpEmbed("me", bot)
-          .then((embed) => message.reply(embed))
-          .catch((error) => bot.log.post("error", error));
-      }
 
       let member, user;
-      if(message.mentions.members.first()) {
-        member = await message.guild.members.fetch({ user: message.mentions.members.first().id, force: true });
-        user = await (bot.users.fetch(message.mentions.members.first().id, true, true));
+      if(interaction.options.getUser("user")) {
+        member = await interaction.guild.members.fetch({ user: interaction.options.getUser("user").id, force: true });
+        user = await (bot.users.fetch(interaction.options.getUser("user").id, true, true));
       } else {
-        member = await message.guild.members.fetch({ user: message.author, force: true});
-        user = await (bot.users.fetch(message.author.id, true, true));
+        member = interaction.member;
+        user = interaction.user;
       }
     
       let userStatus;
@@ -67,7 +62,7 @@ module.exports = {
         activities.push("Not playing");
       }
 
-      let roles = member.roles.cache.filter(r => r.id !== message.guild.id).map(roles => `\`${roles.name}\``).join(" **|** ");
+      let roles = member.roles.cache.filter(r => r.id !== interaction.guild.id).map(roles => `\`${roles.name}\``).join(" **|** ");
 
       let meEmbed = new Discord.MessageEmbed()
         .setThumbnail(user.displayAvatarURL())
@@ -83,7 +78,7 @@ module.exports = {
         .setFooter({ text: `Information about ${user.username}` })
         .setTimestamp();
   
-      message.channel.send({embeds: [meEmbed.toJSON()]});
+      interaction.reply({embeds: [meEmbed.toJSON()]});
   
     }
   };

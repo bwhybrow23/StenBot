@@ -5,9 +5,10 @@ const colours = {
   blue: 4886754,
 };
 
-const createEmbed = (type, title, desc, fields, footer, message) => {
+const createEmbed = (type, title, desc, fields, footer, interaction, ephemeral) => {
   return new Promise((resolve, reject) => {
 
+    //Template
       let embedTemplate = {
           embeds: [{
               title: "",
@@ -39,29 +40,33 @@ const createEmbed = (type, title, desc, fields, footer, message) => {
           default:
               reject("Invald embed type.");
       }
+
       //Title
       if (typeof title === "string" && title.length < 256) {
           embedTemplate.embeds[0].title = title;
       } else {
           reject("Title is invalid.");
       }
+
       //Desc
       if (typeof desc === "string" && desc.length < 2048) {
           embedTemplate.embeds[0].description = desc;
       } else {
           reject("Description is invalid.");
       }
+
       //Footer
       if (typeof footer === "string" && footer.length < 2048) {
-          if (footer === message.guild.name) {
-              embedTemplate.embeds[0].footer.icon_url = message.guild.iconURL();
-          } else if (footer === message.author.tag) {
-              embedTemplate.embeds[0].footer.icon_url = message.author.displayAvatarURL();
+          if (footer === interaction.guild.name) {
+              embedTemplate.embeds[0].footer.icon_url = interaction.guild.iconURL();
+          } else if (footer === interaction.user.tag) {
+              embedTemplate.embeds[0].footer.icon_url = interaction.user.displayAvatarURL();
           }
           embedTemplate.embeds[0].footer.text = footer;
       } else {
           embedTemplate.embeds[0].footer.icon_url = "";
       }
+
       //Fields
       fields.forEach((field) => {
           if (field.name.length < 256) {
@@ -74,8 +79,15 @@ const createEmbed = (type, title, desc, fields, footer, message) => {
               reject("A field has a name that is too large.");
           }
       });
+
       //Footer icon
       // embedTemplate.footer.icon_url = bot.user.avatarURL()
+
+      //Ephemeral
+      if(ephemeral === true) {
+        embedTemplate.ephemeral = true;
+      }
+
       resolve(embedTemplate);
   });
 };
@@ -94,7 +106,8 @@ const noPermsEmbed = (footer, bot) => {
                   text: ``,
               },
               fields: [],
-          }, ]
+          }, ],
+          ephemeral: true
       };
 
       //Color

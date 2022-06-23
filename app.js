@@ -66,6 +66,7 @@ bot.commands = new Collection();
 bot.aliases = new Collection();
 bot.cooldowns = new Collection();
 bot.categories = fs.readdirSync("./commands/");
+bot.commandsArray = [];
 
 ["command"].forEach((handler) => {
   require(`./main/handlers/${handler}`)(bot);

@@ -1,46 +1,40 @@
-module.exports = {
-  name: "clear",
-  category: "mod",
-  description: "Clear a certain amount of messages from chat.",
-  usage: "<VALUE>",
-  example: "69",
-  options: { permission: "STAFF", enabled: true, guildOnly: true },
-  run: async (bot, message, args) => {
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
-    const Discord = require("discord.js");
-    const config = await bot.mutils.getGuildById(message.guild.id);
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("clear").setDescription("Clear a certain amount of messages from chat.")
+    .addIntegerOption(option => option.setName("amount").setDescription("The amount of messages to clear.").setRequired(true)),
+  category: "mod",
+  options: { permission: "STAFF", enabled: true, guildOnly: true },
+  run: async (bot, interaction) => {
+
+    const config = await bot.mutils.getGuildById(interaction.guild.id);
 
     //Perm Check
     if (!message.member.permissions.has("MANAGE_MESSAGES")) {
-      return bot.noPermsEmbed(`${message.guild.name}`, bot);
+      return bot.noPermsEmbed(`${interaction.guild.name}`, bot);
     }
 
     //Args check
-    let amount = args[0];
-    if (!amount || amount === undefined || isNaN(amount) || args[0] === "help") {
-      return bot.helpEmbed("clear", bot)
-        .then((embed) => message.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
+    let amount = interaction.options.getInteger("amount");
 
     if (amount > 100 || amount < 1) {
-      return bot.createEmbed("error", "", `The amount of messages to clear must be in-between 1 and 100.`, [], `${message.guild.name}`, message)
-        .then((embed) => message.reply(embed))
+      return bot.createEmbed("error", "", `The amount of messages to clear must be in-between 1 and 100.`, [], `${interaction.guild.name}`, interaction)
+        .then((embed) => interaction.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     //Fetch the messages
-    message.channel.messages.fetch({
+    interaction.channel.messages.fetch({
       limit: amount,
     }).then((messages) => {
       //Bulk delete them
-      message.delete();
-      message.channel.bulkDelete(messages).catch(error => bot.log.post("error", error.stack));
+      interaction.channel.bulkDelete(messages).catch(error => bot.log.post("error", error.stack));
     });
 
     //Send success message
-    bot.createEmbed("success", "", `Successfully cleared **${amount}** messages.`, [], `${message.guild.name}`, message)
-          .then((embed) => message.reply(embed))
+    bot.createEmbed("success", "", `Successfully cleared **${amount}** messages.`, [], `${interaction.guild.name}`, interaction)
+          .then((embed) => interaction.reply(embed))
           .catch((error) => bot.log.post("error", error));
 
     //Logging
@@ -48,7 +42,7 @@ module.exports = {
       if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
         if (bot.efunctions.checkChannel(config.logging.channel, bot) === true) {
           let lchannel = bot.channels.cache.get(config.logging.channel);
-          bot.eventEmbed("c70011", message.author, "Bulk Delete", `**Amount:** ${amount}\n**Channel:** ${message.channel.name}`, [], `${message.guild.name}`, bot)
+          bot.eventEmbed("c70011", interaction.user, "Bulk Delete", `**Amount:** ${amount}\n**Channel:** ${interaction.channel.name}`, [], `${interaction.guild.name}`, bot)
             .then(embed => lchannel.send(embed))
             .catch(error => bot.log.post("error", error));
         }

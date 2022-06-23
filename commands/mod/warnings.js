@@ -1,29 +1,23 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-  name: "warnings",
+  data: new SlashCommandBuilder()
+    .setName("warnings").setDescription("View all warnings on a user.")
+    .addUserOption(option => option.setName("user").setDescription("The user to view warnings on.").setRequired(true)),
   category: "mod",
-  description: "View all warnings on a user.",
-  usage: "<@USER>",
-  example: "@Becca#4109",
   options: { permission: "STAFF", enabled: true, cooldown: 0, guildOnly: true },
-  run: async (bot, message, args) => {
-    
-    const Discord = require("discord.js");
+  run: async (bot, interaction) => {
     
     //Perm Check
     if (!message.member.permissions.has("MANAGE_MESSAGES")) {
-      return bot.noPermsEmbed(`${message.guild.name}`, bot);
+      return bot.noPermsEmbed(`${interaction.guild.name}`, bot);
     };
     
     //Args Check
-    var targetuser = message.mentions.members.first();
-    if (!targetuser || args[0] === "help") {
-      return bot.helpEmbed("warnings", bot)
-        .then((embed) => message.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    };
+    var targetuser = interaction.options.getUser("user");
     
     let warnings;
-    await bot.punishments.fetch(message.guild.id, targetuser.id)
+    await bot.punishments.fetch(interaction.guild.id, targetuser.id)
     .then((punishments) => {
       warnings = punishments.warns;
     });
@@ -42,7 +36,7 @@ module.exports = {
     };
     
     warnings.forEach((warning) => {
-      let punisher = message.guild.members.cache.get(warning.punisher); 
+      let punisher = interaction.guild.members.cache.get(warning.punisher); 
     
       let dateObject = new Date(warning.date);
       let date = `${dateObject.toLocaleString("en-US", {day: "numeric"})}/${dateObject.toLocaleString("en-US", {month: "numeric"})}/${dateObject.toLocaleString("en-US", {year: "numeric"})}`
@@ -53,7 +47,7 @@ module.exports = {
       });
     })
     
-    return message.channel.send({
+    return interaction.reply({
       embeds: [embed]
     });
   },

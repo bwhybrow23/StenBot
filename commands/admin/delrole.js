@@ -1,50 +1,35 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-  name: "delrole",
+  data: new SlashCommandBuilder()
+    .setName("delrole").setDescription("Deletes a mentioned role")
+    .addRoleOption(option => option.setName("role").setDescription("The role to delete").setRequired(true)),
   category: "admin",
-  description: "Removes a mentioned role",
-  usage: "<@ROLE>",
-  example: "@Members",
   options: { permission: "ADMIN", aliases: ["drole"], enabled: true, guildOnly: true, cooldown: 5 },
-  run: async (bot, message, args) => {
+  run: async (bot, interaction) => {
 
-    const Discord = require("discord.js");
-    var r = message.mentions.roles.first();
-
-    //Help Embed
-    if (!r || args[0] === "help") {
-      return bot.helpEmbed("delrole", bot)
-        .then((embed) => message.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
-
-    //Config, Args and Permission Check
-    const config = await bot.mutils.getGuildById(message.guild.id);
-
-    if (r === undefined) {
-      return bot.createEmbed("error", "", `Error! You forgot to mention a role to remove!`, [], `${message.guild.name}`, message)
-        .then((embed) => message.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
-
-    if (message.member.permissions.has("ADMINISTRATOR") === false) {
-      return bot.noPermsEmbed(`${message.guild.name}`, bot)
-        .then((embed) => message.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
-
-    var bm = await message.guild.members.fetch(bot.user.id);
+    let role = interaction.options.getRole('role');
 
     //Permission Check
-    if (r.position > bm.roles.highest.position) {
-      return bot.createEmbed("error", "", `Error! I am unable to delete this role!`, [], `${message.guild.name}`, message)
-        .then((embed) => message.reply(embed))
+    if (interaction.member.permissions.has("ADMINISTRATOR") === false) {
+      return bot.noPermsEmbed(`${interaction.guild.name}`, bot)
+        .then((embed) => interaction.reply(embed))
+        .catch((error) => bot.log.post("error", error));
+    }
+
+    let botMember = await interaction.guild.members.fetch(bot.user.id);
+
+    //Permission Check
+    if (role.position > botMember.roles.highest.position) {
+      return bot.createEmbed("error", "", `Error! I am unable to delete this role as it is above my highest role.`, [], `${interaction.guild.name}`, interaction, true)
+        .then((embed) => interaction.reply(embed))
         .catch((error) => bot.log.post("error", error));
     } else {
-      //Do The Magic
-      var name = r.name;
-      r.delete();
-      return bot.createEmbed("success", "", `Deleted role **${name}** requested by **${message.author.tag}**`, [], `${message.guild.name}`, message)
-        .then((embed) => message.reply(embed))
+      //Delete the role
+      let name = role.name;
+      role.delete();
+      return bot.createEmbed("success", "", `Deleted role **${name}** requested by **${interaction.user.tag}**`, [], `${interaction.guild.name}`, interaction)
+        .then((embed) => interaction.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
   },

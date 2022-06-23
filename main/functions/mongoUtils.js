@@ -46,7 +46,7 @@ const createGuild = async (data) => {
 
 //Fetches all guilds from the database
 const getAllGuilds = async () => {
-  const guilds = await Guild.find({});
+  const guilds = await Guild.find({}).clone();
   return guilds;
   /*
   EXAMPLE
@@ -56,7 +56,7 @@ const getAllGuilds = async () => {
 
 //Fetch guild by id
 const getGuildById = async (id) => {
-  const guild = await Guild.findOne({"info.id": id});
+  const guild = await Guild.findOne({"info.id": id}).clone();
   if(!guild) return;
   return guild;
   /*
@@ -67,7 +67,7 @@ const getGuildById = async (id) => {
 
 //Fetch guild by name
 const getGuildByName = async (name) => {
-  const guild = await Guild.findOne({"info.name": name});
+  const guild = await Guild.findOne({"info.name": name}).clone();
   if(!guild) return;
   return guild;
   /*
@@ -152,9 +152,7 @@ const createUser = async (id) => {
     // normalToken = data.token
   });
   //Check if user already has a token
-  if (await User.findOne({
-      discordID: id
-    })) {
+  if (await User.findOne({ discordID: id })) {
     let profile = await User.findOne({
       discordID: id
     })

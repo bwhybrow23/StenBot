@@ -1,55 +1,46 @@
-module.exports = {
-  name: "clearuser",
-  category: "mod",
-  description: "Clear a certain number of messages from a specific user.",
-  usage: "<@USER> <VALUE>",
-  example: "@Haydn#3329 50",
-  options: { permission: "STAFF", aliases: ["cuser"], enabled: true, guildOnly: true },
-  run: async (bot, message, args) => {
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
-    const Discord = require("discord.js");
-    const config = await bot.mutils.getGuildById(message.guild.id);
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("clearuser").setDescription("Clear a certain number of messages from a specific user")
+    .addUserOption(option => option.setName("user").setDescription("The user to clear messages from.").setRequired(true))
+    .addIntegerOption(option => option.setName("amount").setDescription("The amount of messages to clear.").setRequired(true)),
+  category: "mod",
+  options: { permission: "STAFF", aliases: ["cuser"], enabled: true, guildOnly: true },
+  run: async (bot, interaction) => {
+
+    const config = await bot.mutils.getGuildById(interaction.guild.id);
 
     //Perm Check
     if (!message.member.permissions.has("MANAGE_MESSAGES")) {
-      return bot.noPermsEmbed(`${message.guild.name}`, bot);
+      return bot.noPermsEmbed(`${interaction.guild.name}`, bot);
     }
 
     //Arg Check
-    let amount = args[1];
-    if (!amount || isNaN(amount) || args[0] === "help") {
-      return bot.helpEmbed("clearuser", bot)
-        .then((embed) => message.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
+    let amount = interaction.options.getInteger("amount");
 
     if (amount > 100 || amount < 1) {
-      return bot.createEmbed("error", "", `The amount of messages to clear must be in-between 1 and 100.`, [], `${message.guild.name}`, message)
-        .then((embed) => message.reply(embed))
+      return bot.createEmbed("error", "", `The amount of messages to clear must be in-between 1 and 100.`, [], `${interaction.guild.name}`, interaction)
+        .then((embed) => interaction.reply(embed))
         .catch((error) => bot.log.post("error", error));
     };
 
-    let targetuser = message.mentions.members.first();
-    if (!targetuser) {
-      return bot.createEmbed("error", "", `Error! You need to include someone to clear the messages of!`, [], `${message.guild.name}`, message)
-        .then((embed) => message.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
+    let targetuser = interaction.options.getUser("user");
 
     //Fetch messages
-    message.channel.messages.fetch({
+    interaction.channel.messages.fetch({
       limit: amount,
     }).then((messages) => {
       //Filter them
       const filterBy = targetuser ? targetuser.id : bot.user.id;
       messages = messages.filter(m => m.author.id == filterBy).slice(0, amount);
       //Bulk delete
-      message.channel.bulkDelete(messages).catch(error => bot.log.post("error", error.stack));
+      interaction.channel.bulkDelete(messages).catch(error => bot.log.post("error", error.stack));
     });
 
     //Success message
-    bot.createEmbed("success", "", `Successfully cleared **${amount}** messages from **${targetuser.user.tag}**`, [], `${message.guild.name}`, message)
-          .then((embed) => message.reply(embed))
+    bot.createEmbed("success", "", `Successfully cleared **${amount}** messages from **${targetuser.user.tag}**`, [], `${interaction.guild.name}`, interaction)
+          .then((embed) => interaction.reply(embed))
           .catch((error) => bot.log.post("error", error));
 
     //Logging
@@ -57,7 +48,7 @@ module.exports = {
       if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
         if (bot.efunctions.checkChannel(config.logging.channel, bot) === true) {
           let lchannel = bot.channels.cache.get(config.logging.channel);
-          bot.eventEmbed("c70011", message.author, "Bulk Delete", `**Amount:** ${amount}\n**Channel:** ${message.channel.name}\n**Filter:** From ${targetuser.user.tag}`, [], `${message.guild.name}`, bot)
+          bot.eventEmbed("c70011", interaction.user, "Bulk Delete", `**Amount:** ${amount}\n**Channel:** ${message.channel.name}\n**Filter:** From ${targetuser.user.tag}`, [], `${interaction.guild.name}`, bot)
             .then(embed => lchannel.send(embed))
             .catch(error => bot.log.post("error", error));
         }

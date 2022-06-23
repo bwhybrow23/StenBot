@@ -1,33 +1,40 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-  name: "server",
+  data: new SlashCommandBuilder()
+    .setName("server").setDescription("Get information about a server")
+    .addStringOption(option => option.setName("server").setDescription("The name of the server you want to get information about")),
   category: "bot",
-  description: "Gather information about a server",
-  usage: "[SERVER ID]",
-  example: "455782308293771264",
   options: { permission: "EVERYONE", aliases: ["server-info", "serverinfo"], enabled: true, guildOnly: true },
-  run: async (bot, message, args) => {
+  run: async (bot, interaction) => {
 
     const Discord = require("discord.js");
 
+    let server = interaction.options.getString("server");
     let guild, id;
-    if(!args[0]) {
-      guild = message.guild;
+
+    //Check if there is a server argument
+    if(!server) {
+      guild = interaction.guild;
     } else {
+      //String to integer
       try {
-        id = parseInt(args[0]);
+        id = parseInt(server);
       } catch (e) {
         bot.log.post("error", e);
       }
+      //If no ID, output error
       if(!id) {
-        return bot.createEmbed("error", "", "Specified server ID is invalid. Please make sure that it is a valid server ID.", [], message.author.tag, message)
-          .then((embed) => message.reply(embed));
+        return bot.createEmbed("error", "", "Specified server ID is invalid. Please make sure that it is a valid server ID.", [], interaction.user.tag, interaction, true)
+          .then((embed) => interaction.reply(embed));
       }
+      //Fetch server (from argument)
       try { 
-        guild = await bot.guilds.fetch(args[0], true, true);
+        guild = await bot.guilds.fetch(server, true, true);
       }
       catch (e) {
-        return bot.createEmbed("error", "", "Specified server cannot be found. Please make sure the bot is in the server.", [], message.author.tag, message)
-          .then((embed) => message.reply(embed));
+        return bot.createEmbed("error", "", "Specified server cannot be found. Please make sure the bot is in the server.", [], interaction.user.tag, interaction, true)
+          .then((embed) => interaction.reply(embed));
       }
     }
 
@@ -35,10 +42,11 @@ module.exports = {
     try {
       guild.members.fetch();
     } catch (e) {
-      message.reply("An error occured.");
+      interaction.reply("An error occured.");
       return console.log(e);
     }
 
+    //Fetch channels
     let txtChannelCount = 0;
     let vcChannelChannel = 0;
     guild.channels.cache.forEach(channel => {
@@ -46,6 +54,7 @@ module.exports = {
       if (channel.type === "GUILD_VOICE" || "GUILD_STAGE_VOICE") return vcChannelChannel++;
     });
 
+    //Final Embed
     let embed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.blue)
       .setThumbnail(guild.iconURL())
@@ -60,9 +69,7 @@ module.exports = {
       .setFooter({ text: 'Created' })
       .setTimestamp(guild.createdAt);
 
-    message.channel.send({ embeds: [embed.toJSON()]});
-
-    
+    return interaction.reply({ embeds: [embed.toJSON()]});
 
   }
 };

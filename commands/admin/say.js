@@ -1,44 +1,38 @@
-module.exports = {
-  name: "say",
-  category: "admin",
-  description: "Get StenBot to say whatever you want",
-  usage: "<MESSAGE>",
-  example: "Hello World!",
-  options: { permission: "ADMIN", enabled: true, cooldown: 5, guildOnly: true },
-  run: async (bot, message, args) => {
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
-    const Discord = require("discord.js");
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("say").setDescription("Get StenBot to say whatever you want")
+    .addStringOption(option => option.setName("message").setDescription("The message that you want the bot to say").setRequired(true)),
+  category: "admin",
+  options: { permission: "ADMIN", enabled: true, cooldown: 5, guildOnly: true },
+  run: async (bot, interaction) => {
 
     //Permission Check
-    if (message.member.permissions.has("ADMINISTRATOR") === false) {
-      return bot.noPermsEmbed(`${message.guild.name}`, bot)
-        .then((embed) => message.reply(embed))
+    if (interaction.member.permissions.has("ADMINISTRATOR") === false) {
+      return bot.noPermsEmbed(`${interaction.guild.name}`, bot)
+        .then((embed) => interaction.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
-    //Input Validation
-    var msg = args.slice(0).join(" ");
-    if (!msg || args[0] === "help") {
-      return bot.helpEmbed("say", bot)
-        .then((embed) => message.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    }
+    //Input validation
+    let msg = interaction.options.getString("message");
 
     if (msg.length > 500) {
-      return bot.createEmbed("error", "", `Error! Your message it too long. It must be less that **500** characters.`, [], `${message.guild.name}`, message)
-        .then((embed) => message.reply(embed))
+      return bot.createEmbed("error", "", `Error! Your message it too long. It must be less that **500** characters.`, [], `${interaction.guild.name}`, interaction, true)
+        .then((embed) => interaction.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     if (msg.length < 2) {
-      return bot.createEmbed("error", "", `Error! Your message is too short.`, [], `${message.guild.name}`, message)
-        .then((embed) => message.reply(embed))
+      return bot.createEmbed("error", "", `Error! Your message is too short.`, [], `${interaction.guild.name}`, interaction, true)
+        .then((embed) => interaction.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     //Send the Message
-    return bot.createEmbed("success", "", `${msg}`, [], `${message.guild.name}`, message)
-      .then((embed) => message.channel.send(embed))
+    return bot.createEmbed("success", "", `${msg}`, [], `${interaction.guild.name}`, interaction)
+      .then((embed) => interaction.reply(embed))
       .catch((error) => bot.log.post("error", error));
   },
 };

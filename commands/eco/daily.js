@@ -1,16 +1,15 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-    name: "daily",
+    data: new SlashCommandBuilder()
+      .setName("daily").setDescription("Claim your daily reward!"),
     category: "eco",
-    description: "Claim your daily reward every 24 hours.",
-    usage: "",
-    example: "",
-    options: { permission: "EVERYONE", enabled: true, cooldown: 60, guildOnly: false },
-    run: async (bot, message, args) => {
+    options: { permission: "EVERYONE", enabled: false, cooldown: 60, guildOnly: false },
+    run: async (bot, interaction) => {
   
-      const Discord = require("discord.js");
       const ecoUtils = require("../../main/functions/ecoUtils");
   
-      const person = message.author;
+      const person = interaction.user;
   
       // Calculate random number
       function randomInteger(min, max) {
@@ -20,8 +19,8 @@ module.exports = {
       // Check if there is an ongoing daily
       let check = await bot.timeouts.check(person.id, "daily")
       if (check != false) {
-        return bot.createEmbed("error", "", `You've already redeemed your daily money for today. \nCome back in **${check}** and you'll be able to redeem it again.`, [], ``, message)
-          .then((embed) => message.reply(embed))
+        return bot.createEmbed("error", "", `You've already redeemed your daily money for today. \nCome back in **${check}** and you'll be able to redeem it again.`, [], ``, interaction)
+          .then((embed) => interaction.reply(embed))
           .catch((error) => bot.log.post("error", error));
       }
   
@@ -32,8 +31,8 @@ module.exports = {
         ecoUtils.updateUser(person.id, newBal).then(async () => {
           // Create a new daily for the user
           await bot.timeouts.new(person.id, "daily");
-          return bot.createEmbed("success", "", `You have claimed your daily reward of **${reward}**. Come back in 24 hours to claim it again!`, [], ``, message)
-            .then((embed) => message.reply(embed))
+          return bot.createEmbed("success", "", `You have claimed your daily reward of **${reward}**. Come back in 24 hours to claim it again!`, [], ``, interaction)
+            .then((embed) => interaction.reply(embed))
             .catch((error) => bot.log.post("error", error));
         })
       })

@@ -1,25 +1,26 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-  name: "tadd",
+  data: new SlashCommandBuilder()
+    .setName("tadd").setDescription("Add a user to an ongoing ticket.")
+    .addUserOption(option => option.setName("user").setDescription("The user to add to the ticket.").setRequired(true)),
   category: "ticketing",
-  description: "Add a user to an ongoing ticket.",
-  usage: "<@USER>",
-  example: "@Lana#1505",
   options: { permission: "EVERYONE", enabled: true, guildOnly: true },
-  run: async (bot, message, args) => {
+  run: async (bot, interaction) => {
 
     const Discord = require("discord.js");
 
-    const config = await bot.mutils.getGuildById(message.guild.id);
+    const config = await bot.mutils.getGuildById(interaction.guild.id);
 
     function errsend(msg) {
-      message.channel.send({
+      interaction.reply({
         embeds: [{
           color: bot.settings.color.red,
           description: `Error! ${msg}`,
           timestamp: Date.now(),
           footer: {
             icon_url: "https://i.imgur.com/klY5xCe.png",
-            text: `${message.guild.name}`,
+            text: `${interaction.guild.name}`,
           },
         }],
       });
@@ -32,7 +33,7 @@ module.exports = {
 
     //Check if staff role is valid or set
     if (config.moderation.staff_role) {
-      if (message.guild.roles.cache.get(config.moderation.staff_role === undefined)) {
+      if (interaction.guild.roles.cache.get(config.moderation.staff_role === undefined)) {
         return errsend("The staff role set is no longer valid.");
       }
     } else {
@@ -40,19 +41,19 @@ module.exports = {
     }
 
     //if channel is in ticket cat
-    if (message.channel.parent.name !== "Tickets") {
+    if (interaction.channel.parent.name !== "Tickets") {
       return errsend("The channel is not in the tickets category.");
     }
 
     //add user
-    let toBeAdded = message.mentions.members.first();
+    let toBeAdded = interaction.options.getUser("user");
     if (!toBeAdded || args[0] === "help") {
       return bot.helpEmbed("tadd", bot)
-        .then((embed) => message.reply(embed))
+        .then((embed) => interaction.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
     try {
-      message.channel.permissionOverwrites.create(toBeAdded.id, {
+      interaction.channel.permissionOverwrites.create(toBeAdded.id, {
         SEND_MESSAGES: true,
         VIEW_CHANNEL: true
       });
@@ -64,9 +65,9 @@ module.exports = {
     let embed = new Discord.MessageEmbed()
       .setColor(bot.settings.color.green)
       .setDescription(`The user **${toBeAdded.user.tag}** has been added to the ticket.`)
-      .setAuthor(message.guild.name, `https://i.imgur.com/klY5xCe.png`)
+      .setAuthor(interaction.guild.name, `https://i.imgur.com/klY5xCe.png`)
       .setTimestamp();
 
-    message.channel.send({embeds: [embed.toJSON()]});
+    interaction.reply({embeds: [embed.toJSON()]});
   },
 };

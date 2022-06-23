@@ -1,16 +1,22 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-  name: "animal",
+  data: new SlashCommandBuilder()
+    .setName("animal")
+    .setDescription("Get a random image of an animal from a list")
+    .addSubcommand(subCommand => subCommand.setName("cat").setDescription("Get a random image of a cat"))
+    .addSubcommand(subCommand => subCommand.setName("dog").setDescription("Get a random image of a dog"))
+    .addSubcommand(subCommand => subCommand.setName("fox").setDescription("Get a random image of a fox"))
+    .addSubcommand(subCommand => subCommand.setName("goose").setDescription("Get a random image of a goose"))
+    .addSubcommand(subCommand => subCommand.setName("lizard").setDescription("Get a random image of a lizard")),
   category: "fun",
-  description: "Get a random image of an animal from a list.",
-  usage: "<ANIMAL>",
-  example: "fox",
   options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: false },
-  run: async (bot, message, args) => {
+  run: async (bot, interaction) => {
 
     const Discord = require("discord.js");
     const fetch = require("node-fetch");
 
-    let animal = args[0];
+    let animal = interaction.options.getSubcommand();
     let url;
 
     const nekos = require('nekos.life');
@@ -33,9 +39,9 @@ module.exports = {
           .setTitle("Aww... Kitty!")
           .setColor("#ff9900")
           .setImage(url)
-          .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
+          .setFooter({ text: interaction.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
 
-        message.channel.send({embeds: [catEmbed.toJSON()]});
+        interaction.reply({embeds: [catEmbed.toJSON()]});
         break;
 
       case "dog":
@@ -49,9 +55,9 @@ module.exports = {
           .setTitle("Aww... Doggo!")
           .setColor("#ff9900")
           .setImage(url)
-          .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
+          .setFooter({ text: interaction.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
 
-        message.channel.send({embeds: [dogEmbed.toJSON()]});
+        interaction.reply({embeds: [dogEmbed.toJSON()]});
 
         break;
 
@@ -65,9 +71,9 @@ module.exports = {
           .setTitle("Aww... Fox!")
           .setColor("#ff9900")
           .setImage(url)
-          .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
+          .setFooter({ text: interaction.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
 
-        message.channel.send({embeds: [foxEmbed.toJSON()]});
+        interaction.reply({embeds: [foxEmbed.toJSON()]});
 
         break;
 
@@ -82,9 +88,9 @@ module.exports = {
           .setTitle("Hjonk!")
           .setColor("#ff9900")
           .setImage(url)
-          .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
+          .setFooter({ text: interaction.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
 
-        message.channel.send({embeds: [gooseEmbed.toJSON()]});
+        interaction.reply({embeds: [gooseEmbed.toJSON()]});
 
         break;
 
@@ -99,48 +105,13 @@ module.exports = {
             .setTitle("Cute lil lizard!")
             .setColor("#ff9900")
             .setImage(url)
-            .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
+            .setFooter({ text: interaction.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
   
-          message.channel.send({embeds: [lizardEmbed.toJSON()]});
+          interaction.reply({embeds: [lizardEmbed.toJSON()]});
   
           break;
 
       default:
-
-        message.channel.send({
-          embeds: [{
-            title: "Command: Animal",
-            color: 4886754,
-            url: `https://wiki.benwhybrow.com/commands/animal`,
-            fields: [
-              {
-                name: "Description:",
-                value: "Get a random image of an animal from the list"
-              },
-              {
-                name: "Usage:",
-                value: "`sb!animal <ANIMAL>`"
-              },
-              {
-                name: "Example:",
-                value: "`sb!animal fox`"
-              },
-              {
-                name: "Aliases:",
-                value: "None"
-              },
-              {
-                name: "Possible Values:",
-                value: "Cat, Dog, Fox, Goose, Lizard"
-              }
-            ],
-            footer: {
-              icon_url: "https://i.imgur.com/klY5xCe.png",
-              text: `Help Command | Syntax: <> = required, [] = optional`,
-            },
-          }]
-        })
-
         break;
     }
   },

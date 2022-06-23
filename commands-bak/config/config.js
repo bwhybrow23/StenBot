@@ -5,20 +5,20 @@ module.exports = {
   usage: "",
   example: "",
   options: { permission: "ADMIN", aliases: ["conf", "c", "settings"], enabled: true, guildOnly: true },
-  run: async (bot, message, args) => {
+  run: async (bot, interaction) => {
 
     const Discord = require("discord.js");
 
-    let servertag = message.guild.name;
+    let servertag = interaction.guild.name;
 
     if (message.member.permissions.has("ADMINISTRATOR") === false) {
-      return bot.noPermsEmbed(`${message.guild.name}`, bot)
-        .then((embed) => message.reply(embed))
+      return bot.noPermsEmbed(`${interaction.guild.name}`, bot)
+        .then((embed) => interaction.reply(embed))
         .catch((error) => bot.log.post("error", error));
     }
 
     //Set up the embed
-    const config = await bot.mutils.getGuildById(message.guild.id);
+    const config = await bot.mutils.getGuildById(interaction.guild.id);
 
     //Set the undefined ect variables to proper english
     //Welcomer channel? Default = undefined
@@ -110,8 +110,8 @@ module.exports = {
         }, {
           name: "Tickets",
           value: `Enabled: **${config.tickets.enabled ? "Yes" : "No"}**\nTicket Message: \`\`\`${ticketmessage}\`\`\``,
-        }, ], `${message.guild.name}`, message)
-        .then((embed) => message.reply(embed))
+        }, ], `${interaction.guild.name}`, interaction)
+        .then((embed) => interaction.reply(embed))
         .catch((error) => bot.log.post("error", error));
   },
 };

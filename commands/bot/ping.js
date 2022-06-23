@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("info").setDescription("Find out about all information related to the bot's connection to Discord."),
+    .setName("ping").setDescription("Find out about all information related to the bot's connection to Discord."),
   category: "bot",
   options: { permission: "EVERYONE", aliases: ["ping", "status", "stats", "uptime"], enabled: true, cooldown: 10, guildOnly: false },
   run: async (bot, interaction) => {

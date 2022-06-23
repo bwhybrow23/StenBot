@@ -1,55 +1,58 @@
-module.exports = {
-  name: "ban",
-  category: "mod",
-  description: "Permanently ban a user from the server.",
-  usage: "<@USER> [REASON]",
-  example: "@Ash#2307 Bullying",
-  options: { permission: "STAFF", enabled: true, guildOnly: true },
-  run: async (bot, message, args) => {
+const { SlashCommandBuilder } = require("@discordjs/builders");
 
-    const Discord = require("discord.js");
-    const config = await bot.mutils.getGuildById(message.guild.id);
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("ban").setDescription("Permanently ban a user from the server")
+    .addUserOption(option => option.setName("user").setDescription("The user to ban."))
+    .addIntegerOption(option => option.setName("user-id").setDescription("The user ID of the person to ban (if they are no longer on the server)"))
+    .addStringOption(option => option.setName("reason").setDescription("The reason for the ban.")),
+  category: "mod",
+  options: { permission: "STAFF", enabled: true, guildOnly: true },
+  run: async (bot, interaction) => {
+
+    const config = await bot.mutils.getGuildById(interaction.guild.id);
 
     //Perm Check
     if (!message.member.permissions.has("BAN_MEMBERS")) {
-      return bot.noPermsEmbed(`${message.guild.name}`, bot);
+      return bot.noPermsEmbed(`${interaction.guild.name}`, bot);
     }
-
-    //Arg check
-    if (!args[0] || args[0] === "help")
-    {
-      return bot.helpEmbed("ban", bot)
-        .then((embed) => message.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    };
 
     //Variables            Fetch user              Removes everything but numbers
     let targetuser;
-    try {
-      targetuser = await bot.users.fetch(args[0].replace(/[^0-9]/g, ''), { force: true });
-    } catch (error) {
-      return message.reply("I cannot find that user.");
+    //If user mentioned, go with that
+    if (interaction.options.getUser("user")) {
+      targetuser = interaction.options.getUser("user");
+    } else {
+      //Try looking up ID
+      try {
+        targetuser = await bot.users.fetch(interaction.options.getInteger("user-id"), { force: true });
+      } catch (error) {
+        //No user found
+        return bot.createEmbed("error", "", `Error! Unable to find user with ID ${interaction.options.getInteger("user-id")}`, [], `${interaction.guild.name}`, interaction)
+          .then((embed) => interaction.reply(embed))
+          .catch((error) => bot.log.post("error", error));
+      }
     }
-    let reason = args.slice(1).join(" ");
+    let reason = interaction.options.getString("reason");
 
     //Check if user is already banned
-    if (message.guild.bans.fetch(targetuser, { force: true })) 
+    if (interaction.guild.bans.fetch(targetuser, { force: true })) 
     {
-      return message.reply(`${targetuser.username + targetuser.discriminator} is already banned from this guild.`)
+      return interaction.reply(`${targetuser.username + targetuser.discriminator} is already banned from this guild.`)
     }
 
     //Ban the user
-    message.guild.bans.create(targetuser, {
-        reason: `Banned by ${message.author.tag}${reason ? ` with reason ${reason}.` : `.`}`
+    interaction.guild.bans.create(targetuser, {
+        reason: `Banned by ${interaction.user.tag}${reason ? ` with reason ${reason}.` : `.`}`
       })
       .then(async () => {
 
         //Log it to database
-        await bot.punishments.new("ban", message.guild.id, targetuser.id, message.author.id, reason);
+        await bot.punishments.new("ban", interaction.guild.id, targetuser.id, interaction.user.id, reason);
 
         //Send success message
-        bot.createEmbed("success", "", `Sucessfully banned ${targetuser}${reason ? ` for \`${reason}\`.` : `.`}`, [], `${message.guild.name}`, message)
-          .then((embed) => message.reply(embed))
+        bot.createEmbed("success", "", `Sucessfully banned ${targetuser}${reason ? ` for \`${reason}\`.` : `.`}`, [], `${interaction.guild.name}`, interaction)
+          .then((embed) => interaction.reply(embed))
           .catch((error) => bot.log.post("error", error))
 
         //Logging
@@ -57,7 +60,7 @@ module.exports = {
           if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
             if (bot.efunctions.checkChannel(config.logging.channel, bot) === true) {
               let lchannel = bot.channels.cache.get(config.logging.channel);
-              bot.eventEmbed("c70011", targetuser, "Member Banned", `**User tag:** ${targetuser.username + targetuser.discriminator}\n**User ID:** ${targetuser.id}\n**Ban Date:** ${new Date()}\n**Banned By:** ${message.author.tag} ${ reason ? `\n**Reason:** ${reason}` : ``}`, [], `${message.guild.name}`, bot)
+              bot.eventEmbed("c70011", targetuser, "Member Banned", `**User tag:** ${targetuser.username + targetuser.discriminator}\n**User ID:** ${targetuser.id}\n**Ban Date:** ${new Date()}\n**Banned By:** ${interaction.user.tag} ${ reason ? `\n**Reason:** ${reason}` : ``}`, [], `${interaction.guild.name}`, bot)
                 .then(embed => lchannel.send(embed))
                 .catch(error => bot.log.post("error", error));
             }

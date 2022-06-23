@@ -1,13 +1,12 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-  name: "neko",
+  data: new SlashCommandBuilder()
+    .setName("neko").setDescription("See a randomly generated picture of a Neko, also referred to as a Catgirl."),
   category: "fun",
-  description: "See a randomly generated picture of a Neko, also known as a Catgirl.",
-  usage: "",
-  example: "",
   options: { permission: "EVERYONE", enabled: true, cooldown: 3, guildOnly: false },
-  run: async (bot, message, args) => {
+  run: async (bot, interaction) => {
     
-    const Discord = require("discord.js");
     const nekos = require('nekos.life');
     const neko = new nekos();
 
@@ -27,7 +26,7 @@ module.exports = {
       }
     }
 
-    message.reply({ embeds: [ nekoEmbed ]});
+    interaction.reply({ embeds: [ nekoEmbed ]});
 
   },
 }

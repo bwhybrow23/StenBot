@@ -1,11 +1,11 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-    name: "fact",
+    data: new SlashCommandBuilder()
+      .setName("fact").setDescription("Get a random fact!"),
     category: "fun",
-    description: "Get a random cool fact!",
-    usage: "",
-    example: "",
     options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: false },
-    run: async (bot, message, args) => {
+    run: async (bot, interaction) => {
   
       let Discord = require("discord.js");
       let fetch = require("node-fetch");
@@ -19,9 +19,9 @@ module.exports = {
         .setTitle("Random Fact")
         .setDescription(fact)
         .setColor(bot.settings.color.yellow)
-        .setFooter({ text: message.server.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
+        .setFooter({ text: interaction.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
   
-      message.channel.send({embeds: [embed.toJSON()]});
+      interaction.reply({embeds: [embed.toJSON()]});
   
     }
   }

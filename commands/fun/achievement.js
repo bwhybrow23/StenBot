@@ -1,25 +1,23 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-    name: "achievement",
+    data: new SlashCommandBuilder()
+      .setName("achievement").setDescription("Create your own Minecraft achievement!")
+      .addStringOption(option => option.setName("achievement").setDescription("The text for the achievement.").setRequired(true)),
     category: "fun",
     description: "Create your own Minecraft achievement",
     usage: "<MESSAGE>",
     example: "Being a successful failure!",
     options: { permission: "EVERYONE", enabled: true, cooldown: 5, guildOnly: false },
-    run: async (bot, message, args) => {
+    run: async (bot, interaction) => {
   
       const Discord = require("discord.js");
-      const achievement = args.join(" ");
-  
-      if (!achievement || args[0] === "help") {
-        return bot.helpEmbed("achievement", bot)
-          .then((embed) => message.reply(embed))
-          .catch((error) => bot.log.post("error", error));
-      }
+      const achievement = interaction.options.getString("achievement");
 
       let string = 'https://minecraftskinstealer.com/achievement/13/Achievement%20unlocked/' + achievement;
       let attachment = new Discord.MessageAttachment(string, 'achievement.png');
 
-      message.reply({ files: [ attachment ] });
+      interaction.reply({ files: [ attachment ] });
   
     },
   };
