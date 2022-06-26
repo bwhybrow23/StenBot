@@ -9,12 +9,12 @@ module.exports = {
   run: async (bot, interaction) => {
     
     //Perm Check
-    if (!message.member.permissions.has("MANAGE_MESSAGES")) {
+    if (!interaction.member.permissions.has("MANAGE_MESSAGES")) {
       return bot.noPermsEmbed(`${interaction.guild.name}`, bot);
     };
     
     //Args Check
-    var targetuser = interaction.options.getUser("user");
+    var targetuser = interaction.options.getMember("user");
     
     let warnings;
     await bot.punishments.fetch(interaction.guild.id, targetuser.id)

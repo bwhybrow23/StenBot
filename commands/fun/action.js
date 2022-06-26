@@ -45,7 +45,7 @@ module.exports = {
     const nekos = require('nekos.life');
     const neko = new nekos();
 
-    const subc = interaction.option.getSubCommand();
+    const subc = interaction.options.getSubcommand();
 
     let url;
     let recipient = interaction.options.getUser("user");
@@ -62,7 +62,7 @@ module.exports = {
         }
 
         let cEmbed = new Discord.MessageEmbed()
-          .setDescription(`${userNick} cuddles ${recipient.nickname}`)
+          .setDescription(`${userNick} cuddles ${recipient.username}`)
           .setImage(url)
           .setColor(bot.settings.color.yellow)
           .setFooter({
@@ -82,7 +82,7 @@ module.exports = {
         }
 
         let fEmbed = new Discord.MessageEmbed()
-          .setDescription(`${userNick} feeds ${recipient.nickname}`)
+          .setDescription(`${userNick} feeds ${recipient.username}`)
           .setImage(url)
           .setColor(bot.settings.color.yellow)
           .setFooter({
@@ -104,7 +104,7 @@ module.exports = {
         }
 
         let hEmbed = new Discord.MessageEmbed()
-          .setDescription(`${userNick} hugs ${recipient.nickname}`)
+          .setDescription(`${userNick} hugs ${recipient.username}`)
           .setImage(url)
           .setColor(bot.settings.color.yellow)
           .setFooter({
@@ -127,7 +127,7 @@ module.exports = {
         }
 
         let kEmbed = new Discord.MessageEmbed()
-          .setDescription(`${userNick} kisses ${recipient.nickname}`)
+          .setDescription(`${userNick} kisses ${recipient.username}`)
           .setImage(url)
           .setColor(bot.settings.color.yellow)
           .setFooter({
@@ -150,7 +150,7 @@ module.exports = {
         }
 
         let pEmbed = new Discord.MessageEmbed()
-          .setDescription(`${userNick} pats ${recipient.nickname}`)
+          .setDescription(`${userNick} pats ${recipient.username}`)
           .setImage(url)
           .setColor(bot.settings.color.yellow)
           .setFooter({
@@ -174,7 +174,7 @@ module.exports = {
         if (recipient === interaction.user) return interaction.reply("You're not allowed to poke yourself silly.");
 
         let poEmbed = new Discord.MessageEmbed()
-          .setDescription(`${userNick} pokes ${recipient.nickname}`)
+          .setDescription(`${userNick} pokes ${recipient.username}`)
           .setImage(url)
           .setColor(bot.settings.color.yellow)
           .setFooter({
@@ -198,7 +198,7 @@ module.exports = {
         }
 
         let sEmbed = new Discord.MessageEmbed()
-          .setDescription(`${userNick} slapped ${recipient.nickname}`)
+          .setDescription(`${userNick} slapped ${recipient.username}`)
           .setImage(url)
           .setColor(bot.settings.color.yellow)
           .setFooter({
@@ -221,7 +221,7 @@ module.exports = {
         }
 
         let tEmbed = new Discord.MessageEmbed()
-          .setDescription(`${userNick} tickles ${recipient.nickname}`)
+          .setDescription(`${userNick} tickles ${recipient.username}`)
           .setImage(url)
           .setColor(bot.settings.color.yellow)
           .setFooter({

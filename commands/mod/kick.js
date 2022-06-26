@@ -12,12 +12,12 @@ module.exports = {
     const config = await bot.mutils.getGuildById(interaction.guild.id);
 
     //Perm check
-    if (!message.member.permissions.has("KICK_MEMBERS")) {
+    if (!interaction.member.permissions.has("KICK_MEMBERS")) {
       return bot.noPermsEmbed(`${interaction.guild.name}`, bot);
     }
 
     //Args Check
-    var targetuser = interaction.options.getUser("user");
+    var targetuser = interaction.options.getMember("user");
 
     //Variables
     let reason = interaction.options.getString("reason");

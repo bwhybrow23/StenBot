@@ -12,12 +12,12 @@ module.exports = {
     var config = await bot.mutils.getGuildById(interaction.guild.id);
 
     //Perm Check
-    if (!message.member.permissions.has("MANAGE_MESSAGES")) {
+    if (!interaction.member.permissions.has("MANAGE_MESSAGES")) {
       return bot.noPermsEmbed(`${interaction.guild.name}`, bot);
     };
 
     //Args Check
-    var targetuser = interaction.options.getUser("user");
+    var targetuser = interaction.options.getMember("user");
 
     if (targetuser.roles.cache.has(config.moderation.staff_role)) {
       return bot.createEmbed("error", "", `Error! You are not allowed to warn this person!`, [], `${interaction.guild.name}`, interaction)

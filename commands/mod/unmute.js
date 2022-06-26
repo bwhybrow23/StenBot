@@ -11,7 +11,7 @@ module.exports = {
 
     var config = await bot.mutils.getGuildById(interaction.guild.id);
 
-    if (!message.member.permissions.has("MANAGE_MESSAGES")) {
+    if (!interaction.member.permissions.has("MANAGE_MESSAGES")) {
       return bot.noPermsEmbed(`${interaction.guild.name}`, bot);
     }
 

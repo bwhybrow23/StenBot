@@ -13,7 +13,7 @@ module.exports = {
     const config = await bot.mutils.getGuildById(interaction.guild.id);
 
     //Perm Check
-    if (!message.member.permissions.has("BAN_MEMBERS")) {
+    if (!interaction.member.permissions.has("BAN_MEMBERS")) {
       return bot.noPermsEmbed(`${interaction.guild.name}`, bot);
     }
 
@@ -21,7 +21,7 @@ module.exports = {
     let targetuser;
     //If user mentioned, go with that
     if (interaction.options.getUser("user")) {
-      targetuser = interaction.options.getUser("user");
+      targetuser = interaction.options.getMember("user");
     } else {
       //Try looking up ID
       try {

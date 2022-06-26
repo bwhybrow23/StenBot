@@ -12,12 +12,12 @@ module.exports = {
 
     const config = await bot.mutils.getGuildById(interaction.guild.id);
 
-    if (!message.member.permissions.has("MANAGE_MESSAGES")) {
+    if (!interaction.member.permissions.has("MANAGE_MESSAGES")) {
       return bot.noPermsEmbed(`${interaction.guild.name}`, bot);
     }
 
     //Args Check
-    let targetuser = interaction.options.getUser("user");
+    let targetuser = interaction.options.getMember("user");
 
     let reason = interaction.options.getString("reason");
     let msg = `Succesfully tempmuted **${targetuser.user.tag}** for **${args[1]}** ${reason ? `for **${reason}**.` : `.`}`;

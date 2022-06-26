@@ -207,11 +207,12 @@ class TimeoutUtils {
   }
 
   //Checks if a timeout exists and if it does, returns how long is left on it
-  check(id) {
+  check(id, command) {
     return new Promise(async (resolve, reject) => {
       try {
         let timeout = await Timeout.findOne({
-          "_id": id
+          "user": id,
+          "command": command
         });
         if (timeout) {
 

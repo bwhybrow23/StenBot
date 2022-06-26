@@ -51,6 +51,7 @@ module.exports = async (bot, interaction) => {
     //Run command and output error if fails
     try {
         await command.run(bot, interaction);
+        logToStats(command.name, command.category);
     } catch (error) {
         if (error) bot.log.post("error", error);
 
@@ -61,10 +62,10 @@ module.exports = async (bot, interaction) => {
     }
 
     //Log to stats json
-    function logToStats(cmd) {
+    function logToStats(cmdName, cmdCategory) {
         let botData = require("../../data/global/bot-data.json");
-        botData.stats.commands[cmd.category][cmd.name]++;
-        botData.stats.commands[cmd.category].total++;
+        botData.stats.commands[cmdCategory][cmdName]++;
+        botData.stats.commands[cmdCategory].total++;
         botData.stats.commands.total++;
         fs.writeFileSync("./data/global/bot-data.json", JSON.stringify(botData, null, 4));
     }
