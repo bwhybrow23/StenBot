@@ -5,6 +5,8 @@ module.exports = {
     .setName("tadd").setDescription("Add a user to an ongoing ticket.")
     .addUserOption(option => option.setName("user").setDescription("The user to add to the ticket.").setRequired(true)),
   category: "ticketing",
+  usage: "<@USER>",
+  example: "@Lana#1505",
   options: { permission: "EVERYONE", enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
 

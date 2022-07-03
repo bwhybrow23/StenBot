@@ -4,6 +4,8 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("neko").setDescription("See a randomly generated picture of a Neko, also referred to as a Catgirl."),
   category: "fun",
+  usage: "",
+  example: "",
   options: { permission: "EVERYONE", enabled: true, cooldown: 3, guildOnly: false },
   run: async (bot, interaction) => {
     

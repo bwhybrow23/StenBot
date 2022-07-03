@@ -21,7 +21,7 @@ const discord = async (req, res, next) => {
       if (!discordID) {
         res.status(401).json({
           error: true,
-          message: "Unauthorized: Cannot find a valid match for your token. Please try generating a new token using the sb!api command."
+          message: "Unauthorized: Cannot find a valid match for your token. Please try generating a new token using the /api command."
         });
       }
       //Attach user ID and token

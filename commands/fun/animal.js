@@ -10,6 +10,8 @@ module.exports = {
     .addSubcommand(subCommand => subCommand.setName("goose").setDescription("Get a random image of a goose"))
     .addSubcommand(subCommand => subCommand.setName("lizard").setDescription("Get a random image of a lizard")),
   category: "fun",
+  usage: "<ANIMAL>",
+  example: "fox",
   options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: false },
   run: async (bot, interaction) => {
 

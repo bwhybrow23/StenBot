@@ -11,6 +11,8 @@ module.exports = {
       .addIntegerOption(option => option.setName("id").setDescription("The ID of the reminder to remove").setRequired(true)))
     .addSubcommand(subcommand => subcommand.setName("list").setDescription("List all reminders")),
   category: "general",
+  usage: "<SUBCOMMAND> [ARGS]",
+  example: "list",
   options: { permission: "EVERYONE", enabled: true, cooldown: 3, guildOnly: true },
   run: async (bot, interaction) => {
     
@@ -72,9 +74,7 @@ module.exports = {
       case "add":
     
         /**
-         * DEPRECATED USAGE BELOW
-         * Usage: sb!reminder add [-r <REOCCURING TIME>] <TIME> <MESSAGE> 
-         * Args:              0   1   2                   3     4
+         * Usage: /reminder add <TIME> <MESSAGE> <REOCCURING TIME>
          */
     
         let time;
@@ -104,7 +104,7 @@ module.exports = {
             interaction.user.send("Just checking to see if I can message you :)");
           } catch (error) {
             //Error message to user
-            return interaction.reply("I'm afraid there was an issue when I tried to DM you. Please make sure your DMs are open and try again. If they are open and you still get issues. Please use `sb!invite` for the link to the support server.");
+            return interaction.reply("I'm afraid there was an issue when I tried to DM you. Please make sure your DMs are open and try again. If they are open and you still get issues. Please use `/invite` for the link to the support server.");
           }
 
     
@@ -149,7 +149,7 @@ module.exports = {
       case "remove":
     
         /**
-         * Usage: sb!reminders remove <ID>
+         * Usage: /reminders remove <ID>
          */
     
         reminders = await Timeout.find({

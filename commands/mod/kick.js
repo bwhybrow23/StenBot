@@ -6,6 +6,8 @@ module.exports = {
     .addUserOption(option => option.setName("user").setDescription("The user to kick.").setRequired(true))
     .addStringOption(option => option.setName("reason").setDescription("The reason for the kick.")),
   category: "mod",
+  usage: "<@USER> [REASON]",
+  example: "@Dan#9124 Rude Name",
   options: { permission: "STAFF", enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
 

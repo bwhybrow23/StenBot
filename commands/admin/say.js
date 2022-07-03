@@ -5,6 +5,8 @@ module.exports = {
     .setName("say").setDescription("Get StenBot to say whatever you want")
     .addStringOption(option => option.setName("message").setDescription("The message that you want the bot to say").setRequired(true)),
   category: "admin",
+  usage: "<MESSAGE>",
+  example: "Hello World!",
   options: { permission: "ADMIN", enabled: true, cooldown: 5, guildOnly: true },
   run: async (bot, interaction) => {
 

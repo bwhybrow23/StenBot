@@ -6,6 +6,8 @@ module.exports = {
     .addIntegerOption(option => option.setName("user-id").setDescription("The ID of the user to unban.").setRequired(true))
     .addStringOption(option => option.setName("reason").setDescription("The reason for the unban.")),
   category: "mod",
+  usage: "<USER ID> [REASON]",
+  example: "346246641595973633 Received punishment",
   options: { permission: "STAFF", enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
 

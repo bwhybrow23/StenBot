@@ -4,6 +4,8 @@ module.exports = {
     data: new SlashCommandBuilder()
       .setName("daily").setDescription("Claim your daily reward!"),
     category: "eco",
+    usage: "",
+    example: "",
     options: { permission: "EVERYONE", enabled: false, cooldown: 60, guildOnly: false },
     run: async (bot, interaction) => {
   

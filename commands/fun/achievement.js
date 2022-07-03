@@ -5,6 +5,8 @@ module.exports = {
       .setName("achievement").setDescription("Create your own Minecraft achievement!")
       .addStringOption(option => option.setName("achievement").setDescription("The text for the achievement.").setRequired(true)),
     category: "fun",
+    usage: "<MESSAGE>",
+    example: "Being a successful failure!",
     description: "Create your own Minecraft achievement",
     usage: "<MESSAGE>",
     example: "Being a successful failure!",

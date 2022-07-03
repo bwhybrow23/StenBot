@@ -7,6 +7,8 @@ module.exports = {
     .addStringOption(option => option.setName("time").setDescription("The time to mute the user for.").setRequired(true))
     .addStringOption(option => option.setName("reason").setDescription("The reason for the mute.")),
   category: "mod",
+  usage: "<@USER> <TIME> [REASON]",
+  example: "@Jess#8022 1d Being annoying",
   options: { permission: "STAFF", aliases: ["tmute"], enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
 

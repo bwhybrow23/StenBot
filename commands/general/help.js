@@ -1,40 +1,51 @@
+const { SlashCommandBuilder } = require("@discordjs/builders");
+
 module.exports = {
-  name: "help",
+  data: new SlashCommandBuilder()
+    .setName("help").setDescription("Returns a list of commands, or a specific command's information.")
+    .addStringOption(option => option.setName("category").setDescription("A category to give a list of commands for.")),
   category: "general",
-  description: "Returns all commands, or information about one specific command.",
-  usage: "[CATEGORY | COMMAND]",
-  example: "ban",
-  options: { permission: "EVERYONE", enabled: false, guildOnly: false },
+  usage: "[CATEGORY]",
+  example: "eco",
+  options: { permission: "EVERYONE", enabled: true, guildOnly: false },
   run: async (bot, interaction) => {
 
     const Discord = require("discord.js");
-    let prefix = bot.settings.prefix;
+    let prefix = "/";
 
     //Capitalize function
     const capitalize = (s) => {
       if (typeof s !== "string") return "";
       return s.charAt(0).toUpperCase() + s.slice(1);
     };
+    
+    if(interaction.options.getString("category") != null) {
+      //Category Help
 
-    if (bot.categories.includes(args[0])) {
-      //Category specific help
-
-      let category = args[0];
+      let category = interaction.options.getString("category");
 
       //Embed to Send
       const embed = new Discord.MessageEmbed()
         .setColor(bot.settings.color.blue)
-        .setTitle(capitalize(args[0]))
+        .setTitle(capitalize(category))
         .setFooter({ text: `Help Command | Syntax: <> = required, [] = optional`, iconURL: bot.user.avatarURL() })
         .setTimestamp();
 
+      //Get Commands
       bot.commands.forEach(cmd => {
         if (cmd.category != category) return;
-        embed.addField(`\`${prefix}${cmd.name} ${cmd.usage}\``, `${cmd.description}`)
+        embed.addField(`\`${prefix}${cmd.data.name} ${cmd.usage}\``, `${cmd.data.description}`)
       });
 
-      interaction.channel.send({embeds: [embed.toJSON()]});
-    } else if (!args[0]) {
+      if(embed.fields.length == 0) {
+        embed.setDescription("No commands found under that category.");
+      }
+
+      return interaction.reply({ embeds: [embed.toJSON()]});
+
+    } else {
+      //General Help
+
       //Main Embed
       let embed = new Discord.MessageEmbed()
         .setTitle("All Commands")
@@ -52,19 +63,8 @@ module.exports = {
         .setTimestamp();
 
       interaction.reply({embeds: [embed.toJSON()]});
-    } else if (bot.commands.filter((cmd) => cmd.name === args[0])) {
-      //Command Specific Help
-
-      let input = args[0];
-
-      return bot.helpEmbed(input, bot)
-        .then((embed) => interaction.reply(embed))
-        .catch((error) => {
-          bot.createEmbed("error", "", `Cannot find a command under the name of ${input}`, [], interaction.user.tag, bot)
-            .then((embed) => interaction.reply(embed))
-            .then(console.log(error))
-        });
 
     }
+
   },
 };

@@ -2,28 +2,11 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("balance").setDescription("Check yours or another user's balance.")
-    .addUserOption(option => option.setName("user").setDescription("The user to check the balance of.")),
-  category: "eco",
-  options: { permission: "EVERYONE", aliases: ["bal", "money"], enabled: true, cooldown: 5, guildOnly: false },
-  run: async (bot, interaction) => {
-
-    const ecoUtils = require("../../main/functions/ecoUtils");
-
-    let person = interaction.options.getUser("user") || interaction.user;
-
-    await ecoUtils.getUser(person.id).then(async (user) => {
-      return bot.createEmbed("info", "", `${person} has **${user.balance}** credits.`, [], ``, interaction)
-        .then((embed) => interaction.reply(embed))
-        .catch((error) => bot.log.post("error", error));
-    })
-
-  }
-};module.exports = {
-  data: new SlashCommandBuilder()
     .setName("mcping").setDescription("Ping a Minecraft server to find out more information about it")
     .addStringOption(option => option.setName("server").setDescription("The server to ping.").setRequired(true)),
   category: "fun",
+  usage: "<SERVER IP>[:PORT]",
+  example: "play.hypixel.net",
   options: { permission: "EVERYONE", aliases: ["mc"], enabled: true, cooldown: 5, guildOnly: false },
   run: async (bot, interaction) => {
 

@@ -6,6 +6,8 @@ module.exports = {
     .addUserOption(option => option.setName("user").setDescription("The user to mute.").setRequired(true))
     .addStringOption(option => option.setName("reason").setDescription("The reason for the mute.")),
   category: "mod",
+  usage: "<@USER> [REASON]",
+  example: "@Lucy#5012 Spamming",
   options: { permission: "STAFF", enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
 

@@ -4,6 +4,8 @@ module.exports = {
     data: new SlashCommandBuilder()
       .setName("report").setDescription("Report a user, bug, or server to the StenBot Team to be investigated."),
     category: "general",
+    usage: "",
+    example: "",
     options: { permission: "EVERYONE", enabled: false, cooldown: 300, guildOnly: false },
     run: async (bot, interaction) => {
       const Discord = require("discord.js");
@@ -156,7 +158,7 @@ module.exports = {
           gCollector.on('collect', async message => {
             let gObj = await bot.guilds.cache.get(message.content);
             //Get Info
-            bot.createEmbed("warning", "Bug Report", `Please provide some information about the bug you are reporting. Just a little summary. Example: \`Bot doesn't recognise when I do the command sb!server\``, [], `${interaction.user.tag}`, interaction)
+            bot.createEmbed("warning", "Bug Report", `Please provide some information about the bug you are reporting. Just a little summary. Example: \`Bot doesn't recognise when I do the command /server\``, [], `${interaction.user.tag}`, interaction)
               .then(embed => message.reply(embed))
               .catch(error => bot.log.post("error", error));
             const infoCollector = new Discord.MessageCollector(interaction.channel, m => m.author.id === interaction.user.id, {

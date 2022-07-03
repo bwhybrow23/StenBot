@@ -5,6 +5,8 @@ module.exports = {
     .setName("ticket").setDescription("Create a ticket")
     .addStringOption(option => option.setName("reason").setDescription("The reason for the ticket.").setRequired(true)),
   category: "ticketing",
+  usage: "<REASON>",
+  example: "I need help!",
   options: { permission: "EVERYONE", aliases: ["t"], enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
 
@@ -35,7 +37,7 @@ if (!config.tickets.enabled) {
 }
 
 if (config.moderation.staff_role === "0") {
-  return bot.createEmbed("error", "", `Error! A staff role has not been set. An owner or admin can set one using \`sb!config-moderation role <@ROLE>\``, [], `${interaction.guild.name}`, interaction)
+  return bot.createEmbed("error", "", `Error! A staff role has not been set. An owner or admin can set one using \`/config-moderation role <@ROLE>\``, [], `${interaction.guild.name}`, interaction)
     .then((embed) => interaction.reply(embed))
     .catch((error) => bot.log.post("error", error));
 }
@@ -45,7 +47,7 @@ let staffrole = interaction.guild.roles.cache.find(
 );
 
 if (staffrole === undefined) {
-  return bot.createEmbed("error", "", `Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`sb!config-moderation role <@ROLE>\``, [], `${interaction.guild.name}`, interaction)
+  return bot.createEmbed("error", "", `Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`/config-moderation role <@ROLE>\``, [], `${interaction.guild.name}`, interaction)
     .then((embed) => interaction.reply(embed))
     .catch((error) => bot.log.post("error", error));
 }

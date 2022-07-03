@@ -5,6 +5,8 @@ module.exports = {
     .setName("8ball").setDescription("Ask a question to the magic 8 ball!")
     .addStringOption(option => option.setName("question").setDescription("The question to ask the magic 8 ball.").setRequired(true)),
   category: "fun",
+  usage: "<QUESTION>",
+  example: "Will I ever stop losing the game?",
   options: { permission: "EVERYONE", enabled: true, cooldown: 5, guildOnly: false },
   run: async (bot, interaction) => {
 

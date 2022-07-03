@@ -4,6 +4,8 @@ module.exports = {
     data: new SlashCommandBuilder()
       .setName("api").setDescription("Generate an API token to use at https://sb.benwhybrow.com/api"),
     category: "bot",
+    usage: "",
+    example: "",
     options: { permission: "EVERYONE", enabled: true, cooldown: 60, guildOnly: false },
     run: async (bot, interaction) => {
   

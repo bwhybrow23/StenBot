@@ -5,6 +5,8 @@ module.exports = {
     .setName("clear").setDescription("Clear a certain amount of messages from chat.")
     .addIntegerOption(option => option.setName("amount").setDescription("The amount of messages to clear.").setRequired(true)),
   category: "mod",
+  usage: "<VALUE>",
+  example: "69",
   options: { permission: "STAFF", enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
 

@@ -5,6 +5,8 @@ module.exports = {
     .setName("clearwarn").setDescription("Clear all warnings from a user.")
     .addUserOption(option => option.setName("user").setDescription("The user to clear the warnings of.").setRequired(true)),
   category: "mod",
+  usage: "<@USER>",
+  example: "@Josh#4012",
   options: { permission: "STAFF", enabled: true, cooldown: 0, guildOnly: true },
   run: async (bot, interaction) => {
     

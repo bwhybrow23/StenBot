@@ -4,6 +4,8 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("ticketclose").setDescription("Close an ongoing ticket"),
   category: "ticketing",
+  usage: "",
+  example: "",
   options: { permission: "EVERYONE", aliases: ["tclose"], enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
 

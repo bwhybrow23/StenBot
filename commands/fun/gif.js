@@ -5,6 +5,8 @@ module.exports = {
       .setName("gif").setDescription("Search for a specific GIF")
       .addStringOption(option => option.setName("query").setDescription("The query to search for.").setRequired(true)),
     category: "fun",
+    usage: "<QUERY>",
+    example: "monkeys",
     options: { permission: "EVERYONE", enabled: true, cooldown: 3, guildOnly: false },
     run: async (bot, interaction) => {
   

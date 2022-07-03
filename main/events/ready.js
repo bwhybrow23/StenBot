@@ -29,7 +29,7 @@ module.exports = (bot) => {
     //Starting Status
     bot.user.setPresence({
       activities: [{
-        name: "sb!help",
+        name: "/help",
         type: 'WATCHING'
       }],
       status: 'online'
@@ -44,9 +44,9 @@ module.exports = (bot) => {
       let totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
 
       //Status array
-      // let statuses = [`sb!help`, `on ${totalGuilds} servers`, `with ${totalUsers} users`];
+      // let statuses = [`/help`, `on ${totalGuilds} servers`, `with ${totalUsers} users`];
       let statuses = [{
-        name: `sb!help`,
+        name: `/help`,
         type: `WATCHING`
       }, {
         name: `on ${totalGuilds} servers!`,
@@ -58,7 +58,7 @@ module.exports = (bot) => {
         name: `wiki.benwhybrow.com`,
         type: 'PLAYING'
       }, {
-        name: `sb!invite`,
+        name: `/invite`,
         type: 'WATCHING'
       }, {
         name: `on Version ${packageJSON.version}`,

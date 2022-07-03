@@ -6,6 +6,8 @@ module.exports = {
     .addStringOption(option => option.setName("person1").setDescription("The first person to ship.").setRequired(true))
     .addStringOption(option => option.setName("person2").setDescription("The second person to ship.").setRequired(true)),
   category: "fun",
+  usage: "<USER1> <USER2>",
+  example: "Trump Boris",
   options: { permission: "EVERYONE", aliases: ["love"], enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
 

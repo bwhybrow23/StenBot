@@ -5,6 +5,8 @@ module.exports = {
       .setName("me").setDescription("Find out some information the bot knows about you or another person.")
       .addUserOption(option => option.setName("user").setDescription("The user to check the information of.")),
     category: "fun",
+    usage: "[@USER]",
+    example: "@Danny#7013",
     options: { permission: "EVERYONE", aliases: ["user", "whois"], enabled: true, guildOnly: true },
     run: async (bot, interaction) => {
   

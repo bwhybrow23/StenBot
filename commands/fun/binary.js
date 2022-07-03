@@ -5,6 +5,8 @@ module.exports = {
     .setName("binary").setDescription("Convert text to binary.")
     .addStringOption(option => option.setName("text").setDescription("The text to convert to binary.").setRequired(true)),
   category: "fun",
+  usage: "<MESSAGE>",
+  example: "Hello There",
   options: { permission: "EVERYONE", enabled: true, guildOnly: false },
   run: async (bot, interaction) => {
 

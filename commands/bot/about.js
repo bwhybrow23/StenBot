@@ -4,6 +4,8 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("about").setDescription("Get some information about StenBot"),
   category: "bot",
+  usage: "",
+  example: "",
   options: { permission: "EVERYONE", enabled: true, guildOnly: false },
   run: async (bot, interaction) => {
 

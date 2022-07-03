@@ -7,6 +7,8 @@ module.exports = {
     .addIntegerOption(option => option.setName("user-id").setDescription("The user ID of the person to ban (if they are no longer on the server)"))
     .addStringOption(option => option.setName("reason").setDescription("The reason for the ban.")),
   category: "mod",
+  usage: "<@USER> [REASON]",
+  example: "@James#2307 Bullying",
   options: { permission: "STAFF", enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
 

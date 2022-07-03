@@ -5,6 +5,8 @@ module.exports = {
     .setName("warnings").setDescription("View all warnings on a user.")
     .addUserOption(option => option.setName("user").setDescription("The user to view warnings on.").setRequired(true)),
   category: "mod",
+  usage: "<@USER>",
+  example: "@Becca#4109",
   options: { permission: "STAFF", enabled: true, cooldown: 0, guildOnly: true },
   run: async (bot, interaction) => {
     

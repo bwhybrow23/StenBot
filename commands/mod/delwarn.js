@@ -6,6 +6,8 @@ module.exports = {
     .addUserOption(option => option.setName("user").setDescription("The user to clear the warning from.").setRequired(true))
     .addIntegerOption(option => option.setName("warning-id").setDescription("The ID of the warning to clear. (Can be gathered from /warnings)").setRequired(true)),
   category: "mod",
+  usage: "<@USER> <WARNING ID>",
+  example: "@Mel#4012 2",
   options: { permission: "STAFF", enabled: true, cooldown: 0, guildOnly: true },
   run: async (bot, interaction) => {
     

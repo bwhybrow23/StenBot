@@ -5,6 +5,8 @@ module.exports = {
     .setName("delchannel").setDescription("Deletes a mentioned channel")
     .addChannelOption(option => option.setName('channel').setDescription('The channel to delete').setRequired(true)),
   category: "admin",
+  usage: "<#CHANNEL>",
+  example: "#general",
   options: { permission: "ADMIN", aliases: ["dchannel"], enabled: true, guildOnly: true, cooldown: 5 },
   run: async (bot, interaction) => {
 

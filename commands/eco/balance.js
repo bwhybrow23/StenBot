@@ -5,6 +5,8 @@ module.exports = {
     .setName("balance").setDescription("Check yours or another user's balance.")
     .addUserOption(option => option.setName("user").setDescription("The user to check the balance of.")),
   category: "eco",
+  usage: "[@USER]",
+  example: "@Steve#1234",
   options: { permission: "EVERYONE", aliases: ["bal", "money"], enabled: true, cooldown: 5, guildOnly: false },
   run: async (bot, interaction) => {
 

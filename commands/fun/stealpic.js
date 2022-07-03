@@ -5,7 +5,6 @@ module.exports = {
     .setName("stealpic").setDescription("Steal a user's avatar.")
     .addUserOption(option => option.setName("user").setDescription("The user to steal the avatar from.")),
   category: "fun",
-  description: "Steal a user's avatar.",
   usage: "<@USER>",
   example: "@Jake#4012",
   options: { permission: "EVERYONE", enabled: true, guildOnly: true },

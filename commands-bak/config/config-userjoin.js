@@ -59,7 +59,7 @@ module.exports = {
         var targetrole = message.mentions.roles.first();
 
         if (config.userjoin.enabled === false) {
-          return bot.createEmbed("error", "", `Error! Userjoin is not enabled. You can enable it with **sb!config-userjoin enable**`, [], `${interaction.guild.name}`, interaction)
+          return bot.createEmbed("error", "", `Error! Userjoin is not enabled. You can enable it with **/config-userjoin enable**`, [], `${interaction.guild.name}`, interaction)
             .then((embed) => interaction.reply(embed))
             .catch((error) => bot.log.post("error", error));
         }

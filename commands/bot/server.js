@@ -5,6 +5,8 @@ module.exports = {
     .setName("server").setDescription("Get information about a server")
     .addStringOption(option => option.setName("server").setDescription("The name of the server you want to get information about")),
   category: "bot",
+  usage: "[SERVER ID]",
+  example: "455782308293771264",
   options: { permission: "EVERYONE", aliases: ["server-info", "serverinfo"], enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
 

@@ -4,7 +4,6 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("invitelist").setDescription("Get a list of all the invites in the Discord server."),
   category: "general",
-  description: "Get a list of all the invites in the Discord server.",
   usage: "",
   example: "",
   options: { permission: "EVERYONE", enabled: true, guildOnly: true },

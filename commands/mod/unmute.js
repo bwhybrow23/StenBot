@@ -6,6 +6,8 @@ module.exports = {
     .addUserOption(option => option.setName("user").setDescription("The user to unmute.").setRequired(true))
     .addStringOption(option => option.setName("reason").setDescription("The reason for unmuting the user.")),
   category: "mod",
+  usage: "<@USER> [REASON]",
+  example: "@Geoff#3010 Has shut up",
   options: { permission: "STAFF", enabled: true, guildOnly: true},
   run: async (bot, interaction) => {
 

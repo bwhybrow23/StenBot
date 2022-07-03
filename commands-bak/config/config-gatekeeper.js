@@ -127,20 +127,20 @@ module.exports = {
             case "test":
               //Check if enabled
               if (config.gatekeeper.welcome_enabled === false) {
-                return bot.createEmbed("error", "", `Error! Your configuration didn't work. This was because you haven't enabled welcomer yet! You can do so by doing **sb!config-gatekeeper welcome enable**`, [], `${interaction.guild.name}`, interaction)
+                return bot.createEmbed("error", "", `Error! Your configuration didn't work. This was because you haven't enabled welcomer yet! You can do so by doing **/config-gatekeeper welcome enable**`, [], `${interaction.guild.name}`, interaction)
                   .then((embed) => interaction.reply(embed))
                   .catch((error) => bot.log.post("error", error));
               }
               //Check if channel is set
               if (config.gatekeeper.welcome_channel === 0) {
-                return bot.createEmbed("error", "", `Error! Your configuration didn't work. This was because you haven't set a channel for your welcome messages. You can do so by doing **sb!config-gatekeeper welcome channel <#CHANNEL>**`, [], `${interaction.guild.name}`, interaction)
+                return bot.createEmbed("error", "", `Error! Your configuration didn't work. This was because you haven't set a channel for your welcome messages. You can do so by doing **/config-gatekeeper welcome channel <#CHANNEL>**`, [], `${interaction.guild.name}`, interaction)
                   .then((embed) => interaction.reply(embed))
                   .catch((error) => bot.log.post("error", error));
               }
               //Check if channel is accessible by bot or exists
               let testingchannel = bot.channels.cache.get("" + config.gatekeeper.welcome_channel + "");
               if (testingchannel === undefined) {
-                return bot.createEmbed("error", "", `Error! Your configuration didn't work. This is beacuse the channel you have set no longer exists. Please set a new channel by doing **sb!config-gatekeeper welcome channel <#CHANNEL>**`, [], `${interaction.guild.name}`, interaction)
+                return bot.createEmbed("error", "", `Error! Your configuration didn't work. This is beacuse the channel you have set no longer exists. Please set a new channel by doing **/config-gatekeeper welcome channel <#CHANNEL>**`, [], `${interaction.guild.name}`, interaction)
                   .then((embed) => interaction.reply(embed))
                   .catch((error) => bot.log.post("error", error));
               }
@@ -288,20 +288,20 @@ module.exports = {
             case "test":
               //Check if enabled
               if (config.gatekeeper.leave_enabled === false) {
-                return bot.createEmbed("error", "", `Error! Your configuration didn't work. This was because you haven't enabled leave yet! You can do so by doing **sb!config-gatekeeper leave enable**`, [], `${interaction.guild.name}`, interaction)
+                return bot.createEmbed("error", "", `Error! Your configuration didn't work. This was because you haven't enabled leave yet! You can do so by doing **/config-gatekeeper leave enable**`, [], `${interaction.guild.name}`, interaction)
                   .then((embed) => interaction.reply(embed))
                   .catch((error) => bot.log.post("error", error));
               }
               //Check if channel is set
               if (config.gatekeeper.leave_channel === 0) {
-                return bot.createEmbed("error", "", `Error! Your configuration didn't work. This was because you haven't set a channel for your welcome messages. You can do so by doing **sb!config-gatekeeper leave channel <#CHANNEL>**`, [], `${interaction.guild.name}`, interaction)
+                return bot.createEmbed("error", "", `Error! Your configuration didn't work. This was because you haven't set a channel for your welcome messages. You can do so by doing **/config-gatekeeper leave channel <#CHANNEL>**`, [], `${interaction.guild.name}`, interaction)
                   .then((embed) => interaction.reply(embed))
                   .catch((error) => bot.log.post("error", error));
               }
               //Check if channel is accessible by bot or exists
               let testingchannel = bot.channels.cache.get("" + config.gatekeeper.leave_channel + "");
               if (testingchannel === undefined) {
-                return bot.createEmbed("error", "", `Error! Your configuration didn't work. This is beacuse the channel you have set no longer exists. Please set a new channel by doing **sb!config-gatekeeper leave channel <#CHANNEL>**`, [], `${interaction.guild.name}`, interaction)
+                return bot.createEmbed("error", "", `Error! Your configuration didn't work. This is beacuse the channel you have set no longer exists. Please set a new channel by doing **/config-gatekeeper leave channel <#CHANNEL>**`, [], `${interaction.guild.name}`, interaction)
                   .then((embed) => interaction.reply(embed))
                   .catch((error) => bot.log.post("error", error));
               }

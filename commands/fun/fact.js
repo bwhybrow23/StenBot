@@ -4,6 +4,8 @@ module.exports = {
     data: new SlashCommandBuilder()
       .setName("fact").setDescription("Get a random fact!"),
     category: "fun",
+    usage: "",
+    example: "",
     options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: false },
     run: async (bot, interaction) => {
   

@@ -6,6 +6,8 @@ module.exports = {
     .addStringOption(option => option.setName("name").setDescription("The name of the channel you want to create").setRequired(true))
     .addStringOption(option => option.setName("category").setDescription("The name of the category you want the channel in (cAsE-sEnSiTiVe)")),
   category: "admin",
+  usage: "<NAME> [CATEGORY]",
+  example: "general-chat Community",
   options: { permission: "ADMIN", aliases: ["txt"], enabled: true, guildOnly: true, cooldown: 5 },
   run: async (bot, interaction) => {
 

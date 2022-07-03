@@ -37,6 +37,8 @@ module.exports = {
       .addUserOption(option => option.setName("user").setDescription("The user to tickle").setRequired(true))
     ),
   category: "fun",
+  usage: "<ACTION> <@USER>",
+  example: "hug @Sam#9215",
   options: { permission: "EVERYONE", enabled: true, cooldown: 3, guildOnly: true },
   run: async (bot, interaction) => {
 

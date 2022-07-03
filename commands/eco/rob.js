@@ -5,6 +5,8 @@ module.exports = {
       .setName("rob").setDescription("Attempt to rob a user of some money.")
       .addUserOption(option => option.setName("user").setDescription("The user to rob.").setRequired(true)),
     category: "eco",
+    usage: "<@USER>",
+    example: "@Jessica#1391",
     options: { permission: "EVERYONE", enabled: false, guildOnly: true },
     run: async (bot, interaction) => {
   

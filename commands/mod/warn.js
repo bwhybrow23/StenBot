@@ -6,6 +6,8 @@ module.exports = {
     .addUserOption(option => option.setName("user").setDescription("The user to warn.").setRequired(true))
     .addStringOption(option => option.setName("reason").setDescription("The reason for the warning.").setRequired(true)),
   category: "mod",
+  usage: "<@USER> <REASON>",
+  example: "@Max#5192 Excessive swearing",
   options: { permission: "STAFF", enabled: true, cooldown: 0, guildOnly: true },
   run: async (bot, interaction) => {
 

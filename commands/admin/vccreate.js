@@ -5,6 +5,8 @@ module.exports = {
     .setName("vccreate").setDescription("Create a voice channel")
     .addStringOption(option => option.setName("name").setDescription("The name of the channel you want to create").setRequired(true)),
   category: "admin",
+  usage: "<NAME>",
+  example: "General VC",
   options: { permission: "ADMIN", aliases: ["vc"], enabled: true, guildOnly: true, cooldown: 5 },
   run: async (bot, interaction) => {
 

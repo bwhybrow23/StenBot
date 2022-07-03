@@ -4,6 +4,8 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("meme").setDescription("Generate a random Reddit meme."),
   category: "fun",
+  usage: "",
+  example: "",
   options: { permission: "EVERYONE", enabled: true, cooldown: 2, guildOnly: false },
   run: async (bot, interaction) => {
     

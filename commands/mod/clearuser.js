@@ -6,6 +6,8 @@ module.exports = {
     .addUserOption(option => option.setName("user").setDescription("The user to clear messages from.").setRequired(true))
     .addIntegerOption(option => option.setName("amount").setDescription("The amount of messages to clear.").setRequired(true)),
   category: "mod",
+  usage: "<@USER> <VALUE>",
+  example: "@Haydn#3329 50",
   options: { permission: "STAFF", aliases: ["cuser"], enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
 

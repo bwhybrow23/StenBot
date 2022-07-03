@@ -5,6 +5,8 @@ module.exports = {
     .setName("delrole").setDescription("Deletes a mentioned role")
     .addRoleOption(option => option.setName("role").setDescription("The role to delete").setRequired(true)),
   category: "admin",
+  usage: "<@ROLE>",
+  example: "@Members",
   options: { permission: "ADMIN", aliases: ["drole"], enabled: true, guildOnly: true, cooldown: 5 },
   run: async (bot, interaction) => {
 
