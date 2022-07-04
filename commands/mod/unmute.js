@@ -32,7 +32,7 @@ module.exports = {
     let muteRole = interaction.guild.roles.cache.find(r => r.name === "Muted");
     if (!muteRole) {
       return bot.createEmbed("error", "", `Error! There is no valid "Muted" role which means that the role has been deleted or was never created. In order for the role to be created, a user has to be muted by StenBot.`, [], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -44,7 +44,7 @@ module.exports = {
     }).then((muteData) => {
       //Response
       bot.createEmbed("success", "", `${msg}`, [], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
       //Logging
       if (config.logging.enabled === true) {

@@ -36,7 +36,7 @@ module.exports = {
           }
           //Change Setting
           bot.settings.mode = "production";
-          fs.writeFileSync(`./main/settings.json`, JSON.stringify(bot.settings, null, 4), (err) => {
+          fs.writeFileSync(`./Main/settings.json`, JSON.stringify(bot.settings, null, 4), (err) => {
             if (err) return bot.log.post("error", err);
           });
           //Change Status
@@ -66,7 +66,7 @@ module.exports = {
 
           //Change Setting
           bot.settings.mode = "development";
-          fs.writeFileSync(`./main/settings.json`, JSON.stringify(bot.settings, null, 4), (err) => {
+          fs.writeFileSync(`./Main/settings.json`, JSON.stringify(bot.settings, null, 4), (err) => {
             if (err) return bot.log.post("error", err);
           });
 

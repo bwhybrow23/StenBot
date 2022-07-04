@@ -1,6 +1,6 @@
 //AUTHENTICATION
 const bcrypt = require("bcrypt");
-const mutils = require("../functions/mongoUtils");
+const mutils = require("../Functions/mongoUtils");
 const bot = require("../../app.js");
 
 const discord = async (req, res, next) => {

@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const mutils = require('../functions/mongoUtils');
+const mutils = require('../Functions/mongoUtils');
 const bot = require("../../app.js");
 
-const Auth = require('../middleware/auth');
+const Auth = require('../Middleware/auth');
 
 //Get all guilds
 router.get("/api/guilds", Auth.discord, async (req, res) => {

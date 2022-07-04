@@ -10,14 +10,14 @@ module.exports = {
   options: { permission: "EVERYONE", aliases: ["bal", "money"], enabled: true, cooldown: 5, guildOnly: false },
   run: async (bot, interaction) => {
 
-    const ecoUtils = require("../../main/functions/ecoUtils");
+    const ecoUtils = require("../../Main/Functions/ecoUtils");
 
     let person = interaction.options.getUser("user") || interaction.user;
 
     await ecoUtils.getUser(person.id).then(async (user) => {
       console.log(user)
       return bot.createEmbed("info", "", `${person} has **${user.balance}** credits.`, [], ``, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     })
 

@@ -12,7 +12,7 @@ module.exports = {
     const Discord = require("discord.js");
     const fs = require("fs");
 
-    const memusage = JSON.parse(fs.readFileSync("./data/global/bot-data.json", "utf8"));
+    const memusage = JSON.parse(fs.readFileSync("./Data/Global/bot-data.json", "utf8"));
     const packageJSON = require("../../package.json");
 
     let ping = Math.floor(bot.ws.ping);
@@ -20,7 +20,7 @@ module.exports = {
     let uptime = new Date(process.uptime() * 1000).toISOString().substr(11, 8);
     let totalGuilds = bot.guilds.cache.size;
     let totalMembers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
-    let totalCommands = require("../../data/global/bot-data.json").stats.commands.total;
+    let totalCommands = require("../../Data/Global/bot-data.json").stats.commands.total;
 
     let embed = new Discord.MessageEmbed()
       .setColor(4886754)
@@ -38,7 +38,7 @@ module.exports = {
       .addField("Version:", packageJSON.version.toString(), true)
       .setFooter({ text: `${interaction.guild.name}`, iconURL: interaction.guild.iconURL()});
 
-    return interaction.reply({embeds: [embed.toJSON()]});
+    return interaction.reply({ embeds: [embed.toJSON()] });
 
   }
 };

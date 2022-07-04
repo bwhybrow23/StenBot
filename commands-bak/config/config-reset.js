@@ -11,13 +11,13 @@ module.exports = {
   
       if (message.member.permissions.has("ADMINISTRATOR") === false) {
         return bot.noPermsEmbed(`${interaction.guild.name}`, bot)
-          .then((embed) => interaction.reply(embed))
+          .then((embed) => interaction.reply({ embeds: embed }))
           .catch((error) => bot.log.post("error", error));
       }
   
       //Confirmation
       bot.createEmbed("warning", "", `Are you sure you would like to reset the config of this server?\n React with :white_check_mark: if you are sure, or :x: to cancel resetting. \nThis will automatically cancel if there isn't a response in 30 seconds.`, [], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply(embed).then((m) => {
+        .then((embed) => interaction.reply({ embeds: embed }).then((m) => {
           m.react('✅').then(r => {
             m.react('❌');
           });
@@ -68,7 +68,7 @@ module.exports = {
               });
   
               bot.createEmbed("success", "", `Server Config has been reset.`, [], `${interaction.guild.name}`, interaction)
-                .then((embed) => interaction.reply(embed))
+                .then((embed) => interaction.reply({ embeds: embed }))
                 .catch((error) => bot.log.post("error", error));
             }
             if (collected.first().emoji.name === '❌') {

@@ -1,4 +1,4 @@
-const Timeout = require("../models/timeouts");
+const Timeout = require("../Models/timeouts");
 const moment = require('moment');
 const ms = require('ms');
 const bot = require("../../app");

@@ -11,7 +11,7 @@
  * #- Implement new JSON layout into model
  * #- Config command(s)
  * #- App.js stuffs
- * # - Any events/functions that need updating
+ * # - Any events/Functions that need updating
  * #- Tickets with default value
  * #- Remove any requirement of the admin value
  * #- Move config-leave and config-welcomer into config-gatekeeper

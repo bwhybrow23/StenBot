@@ -1,11 +1,13 @@
-const Discord = require("discord.js");
-const fs = require("fs");
+module.exports = {
+    name: "interactionCreate",
+    once: false,
+    async execute(bot, interaction) {
 
-module.exports = async (bot, interaction) => {
+    const Discord = require("discord.js");
+    const fs = require("fs");
 
     //Check if interaction exists and if it's a command
     if (!interaction) return;
-    if (!interaction.isCommand()) return;
 
     // Ignore if blacklisted
     var bStatus;
@@ -63,11 +65,11 @@ module.exports = async (bot, interaction) => {
 
     //Log to stats json
     function logToStats(cmdName, cmdCategory) {
-        let botData = require("../../data/global/bot-data.json");
+        let botData = require("../../../Data/Global/bot-data.json");
         botData.stats.commands[cmdCategory][cmdName]++;
         botData.stats.commands[cmdCategory].total++;
         botData.stats.commands.total++;
-        fs.writeFileSync("./data/global/bot-data.json", JSON.stringify(botData, null, 4));
+        fs.writeFileSync("./Data/Global/bot-data.json", JSON.stringify(botData, null, 4));
     }
 
-}
+}};

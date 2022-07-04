@@ -9,7 +9,7 @@ module.exports = {
     options: { permission: "EVERYONE", enabled: false, cooldown: 60, guildOnly: false },
     run: async (bot, interaction) => {
   
-      const ecoUtils = require("../../main/functions/ecoUtils");
+      const ecoUtils = require("../../Main/Functions/ecoUtils");
   
       const person = interaction.user;
   
@@ -22,7 +22,7 @@ module.exports = {
       let check = await bot.timeouts.check(person.id, "daily")
       if (check != false) {
         return bot.createEmbed("error", "", `You've already redeemed your daily money for today. \nCome back in **${check}** and you'll be able to redeem it again.`, [], ``, interaction)
-          .then((embed) => interaction.reply(embed))
+          .then((embed) => interaction.reply({ embeds: embed }))
           .catch((error) => bot.log.post("error", error));
       }
   
@@ -34,7 +34,7 @@ module.exports = {
           // Create a new daily for the user
           await bot.timeouts.new(person.id, "daily");
           return bot.createEmbed("success", "", `You have claimed your daily reward of **${reward}**. Come back in 24 hours to claim it again!`, [], ``, interaction)
-            .then((embed) => interaction.reply(embed))
+            .then((embed) => interaction.reply({ embeds: embed }))
             .catch((error) => bot.log.post("error", error));
         })
       })

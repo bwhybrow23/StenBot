@@ -49,7 +49,7 @@ module.exports = {
         //Creating a StenBot Account Command
         //Check if an account already exists
         let accountexists = fs.existsSync(
-          `./data/accounts/${message.author.id}.json`
+          `./Data/accounts/${message.author.id}.json`
         );
         if (accountexists === true) {
           return bot.createEmbed("error", "", `You already have a StenBot Account`, [], `${message.guild.name}`, message)
@@ -69,7 +69,7 @@ module.exports = {
         };
 
         fs.writeFileSync(
-          `./data/accounts/${message.author.id}.json`,
+          `./Data/accounts/${message.author.id}.json`,
           JSON.stringify(userconfigfile, null, 4),
           (err) => {
             if (err) return;
@@ -77,7 +77,7 @@ module.exports = {
         );
 
         //Create the gallery folder for the pictures :D
-        fs.mkdir(`./data/galleries/${message.author.id}`, (err) => {
+        fs.mkdir(`./Data/galleries/${message.author.id}`, (err) => {
           if (err && err.code != "EEXIST") return;
         });
 

@@ -1,5 +1,8 @@
-module.exports = async (bot, oldRole, newRole) => {
-  const Discord = require("discord.js");
+module.exports = {
+  name: "roleUpdate",
+  once: false,
+  async execute(bot, oldRole, newRole) {
+    
   const ColorAPIURL = "http://thecolorapi.com/id?format=json&hex=";
   const fetch = require("node-fetch");
 
@@ -34,4 +37,4 @@ module.exports = async (bot, oldRole, newRole) => {
       }
     }
   }
-};
+}};

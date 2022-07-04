@@ -28,7 +28,7 @@ module.exports = {
     //Check if user is kickable
     if (!targetuser.kickable) {
       return bot.createEmbed("error", "", `Error! I do not have permission to kick this user!`, [], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -41,7 +41,7 @@ module.exports = {
       
         //Send Success message
         bot.createEmbed("success", "", `${msg}`, [], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error))
 
         //Send User a message

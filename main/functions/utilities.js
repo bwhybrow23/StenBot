@@ -67,7 +67,7 @@ module.exports = {
   resetVerif: (bot) => {
     const fs = require("fs");
 
-    let botData = JSON.parse(fs.readFileSync("./data/global/bot-data.json"));
+    let botData = JSON.parse(fs.readFileSync("./Data/Global/bot-data.json"));
     let serverGuild = bot.guilds.cache.get(bot.settings.ids.mainGuild);
 
     let serverChannel = serverGuild.channels.cache.find((channel) => {
@@ -97,7 +97,7 @@ module.exports = {
       .then((message) => {
         botData.verifMsgID = message.id;
         fs.writeFileSync(
-          "./data/global/bot-data.json",
+          "./Data/Global/bot-data.json",
           JSON.stringify(botData, null, 4)
         );
         message.react("✅");

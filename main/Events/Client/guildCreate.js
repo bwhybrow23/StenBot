@@ -1,8 +1,10 @@
-module.exports = async (bot, guild) => {
+module.exports = {
+  name: "guildCreate",
+  once: false,
+  async execute(bot, guild) {
 
-  const Discord = require("discord.js");
   const fs = require("fs");
-  const Punishment = require("../models/punishment.js");
+  const Punishment = require("../../Models/punishment.js");
 
   let gOwner = await guild.fetchOwner();
 
@@ -86,10 +88,10 @@ module.exports = async (bot, guild) => {
 }
 
   //Update bot-data.json
-  let botdata = require("../../data/global/bot-data.json");
+  let botdata = require("../../../Data/Global/bot-data.json");
   botdata.stats.totalGuilds = bot.guilds.cache.size;
   botdata.stats.totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
-  fs.writeFileSync(`./data/global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => {
+  fs.writeFileSync(`./Data/Global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => {
     if (err) return bot.log.post("error", err);
   });
 
@@ -144,4 +146,4 @@ module.exports = async (bot, guild) => {
     }]
   })
 
-};
+}};

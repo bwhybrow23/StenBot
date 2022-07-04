@@ -23,7 +23,7 @@ module.exports = {
 
     if (amount > 100 || amount < 1) {
       return bot.createEmbed("error", "", `The amount of messages to clear must be in-between 1 and 100.`, [], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     };
 
@@ -42,7 +42,7 @@ module.exports = {
 
     //Success message
     bot.createEmbed("success", "", `Successfully cleared **${amount}** messages from **${targetuser.user.tag}**`, [], `${interaction.guild.name}`, interaction)
-          .then((embed) => interaction.reply(embed))
+          .then((embed) => interaction.reply({ embeds: embed }))
           .catch((error) => bot.log.post("error", error));
 
     //Logging

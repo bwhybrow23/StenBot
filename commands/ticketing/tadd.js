@@ -51,7 +51,7 @@ module.exports = {
     let toBeAdded = interaction.options.getUser("user");
     if (!toBeAdded || args[0] === "help") {
       return bot.helpEmbed("tadd", bot)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
     try {

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Economy = require("../models/economy");
+const Economy = require("../Models/economy");
 const Discord = require("discord.js");
 
 const createUser = async (userid, balance) => {

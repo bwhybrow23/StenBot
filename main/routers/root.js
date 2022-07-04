@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const bot = require("../../app.js");
 
-const Auth = require('../middleware/auth');
+const Auth = require('../Middleware/auth');
 
 const settings = require("../settings.json");
-const botdata = require("../../data/global/bot-data.json");
+const botdata = require("../../Data/Global/bot-data.json");
 const packageJSON = require("../../package.json");
 
 // MAIN WEBSITE

@@ -1,9 +1,10 @@
-const util = require("util");
-const readdir = util.promisify(require("fs").readdir);
+module.exports = {
+  name: "messageDelete",
+  once: false,
+  async execute(bot, message) {
 
-module.exports = async (bot, message) => {
-
-  const Discord = require("discord.js");
+  const util = require("util");
+  const readdir = util.promisify(require("fs").readdir);
 
   if(!message) return;
 
@@ -17,7 +18,7 @@ module.exports = async (bot, message) => {
     if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
       if (bot.efunctions.checkChannel(config.logging.channel, bot) === true) {
         if (message.author.bot) return;
-        let files = await readdir("./commands/");
+        let files = await readdir("./Commands/");
         possiblefilename =
           message.content.split(" ")[0].slice(bot.settings.prefix.length) +
           ".js";
@@ -30,4 +31,4 @@ module.exports = async (bot, message) => {
       }
     }
   }
-};
+}};

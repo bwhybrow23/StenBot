@@ -13,7 +13,7 @@ module.exports = {
     //Permission Check
     if (interaction.member.permissions.has("ADMINISTRATOR") === false) {
       return bot.noPermsEmbed(`${interaction.guild.name}`, bot)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -22,19 +22,19 @@ module.exports = {
 
     if (msg.length > 500) {
       return bot.createEmbed("error", "", `Error! Your message it too long. It must be less that **500** characters.`, [], `${interaction.guild.name}`, interaction, true)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
     if (msg.length < 2) {
       return bot.createEmbed("error", "", `Error! Your message is too short.`, [], `${interaction.guild.name}`, interaction, true)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
     //Send the Message
     return bot.createEmbed("success", "", `${msg}`, [], `${interaction.guild.name}`, interaction)
-      .then((embed) => interaction.reply(embed))
+      .then((embed) => interaction.reply({ embeds: embed }))
       .catch((error) => bot.log.post("error", error));
   },
 };

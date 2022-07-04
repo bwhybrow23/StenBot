@@ -15,7 +15,7 @@ module.exports = {
     //Permission Check
     if (interaction.member.permissions.has("ADMINISTRATOR") === false) {
       return bot.noPermsEmbed(`${interaction.guild.name}`, bot)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -24,14 +24,14 @@ module.exports = {
     //Permission Check
     if (role.position > botMember.roles.highest.position) {
       return bot.createEmbed("error", "", `Error! I am unable to delete this role as it is above my highest role.`, [], `${interaction.guild.name}`, interaction, true)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     } else {
       //Delete the role
       let name = role.name;
       role.delete();
       return bot.createEmbed("success", "", `Deleted role **${name}** requested by **${interaction.user.tag}**`, [], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
   },

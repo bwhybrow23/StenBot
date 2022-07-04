@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-const Guild = require("../models/guild");
-const User = require("../models/user");
-const UserBlacklist = require("../models/userblacklist");
+const Guild = require("../Models/guild");
+const User = require("../Models/user");
+const UserBlacklist = require("../Models/userblacklist");
 const Discord = require("discord.js");
 
 /** 

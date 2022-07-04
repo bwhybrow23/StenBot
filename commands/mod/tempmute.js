@@ -86,7 +86,7 @@ module.exports = {
 
     //Success message 
     bot.createEmbed("success", "", `${msg}`, [], `${interaction.guild.name}`, interaction)
-      .then((embed) => interaction.reply(embed))
+      .then((embed) => interaction.reply({ embeds: embed }))
       .catch((error) => bot.log.post("error", error));
 
     //DM User

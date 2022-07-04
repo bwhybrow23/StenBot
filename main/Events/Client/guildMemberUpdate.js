@@ -1,6 +1,7 @@
-module.exports = async (bot, oldMember, newMember) => {
-
-    const Discord = require("discord.js");
+module.exports = {
+  name: "guildMemberUpdate",
+  once: false,
+  async execute(bot, oldMember, newMember) {
 
     if (newMember.user === bot.user) return;
   
@@ -53,4 +54,4 @@ module.exports = async (bot, oldMember, newMember) => {
         }
       }
     }
-  };
+  }};

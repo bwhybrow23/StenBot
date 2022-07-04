@@ -11,7 +11,7 @@ module.exports = {
   options: { permission: "EVERYONE", enabled: true, cooldown: 10, guildOnly: true },
   run: async (bot, interaction) => {
 
-    const ecoUtils = require("../../main/functions/ecoUtils");
+    const ecoUtils = require("../../Main/Functions/ecoUtils");
 
     let toBePaid = await ecoUtils.getUser(interaction.options.getUser("user").id);
 
@@ -30,7 +30,7 @@ module.exports = {
     await ecoUtils.updateUser(payee.discordID, payee.balance - amount).then(async () => {
       await ecoUtils.updateUser(toBePaid.discordID, toBePaid.balance + amount).then(async (user) => {
         return bot.createEmbed("success", "", `${amount} has now been transferred to ${interaction.options.getUser("user").tag}'s balance. Their new balance is ${user.balance}.`, [], ``, interaction)
-          .then((embed) => interaction.reply(embed))
+          .then((embed) => interaction.reply({ embeds: embed }))
           .catch((error) => bot.log.post("error", error));
       })
     })

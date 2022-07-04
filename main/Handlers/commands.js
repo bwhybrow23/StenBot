@@ -6,22 +6,22 @@ const ascii = require("ascii-table");
 const table = new ascii().setHeading("Command", "Load status");
 
 //Bot Data (obviously)
-const botData = require("../../data/global/bot-data.json");
+const botData = require("../../Data/Global/bot-data.json");
 
 //Actual Code
 module.exports = (bot) => {
   //Read "commands" directory
-  fs.readdirSync("./commands/").forEach((dir) => {
+  fs.readdirSync("./Commands/").forEach((dir) => {
 
     //Find all .js files in each directory
-    const commands = fs.readdirSync(`./commands/${dir}/`).filter((f) =>
+    const commands = fs.readdirSync(`./Commands/${dir}/`).filter((f) =>
       f.endsWith(".js")
     );
 
     //For each file, do this
     commands.forEach((file) => {
 
-      let command = require(`../../commands/${dir}/${file}`);
+      let command = require(`../../Commands/${dir}/${file}`);
       if(command.category === "botowner") return;
 
       //Check if enabled
@@ -30,7 +30,7 @@ module.exports = (bot) => {
       //Check if stats tracking exists for it
       if (!botData.stats.commands[command.category][command.data.name]) {
         botData.stats.commands[command.category][command.data.name] = 0;
-        fs.writeFileSync("./data/global/bot-data.json", JSON.stringify(botData, null, 4));
+        fs.writeFileSync("./Data/Global/bot-data.json", JSON.stringify(botData, null, 4));
       };
 
       commandData = command.data.toJSON();
@@ -53,4 +53,6 @@ module.exports = (bot) => {
     })
 
   });
+
+  console.log(table.toString());
 }

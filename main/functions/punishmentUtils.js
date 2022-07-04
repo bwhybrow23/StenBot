@@ -1,4 +1,4 @@
-const Punishment = require("../models/punishment.js");
+const Punishment = require("../Models/punishment.js");
 const moment = require("moment");
 const bot = require("../../app.js");
 const mutils = require("./mongoUtils.js");

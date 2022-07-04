@@ -31,7 +31,7 @@ module.exports = {
       } catch (error) {
         //No user found
         return bot.createEmbed("error", "", `Error! Unable to find user with ID ${interaction.options.getInteger("user-id")}`, [], `${interaction.guild.name}`, interaction)
-          .then((embed) => interaction.reply(embed))
+          .then((embed) => interaction.reply({ embeds: embed }))
           .catch((error) => bot.log.post("error", error));
       }
     }
@@ -54,7 +54,7 @@ module.exports = {
 
         //Send success message
         bot.createEmbed("success", "", `Sucessfully banned ${targetuser}${reason ? ` for \`${reason}\`.` : `.`}`, [], `${interaction.guild.name}`, interaction)
-          .then((embed) => interaction.reply(embed))
+          .then((embed) => interaction.reply({ embeds: embed }))
           .catch((error) => bot.log.post("error", error))
 
         //Logging

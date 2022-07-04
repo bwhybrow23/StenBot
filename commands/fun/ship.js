@@ -19,7 +19,7 @@ module.exports = {
     const loveLevel = "💓".repeat(loveIndex) + "💔".repeat(10 - loveIndex);
 
     bot.createEmbed("info", `${person1} x ${person2}`, `💟${Math.floor(love)}%\n\n${loveLevel}`, [], ``, interaction)
-      .then((embed) => interaction.reply(embed))
+      .then((embed) => interaction.reply({ embeds: embed }))
       .catch((error) => bot.log.post("error", error));
   },
 };

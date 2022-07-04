@@ -1,5 +1,8 @@
-module.exports = async (bot, oldMessage, newMessage) => {
-  const Discord = require("discord.js");
+module.exports = {
+  name: "messageUpdate",
+  once: false,
+  async execute(bot, oldMessage, newMessage) {
+    
   const checker = require("is-url");
 
   if (newMessage.type === "DM") return;
@@ -26,4 +29,4 @@ module.exports = async (bot, oldMessage, newMessage) => {
       }
     }
   }
-};
+}};

@@ -31,7 +31,7 @@ module.exports = {
     //If no warnings
     if (Object.keys(warnings).length < 0) {
       return bot.createEmbed("error", "", "Error! This user has no warnings.", [], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -39,7 +39,7 @@ module.exports = {
     let removedID = interaction.options.getInteger("warning-id");
     if (!warnings[removedID - 1]) {
       return bot.createEmbed("error", "", "Error! The ID you have provided doesn't exist as a warning on this user.", [], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -49,7 +49,7 @@ module.exports = {
 
     //Post success embed to user
     bot.createEmbed("success", "", `Successfully removed warning ID ${removedID} from **${targetuser.user.tag}**. They now have ${Object.keys(warnings).length} warnings.`, [], `${interaction.guild.name}`, interaction)
-    .then((embed) => interaction.reply(embed))
+    .then((embed) => interaction.reply({ embeds: embed }))
     .catch((error) => bot.log.post("error", error));
 
     //Logging

@@ -16,7 +16,7 @@ module.exports = {
   options: { permission: "EVERYONE", enabled: true, cooldown: 3, guildOnly: true },
   run: async (bot, interaction) => {
     
-    const Timeout = require("../../main/models/timeouts");
+    const Timeout = require("../../Main/Models/timeouts");
     const moment = require("moment");
     const ms = require("ms");
     
@@ -182,7 +182,7 @@ module.exports = {
     
       default:
         return bot.helpEmbed("reminder", bot)
-          .then((embed) => interaction.reply(embed))
+          .then((embed) => interaction.reply({ embeds: embed }))
           .catch((error) => bot.log.post("error", error));
     
         break;

@@ -28,7 +28,7 @@ module.exports = {
       //If no ID, output error
       if(!id) {
         return bot.createEmbed("error", "", "Specified server ID is invalid. Please make sure that it is a valid server ID.", [], interaction.user.tag, interaction, true)
-          .then((embed) => interaction.reply(embed));
+          .then((embed) => interaction.reply({ embeds: embed }));
       }
       //Fetch server (from argument)
       try { 
@@ -36,7 +36,7 @@ module.exports = {
       }
       catch (e) {
         return bot.createEmbed("error", "", "Specified server cannot be found. Please make sure the bot is in the server.", [], interaction.user.tag, interaction, true)
-          .then((embed) => interaction.reply(embed));
+          .then((embed) => interaction.reply({ embeds: embed }));
       }
     }
 

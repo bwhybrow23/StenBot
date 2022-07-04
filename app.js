@@ -4,7 +4,7 @@
  *
  */
 const { Client, Collection } = require("discord.js");
-const settings = require("./main/settings.json");
+const settings = require("./Main/settings.json");
 const fs = require("fs");
 const mongoose = require("mongoose");
 const bot = new Client({
@@ -26,70 +26,57 @@ const bot = new Client({
  *
  */
 //Logger
-const logUtils = require("./main/functions/logUtils.js");
+const logUtils = require("./Main/Functions/logUtils.js");
 bot.log = logUtils;
 
 //Settings File
 bot.settings = settings;
 
 //Embed Functions
-const embedUtils = require("./main/functions/embedUtils.js");
+const embedUtils = require("./Main/Functions/embedUtils.js");
 bot.createEmbed = embedUtils.createEmbed;
 bot.noPermsEmbed = embedUtils.noPermsEmbed;
 bot.helpEmbed = embedUtils.helpEmbed;
 bot.eventEmbed = embedUtils.eventEmbed;
 
 //Event Functions
-const efunctions = require("./main/functions/eventUtils.js");
+const efunctions = require("./Main/Functions/eventUtils.js");
 bot.efunctions = efunctions;
 
 //Timeout Utilities
 const {
   TimeoutUtils
-} = require("./main/functions/timeoutUtils");
+} = require("./Main/Functions/timeoutUtils");
 const timeouts = new TimeoutUtils(bot);
 bot.timeouts = timeouts;
 
 //Punishment Utilities
 const {
   PunishmentUtils
-} = require("./main/functions/punishmentUtils.js");
+} = require("./Main/Functions/punishmentUtils.js");
 const punishments = new PunishmentUtils(bot);
 bot.punishments = punishments;
 
 /**
  *
- * COMMAND HANDLER
+ * COMMAND & EVENT HANDLER
  *
  */
 bot.commands = new Collection();
 bot.aliases = new Collection();
 bot.cooldowns = new Collection();
-bot.categories = fs.readdirSync("./commands/");
+bot.categories = fs.readdirSync("./Commands/");
 bot.commandsArray = [];
 
-["command"].forEach((handler) => {
-  require(`./main/handlers/${handler}`)(bot);
-});
-
-/**
- *
- * EVENT HANDLER
- *
- */
-let events = fs.readdirSync("./main/events/");
-events.forEach((file) => {
-  const name = file.slice(0, -3);
-  const event = require(`./main/events/${file}`);
-  bot.on(name, event.bind(null, bot));
-});
+require(`./Main/Handlers/Commands.js`)(bot);  
+require(`./Main/Handlers/Events.js`)(bot);
 
 /**
  *
  * USAGE STATISTICS
  *
  */
-const botData = JSON.parse(fs.readFileSync("./data/global/bot-data.json", "utf8"));
+const botData = JSON.parse(fs.readFileSync("./Data/Global/bot-data.json", "utf8"));
 
 function getMemUsage() {
   const arr = [1, 2, 3, 4, 5, 6, 9, 7, 8, 9, 10];
@@ -99,7 +86,7 @@ function getMemUsage() {
 };
 setInterval(function() {
   botData.info.memoryUsage = getMemUsage();
-  fs.writeFileSync("./data/global/bot-data.json", JSON.stringify(botData, null, 4));
+  fs.writeFileSync("./Data/Global/bot-data.json", JSON.stringify(botData, null, 4));
 }, 600000);
 setInterval(function() {
   let memoryusage = getMemUsage();
@@ -140,7 +127,7 @@ mongoose.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: tru
 }).catch(error => bot.log.post("error", `MongoDB connection unsuccessful: ${error}`));
 
 //Globally
-const mutils = require("./main/functions/mongoUtils");
+const mutils = require("./Main/Functions/mongoUtils");
 bot.mutils = mutils;
 
 /**
@@ -161,8 +148,8 @@ app.use(express.urlencoded({
 }));
 app.use(cors());
 
-app.use("/assets", express.static("main/website/assets"));
-app.set('views', path.join(__dirname, 'main/website/views'));
+app.use("/assets", express.static("main/Website/assets"));
+app.set('views', path.join(__dirname, 'main/Website/views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
@@ -171,11 +158,11 @@ app.listen(port, () => {
 });
 
 //Routers
-fs.promises.readdir(path.join(__dirname, "./main/routers"))
+fs.promises.readdir(path.join(__dirname, "./Main/Routers"))
   .then(files => {
     files.forEach(file => {
       if (file.split(".")[1] === "js") {
-        let router = require(`./main/routers/${file}`);
+        let router = require(`./Main/Routers/${file}`);
         app.use(router);
       };
     });

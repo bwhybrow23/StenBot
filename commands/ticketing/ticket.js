@@ -38,7 +38,7 @@ if (!config.tickets.enabled) {
 
 if (config.moderation.staff_role === "0") {
   return bot.createEmbed("error", "", `Error! A staff role has not been set. An owner or admin can set one using \`/config-moderation role <@ROLE>\``, [], `${interaction.guild.name}`, interaction)
-    .then((embed) => interaction.reply(embed))
+    .then((embed) => interaction.reply({ embeds: embed }))
     .catch((error) => bot.log.post("error", error));
 }
 
@@ -48,7 +48,7 @@ let staffrole = interaction.guild.roles.cache.find(
 
 if (staffrole === undefined) {
   return bot.createEmbed("error", "", `Error! The staff role that has been set is invalid. An owner or admin can set a new one using \`/config-moderation role <@ROLE>\``, [], `${interaction.guild.name}`, interaction)
-    .then((embed) => interaction.reply(embed))
+    .then((embed) => interaction.reply({ embeds: embed }))
     .catch((error) => bot.log.post("error", error));
 }
 
@@ -119,7 +119,7 @@ function createChan(element) {
           });
 
           //Check if logging enabled
-          const eventFunctions = require(`../../main/functions/eventUtils.js`);
+          const eventFunctions = require(`../../Main/Functions/eventUtils.js`);
 
           if (config.logging.enabled) {
             if (eventFunctions.checkChannel(config.logging.channel, bot)) {

@@ -23,7 +23,7 @@ module.exports = {
 
     if (targetuser.roles.cache.has(config.moderation.staff_role)) {
       return bot.createEmbed("error", "", `Error! You are not allowed to warn this person!`, [], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     };
 
@@ -41,7 +41,7 @@ module.exports = {
 
     // User Output
     bot.createEmbed("success", "", `**${targetuser.user.tag}** has been warned for **${reason}**.\nThey are on a total of ${Object.keys(total).length} warnings.`, [], `${interaction.guild.name}`, interaction)
-      .then((embed) => interaction.reply(embed))
+      .then((embed) => interaction.reply({ embeds: embed }))
       .catch((error) => bot.log.post("error", error));
 
     //DM User

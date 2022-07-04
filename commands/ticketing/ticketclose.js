@@ -10,7 +10,7 @@ module.exports = {
   run: async (bot, interaction) => {
 
     const config = await bot.mutils.getGuildById(interaction.guild.id);
-    const eventFunctions = require(`../../main/functions/eventUtils.js`);
+    const eventFunctions = require(`../../Main/Functions/eventUtils.js`);
 
     if (interaction.channel.parent.name === "Tickets") {
       if (interaction.channel.name.startsWith("ticket-")) {

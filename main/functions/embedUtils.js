@@ -9,8 +9,7 @@ const createEmbed = (type, title, desc, fields, footer, interaction, ephemeral) 
   return new Promise((resolve, reject) => {
 
     //Template
-      let embedTemplate = {
-          embeds: [{
+      let embedTemplate = [{
               title: "",
               description: "",
               color: 0,
@@ -20,22 +19,21 @@ const createEmbed = (type, title, desc, fields, footer, interaction, ephemeral) 
                   text: ``,
               },
               fields: [],
-          }, ]
-      };
+          }, ];
 
       //Colour
       switch (type) {
           case "error":
-              embedTemplate.embeds[0].color = colours.red;
+              embedTemplate[0].color = colours.red;
               break;
           case "success":
-              embedTemplate.embeds[0].color = colours.green;
+              embedTemplate[0].color = colours.green;
               break;
           case "warning":
-              embedTemplate.embeds[0].color = colours.yellow;
+              embedTemplate[0].color = colours.yellow;
               break;
           case "info":
-              embedTemplate.embeds[0].color = colours.blue;
+              embedTemplate[0].color = colours.blue;
               break;
           default:
               reject("Invald embed type.");
@@ -43,14 +41,14 @@ const createEmbed = (type, title, desc, fields, footer, interaction, ephemeral) 
 
       //Title
       if (typeof title === "string" && title.length < 256) {
-          embedTemplate.embeds[0].title = title;
+          embedTemplate[0].title = title;
       } else {
           reject("Title is invalid.");
       }
 
       //Desc
       if (typeof desc === "string" && desc.length < 2048) {
-          embedTemplate.embeds[0].description = desc;
+          embedTemplate[0].description = desc;
       } else {
           reject("Description is invalid.");
       }
@@ -58,20 +56,20 @@ const createEmbed = (type, title, desc, fields, footer, interaction, ephemeral) 
       //Footer
       if (typeof footer === "string" && footer.length < 2048) {
           if (footer === interaction.guild.name) {
-              embedTemplate.embeds[0].footer.icon_url = interaction.guild.iconURL();
+              embedTemplate[0].footer.icon_url = interaction.guild.iconURL();
           } else if (footer === interaction.user.tag) {
-              embedTemplate.embeds[0].footer.icon_url = interaction.user.displayAvatarURL();
+              embedTemplate[0].footer.icon_url = interaction.user.displayAvatarURL();
           }
-          embedTemplate.embeds[0].footer.text = footer;
+          embedTemplate[0].footer.text = footer;
       } else {
-          embedTemplate.embeds[0].footer.icon_url = "";
+          embedTemplate[0].footer.icon_url = "";
       }
 
       //Fields
       fields.forEach((field) => {
           if (field.name.length < 256) {
               if (field.value.length < 1024) {
-                  embedTemplate.embeds[0].fields.push(field);
+                  embedTemplate[0].fields.push(field);
               } else {
                   reject("A field has a value that is too large.");
               }
@@ -111,12 +109,12 @@ const noPermsEmbed = (footer, bot) => {
       };
 
       //Color
-      embedTemplate.embeds[0].color = colours.red;
+      embedTemplate[0].color = colours.red;
       //Desc
-      embedTemplate.embeds[0].description = `Error! You do not have permission to issue this command!`;
+      embedTemplate[0].description = `Error! You do not have permission to issue this command!`;
       //Footer
       if (typeof footer === "string" && footer.length < 2048) {
-          embedTemplate.embeds[0].footer.text = footer;
+          embedTemplate[0].footer.text = footer;
       } else {
           reject("Footer is invalid.");
       }
@@ -178,7 +176,7 @@ const helpEmbed = (command, bot) => {
               title: `Command: ${name}`,
               // description: "Syntax: <> = required, [] = optional",
               color: colours.blue,
-              url: `https://wiki.benwhybrow.com/commands/${cmd.name}`,
+              url: `https://wiki.benwhybrow.com/Commands/${cmd.name}`,
               footer: {
                   icon_url: "https://i.imgur.com/klY5xCe.png",
                   text: `Help Command | Syntax: <> = required, [] = optional`,
@@ -253,22 +251,22 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
       //Author Check
       if (author === "None") {
           //Colour
-          noAuthorEmbedTemplate.embeds[0].color = decimalColour;
+          noAuthorembedTemplate[0].color = decimalColour;
           //Title
           if (typeof title === "string" && title.length < 256) {
-              noAuthorEmbedTemplate.embeds[0].title = title;
+              noAuthorembedTemplate[0].title = title;
           } else {
               reject("Title is invalid.");
           }
           //Desc
           if (typeof desc === "string" && desc.length < 2048) {
-              noAuthorEmbedTemplate.embeds[0].description = desc;
+              noAuthorembedTemplate[0].description = desc;
           } else {
               reject("Description is invalid.");
           }
           //Footer
           if (typeof footer === "string" && footer.length < 2048) {
-              noAuthorEmbedTemplate.embeds[0].footer.text = footer;
+              noAuthorembedTemplate[0].footer.text = footer;
           } else {
               reject("Footer is invalid.");
           }
@@ -276,7 +274,7 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
           fields.forEach((field) => {
               if (field.name.length < 256) {
                   if (field.value.length < 1024) {
-                      noAuthorEmbedTemplate.embeds[0].fields.push(field);
+                      noAuthorembedTemplate[0].fields.push(field);
                   } else {
                       reject("A field has a value that is too large.");
                   }
@@ -287,9 +285,9 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
           resolve(noAuthorEmbedTemplate);
       } else {
           //Colour
-          embedTemplate.embeds[0].color = decimalColour;
+          embedTemplate[0].color = decimalColour;
           //Author Name
-          embedTemplate.embeds[0].author.name = `${author.username}#${author.discriminator}`;
+          embedTemplate[0].author.name = `${author.username}#${author.discriminator}`;
           //Author Icon
           let iconURL;
           if(author.avatar) {
@@ -297,22 +295,22 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
           } else {
             iconURL = `${author.displayAvatarURL({ dynamic: true, format: "png" })}`
           }
-          embedTemplate.embeds[0].author.icon_url = `${iconURL}`;
+          embedTemplate[0].author.icon_url = `${iconURL}`;
           //Title
           if (typeof title === "string" && title.length < 256) {
-              embedTemplate.embeds[0].title = title;
+              embedTemplate[0].title = title;
           } else {
               reject("Title is invalid.");
           }
           //Desc
           if (typeof desc === "string" && desc.length < 2048) {
-              embedTemplate.embeds[0].description = desc;
+              embedTemplate[0].description = desc;
           } else {
               reject("Description is invalid.");
           }
           //Footer
           if (typeof footer === "string" && footer.length < 2048) {
-              embedTemplate.embeds[0].footer.text = footer;
+              embedTemplate[0].footer.text = footer;
           } else {
               reject("Footer is invalid.");
           }
@@ -320,7 +318,7 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
           fields.forEach((field) => {
               if (field.name.length < 256) {
                   if (field.value.length < 1024) {
-                      embedTemplate.embeds[0].fields.push(field);
+                      embedTemplate[0].fields.push(field);
                   } else {
                       reject("A field has a value that is too large.");
                   }

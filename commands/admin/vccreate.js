@@ -12,7 +12,7 @@ module.exports = {
 
     if (interaction.member.permissions.has("ADMINISTRATOR") === false) {
       return bot.noPermsEmbed(`${interaction.guild.name}`, bot)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -21,7 +21,7 @@ module.exports = {
 
     if (channelName.length > 100) {
       return bot.createEmbed("error", "", `The voice channel name has to be between 1 and 100 in **length**`, [], `${interaction.guild.name}`, interaction, true)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -31,7 +31,7 @@ module.exports = {
       reason: `Created by ${interaction.user.tag}`
     }).then((channel) => {
       return bot.createEmbed("success", "", `The voice channel **${channel.name}** has been created.`, [], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     });
   },

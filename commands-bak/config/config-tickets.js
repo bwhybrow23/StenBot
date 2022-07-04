@@ -11,7 +11,7 @@ module.exports = {
 
     if (message.member.permissions.has("ADMINISTRATOR") === false) {
       return bot.noPermsEmbed(`${interaction.guild.name}`, bot)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -20,7 +20,7 @@ module.exports = {
 
     if (!setting) {
       return bot.createEmbed("error", "", `Error! You forgot to include a ticket setting.`, [], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -33,7 +33,7 @@ module.exports = {
         
         if (config.tickets.enabled === true) {
           return bot.createEmbed("error", "", `Error! Tickets are already enabled.`, [], `${interaction.guild.name}`, interaction)
-            .then((embed) => interaction.reply(embed))
+            .then((embed) => interaction.reply({ embeds: embed }))
             .catch((error) => bot.log.post("error", error));
         }
 
@@ -58,14 +58,14 @@ module.exports = {
         }
 
         bot.createEmbed("success", "", `Tickets have been enabled.`, [], `${interaction.guild.name}`, interaction)
-          .then((embed) => interaction.reply(embed))
+          .then((embed) => interaction.reply({ embeds: embed }))
           .catch((error) => bot.log.post("error", error));
 
         break;
       case "disable":
         if (config.tickets.enabled === false) {
           return bot.createEmbed("error", "", `Error! Tickets are already disabled.`, [], `${interaction.guild.name}`, interaction)
-            .then((embed) => interaction.reply(embed))
+            .then((embed) => interaction.reply({ embeds: embed }))
             .catch((error) => bot.log.post("error", error));
         }
         config.tickets.enabled = false;
@@ -74,7 +74,7 @@ module.exports = {
         interaction.guild.channels.cache.find(c => c.name === "Tickets" && c.type === "category").delete();
 
         bot.createEmbed("success", "", `Tickets have been disabled.`, [], `${interaction.guild.name}`, interaction)
-          .then((embed) => interaction.reply(embed))
+          .then((embed) => interaction.reply({ embeds: embed }))
           .catch((error) => bot.log.post("error", error));
         break;
       case "message":
@@ -84,26 +84,26 @@ module.exports = {
           config.tickets.message = "**User:** ${user}\n**Reason:** ${reason}"
           bot.mutils.updateGuildById(interaction.guild.id, config);
           return bot.createEmbed("success", "", `The ticket message has been reset.`, [], `${interaction.guild.name}`, interaction)
-            .then((embed) => interaction.reply(embed))
+            .then((embed) => interaction.reply({ embeds: embed }))
             .catch((error) => bot.log.post("error", error));
         }
 
         if (tmessage.length > 256) {
           return bot.createEmbed("error", "", `Error! The message you have provided is too long! Make sure it is less than **256** characters.`, [], `${interaction.guild.name}`, interaction)
-            .then((embed) => interaction.reply(embed))
+            .then((embed) => interaction.reply({ embeds: embed }))
             .catch((error) => bot.log.post("error", error));
         }
 
         config.tickets.message = message;
         bot.mutils.updateGuildById(interaction.guild.id, config);
         bot.createEmbed("success", "", `Ticket message set!`, [], `${interaction.guild.name}`, interaction)
-          .then((embed) => interaction.reply(embed))
+          .then((embed) => interaction.reply({ embeds: embed }))
           .catch((error) => bot.log.post("error", error));
 
         break;
       default:
         return bot.createEmbed("error", "", `Error! There is no ticket config setting called **${setting}**.`, [], `${interaction.guild.name}`, interaction)
-          .then((embed) => interaction.reply(embed))
+          .then((embed) => interaction.reply({ embeds: embed }))
           .catch((error) => bot.log.post("error", error));
     }
   },

@@ -13,7 +13,7 @@ module.exports = {
 
     if (interaction.member.permissions.has("MANAGE_CHANNELS") === false) {
       return bot.noPermsEmbed(`${interaction.guild.name}`, bot)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -24,13 +24,13 @@ module.exports = {
 
     if (channelName.length > 100) {
       return bot.createEmbed("error", "", `The channel name has to be between 1 and 100 in **length**`, [], `${interaction.guild.name}`, interaction, true)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
     if (categoryName.length > 100) {
       return bot.createEmbed("error", "", `The channel category has to be less than 100 characters.`, [], `${interaction.guild.name}`, interaction, true)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -51,7 +51,7 @@ module.exports = {
     }).then((channel) => {
       channel.setParent(category);
       return bot.createEmbed("success", "", `The channel **${channel.name}** has been created.`, [], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     });
   },

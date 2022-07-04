@@ -1,5 +1,7 @@
-module.exports = async (bot, channel) => {
-  const Discord = require("discord.js");
+module.exports = {
+  name: "channelDelete",
+  once: false,
+  async execute(bot, channel) {
 
   if ((channel.type === "DM"));
 
@@ -32,4 +34,4 @@ module.exports = async (bot, channel) => {
       }
     }
   }
-};
+}};

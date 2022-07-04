@@ -1,4 +1,7 @@
-module.exports = async (bot, member) => {
+module.exports = {
+  name: "guildMemberAdd",
+  once: false,
+  async execute(bot, member) {
 
     const Discord = require("discord.js");
     const config = await bot.mutils.getGuildById(member.guild.id);
@@ -9,10 +12,10 @@ module.exports = async (bot, member) => {
     if (member.user === bot.user) return;
 
     //Update bot-data.json
-    let botdata = require("../../data/global/bot-data.json");
+    let botdata = require("../../../Data/Global/bot-data.json");
     botdata.stats.totalGuilds = bot.guilds.cache.size;
     botdata.stats.totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
-    fs.writeFileSync(`./data/global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => {
+    fs.writeFileSync(`./Data/Global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => {
       if (err) return bot.log.post("error", err);
      });
   
@@ -102,4 +105,4 @@ module.exports = async (bot, member) => {
     //Refresh Cache
     // member.guild.members.fetch();
   
-  };
+  }};

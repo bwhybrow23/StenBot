@@ -31,7 +31,7 @@ module.exports = {
     let res = await request.json();
     if (res.status === "error" && res.error === "server timeout") {
       bot.createEmbed("error", "", `Error! The status couldn't be fetched, perhaps an invalid IP or Port.`, [], `${interaction.guild.name}`, interaction, true)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -70,7 +70,7 @@ module.exports = {
           name: `Status`,
           value: `Offline`
         }, ], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
   },

@@ -28,7 +28,7 @@ module.exports = {
     //If no warnings
     if (Object.keys(warnings).length < 0) {
       return bot.createEmbed("error", "", "Error! This user has no warnings.", [], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -40,7 +40,7 @@ module.exports = {
 
     //Post success embed to user
     bot.createEmbed("success", "", `Successfully removed all warnings from **${targetuser.user.tag}**.`, [], `${interaction.guild.name}`, interaction)
-    .then((embed) => interaction.reply(embed))
+    .then((embed) => interaction.reply({ embeds: embed }))
     .catch((error) => bot.log.post("error", error));
 
     //Logging

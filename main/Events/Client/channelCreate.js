@@ -1,6 +1,7 @@
-module.exports = async (bot, channel) => {
-  
-  const Discord = require("discord.js");
+module.exports = {
+  name: "channelCreate",
+  once: false,
+  async execute(bot, channel) {
 
   if ((channel.type === "DM")) return;
 
@@ -41,4 +42,4 @@ module.exports = async (bot, channel) => {
       }
     }
   }
-};
+}};

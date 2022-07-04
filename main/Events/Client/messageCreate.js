@@ -1,6 +1,8 @@
-module.exports = async (bot, message) => {
+module.exports = {
+  name: "messageCreate",
+  once: false,
+  async execute(bot, message) {
 
-  const Discord = require("discord.js");
   const fs = require("fs");
 
   if (!message) return;
@@ -56,11 +58,11 @@ module.exports = async (bot, message) => {
     
       //Log to stats json
       function logToStats(cmd) {
-        let botData = require("../../data/global/bot-data.json");
+        let botData = require("../../../Data/Global/bot-data.json");
         botData.stats.commands[cmd.category][cmd.name]++;
         botData.stats.commands[cmd.category].total++;
         botData.stats.commands.total++;
-        fs.writeFileSync("./data/global/bot-data.json", JSON.stringify(botData, null, 4));
+        fs.writeFileSync("./Data/Global/bot-data.json", JSON.stringify(botData, null, 4));
       }
     }
   }
@@ -145,12 +147,12 @@ module.exports = async (bot, message) => {
 
   //Log to stats json
   function logToStats(cmd) {
-    let botData = require("../../data/global/bot-data.json");
+    let botData = require("../../Data/Global/bot-data.json");
     botData.stats.commands[cmd.category][cmd.name]++;
     botData.stats.commands[cmd.category].total++;
     botData.stats.commands.total++;
-    fs.writeFileSync("./data/global/bot-data.json", JSON.stringify(botData, null, 4));
+    fs.writeFileSync("./Data/Global/bot-data.json", JSON.stringify(botData, null, 4));
   }
   */
 
-};
+}};

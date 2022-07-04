@@ -13,7 +13,7 @@ module.exports = {
 
     if (message.member.permissions.has("ADMINISTRATOR") === false) {
       return bot.noPermsEmbed(`${interaction.guild.name}`, bot)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
     }
 
@@ -111,7 +111,7 @@ module.exports = {
           name: "Tickets",
           value: `Enabled: **${config.tickets.enabled ? "Yes" : "No"}**\nTicket Message: \`\`\`${ticketmessage}\`\`\``,
         }, ], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post("error", error));
   },
 };

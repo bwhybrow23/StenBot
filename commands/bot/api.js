@@ -15,7 +15,7 @@ module.exports = {
         bot.createEmbed("success", "API Information", "Use the below token to connect to the [StenBot API](https://benwhybrow.com/api). It will be used a form of authentication to check that you can perform an action.", [{
           name: "API Token:",
           value: `||**${authToken}**||`
-        }], interaction.user.tag, interaction).then(embed => interaction.user.send(embed));
+        }], interaction.user.tag, interaction).then(embed => interaction.user.send({ embeds: embed }));
 
         //Reply to the slash command
         return interaction.reply({ content: "I have sent you a DM with your API token.", ephemeral: true });

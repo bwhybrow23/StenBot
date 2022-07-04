@@ -8,7 +8,7 @@ module.exports = {
   run: async (bot, message, args) => {
 
     const Discord = require("discord.js");
-    const Punishment = require("../../main/models/punishment");
+    const Punishment = require("../../Main/Models/punishment");
 
     //Permission Check
     if (message.author.id !== bot.settings.ids.botOwner) {

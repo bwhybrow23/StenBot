@@ -94,7 +94,7 @@ const _toFile = (type, message) => {
   let formattedTime = moment().format("hh:mm:ss");
 
   return new Promise((resolve, reject) => {
-    fs.appendFile(Path.join(__dirname, `../../data/logs/${fileTimestamp}`), JSON.stringify({
+    fs.appendFile(Path.join(__dirname, `../../Data/Logs/${fileTimestamp}`), JSON.stringify({
       objTime: objectTimestamp,
       time: formattedTime,
       type: type,

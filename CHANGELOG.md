@@ -3,6 +3,8 @@
 ## 2.3.0 - 
 * Converted from prefixed commands to slash commands
 * NPM package updates
+* New event handler
+* Folder structure changed to be nicer looking
 * 
 
 ## 2.2.3 - 27/01/2022
