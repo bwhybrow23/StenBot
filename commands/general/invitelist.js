@@ -16,11 +16,11 @@ module.exports = {
     });
 
     let possibleinvites = [];
-    if(!invites) {
+    if (!invites) {
       possibleinvites.push(`No invites!`)
     } else {
       invites.forEach(function(invite) {
-        if(!invite.inviter) return;
+        if (!invite.inviter) return;
         possibleinvites.push(`${invite.code} || ${(invite.inviter.username) + '#' + (invite.inviter.discriminator)} ||  ${invite.uses} uses`);
       });
     }
@@ -31,6 +31,6 @@ module.exports = {
       .addField("Invites", `\`\`\`${possibleinvites.join("\n")}\`\`\``)
       .setFooter({ text: `${interaction.guild.name}`, iconURL: `https://i.imgur.com/klY5xCe.png` });
 
-    interaction.reply({embeds: [lbEmbed.toJSON()]});
+    interaction.reply({ embeds: [lbEmbed.toJSON()] });
   },
 };

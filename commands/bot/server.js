@@ -16,7 +16,7 @@ module.exports = {
     let guild, id;
 
     //Check if there is a server argument
-    if(!server) {
+    if (!server) {
       guild = interaction.guild;
     } else {
       //String to integer
@@ -26,15 +26,14 @@ module.exports = {
         bot.log.post("error", e);
       }
       //If no ID, output error
-      if(!id) {
+      if (!id) {
         return bot.createEmbed("error", "", "Specified server ID is invalid. Please make sure that it is a valid server ID.", [], interaction.user.tag, interaction, true)
           .then((embed) => interaction.reply({ embeds: embed }));
       }
       //Fetch server (from argument)
-      try { 
+      try {
         guild = await bot.guilds.fetch(server, true, true);
-      }
-      catch (e) {
+      } catch (e) {
         return bot.createEmbed("error", "", "Specified server cannot be found. Please make sure the bot is in the server.", [], interaction.user.tag, interaction, true)
           .then((embed) => interaction.reply({ embeds: embed }));
       }
@@ -71,7 +70,7 @@ module.exports = {
       .setFooter({ text: 'Created' })
       .setTimestamp(guild.createdAt);
 
-    return interaction.reply({ embeds: [embed.toJSON()]});
+    return interaction.reply({ embeds: [embed.toJSON()] });
 
   }
 };

@@ -15,30 +15,30 @@ module.exports = {
   example: "list",
   options: { permission: "EVERYONE", enabled: true, cooldown: 3, guildOnly: true },
   run: async (bot, interaction) => {
-    
+
     const Timeout = require("../../Main/Models/timeouts");
     const moment = require("moment");
     const ms = require("ms");
-    
+
     //Capitalize function
     const capitalize = (s) => {
       if (typeof s !== "string") return "";
       return s.charAt(0).toUpperCase() + s.slice(1);
     };
-    
+
     let command = "reminder";
     let user = interaction.user.id;
     let reminders;
-    
+
     const subcommand = interaction.options.getSubcommand();
     switch (subcommand) {
       case "list":
-    
+
         reminders = await Timeout.find({
           user,
           command
         });
-    
+
         let listEmbed = {
           "title": `${interaction.user.tag}'s Reminders`,
           "description": "Here is a list of all your reminders, including reoccuring ones.",
@@ -49,7 +49,7 @@ module.exports = {
             "text": "StenBot Reminders"
           }
         }
-    
+
         await reminders.forEach(async (reminder, i) => {
           let data = {
             name: `ID: ${i+1} | ${reminder.message}`,
@@ -60,7 +60,7 @@ module.exports = {
           }
           listEmbed.fields.push(data);
         });
-    
+
         if (reminders.length === 0) {
           interaction.reply("You do not currently have any ongoing reminders.");
         } else {
@@ -68,49 +68,49 @@ module.exports = {
             embeds: [listEmbed]
           })
         }
-    
+
         break;
-    
+
       case "add":
-    
+
         /**
          * Usage: /reminder add <TIME> <MESSAGE> <REOCCURING TIME>
          */
-    
+
         let time;
         let rMessage;
         let reoccuring = false;
         let reoccuringPeriod;
-    
+
         //Check if reoccuring
         if (interaction.options.getString("reocurring-time")) {
           reoccuring = true;
           reoccuringPeriod = ms(interaction.options.getString("reoccuring-time"));
-    
+
           time = ms(interaction.options.getString("time"));
           rMessage = interaction.options.getString("message");
         } else {
           time = ms(interaction.options.getString("time"));
           rMessage = interaction.options.getString("message");
         }
-    
-        //Check if user can be DM'd
-    
-          //Send reply in guild
-          interaction.reply("I am going to DM you to check you have open DMs. Please ignore the message.");
-    
-          //Try to send user a DM
-          try {
-            interaction.user.send("Just checking to see if I can message you :)");
-          } catch (error) {
-            //Error message to user
-            return interaction.reply("I'm afraid there was an issue when I tried to DM you. Please make sure your DMs are open and try again. If they are open and you still get issues. Please use `/invite` for the link to the support server.");
-          }
 
-    
+        //Check if user can be DM'd
+
+        //Send reply in guild
+        interaction.reply("I am going to DM you to check you have open DMs. Please ignore the message.");
+
+        //Try to send user a DM
+        try {
+          interaction.user.send("Just checking to see if I can message you :)");
+        } catch (error) {
+          //Error message to user
+          return interaction.reply("I'm afraid there was an issue when I tried to DM you. Please make sure your DMs are open and try again. If they are open and you still get issues. Please use `/invite` for the link to the support server.");
+        }
+
+
         // Do the stuffs
         bot.timeouts.new(interaction.user.id, "reminder", time, reoccuring, reoccuringPeriod, rinteraction);
-    
+
         //User output
         let addEmbed = {
           "title": `Reminder successfully created!`,
@@ -139,19 +139,19 @@ module.exports = {
             "value": capitalize(moment.duration(reoccuringPeriod).humanize())
           })
         }
-    
+
         interaction.reply({
           embeds: [addEmbed]
         });
-    
+
         break;
-    
+
       case "remove":
-    
+
         /**
          * Usage: /reminders remove <ID>
          */
-    
+
         reminders = await Timeout.find({
           user,
           command
@@ -159,7 +159,7 @@ module.exports = {
         if (reminders.length === 0) {
           interaction.reply("You do not currently have any ongoing reminders.");
         }
-    
+
         //Fetch ID from message
         let wantedReminder;
         try {
@@ -167,7 +167,7 @@ module.exports = {
         } catch (error) {
           return interaction.reply("Not a valid number.");
         }
-    
+
         let reminder = reminders[wantedReminder];
         await bot.timeouts.removeSync(reminder._id)
           .then(() => {
@@ -177,14 +177,14 @@ module.exports = {
             interaction.reply("An error has occured. Please retry and/or contact Stentorian if the issue persists.")
             return bot.log.post("error", error);
           })
-    
+
         break;
-    
+
       default:
         return bot.helpEmbed("reminder", bot)
           .then((embed) => interaction.reply({ embeds: embed }))
           .catch((error) => bot.log.post("error", error));
-    
+
         break;
     }
   },

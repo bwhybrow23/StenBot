@@ -1,9 +1,11 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("say").setDescription("Get StenBot to say whatever you want")
-    .addStringOption(option => option.setName("message").setDescription("The message that you want the bot to say").setRequired(true)),
+    .addStringOption(option => option.setName("message").setDescription("The message that you want the bot to say").setRequired(true))
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   category: "admin",
   usage: "<MESSAGE>",
   example: "Hello World!",

@@ -1,10 +1,12 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("txtcreate").setDescription("Create a text channel")
     .addStringOption(option => option.setName("name").setDescription("The name of the channel you want to create").setRequired(true))
-    .addStringOption(option => option.setName("category").setDescription("The name of the category you want the channel in (cAsE-sEnSiTiVe)")),
+    .addStringOption(option => option.setName("category").setDescription("The name of the category you want the channel in (cAsE-sEnSiTiVe)"))
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels),
   category: "admin",
   usage: "<NAME> [CATEGORY]",
   example: "general-chat Community",

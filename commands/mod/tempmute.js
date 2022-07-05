@@ -1,11 +1,13 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("tempmute").setDescription("Temporarily mute a user for a period of time.")
     .addUserOption(option => option.setName("user").setDescription("The user to mute.").setRequired(true))
     .addStringOption(option => option.setName("time").setDescription("The time to mute the user for.").setRequired(true))
-    .addStringOption(option => option.setName("reason").setDescription("The reason for the mute.")),
+    .addStringOption(option => option.setName("reason").setDescription("The reason for the mute."))
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
   category: "mod",
   usage: "<@USER> <TIME> [REASON]",
   example: "@Jess#8022 1d Being annoying",
@@ -31,7 +33,7 @@ module.exports = {
       muteRole = interaction.guild.roles.cache.find(r => r.name === "Muted");
 
       //If search is sucessful, update config with mute role
-      if(muteRole) {
+      if (muteRole) {
         config.moderation.mute_role = muteRole.id;
         await bot.mutils.updateGuildById(interaction.guild.id, config);
       }
@@ -64,20 +66,20 @@ module.exports = {
           bot.log.post("error", error);
         }
       }
-      
+
     }
 
     //Check if user is already muted
     await bot.punishments.fetch(interaction.guild.id, targetuser.id)
-    .then((punishments) => {
-      punishments.tempmutes.forEach(punishment => {
-        if(!punishment.expiry) return;
+      .then((punishments) => {
+        punishments.tempmutes.forEach(punishment => {
+          if (!punishment.expiry) return;
 
-        return interaction.reply("This user already has an ongoing mute. Please unmute them and try again.");
+          return interaction.reply("This user already has an ongoing mute. Please unmute them and try again.");
 
+        });
       });
-    });
-    
+
     //Mute the user
     targetuser.roles.add(muteRole, `Temporarily muted by ${interaction.user.tag} for the duration of ${interaction.options.getString("time")} ${reason ? `with reason: **${reason}` : ``}`);
 
@@ -92,12 +94,12 @@ module.exports = {
     //DM User
     bot.eventEmbed("c70011", targetuser.user, "You have been temporarily muted!", `**Mute Date:** ${new Date()}\n**Muted By:** ${interaction.user.tag}\n\n**Reason:** ${reason ? `${reason}\n` : `None provided\n`}**Duration:** ${interaction.options.getString("time")}`, [], `${interaction.guild.name}`, bot)
       .then((embed) => {
-                try {
-                  targetuser.send(embed);
-                } catch (e) {
-                  return;
-                }
-              })
+        try {
+          targetuser.send(embed);
+        } catch (e) {
+          return;
+        }
+      })
       .catch(error => bot.log.post("error", error));
 
     //Logging

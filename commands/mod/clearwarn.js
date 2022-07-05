@@ -1,30 +1,32 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("clearwarn").setDescription("Clear all warnings from a user.")
-    .addUserOption(option => option.setName("user").setDescription("The user to clear the warnings of.").setRequired(true)),
+    .addUserOption(option => option.setName("user").setDescription("The user to clear the warnings of.").setRequired(true))
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
   category: "mod",
   usage: "<@USER>",
   example: "@Josh#4012",
   options: { permission: "STAFF", enabled: true, cooldown: 0, guildOnly: true },
   run: async (bot, interaction) => {
-    
+
     const config = await bot.mutils.getGuildById(interaction.guild.id);
-    
+
     //Perm Check
     if (!interaction.member.permissions.has("MANAGE_MESSAGES")) {
       return bot.noPermsEmbed(`${interaction.guild.name}`, bot);
     };
-    
+
     //Args Check
     let targetuser = interaction.options.getMember("user");
-    
+
     //Fetch warnings
     let warnings = config.moderation.warnings.filter(function(warning) {
       return warning.user = targetuser.id;
     });
-    
+
     //If no warnings
     if (Object.keys(warnings).length < 0) {
       return bot.createEmbed("error", "", "Error! This user has no warnings.", [], `${interaction.guild.name}`, interaction)
@@ -40,8 +42,8 @@ module.exports = {
 
     //Post success embed to user
     bot.createEmbed("success", "", `Successfully removed all warnings from **${targetuser.user.tag}**.`, [], `${interaction.guild.name}`, interaction)
-    .then((embed) => interaction.reply({ embeds: embed }))
-    .catch((error) => bot.log.post("error", error));
+      .then((embed) => interaction.reply({ embeds: embed }))
+      .catch((error) => bot.log.post("error", error));
 
     //Logging
     if (config.logging.enabled === true) {

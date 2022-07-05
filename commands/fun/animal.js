@@ -43,7 +43,7 @@ module.exports = {
           .setImage(url)
           .setFooter({ text: interaction.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
 
-        interaction.reply({embeds: [catEmbed.toJSON()]});
+        interaction.reply({ embeds: [catEmbed.toJSON()] });
         break;
 
       case "dog":
@@ -59,7 +59,7 @@ module.exports = {
           .setImage(url)
           .setFooter({ text: interaction.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
 
-        interaction.reply({embeds: [dogEmbed.toJSON()]});
+        interaction.reply({ embeds: [dogEmbed.toJSON()] });
 
         break;
 
@@ -75,7 +75,7 @@ module.exports = {
           .setImage(url)
           .setFooter({ text: interaction.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
 
-        interaction.reply({embeds: [foxEmbed.toJSON()]});
+        interaction.reply({ embeds: [foxEmbed.toJSON()] });
 
         break;
 
@@ -92,26 +92,26 @@ module.exports = {
           .setImage(url)
           .setFooter({ text: interaction.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
 
-        interaction.reply({embeds: [gooseEmbed.toJSON()]});
+        interaction.reply({ embeds: [gooseEmbed.toJSON()] });
 
         break;
 
-        case "lizard":
+      case "lizard":
 
+        await apiFetch("lizard");
+        if (!url) {
           await apiFetch("lizard");
-          if (!url) {
-            await apiFetch("lizard");
-          }
-  
-          const lizardEmbed = new Discord.MessageEmbed()
-            .setTitle("Cute lil lizard!")
-            .setColor("#ff9900")
-            .setImage(url)
-            .setFooter({ text: interaction.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
-  
-          interaction.reply({embeds: [lizardEmbed.toJSON()]});
-  
-          break;
+        }
+
+        const lizardEmbed = new Discord.MessageEmbed()
+          .setTitle("Cute lil lizard!")
+          .setColor("#ff9900")
+          .setImage(url)
+          .setFooter({ text: interaction.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png"` });
+
+        interaction.reply({ embeds: [lizardEmbed.toJSON()] });
+
+        break;
 
       default:
         break;

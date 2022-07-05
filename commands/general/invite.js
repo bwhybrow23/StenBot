@@ -25,6 +25,6 @@ module.exports = {
       .setThumbnail(bicon)
       .setFooter({ text: `${interaction.guild.name}`, iconURL: `https://i.imgur.com/klY5xCe.png` });
 
-    interaction.reply({embeds: [inviteEmbed.toJSON()]});
+    interaction.reply({ embeds: [inviteEmbed.toJSON()] });
   },
 };

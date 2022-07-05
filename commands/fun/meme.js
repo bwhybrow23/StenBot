@@ -8,7 +8,7 @@ module.exports = {
   example: "",
   options: { permission: "EVERYONE", enabled: true, cooldown: 2, guildOnly: false },
   run: async (bot, interaction) => {
-    
+
     let fetch = require("node-fetch");
 
     let meme;
@@ -32,7 +32,7 @@ module.exports = {
       }
     }]
 
-    interaction.reply({embeds: embed});
+    interaction.reply({ embeds: embed });
 
   },
 }

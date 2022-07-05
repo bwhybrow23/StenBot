@@ -8,7 +8,7 @@ module.exports = {
   example: "",
   options: { permission: "EVERYONE", enabled: true, cooldown: 3, guildOnly: false },
   run: async (bot, interaction) => {
-    
+
     const nekos = require('nekos.life');
     const neko = new nekos();
 
@@ -28,7 +28,7 @@ module.exports = {
       }
     }
 
-    interaction.reply({ embeds: [ nekoEmbed ]});
+    interaction.reply({ embeds: [nekoEmbed] });
 
   },
 }

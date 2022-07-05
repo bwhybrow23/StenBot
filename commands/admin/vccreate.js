@@ -1,9 +1,11 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("vccreate").setDescription("Create a voice channel")
-    .addStringOption(option => option.setName("name").setDescription("The name of the channel you want to create").setRequired(true)),
+    .addStringOption(option => option.setName("name").setDescription("The name of the channel you want to create").setRequired(true))
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   category: "admin",
   usage: "<NAME>",
   example: "General VC",

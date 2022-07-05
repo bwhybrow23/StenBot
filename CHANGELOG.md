@@ -5,7 +5,7 @@
 * NPM package updates
 * New event handler
 * Folder structure changed to be nicer looking
-* 
+* Pretty it all up
 
 ## 2.2.3 - 27/01/2022
 * Updates to latest NPM versions - includes security fixes

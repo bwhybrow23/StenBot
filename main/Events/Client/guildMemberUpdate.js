@@ -4,16 +4,16 @@ module.exports = {
   async execute(bot, oldMember, newMember) {
 
     if (newMember.user === bot.user) return;
-  
+
     let config = await bot.mutils.getGuildById(newMember.guild.id);
-    if(!config) return;
-  
+    if (!config) return;
+
     if (config.logging.enabled === true) {
       if (config.logging.level === "high") {
         if (bot.efunctions.checkChannel(config.logging.channel, bot) === true) {
-  
+
           let lchannel = bot.channels.cache.get(config.logging.channel);
-  
+
           //Role Added
           if (oldMember.roles.cache.size < newMember.roles.cache.size) {
             //This if statement only works when the old member roles are less than new member roles which means a role got added
@@ -26,7 +26,7 @@ module.exports = {
               }
             }
           };
-  
+
           //Role Removed
           if (oldMember.roles.cache.size > newMember.roles.cache.size) {
             //This if statement only works when the old member roles are greater than new member roles which means a role got removed
@@ -43,15 +43,16 @@ module.exports = {
               }
             }
           }
-  
+
           //Nickname Change
           if (oldMember.nickname !== newMember.nickname) {
             bot.eventEmbed("006187", newMember.user, "Nickname Changed", `**Old Nickname:** ${oldMember.nickname === null ? oldMember.user.username : oldMember.nickname}\n**New Nickname:** ${newMember.nickname === null ? newMember.user.username : newMember.nickname}`, [], `${lchannel.guild.name}`, bot)
               .then(embed => lchannel.send(embed))
               .catch(error => bot.log.post("error", error));
           }
-  
+
         }
       }
     }
-  }};
+  }
+};

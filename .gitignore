@@ -1,7 +1,6 @@
 # Node
 node_modules/
 .npm
-build/Release
 
 # dotenv environment variables file
 .env
@@ -12,5 +11,3 @@ main/settings.json
 Relevant-Info.txt
 StenBot Trello.url
 StenBot.zip
-commands/botowner/test.js
-.vscode/

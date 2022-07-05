@@ -1,14 +1,16 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("unmute").setDescription("Unmute a user.")
     .addUserOption(option => option.setName("user").setDescription("The user to unmute.").setRequired(true))
-    .addStringOption(option => option.setName("reason").setDescription("The reason for unmuting the user.")),
+    .addStringOption(option => option.setName("reason").setDescription("The reason for unmuting the user."))
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
   category: "mod",
   usage: "<@USER> [REASON]",
   example: "@Geoff#3010 Has shut up",
-  options: { permission: "STAFF", enabled: true, guildOnly: true},
+  options: { permission: "STAFF", enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
 
     var config = await bot.mutils.getGuildById(interaction.guild.id);

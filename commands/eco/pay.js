@@ -4,7 +4,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("pay").setDescription("Give some money to another user.")
     .addUserOption(option => option.setName("user").setDescription("The user to give money to.").setRequired(true))
-    .addIntegerOption(option => option.setName("amount") .setDescription("The amount of money to give.").setRequired(true)),
+    .addIntegerOption(option => option.setName("amount").setDescription("The amount of money to give.").setRequired(true)),
   category: "eco",
   usage: "<@USER> <VALUE>",
   example: "@Steve#6942 100",

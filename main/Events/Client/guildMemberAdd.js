@@ -5,7 +5,7 @@ module.exports = {
 
     const Discord = require("discord.js");
     const config = await bot.mutils.getGuildById(member.guild.id);
-    if(!config) return;
+    if (!config) return;
     const fs = require("fs");
     var format = require("string-template");
 
@@ -17,8 +17,8 @@ module.exports = {
     botdata.stats.totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
     fs.writeFileSync(`./Data/Global/bot-data.json`, JSON.stringify(botdata, null, 4), (err) => {
       if (err) return bot.log.post("error", err);
-     });
-  
+    });
+
     //Welcomer
     //Check if welcomer is enabled
     if (config.gatekeeper.welcome_enabled === true) {
@@ -53,25 +53,25 @@ module.exports = {
               memberCount: member.guild.memberCount,
               userCount: member.guild.members.cache.filter(member => !member.user.bot).size
             });
-  
+
             let welcomeEmbed = new Discord.MessageEmbed()
               .setColor(bot.settings.color.yellow)
               .setDescription(themsg);
-  
+
             //Send the message.
-            bot.channels.cache.get(config.gatekeeper.welcome_channel).send({embeds: [welcomeEmbed.toJSON()]});
+            bot.channels.cache.get(config.gatekeeper.welcome_channel).send({ embeds: [welcomeEmbed.toJSON()] });
           }
         }
       }
     }
-  
+
     //Check if user settings are enabled
     if (config.userjoin.enabled === true) {
       //Check if Theres a role set
       if (config.userjoin.role != 0) {
         //Add the role to the member
         let toaddrole = member.guild.roles.cache.get(config.userjoin.role);
-        if(!toaddrole) {
+        if (!toaddrole) {
           try {
             member.guild.owner.send("Hi! This is StenBot just DM'ing you to let you know that the role you have configured for new members in your server cannot be found. /nThis may be because it has been deleted. Please re-add the role by doing `/config-userjoin role <@ROLE>`. \n\nThank you for your understanding and if you have any further questions, please contact Stentorian#6969 or run the `/invite` command for the support server.");
           } catch (error) {
@@ -82,7 +82,7 @@ module.exports = {
         }
       }
     }
-  
+
     //Check if user names are set
     if (config.userjoin.nickname != 0) {
       if (config.userjoin.nickname != "None") {
@@ -90,7 +90,7 @@ module.exports = {
         member.setNickname(config.userjoin.nickname).catch();
       }
     }
-  
+
     if (config.logging.enabled === true) {
       if (config.logging.level === "low" || config.logging.level === "medium" || config.logging.level === "high") {
         if (bot.efunctions.checkChannel(config.logging.channel, bot) === true) {
@@ -104,5 +104,6 @@ module.exports = {
 
     //Refresh Cache
     // member.guild.members.fetch();
-  
-  }};
+
+  }
+};

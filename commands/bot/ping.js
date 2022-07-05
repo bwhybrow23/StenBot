@@ -36,7 +36,7 @@ module.exports = {
       .addField("Total Members:", totalMembers.toString(), true)
       .addField("Total Commands:", totalCommands.toString(), true)
       .addField("Version:", packageJSON.version.toString(), true)
-      .setFooter({ text: `${interaction.guild.name}`, iconURL: interaction.guild.iconURL()});
+      .setFooter({ text: `${interaction.guild.name}`, iconURL: interaction.guild.iconURL() });
 
     return interaction.reply({ embeds: [embed.toJSON()] });
 

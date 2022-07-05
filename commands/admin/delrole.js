@@ -1,9 +1,11 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("delrole").setDescription("Deletes a mentioned role")
-    .addRoleOption(option => option.setName("role").setDescription("The role to delete").setRequired(true)),
+    .addRoleOption(option => option.setName("role").setDescription("The role to delete").setRequired(true))
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   category: "admin",
   usage: "<@ROLE>",
   example: "@Members",

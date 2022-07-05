@@ -1,10 +1,12 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("unban").setDescription("Unban a user from the server.")
     .addIntegerOption(option => option.setName("user-id").setDescription("The ID of the user to unban.").setRequired(true))
-    .addStringOption(option => option.setName("reason").setDescription("The reason for the unban.")),
+    .addStringOption(option => option.setName("reason").setDescription("The reason for the unban."))
+    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
   category: "mod",
   usage: "<USER ID> [REASON]",
   example: "346246641595973633 Received punishment",

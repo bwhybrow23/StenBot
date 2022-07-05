@@ -1,11 +1,13 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("ban").setDescription("Permanently ban a user from the server")
     .addUserOption(option => option.setName("user").setDescription("The user to ban."))
     .addIntegerOption(option => option.setName("user-id").setDescription("The user ID of the person to ban (if they are no longer on the server)"))
-    .addStringOption(option => option.setName("reason").setDescription("The reason for the ban.")),
+    .addStringOption(option => option.setName("reason").setDescription("The reason for the ban."))
+    .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
   category: "mod",
   usage: "<@USER> [REASON]",
   example: "@James#2307 Bullying",
@@ -38,8 +40,7 @@ module.exports = {
     let reason = interaction.options.getString("reason");
 
     //Check if user is already banned
-    if (interaction.guild.bans.fetch(targetuser, { force: true })) 
-    {
+    if (interaction.guild.bans.fetch(targetuser, { force: true })) {
       return interaction.reply(`${targetuser.username + targetuser.discriminator} is already banned from this guild.`)
     }
 

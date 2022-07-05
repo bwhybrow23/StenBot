@@ -1,10 +1,12 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("clearuser").setDescription("Clear a certain number of messages from a specific user")
     .addUserOption(option => option.setName("user").setDescription("The user to clear messages from.").setRequired(true))
-    .addIntegerOption(option => option.setName("amount").setDescription("The amount of messages to clear.").setRequired(true)),
+    .addIntegerOption(option => option.setName("amount").setDescription("The amount of messages to clear.").setRequired(true))
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
   category: "mod",
   usage: "<@USER> <VALUE>",
   example: "@Haydn#3329 50",
@@ -42,8 +44,8 @@ module.exports = {
 
     //Success message
     bot.createEmbed("success", "", `Successfully cleared **${amount}** messages from **${targetuser.user.tag}**`, [], `${interaction.guild.name}`, interaction)
-          .then((embed) => interaction.reply({ embeds: embed }))
-          .catch((error) => bot.log.post("error", error));
+      .then((embed) => interaction.reply({ embeds: embed }))
+      .catch((error) => bot.log.post("error", error));
 
     //Logging
     if (config.logging.enabled === true) {

@@ -1,9 +1,11 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("delchannel").setDescription("Deletes a mentioned channel")
-    .addChannelOption(option => option.setName('channel').setDescription('The channel to delete').setRequired(true)),
+    .addChannelOption(option => option.setName('channel').setDescription('The channel to delete').setRequired(true))
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   category: "admin",
   usage: "<#CHANNEL>",
   example: "#general",

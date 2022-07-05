@@ -1,10 +1,12 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("kick").setDescription("Kick a user from the server.")
     .addUserOption(option => option.setName("user").setDescription("The user to kick.").setRequired(true))
-    .addStringOption(option => option.setName("reason").setDescription("The reason for the kick.")),
+    .addStringOption(option => option.setName("reason").setDescription("The reason for the kick."))
+    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
   category: "mod",
   usage: "<@USER> [REASON]",
   example: "@Dan#9124 Rude Name",
@@ -38,22 +40,22 @@ module.exports = {
 
         //Log to database
         await bot.punishments.new("kick", interaction.guild.id, targetuser.id, interaction.user.id, reason);
-      
+
         //Send Success message
         bot.createEmbed("success", "", `${msg}`, [], `${interaction.guild.name}`, interaction)
-        .then((embed) => interaction.reply({ embeds: embed }))
-        .catch((error) => bot.log.post("error", error))
+          .then((embed) => interaction.reply({ embeds: embed }))
+          .catch((error) => bot.log.post("error", error))
 
         //Send User a message
         bot.eventEmbed("c70011", targetuser.user, "You have been kicked!", `**Kick Date:** ${new Date()}\n**Kicked By:** ${interaction.user.tag}${reason ? `\n**Reason:** ${reason}` : ``}`, [], `${interaction.guild.name}`, bot)
-            .then((embed) => {
-                try {
-                  targetuser.send(embed);
-                } catch (e) {
-                  return;
-                }
-              })
-            .catch(error => bot.log.post("error", error));
+          .then((embed) => {
+            try {
+              targetuser.send(embed);
+            } catch (e) {
+              return;
+            }
+          })
+          .catch(error => bot.log.post("error", error));
 
       })
       .catch(error => bot.log.post("error", error));

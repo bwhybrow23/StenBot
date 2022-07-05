@@ -3,6 +3,7 @@ module.exports = {
   once: false,
   async execute(bot, threadChannel) {
 
-  threadChannel.join();
+    threadChannel.join();
 
-}};
+  }
+};

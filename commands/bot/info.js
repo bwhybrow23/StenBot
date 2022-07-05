@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("info").setDescription("Find out about all information related to the bot's connection to Discord."),
-  category: "bot",  
+  category: "bot",
   usage: "",
   example: "",
   options: { permission: "EVERYONE", aliases: ["ping", "status", "stats", "uptime"], enabled: true, cooldown: 10, guildOnly: false },
@@ -36,7 +36,7 @@ module.exports = {
       .addField("Total Members:", totalMembers.toString(), true)
       .addField("Total Commands:", totalCommands.toString(), true)
       .addField("Version:", packageJSON.version.toString(), true)
-      .setFooter({ text: `${interaction.guild.name}`, iconURL: interaction.guild.iconURL()});
+      .setFooter({ text: `${interaction.guild.name}`, iconURL: interaction.guild.iconURL() });
 
     return interaction.reply({ embeds: [embed.toJSON()] });
 

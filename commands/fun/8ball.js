@@ -35,6 +35,6 @@ module.exports = {
     }).catch((e) => {
       bot.log.post("error", e);
     })
-    
+
   },
 };

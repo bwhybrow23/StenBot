@@ -21,6 +21,6 @@ module.exports = {
       .setImage(stolenPic)
       .setFooter({ text: interaction.guild.name, iconURL: `https://i.imgur.com/klY5xCe.png` });
 
-    interaction.reply({embeds: [embed.toJSON()]});
+    interaction.reply({ embeds: [embed.toJSON()] });
   },
 };

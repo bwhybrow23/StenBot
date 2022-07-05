@@ -70,6 +70,6 @@ module.exports = {
       .setAuthor(interaction.guild.name, `https://i.imgur.com/klY5xCe.png`)
       .setTimestamp();
 
-    interaction.reply({embeds: [embed.toJSON()]});
+    interaction.reply({ embeds: [embed.toJSON()] });
   },
 };

@@ -21,10 +21,9 @@ module.exports = {
       port = address[1];
     }
 
-    if(port) {
+    if (port) {
       request = await fetch(url + ip + `&port=${port}`);
-    }
-    else if (!port) {
+    } else if (!port) {
       request = await fetch(url + ip);
     }
 
@@ -49,17 +48,17 @@ module.exports = {
       motd = res.motd_json.trim();
     }
 
-    if (res.online) {        
-        let onlineEmbed = new Discord.MessageEmbed()
-          .setColor(1295876)
-          .setTitle("Server Status:")
-          .addField("IP:", `${address}`, true)
-          .addField("Status:", "Online", true)
-          .addField("Player Count:", `${players}/${res.players.max}`, true)
-          .addField("Server Version:", res.server.name, true)
-          .addField("MOTD:", `\`\`\`${motd}\`\`\``, false)
-          .setFooter({ text: interaction.guild.name, iconURL: interaction.guild.iconURL()});
-        interaction.reply({embeds: [onlineEmbed.toJSON()]});
+    if (res.online) {
+      let onlineEmbed = new Discord.MessageEmbed()
+        .setColor(1295876)
+        .setTitle("Server Status:")
+        .addField("IP:", `${address}`, true)
+        .addField("Status:", "Online", true)
+        .addField("Player Count:", `${players}/${res.players.max}`, true)
+        .addField("Server Version:", res.server.name, true)
+        .addField("MOTD:", `\`\`\`${motd}\`\`\``, false)
+        .setFooter({ text: interaction.guild.name, iconURL: interaction.guild.iconURL() });
+      interaction.reply({ embeds: [onlineEmbed.toJSON()] });
     }
 
     if (!res.online) {
