@@ -9,7 +9,8 @@
   },
   "scripts": {
     "run": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -52,5 +53,8 @@
     "string-template": "^1.0.0",
     "superagent": "^7.1.1",
     "util": "^0.12.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.19.0"
   }
 }

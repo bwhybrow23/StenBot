@@ -18,40 +18,40 @@
  * 
  */
 
- //Actual JSON Layout
- let json = {
+//Actual JSON Layout
+let json = {
     info: {
-        id: "",
-        name: "",
-        owner_id: "",
+        id: '',
+        name: '',
+        owner_id: '',
         blacklisted: false
     }, 
     gatekeeper: {
         welcome_enabled: false,
-        welcome_channel: "",
-        welcome_message: "",
+        welcome_channel: '',
+        welcome_message: '',
         leave_enabled: false,
-        leave_channel: "",
-        leave_message: ""
+        leave_channel: '',
+        leave_message: ''
     },
     userjoin: {
         enabled: false,
         roles: [],
-        nickname: ""
+        nickname: ''
     },
     moderation: {
-        staff_role: "",
+        staff_role: '',
         link_block: false,
         filter: []
     },
     logging: {
         enabled: false,
-        channel: "",
-        level: "medium",
+        channel: '',
+        level: 'medium',
         ignore: []
     },
     tickets: {
         enabled: false,
-        message: ""
+        message: ''
     }
- }
+};

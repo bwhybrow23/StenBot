@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const guildSchema = new mongoose.Schema({
     info: {
@@ -113,9 +113,9 @@ const guildSchema = new mongoose.Schema({
             required: true
         }
     }
-    }, {
-        timestamps: true
-})
+}, {
+    timestamps: true
+});
 
-const Guild = mongoose.model("Guild", guildSchema);
+const Guild = mongoose.model('Guild', guildSchema);
 module.exports = Guild;
