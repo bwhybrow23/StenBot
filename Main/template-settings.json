@@ -1,0 +1,54 @@
+{
+    "prefix": "",
+    "mode": "production",
+    "connections": {
+        "token": "",
+        "devToken": "",
+        "giphyAPI": "",
+        "botslist": {
+            "bfd": "",
+            "dbl": "",
+            "topgg": ""
+        }
+    },
+    "ids": {
+        "botOwner": "",
+        "mainGuild": ""
+    },
+    "color": {
+        "red": 14165566,
+        "green": 1295876,
+        "yellow": 14672927,
+        "blue": 4886754
+    },
+    "options": {
+        "verifEnabled": false,
+        "apiPort": 3000
+    },
+    "regions": [
+        "Africa",
+        "America",
+        "Antarctica",
+        "Arctic",
+        "Asia",
+        "Atlantic",
+        "Australia",
+        "Europe",
+        "Indian",
+        "Pacific"
+    ],
+	"mongo": {
+        "user": "",
+        "database": "",
+        "password": "",
+        "host": "",
+        "port": 27017
+    },
+    "mongoDev": {
+        "user": "",
+        "database": "",
+        "password": "",
+        "host": "",
+        "port": 27017
+    }
+}

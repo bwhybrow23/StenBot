@@ -1,0 +1,55 @@
+{
+    "prefix": "sb!",
+    "mode": "development",
+    "connections": {
+        "token": "NDUyMDUzNjA3MzgzMzAyMTQ1.WxEdug.LbrWXZBrseiw5Hhs6j8lpQs8gy0",
+        "devToken": "NTY0MzkwNDc1OTE4ODY4NDky.XKnLlw.tRhzXGPcTJ0MT2VhgE60vjrEQSE",
+        "giphyAPI": "gpUrIljQdxjvRX6urMJ1I09tSNOCtl4F",
+        "botslist": {
+            "bfd": "153bd2dcdd41158653eb746ec0e0bd403352e8c7dc525173b1aa19b95a115aae182900f410974e2e97908fafcaa6c58542e26a618c2bd6b3b0f7efe34de1221d",
+            "dbl": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0IjoxLCJpZCI6IjQ1MjA1MzYwNzM4MzMwMjE0NSIsImlhdCI6MTYxODUzMDc1NX0.NMk2uPE0NCdvcK_-UPIfNf7PP-Rf2E85MWkSwk6aB3g",
+            "topgg": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ1MjA1MzYwNzM4MzMwMjE0NSIsImJvdCI6dHJ1ZSwiaWF0IjoxNjE4NTMxMDU3fQ.asN0fKbKIhecbPwukRrWYDDi2c4_sHW2nohaKVdxQ-w"
+        }
+    },
+    "ids": {
+        "botOwner": "346246641595973633",
+        "mainGuild": "455782308293771264",
+        "testGuild": "712815477344305262"
+    },
+    "color": {
+        "red": 14165566,
+        "green": 1295876,
+        "yellow": 14672927,
+        "blue": 4886754
+    },
+    "options": {
+        "verifEnabled": false,
+        "apiPort": 3001
+    },
+    "regions": [
+        "Africa",
+        "America",
+        "Antarctica",
+        "Arctic",
+        "Asia",
+        "Atlantic",
+        "Australia",
+        "Europe",
+        "Indian",
+        "Pacific"
+    ],
+    "mongo": {
+        "user": "stenbot",
+        "database": "stenbot",
+        "password": "oG2BH567cLo6sp187z9pEzhidz",
+        "host": "78.47.47.244",
+        "port": 28012
+    },
+    "mongoDev": {
+        "user": "stenbot-dev",
+        "database": "stenbot-dev",
+        "password": "DbQaV2aC^V95!vMm8v%40eH&&Zq6", 
+        "host": "78.47.47.244",
+        "port": 28012
+    }
+}
