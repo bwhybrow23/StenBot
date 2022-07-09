@@ -24,7 +24,7 @@
   "New Slash Command": {
     "scope": "javascript",
     "prefix": ["slash-cmd", "slash"],
-    "body": ["data: new SlashCommandBuilder()", "\t.setName(\"${1:name}\").setDescription(\"${2:description}\"),"],
+    "body": ["data: new SlashCommandBuilder()", "\t.setName('${1:name}').setDescription('${2:description}'),"],
     "description": "New Slash command"
   }
 }

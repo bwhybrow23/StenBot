@@ -1,11 +1,13 @@
 # Changelog
 
-## 2.3.0 - 
+## 3.0.0
 * Converted from prefixed commands to slash commands
 * NPM package updates
 * New event handler
 * Folder structure changed to be nicer looking
 * Pretty it all up
+* ESLint fixes
+* Combined all config commands into one command
 
 ## 2.2.3 - 27/01/2022
 * Updates to latest NPM versions - includes security fixes
