@@ -64,7 +64,8 @@ const post = (type, message) => {
               reject('Failed to log to file');
             });
         }, () => {
-          reject('Failed to log to console');
+          // reject('Failed to log to console');
+          console.log(message);
         });
       break;
     case 'urgent':

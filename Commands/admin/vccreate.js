@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionFlagsBits } = require('discord-api-types/v10');
+const { PermissionFlagsBits, ChannelType } = require('discord-api-types/v10');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -28,8 +28,9 @@ module.exports = {
     }
 
     //Create the channel and do the stuff
-    interaction.guild.channels.create(`${channelName}`, {
-      type: 'GUILD_VOICE',
+    interaction.guild.channels.create({
+      name: channelName,
+      type: ChannelType.GuildVoice,
       reason: `Created by ${interaction.user.tag}`
     }).then((channel) => {
       return bot.createEmbed('success', '', `The voice channel **${channel.name}** has been created.`, [], `${interaction.guild.name}`, interaction)

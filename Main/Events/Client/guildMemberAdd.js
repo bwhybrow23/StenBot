@@ -54,7 +54,7 @@ module.exports = {
               userCount: member.guild.members.cache.filter(member => !member.user.bot).size
             });
 
-            let welcomeEmbed = new Discord.MessageEmbed()
+            let welcomeEmbed = new Discord.EmbedBuilder()
               .setColor(bot.settings.color.yellow)
               .setDescription(themsg);
 

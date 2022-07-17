@@ -22,7 +22,7 @@ module.exports = {
     let totalMembers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
     let totalCommands = require('../../Data/Global/bot-data.json').stats.commands.total;
 
-    let embed = new Discord.MessageEmbed()
+    let embed = new Discord.EmbedBuilder()
       .setColor(4886754)
       .setTitle('StenBot Info')
       .setThumbnail(bot.user.avatarURL())

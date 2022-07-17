@@ -56,7 +56,7 @@ module.exports = {
     });
 
     //Final Embed
-    let embed = new Discord.MessageEmbed()
+    let embed = new Discord.EmbedBuilder()
       .setColor(bot.settings.color.blue)
       .setThumbnail(guild.iconURL())
       .addField('Name:', `${guild.name}`, true)

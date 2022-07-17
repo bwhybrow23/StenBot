@@ -31,7 +31,7 @@ module.exports = {
       let category = interaction.options.getString('category');
 
       //Embed to Send
-      const embed = new Discord.MessageEmbed()
+      const embed = new Discord.EmbedBuilder()
         .setColor(bot.settings.color.blue)
         .setTitle(capitalize(category))
         .setFooter({
@@ -58,7 +58,7 @@ module.exports = {
       //General Help
 
       //Main Embed
-      let embed = new Discord.MessageEmbed()
+      let embed = new Discord.EmbedBuilder()
         .setTitle('All Commands')
         .setDescription(`Prefix: \`${prefix}\``)
         .setColor(bot.settings.color.blue)

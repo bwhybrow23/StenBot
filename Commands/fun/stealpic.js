@@ -15,7 +15,7 @@ module.exports = {
     let stolen = interaction.options.getUser('user');
     let stolenPic = stolen.avatarURL();
 
-    let embed = new Discord.MessageEmbed()
+    let embed = new Discord.EmbedBuilder()
       .setColor(bot.settings.color.yellow)
       .setDescription(`**${interaction.user.username}** has stolen **${stolen.username}**'s profile picture!\n\nFind it here: [${stolen.username}'s Profile Picture](${stolenPic})`)
       .setImage(stolenPic)

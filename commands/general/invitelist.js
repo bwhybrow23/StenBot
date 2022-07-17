@@ -25,7 +25,7 @@ module.exports = {
       });
     }
 
-    const lbEmbed = new Discord.MessageEmbed()
+    const lbEmbed = new Discord.EmbedBuilder()
       .setTitle('**INVITE LIST**')
       .setColor(bot.settings.color.yellow)
       .addField('Invites', `\`\`\`${possibleinvites.join('\n')}\`\`\``)

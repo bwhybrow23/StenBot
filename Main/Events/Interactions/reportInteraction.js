@@ -1,4 +1,4 @@
-const { MessageActionRow, Modal, TextInputComponent, MessageButton } = require('discord.js');
+const { ModalBuilder, TextInputBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
 
 module.exports = {
   name: 'interactionCreate',
@@ -12,91 +12,91 @@ module.exports = {
 
     // Modals
     //User Modal
-    const userModal = new Modal()
+    const userModal = new ModalBuilder()
       .setCustomId('userModal')
       .setTitle('User Report');
     //Text Input Components
-    const userIdInput = new TextInputComponent()
+    const userIdInput = new TextInputBuilder()
       .setCustomId('userId')
       .setLabel('What is the ID of the user?')
-      .setStyle('SHORT')
+      .setStyle('Short')
       .setRequired(true);
-    const reasonInput = new TextInputComponent()
+    const reasonInput = new TextInputBuilder()
       .setCustomId('reason')
       .setLabel('What is the reason for this report?')
-      .setStyle('PARAGRAPH')
+      .setStyle('Paragraph')
       .setRequired(true);
-    const evidenceInput = new TextInputComponent()
+    const evidenceInput = new TextInputBuilder()
       .setCustomId('evidence')
       .setLabel('What evidence do you have?')
-      .setStyle('PARAGRAPH')
+      .setStyle('Paragraph')
       .setRequired(true);
     //Action Rows
-    const playerIdActionRow = new MessageActionRow().addComponents(userIdInput);
-    const reasonActionRow = new MessageActionRow().addComponents(reasonInput);
-    const evidenceActionRow = new MessageActionRow().addComponents(evidenceInput);
+    const playerIdActionRow = new ActionRowBuilder().addComponents(userIdInput);
+    const reasonActionRow = new ActionRowBuilder().addComponents(reasonInput);
+    const evidenceActionRow = new ActionRowBuilder().addComponents(evidenceInput);
     //Add inputs to modal
     userModal.addComponents(playerIdActionRow, reasonActionRow, evidenceActionRow);
 
     //Server Modal
-    const serverModal = new Modal()
+    const serverModal = new ModalBuilder()
       .setCustomId('serverModal')
       .setTitle('Server Report');
     //Text Input Components
-    const serverIdInput = new TextInputComponent()
+    const serverIdInput = new TextInputBuilder()
       .setCustomId('serverId')
       .setLabel('What is the ID of the server?')
-      .setStyle('SHORT')
+      .setStyle('Short')
       .setRequired(true);
     //Action Rows
-    const serverIdActionRow = new MessageActionRow().addComponents(serverIdInput);
+    const serverIdActionRow = new ActionRowBuilder().addComponents(serverIdInput);
     //Add inputs to modal
     serverModal.addComponents(serverIdActionRow, reasonActionRow, evidenceActionRow);
 
     //Bug Modal
-    const bugModal = new Modal()
+    const bugModal = new ModalBuilder()
       .setCustomId('bugModal')
       .setTitle('Bug Report');
     //Text Input Components
-    const bugSummaryInput = new TextInputComponent()
+    const bugSummaryInput = new TextInputBuilder()
       .setCustomId('bugSummary')
       .setLabel('Please provide a summary of the bug.')
-      .setStyle('PARAGRAPH')
+      .setStyle('Paragraph')
       .setRequired(true);
-    const bugStepsInput = new TextInputComponent()
+    const bugStepsInput = new TextInputBuilder()
       .setCustomId('bugSteps')
       .setLabel('Please provide steps to reproduce the bug.')
-      .setStyle('PARAGRAPH')
+      .setStyle('Paragraph')
       .setRequired(true);
-    const bugEvidenceInput = new TextInputComponent()
+    const bugEvidenceInput = new TextInputBuilder()
       .setCustomId('bugEvidence')
       .setLabel('Please provide any evidence of the bug.')
-      .setStyle('PARAGRAPH')
+      .setStyle('Paragraph')
       .setRequired(true);
     //Action Rows
-    const bugSummaryActionRow = new MessageActionRow().addComponents(bugSummaryInput);
-    const bugStepsActionRow = new MessageActionRow().addComponents(bugStepsInput);
-    const bugEvidenceActionRow = new MessageActionRow().addComponents(bugEvidenceInput);
+    const bugSummaryActionRow = new ActionRowBuilder().addComponents(bugSummaryInput);
+    const bugStepsActionRow = new ActionRowBuilder().addComponents(bugStepsInput);
+    const bugEvidenceActionRow = new ActionRowBuilder().addComponents(bugEvidenceInput);
     //Add inputs to modal
     bugModal.addComponents(bugSummaryActionRow, bugStepsActionRow, bugEvidenceActionRow);
 
     //Buttons
-    const tRow = new MessageActionRow()
+    const tRow = new ActionRowBuilder()
       .addComponents(
-        new MessageButton()
+        new ButtonBuilder()
           .setCustomId('user')
           .setLabel('User')
-          .setStyle('PRIMARY')
+          .setStyle('Primary')
           .setDisabled(true),
-        new MessageButton()
+        new ButtonBuilder()
           .setCustomId('server')
           .setLabel('Server')
-          .setStyle('PRIMARY')
+          .setStyle('Primary')
           .setDisabled(true),
-        new MessageButton()
+        new ButtonBuilder()
           .setCustomId('bug')
           .setLabel('Bug')
-          .setStyle('PRIMARY')
+          .setStyle('Primary')
           .setDisabled(true),
       );
     //Button clicked => Modal
@@ -122,7 +122,7 @@ module.exports = {
 
     if (interaction.customId === 'userModal') {
 
-      if (!interaction.isModalSubmit()) return;
+      if (interaction.type != InteractionType.ModalSubmit) return;
 
       //User Report
       const rObj = bot.users.cache.get(interaction.fields.getTextInputValue('userId'));
@@ -144,7 +144,7 @@ module.exports = {
 
     } else if (interaction.customId === 'serverModal') {
 
-      if (!interaction.isModalSubmit()) return;
+      if (interaction.type != InteractionType.ModalSubmit) return;
 
       //Server Report
       const gObj = bot.guilds.cache.get(interaction.fields.getTextInputValue('serverId'));
@@ -167,7 +167,7 @@ module.exports = {
 
     } else if (interaction.customId === 'bugModal') {
 
-      if (!interaction.isModalSubmit()) return;
+      if (interaction.type != InteractionType.ModalSubmit) return;
 
       //Bug Report
       reportUtils.bugReport(bot, interaction.user, interaction.guild, interaction.fields.getTextInputValue('bugSummary'), interaction.fields.getTextInputValue('bugSteps'), interaction.fields.getTextInputValue('bugEvidence'), rDate)

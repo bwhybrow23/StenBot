@@ -59,7 +59,7 @@ module.exports = {
       bot.log.post('error', e);
     }
 
-    let embed = new Discord.MessageEmbed()
+    let embed = new Discord.EmbedBuilder()
       .setColor(bot.settings.color.green)
       .setDescription(`The user **${toBeAdded.user.tag}** has been added to the ticket.`)
       .setAuthor(interaction.guild.name, 'https://i.imgur.com/klY5xCe.png')

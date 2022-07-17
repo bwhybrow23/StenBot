@@ -12,6 +12,7 @@
 * Command deployment is done seperately from the main bot (to avoid API spam)
 * Settings template has been updated with the new required variables
 * Fixed reminders
+* Discord v14 Update
 
 ## 2.2.3 - 27/01/2022
 * Updates to latest NPM versions - includes security fixes

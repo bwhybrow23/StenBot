@@ -21,7 +21,7 @@ module.exports = {
       .then(res => res.json())
       .then(json => result = json);
 
-    let ballEmbed = new Discord.MessageEmbed()
+    let ballEmbed = new Discord.EmbedBuilder()
       .setColor(bot.settings.color.yellow)
       .addField('Question', question)
       .addField('Answer', result.response)

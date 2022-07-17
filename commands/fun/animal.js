@@ -38,7 +38,7 @@ module.exports = {
         await apiFetch('meow');
       }
 
-      const catEmbed = new Discord.MessageEmbed()
+      const catEmbed = new Discord.EmbedBuilder()
         .setTitle('Aww... Kitty!')
         .setColor('#ff9900')
         .setImage(url)
@@ -54,7 +54,7 @@ module.exports = {
         await apiFetch('woof');
       }
 
-      const dogEmbed = new Discord.MessageEmbed()
+      const dogEmbed = new Discord.EmbedBuilder()
         .setTitle('Aww... Doggo!')
         .setColor('#ff9900')
         .setImage(url)
@@ -70,7 +70,7 @@ module.exports = {
         .then(res => res.json())
         .then(json => url = json.image);
 
-      const foxEmbed = new Discord.MessageEmbed()
+      const foxEmbed = new Discord.EmbedBuilder()
         .setTitle('Aww... Fox!')
         .setColor('#ff9900')
         .setImage(url)
@@ -87,7 +87,7 @@ module.exports = {
         await apiFetch('goose');
       }
 
-      const gooseEmbed = new Discord.MessageEmbed()
+      const gooseEmbed = new Discord.EmbedBuilder()
         .setTitle('Hjonk!')
         .setColor('#ff9900')
         .setImage(url)
@@ -104,7 +104,7 @@ module.exports = {
         await apiFetch('lizard');
       }
 
-      const lizardEmbed = new Discord.MessageEmbed()
+      const lizardEmbed = new Discord.EmbedBuilder()
         .setTitle('Cute lil lizard!')
         .setColor('#ff9900')
         .setImage(url)

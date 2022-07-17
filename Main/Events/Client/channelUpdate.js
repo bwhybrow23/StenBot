@@ -4,6 +4,7 @@ module.exports = {
   async execute(bot, oldChannel, newChannel) {
 
     // if ((newChannel.type === 'DM')) return;
+    if(!newChannel || !oldChannel) return;
 
     if (newChannel.name.startsWith('ticket-')) return;
 

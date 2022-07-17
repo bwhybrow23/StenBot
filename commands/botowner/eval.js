@@ -25,7 +25,7 @@ module.exports = {
         code = require('util').inspect(code, {
           depth: 0,
         });
-      let embed = new Discord.MessageEmbed()
+      let embed = new Discord.EmbedBuilder()
         .setTitle('Evaluate')
         .setColor(bot.settings.color.yellow)
         .addField(':inbox_tray: Input', `\`\`\`js\n${codein}\`\`\``)

@@ -31,7 +31,7 @@ module.exports = {
             });
         }
         //Check if they included a setting
-        let helpE = new Discord.MessageEmbed()
+        let helpE = new Discord.EmbedBuilder()
             .setColor(bot.settings.color.blue)
             .setTitle('Command: Account')
             .addField('Description:', 'Create and manage your StenBot account.', true)

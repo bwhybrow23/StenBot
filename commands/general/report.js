@@ -12,20 +12,20 @@ module.exports = {
     const { MessageActionRow, MessageButton } = require('discord.js');
 
     // Buttons
-    const tRow = new MessageActionRow()
+    const tRow = new ActionRowBuilder()
       .addComponents(
-        new MessageButton()
+        new ButtonBuilder()
           .setCustomId('user')
           .setLabel('User')
-          .setStyle('PRIMARY'),
-        new MessageButton()
+          .setStyle('Primary'),
+        new ButtonBuilder()
           .setCustomId('server')
           .setLabel('Server')
-          .setStyle('PRIMARY'),
-        new MessageButton()
+          .setStyle('Primary'),
+        new ButtonBuilder()
           .setCustomId('bug')
           .setLabel('Bug')
-          .setStyle('PRIMARY'),
+          .setStyle('Primary'),
       );
 
 

@@ -66,7 +66,7 @@ module.exports = {
 
     let roles = member.roles.cache.filter(r => r.id !== interaction.guild.id).map(roles => `\`${roles.name}\``).join(' **|** ');
 
-    let meEmbed = new Discord.MessageEmbed()
+    let meEmbed = new Discord.EmbedBuilder()
       .setThumbnail(user.displayAvatarURL())
       .setColor(14672927)
       .addField('Full Username', `${user.tag}`, true)

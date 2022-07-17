@@ -14,7 +14,7 @@ const playerReport = (bot, reObj, rObj, gObj, reason, evidence, rDate) => {
       */
   
     //Parse into embed
-    let playerEmbed = new Discord.MessageEmbed()
+    let playerEmbed = new Discord.EmbedBuilder()
       .setColor(bot.settings.color.yellow)
       .setTitle('New Player Report')
       .addField('Reporter Information', `Username: ${reObj.tag}\nUser ID: ${reObj.id}\nFrom Server ID: ${gObj.id}\nDate Reported: ${rDate}`)
@@ -42,7 +42,7 @@ const serverReport = (bot, reObj, gObj, reason, evidence, rDate) => {
       */
   
     //Parse into embed
-    let serverEmbed = new Discord.MessageEmbed()
+    let serverEmbed = new Discord.EmbedBuilder()
       .setColor(bot.settings.color.yellow)
       .setTitle('New Server Report')
       .addField('Reporter Information', `Username: ${reObj.tag}\nUser ID: ${reObj.id}\nDate Reported: ${rDate}`)
@@ -71,7 +71,7 @@ const bugReport = (bot, reObj, gObj, info, steps, evidence, rDate) => {
       */
   
     //Parse into embed
-    let bugEmbed = new Discord.MessageEmbed()
+    let bugEmbed = new Discord.EmbedBuilder()
       .setColor(bot.settings.color.yellow)
       .setTitle('New Bug Report')
       .addField('Reporter Information', `Username: ${reObj.tag}\nUser ID: ${reObj.id}\nFrom Server: ${gObj.name}\nDate Reported: ${rDate}`)

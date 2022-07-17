@@ -64,7 +64,7 @@ module.exports = {
         await apiFetch('cuddle');
       }
 
-      let cEmbed = new Discord.MessageEmbed()
+      let cEmbed = new Discord.EmbedBuilder()
         .setDescription(`${userNick} cuddles ${recipient.username}`)
         .setImage(url)
         .setColor(bot.settings.color.yellow)
@@ -84,7 +84,7 @@ module.exports = {
         await apiFetch('feed');
       }
 
-      let fEmbed = new Discord.MessageEmbed()
+      let fEmbed = new Discord.EmbedBuilder()
         .setDescription(`${userNick} feeds ${recipient.username}`)
         .setImage(url)
         .setColor(bot.settings.color.yellow)
@@ -106,7 +106,7 @@ module.exports = {
         await apiFetch('hug');
       }
 
-      let hEmbed = new Discord.MessageEmbed()
+      let hEmbed = new Discord.EmbedBuilder()
         .setDescription(`${userNick} hugs ${recipient.username}`)
         .setImage(url)
         .setColor(bot.settings.color.yellow)
@@ -129,7 +129,7 @@ module.exports = {
         await apiFetch('kiss');
       }
 
-      let kEmbed = new Discord.MessageEmbed()
+      let kEmbed = new Discord.EmbedBuilder()
         .setDescription(`${userNick} kisses ${recipient.username}`)
         .setImage(url)
         .setColor(bot.settings.color.yellow)
@@ -152,7 +152,7 @@ module.exports = {
         await apiFetch('pat');
       }
 
-      let pEmbed = new Discord.MessageEmbed()
+      let pEmbed = new Discord.EmbedBuilder()
         .setDescription(`${userNick} pats ${recipient.username}`)
         .setImage(url)
         .setColor(bot.settings.color.yellow)
@@ -176,7 +176,7 @@ module.exports = {
 
       if (recipient === interaction.user) return interaction.reply('You\'re not allowed to poke yourself silly.');
 
-      let poEmbed = new Discord.MessageEmbed()
+      let poEmbed = new Discord.EmbedBuilder()
         .setDescription(`${userNick} pokes ${recipient.username}`)
         .setImage(url)
         .setColor(bot.settings.color.yellow)
@@ -200,7 +200,7 @@ module.exports = {
         await apiFetch('slap');
       }
 
-      let sEmbed = new Discord.MessageEmbed()
+      let sEmbed = new Discord.EmbedBuilder()
         .setDescription(`${userNick} slapped ${recipient.username}`)
         .setImage(url)
         .setColor(bot.settings.color.yellow)
@@ -223,7 +223,7 @@ module.exports = {
         await apiFetch('tickle');
       }
 
-      let tEmbed = new Discord.MessageEmbed()
+      let tEmbed = new Discord.EmbedBuilder()
         .setDescription(`${userNick} tickles ${recipient.username}`)
         .setImage(url)
         .setColor(bot.settings.color.yellow)

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionFlagsBits } = require('discord-api-types/v10');
+const { PermissionFlagsBits, ChannelType } = require('discord-api-types/v10');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -41,14 +41,16 @@ module.exports = {
     try {
       category = interaction.guild.channels.cache.find(channel => channel.name === categoryName && channel.type === 'GUILD_CATEGORY');
     } catch (error) {
-      await interaction.guild.channels.create(categoryName, {
-        type: 'GUILD_CATEGORY'
+      await interaction.guild.channels.create({
+        name: categoryName,
+        type: ChannelType.GuildCategory
       }).then(channel => category = channel);
     }
 
     //Create the channel and do the stuff
-    await interaction.guild.channels.create(`${channelName}`, {
-      type: 'GUILD_TEXT',
+    await interaction.guild.channels.create({
+      name: channelName,
+      type: ChannelType.GuildText,
       reason: `Created by ${interaction.user.tag}`
     }).then((channel) => {
       channel.setParent(category);

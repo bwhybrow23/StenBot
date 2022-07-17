@@ -17,7 +17,7 @@ module.exports = {
       .then(res => res.json())
       .then(json => fact = json.fact);
 
-    let embed = new Discord.MessageEmbed()
+    let embed = new Discord.EmbedBuilder()
       .setTitle('Random Fact')
       .setDescription(fact)
       .setColor(bot.settings.color.yellow)

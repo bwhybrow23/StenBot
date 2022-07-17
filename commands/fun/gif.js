@@ -27,7 +27,7 @@ module.exports = {
     let toBeUsed = response.data[Math.floor(Math.random() * response.data.length)];
     if (!toBeUsed) return interaction.reply('There was no result for this query.');
 
-    let embed = new Discord.MessageEmbed()
+    let embed = new Discord.EmbedBuilder()
       .setTitle(`Giphy Image: ${toBeUsed.slug}`)
       .setImage(toBeUsed.images.original.url)
       .setURL(toBeUsed.url)

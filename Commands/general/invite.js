@@ -13,7 +13,7 @@ module.exports = {
 
     let bicon = bot.user.avatarURL;
 
-    let inviteEmbed = new Discord.MessageEmbed()
+    let inviteEmbed = new Discord.EmbedBuilder()
       .setDescription('Invite StenBot to your Discord Server')
       .setColor(bot.settings.color.blue)
       .addField('Default Help Command', '`/help`')

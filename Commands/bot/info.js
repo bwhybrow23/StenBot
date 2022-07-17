@@ -22,20 +22,12 @@ module.exports = {
     let totalMembers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
     let totalCommands = require('../../Data/Global/bot-data.json').stats.commands.total;
 
-    let embed = new Discord.MessageEmbed()
+    let embed = new Discord.EmbedBuilder()
       .setColor(4886754)
       .setTitle('StenBot Info')
       .setThumbnail(bot.user.avatarURL())
       .setDescription('Here you can find all information about StenBot!')
-      .addField('\u200b', '**Connection Info:**', false)
-      .addField('Ping:', `${ping.toString()}ms`, true)
-      .addField('Memory Usage:', `${memUsed.toString()}MB`, true)
-      .addField('Uptime:', `${uptime}s`, true)
-      .addField('\u200b', '**Bot Stats:**', false)
-      .addField('Total Guilds:', totalGuilds.toString(), true)
-      .addField('Total Members:', totalMembers.toString(), true)
-      .addField('Total Commands:', totalCommands.toString(), true)
-      .addField('Version:', packageJSON.version.toString(), true)
+      .addFields([ { name: '\u200b', value: '**Connection Info:**', inline: false }, { name: 'Ping:', value: `${ping.toString()}ms`, inline: true }, { name: 'Memory Usage:', value: `${memUsed.toString()}MB`, inline: true }, { name: 'Uptime:', value: `${uptime}s`, inline: true }, { name: '\u200b', value: '**Bot Stats:**', inline: false }, { name: 'Total Guilds:', value: totalGuilds.toString(), inline: true }, { name: 'Total Members:', value: totalMembers.toString(), inline: true }, { name: 'Total Commands:', value: totalCommands.toString(), inline: true }, { name: 'Version:', value: packageJSON.version.toString(), inline: true } ])
       .setFooter({ text: `${interaction.guild.name}`, iconURL: interaction.guild.iconURL() });
 
     return interaction.reply({ embeds: [embed.toJSON()] });

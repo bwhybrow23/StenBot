@@ -94,12 +94,14 @@ const createEmbed = (type, title, desc, fields, footer, interaction, ephemeral) 
 const noPermsEmbed = (footer, bot) => {
   return new Promise((resolve, reject) => {
 
+    const date = Date();
+
     let embedTemplate = {
       embeds: [{
         title: '',
         description: '',
         color: 0,
-        timestamp: Date.now(),
+        timestamp: date.toISOString(),
         footer: {
           icon_url: 'https://i.imgur.com/klY5xCe.png',
           text: '',
@@ -208,12 +210,14 @@ const helpEmbed = (command, bot) => {
 const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
   return new Promise((resolve, reject) => {
 
+    const date = new Date()
+
     let embedTemplate = {
       embeds: [{
         title: '',
         description: '',
         color: 0,
-        timestamp: Date.now(),
+        timestamp: date.toISOString(),
         footer: {
           icon_url: 'https://i.imgur.com/klY5xCe.png',
           text: '',
@@ -231,7 +235,7 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
         title: '',
         description: '',
         color: 0,
-        timestamp: Date.now(),
+        timestamp: date.toISOString(),
         footer: {
           icon_url: 'https://i.imgur.com/klY5xCe.png',
           text: '',

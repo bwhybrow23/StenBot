@@ -50,7 +50,7 @@ module.exports = {
     }
 
     if (res.online) {
-      let onlineEmbed = new Discord.MessageEmbed()
+      let onlineEmbed = new Discord.EmbedBuilder()
         .setColor(1295876)
         .setTitle('Server Status:')
         .addField('IP:', `${address}`, true)
