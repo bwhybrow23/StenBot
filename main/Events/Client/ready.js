@@ -3,12 +3,10 @@ module.exports = {
   once: true,
   async execute(bot) {
 
-    const { REST } = require('@discordjs/rest');
     const fs = require('fs');
-    const { Routes } = require('discord-api-types/v9');
 
     const utils = require('../../Functions/utilities.js');
-    let token;
+    // let token;
 
     //Mode Checker
     const packageJSON = require('../../../package.json');
@@ -26,7 +24,7 @@ module.exports = {
     //Production Mode
     if (bot.settings.mode === 'production') {
 
-      token = bot.settings.connections.token;
+      // token = bot.settings.connections.token;
 
       //Starting Status
       bot.user.setPresence({
@@ -92,7 +90,7 @@ module.exports = {
     //Development Mode
     if (bot.settings.mode === 'development') {
 
-      token = bot.settings.connections.devToken;
+      // token = bot.settings.connections.devToken;
 
       //Status
       let date = new Date();
@@ -112,40 +110,6 @@ module.exports = {
     if (bot.settings.options.verifEnabled) {
       utils.resetVerif(bot);
     }
-
-    //Slash commands
-    const rest = new REST({
-      version: '9'
-    }).setToken(token);
-
-    (async () => {
-      try {
-        //Production mode = push global commands & botowner commands
-        if (bot.settings.mode === 'production') {
-
-          await rest.put(Routes.applicationCommands(bot.user.id), {
-            body: bot.commandsArray
-          });
-
-          bot.log.post('success', 'Pushed slash commands globally');
-
-        } else if (bot.settings.mode === 'development') {
-
-          //Development mode = push all commands as server-specific
-          await rest.put(Routes.applicationGuildCommands(bot.user.id, bot.settings.ids.testGuild), {
-            body: bot.commandsArray
-          });
-
-          bot.log.post('success', 'Pushed guild-only slash commands');
-
-        }
-      } catch (error) {
-        if (error) return bot.log.post('error', error);
-        // fs.writeFileSync(`./Data/Logs/slashOutput.json`, JSON.stringify(error, null, 4), (err) => {
-        //   if (err) return bot.log.post("error", err);
-        // });
-      }
-    })();
 
     /**
      * 

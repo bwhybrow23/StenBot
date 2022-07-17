@@ -94,8 +94,6 @@ const createEmbed = (type, title, desc, fields, footer, interaction, ephemeral) 
 const noPermsEmbed = (footer, bot) => {
   return new Promise((resolve, reject) => {
 
-    let bot = bot;
-
     let embedTemplate = {
       embeds: [{
         title: '',
@@ -107,17 +105,16 @@ const noPermsEmbed = (footer, bot) => {
           text: '',
         },
         fields: [],
-      }, ],
-      ephemeral: true
+      }, ]
     };
 
     //Color
-    embedTemplate[0].color = colours.red;
+    embedTemplate.embeds[0].color = colours.red;
     //Desc
-    embedTemplate[0].description = 'Error! You do not have permission to issue this command!';
+    embedTemplate.embeds[0].description = 'Error! You do not have permission to issue this command!';
     //Footer
     if (typeof footer === 'string' && footer.length < 2048) {
-      embedTemplate[0].footer.text = footer;
+      embedTemplate.embeds[0].footer.text = footer;
     } else {
       reject('Footer is invalid.');
     }
@@ -128,11 +125,6 @@ const noPermsEmbed = (footer, bot) => {
 
 const helpEmbed = (command, bot) => {
   return new Promise((resolve, reject) => {
-    //Capitalize function
-    const capitalize = (s) => {
-      if (typeof s !== 'string') return '';
-      return s.charAt(0).toUpperCase() + s.slice(1);
-    };
 
     //Get command info
     let cmd;
@@ -150,7 +142,7 @@ const helpEmbed = (command, bot) => {
 
     //Set up variables for the embed
     let prefix = bot.settings.prefix;
-    let name = capitalize(cmd.name);
+    let name = bot.utils.capitalize(cmd.name);
     let description = cmd.description;
     // let permission = capitalize(cmd.permission);
     let usage;
@@ -179,7 +171,7 @@ const helpEmbed = (command, bot) => {
         title: `Command: ${name}`,
         // description: "Syntax: <> = required, [] = optional",
         color: colours.blue,
-        url: `https://wiki.benwhybrow.com/Commands/${cmd.name}`,
+        url: `https://wiki.benwhybrow.com/commands/${cmd.name}`,
         footer: {
           icon_url: 'https://i.imgur.com/klY5xCe.png',
           text: 'Help Command | Syntax: <> = required, [] = optional',
@@ -215,8 +207,6 @@ const helpEmbed = (command, bot) => {
 
 const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
   return new Promise((resolve, reject) => {
-
-    let bot = bot;
 
     let embedTemplate = {
       embeds: [{
@@ -256,22 +246,22 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
     //Author Check
     if (author === 'None') {
       //Colour
-      noAuthorEmbedTemplate[0].color = decimalColour;
+      noAuthorEmbedTemplate.embeds[0].color = decimalColour;
       //Title
       if (typeof title === 'string' && title.length < 256) {
-        noAuthorEmbedTemplate[0].title = title;
+        noAuthorEmbedTemplate.embeds[0].title = title;
       } else {
         reject('Title is invalid.');
       }
       //Desc
       if (typeof desc === 'string' && desc.length < 2048) {
-        noAuthorEmbedTemplate[0].description = desc;
+        noAuthorEmbedTemplate.embeds[0].description = desc;
       } else {
         reject('Description is invalid.');
       }
       //Footer
       if (typeof footer === 'string' && footer.length < 2048) {
-        noAuthorEmbedTemplate[0].footer.text = footer;
+        noAuthorEmbedTemplate.embeds[0].footer.text = footer;
       } else {
         reject('Footer is invalid.');
       }
@@ -279,7 +269,7 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
       fields.forEach((field) => {
         if (field.name.length < 256) {
           if (field.value.length < 1024) {
-            noAuthorEmbedTemplate[0].fields.push(field);
+            noAuthorEmbedTemplate.embeds[0].fields.push(field);
           } else {
             reject('A field has a value that is too large.');
           }
@@ -290,9 +280,9 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
       resolve(noAuthorEmbedTemplate);
     } else {
       //Colour
-      embedTemplate[0].color = decimalColour;
+      embedTemplate.embeds[0].color = decimalColour;
       //Author Name
-      embedTemplate[0].author.name = `${author.username}#${author.discriminator}`;
+      embedTemplate.embeds[0].author.name = `${author.username}#${author.discriminator}`;
       //Author Icon
       let iconURL;
       if(author.avatar) {
@@ -300,22 +290,22 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
       } else {
         iconURL = `${author.displayAvatarURL({ dynamic: true, format: 'png' })}`;
       }
-      embedTemplate[0].author.icon_url = `${iconURL}`;
+      embedTemplate.embeds[0].author.icon_url = `${iconURL}`;
       //Title
       if (typeof title === 'string' && title.length < 256) {
-        embedTemplate[0].title = title;
+        embedTemplate.embeds[0].title = title;
       } else {
         reject('Title is invalid.');
       }
       //Desc
       if (typeof desc === 'string' && desc.length < 2048) {
-        embedTemplate[0].description = desc;
+        embedTemplate.embeds[0].description = desc;
       } else {
         reject('Description is invalid.');
       }
       //Footer
       if (typeof footer === 'string' && footer.length < 2048) {
-        embedTemplate[0].footer.text = footer;
+        embedTemplate.embeds[0].footer.text = footer;
       } else {
         reject('Footer is invalid.');
       }
@@ -323,7 +313,7 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
       fields.forEach((field) => {
         if (field.name.length < 256) {
           if (field.value.length < 1024) {
-            embedTemplate[0].fields.push(field);
+            embedTemplate.embeds[0].fields.push(field);
           } else {
             reject('A field has a value that is too large.');
           }

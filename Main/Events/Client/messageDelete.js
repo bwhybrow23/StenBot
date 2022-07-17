@@ -25,7 +25,8 @@ module.exports = {
           let lchannel = bot.channels.cache.get(config.logging.channel);
           bot.eventEmbed('c70011', message.author, 'Message Deleted', `**Channel:** ${message.channel}\n**Message:**\n${message}`, [], `${lchannel.guild.name}`, bot)
             .then(embed => lchannel.send(embed))
-            .catch(error => bot.log.post('error', error));
+            // .catch(error => bot.log.post('error', error));
+            .catch(error => console.log(error));
         }
       }
     }

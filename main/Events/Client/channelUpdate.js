@@ -3,7 +3,7 @@ module.exports = {
   once: false,
   async execute(bot, oldChannel, newChannel) {
 
-    if ((newChannel.type === 'DM')) return;
+    // if ((newChannel.type === 'DM')) return;
 
     if (newChannel.name.startsWith('ticket-')) return;
 
