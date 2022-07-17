@@ -22,7 +22,7 @@ module.exports = (bot) => {
     commands.forEach((file) => {
 
       let command = require(`../../Commands/${dir}/${file}`);
-      if(command.category === 'botowner') return;
+      // if(command.category === 'botowner') return;
 
       //Check if enabled
       if (command.options.enabled === false) return;

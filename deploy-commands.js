@@ -11,7 +11,11 @@ bot.commands = new Collection();
 bot.commandsArray = [];
 
 require('./Main/Handlers/commands.js')(bot);
+// console.log(bot.commandsArray);
 
+
+// let commandsArray = JSON.parse(bot.commandsArray);
+let commandsArray = bot.commandsArray;
 
 //Check if in production or development
 if(settings.mode === 'production') {
@@ -24,17 +28,42 @@ if(settings.mode === 'production') {
 
 const rest = new REST({ version: '9' }).setToken(token);
 
-
+//Function for the magic
 (async () => {
   try {
     //Production mode = push global commands & botowner commands
     if (settings.mode === 'production') {
 
-      await rest.put(Routes.applicationCommands(settings.ids.mainBot), {
-        body: bot.commandsArray
-      });
+      //Split the commands
+      //Array of bot owner commands
+      let ownerCommandsArray = ['bash', 'blacklist', 'eco', 'eval', 'ginvite', 'glist', 'gsay', 'mode', 'sync'];
+      //Array of bot owner commands
+      let botOwnerCommands = commandsArray.filter(
+        function (obj) {
+          return ownerCommandsArray.includes(obj.name);
+        }
+      );
+      //Array of global (other) commands
+      let globalCommands = commandsArray.filter(
+        function (obj) {
+          return !ownerCommandsArray.includes(obj.name);
+        }
+      );
 
+      //Push global commands
+      await rest.put(Routes.applicationCommands(settings.ids.mainBot), {
+        body: globalCommands
+      });
       console.log('Sucessfully pushed slash commands globally');
+
+      //Push bot owner commands to dev and sten server
+      await rest.put(Routes.applicationGuildCommands(settings.ids.mainBot, settings.ids.testGuild), {
+        body: botOwnerCommands
+      });
+      await rest.put(Routes.applicationGuildCommands(settings.ids.mainBot, settings.ids.mainGuild), {
+        body: botOwnerCommands
+      });
+      console.log('Sucessfully pushed guild-only slash commands');
 
     } else if (settings.mode === 'development') {
 

@@ -13,7 +13,10 @@
     },
     "ids": {
         "botOwner": "",
-        "mainGuild": ""
+        "mainGuild": "",
+        "testGuild": "",
+        "mainBot": "",
+        "testBot": ""
     },
     "color": {
         "red": 14165566,
@@ -37,7 +40,7 @@
         "Indian",
         "Pacific"
     ],
-	"mongo": {
+	  "mongo": {
         "user": "",
         "database": "",
         "password": "",
