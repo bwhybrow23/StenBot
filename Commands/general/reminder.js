@@ -86,7 +86,7 @@ module.exports = {
       //Check if reoccuring
       if (interaction.options.getString('reocurring-time')) {
         reoccuring = true;
-        reoccuringPeriod = ms(interaction.options.getString('reoccuring-time'));
+        reoccuringPeriod = ms(interaction.options.getString('reocurring-time'));
 
         time = ms(interaction.options.getString('time'));
         rMessage = interaction.options.getString('message');
@@ -95,27 +95,16 @@ module.exports = {
         rMessage = interaction.options.getString('message');
       }
 
-      //Check if user can be DM'd
-
-      //Send reply in guild
-      interaction.reply('I am going to DM you to check you have open DMs. Please ignore the message.');
-
-      //Try to send user a DM
-      try {
-        interaction.user.send('Just checking to see if I can message you :)');
-      } catch (error) {
-        //Error message to user
-        return interaction.reply('I\'m afraid there was an issue when I tried to DM you. Please make sure your DMs are open and try again. If they are open and you still get issues. Please use `/invite` for the link to the support server.');
-      }
-
 
       // Do the stuffs
-      bot.timeouts.new(interaction.user.id, 'reminder', time, reoccuring, reoccuringPeriod, interaction);
+      await bot.timeouts.new(interaction.user.id, 'reminder', time, reoccuring, reoccuringPeriod, rMessage)
+        .catch((error) => bot.log.post('error', error));
 
       //User output
       let addEmbed = {
         'title': 'Reminder successfully created!',
         'color': bot.settings.color.green,
+        'description': 'Please ensure your DMs are open to recieve messages from StenBot or else you will not be notified of your reminder.',
         'fields': [{
           'name': 'Time:',
           'value': capitalize(moment.duration(time).humanize())
@@ -141,8 +130,9 @@ module.exports = {
         });
       }
 
-      interaction.reply({
-        embeds: [addEmbed]
+      await interaction.reply({
+        embeds: [addEmbed],
+        ephemeral: true
       });
 
       break;

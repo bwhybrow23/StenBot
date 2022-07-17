@@ -8,6 +8,10 @@
 * Pretty it all up
 * ESLint fixes
 * Combined all config commands into one command
+* Bot owner slash commands are only deployed to the test guild
+* Command deployment is done seperately from the main bot (to avoid API spam)
+* Settings template has been updated with the new required variables
+* Fixed reminders
 
 ## 2.2.3 - 27/01/2022
 * Updates to latest NPM versions - includes security fixes

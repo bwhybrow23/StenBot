@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-case-declarations */
 /* eslint-disable no-async-promise-executor */
 const Timeout = require('../Models/timeouts');
@@ -22,6 +23,7 @@ class TimeoutUtils {
             //Reschedule if reoccuring
             if (timeout.reoccuring === true) {
               this.updateSync(timeout._id, timeout.reoccuringPeriod);
+              this.startTimer(timeout);
               this.activeTimeouts++;
             } else {
               //Check if reminder
@@ -116,9 +118,16 @@ class TimeoutUtils {
           let newPresent = moment();
           this.activeTimeouts++;
 
-          setTimeout(() => {
+          setTimeout(async () => {
+            let timeoutObj = await Timeout.findOne({
+              '_id': timeout._id,
+              'command': 'reminder'
+            });
+            if(!timeoutObj) return;
+
             if (timeout.reoccuring === true) {
               this.updateSync(timeout._id, timeout.reoccuringPeriod);
+              this.startTimer(timeout);
             } else {
               this.removeSync(timeout._id);
             }
@@ -194,15 +203,65 @@ class TimeoutUtils {
         const timeoutData = await Timeout.findOne({
           '_id': id
         });
+        if(!timeoutData) return;
         //Add expiry to present
         present.add(expiry, 'ms');
         //Set new expiry
         timeoutData.expiry = present.unix();
         //Save
         timeoutData.save();
+        resolve();
       } catch (error) {
         reject(error);
       }
+    });
+  }
+
+  //Start a timer for an updated timeout
+  startTimer(data) {
+    return new Promise(async (resolve, reject) => {
+      let present = moment();
+      present.add(data.reoccuringPeriod, 'ms');
+      let newPresent = moment();
+      setTimeout(async () => {
+        let timeoutObj = await Timeout.findOne({
+          '_id': data._id,
+          'command': 'reminder'
+        });
+        if(!timeoutObj) return;
+
+        if (data.reoccuring === true) {
+          this.updateSync(data._id, data.reoccuringPeriod);
+          this.startTimer(data);
+        } else {
+          this.removeSync(data._id);
+        }
+
+        //Send the message
+        let targetuser = this.bot.users.cache.get(data.user);
+
+        //Prevent bot from crashing on closed DMs
+        try {
+          targetuser.send({
+            embeds: [{
+              'title': 'Reminder!',
+              'description': `${data.message}`,
+              'thumbnail': {
+                'url': 'https://i.imgur.com/kLRvtVg.png'
+              },
+              'color': this.bot.settings.color.yellow,
+              'footer': {
+                'icon_url': 'https://i.imgur.com/klY5xCe.png',
+                'text': `Reminder set ${moment(data.createdAt).fromNow()}`
+              }
+            }]
+          });
+        } catch (error) {
+          return;
+        }
+
+      }, (present.unix() - newPresent.unix()) * 1000);
+      resolve();
     });
   }
 

@@ -7,7 +7,8 @@ const moment = require('moment');
 const date = new Date();
 //Convert to a readable format
 const formatter = new Intl.DateTimeFormat('en', {
-  timeStyle: 'medium',
+  dateStyle: 'short',
+  timeStyle: 'medium'
 });
 
 const post = (type, message) => {
@@ -109,10 +110,15 @@ const _toFile = (type, message) => {
 //Async write log to console stream
 const _toConsole = (type, colour, message) => {
   return new Promise((resolve, reject) => {
-    // let dataTimestamp = `[ ${moment().format('HH:mm:ss')} ]`;
+    //Convert message to array
+    let messageArray = message.split('\n');
+
     try {
-      // process.stdout.write(Buffer.from(`${options.colour ? (colours[options.colour] || "") : ""}[ ${options.error ? "ERROR" : "INFO"} ] ${dataTimestamp} ${type.toUpperCase()}: ${message}\x1b[0m\n`));
-      console.log(chalk `{${colour} ${formatter.format(date)} [${type.toUpperCase()}]} {grey ${message}}`);
+      console.log(chalk `{${colour} ${formatter.format(date)} [${type.toUpperCase()}]} {grey ${messageArray[0]}}`);
+      if(messageArray.length > 1) {
+        console.log(chalk `{${colour} ${formatter.format(date)} [${type.toUpperCase()}]} {grey ${messageArray[1]}}`);
+        console.log(chalk `{${colour} ${formatter.format(date)} [${type.toUpperCase()}]} {grey ${messageArray[2]}}`);
+      }
       resolve('Log created to console');
     } catch (error) {
       reject(error.message);

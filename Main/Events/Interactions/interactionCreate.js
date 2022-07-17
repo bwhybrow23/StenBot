@@ -57,10 +57,17 @@ module.exports = {
     } catch (error) {
       if (error) bot.log.post('error', error);
   
-      interaction.reply({
-        content: 'An error occured whilst running that command',
-        ephemeral: true
-      });
+      if(interaction.replied === false) {
+        interaction.reply({
+          content: 'An error occured whilst running that command',
+          ephemeral: true
+        });
+      } else if(interaction.replied === true) {
+        interaction.editReply({
+          content: 'An error occured whilst running that command',
+          ephemeral: true
+        });
+      }
     }
   
     //Log to stats json

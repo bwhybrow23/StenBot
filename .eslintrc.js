@@ -5,6 +5,7 @@ module.exports = {
     'node': true
   },
   'extends': 'eslint:recommended',
+  'parser': 'esprima',
   'parserOptions': {
     'ecmaVersion': 'latest'
   },

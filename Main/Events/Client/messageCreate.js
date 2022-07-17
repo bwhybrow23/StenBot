@@ -4,8 +4,6 @@ module.exports = {
   once: false,
   async execute(bot, message) {
 
-    const fs = require('fs');
-
     if (!message) return;
 
     //Link Blocker & Filter
@@ -35,37 +33,7 @@ module.exports = {
 
     //Message about new slash commands
     if (message.content.startsWith(bot.settings.prefix)) {
-      if (message.author.id != bot.settings.ids.botOwner) {
-        //If it's not the bot owner
-        message.reply('StenBot has now moved over to using slash commands. Please ensure that the bot has the correct permissions. If you\'re unsure, invite the bot again through https://sbinvite.benwhybrow.com. \n\nFrom there, you can do `/` and it will show what commands are available. \n\nIf you have any questions, please join the Discord server and we\'ll be glad to help! https://discord.gg/PGfSYct');
-      } else if (message.author.id === bot.settings.ids.botOwner) {
-        //If it's the bot owner:
-        const args = message.content.slice(bot.settings.prefix.length).trim().split(/ +/g);
-        const cmd = args.shift().toLowerCase();
-
-        if (cmd.length === 0) return;
-
-        let command = bot.commands.get(cmd);
-        if (!command) command = bot.commands.get(bot.aliases.get(cmd));
-        if (!command) return;
-
-        //Check command is botowner only command
-        //This is so that botowner commands do not publicly appear on slash commands
-        if (command.category != 'botowner') return;
-        if (command) {
-          command.run(bot, message, args);
-          logToStats(command);
-        }
-
-        //Log to stats json
-        function logToStats(cmd) {
-          let botData = require('../../../Data/Global/bot-data.json');
-          botData.stats.commands[cmd.category][cmd.name]++;
-          botData.stats.commands[cmd.category].total++;
-          botData.stats.commands.total++;
-          fs.writeFileSync('./Data/Global/bot-data.json', JSON.stringify(botData, null, 4));
-        }
-      }
+      message.reply('StenBot has now moved over to using slash commands. Please ensure that the bot has the correct permissions. If you\'re unsure, invite the bot again through https://sbinvite.benwhybrow.com. \n\nFrom there, you can do `/` and it will show what commands are available. \n\nIf you have any questions, please join the Discord server and we\'ll be glad to help! https://discord.gg/PGfSYct');
     }
 
 
