@@ -1,18 +1,18 @@
 # Changelog
 
-## 2.2.5 - 12/05/2022
-* Removed un-needed functions from utils.js
-* Renamed utilities.js to utils.js
-* Updated sb!info so it shows uptime correctly
-* Update NPM packages
-* Switched to new image API (old one is going to deprecate a lot of what StenBot uses)
-* Added lewd command (18+)
-* Put capitalize function in utils.js
-
-## 2.2.4 - 09/04/2022
-* StenBot no longer crashes when joining a new server (yes, it took this long to fix the bug)
-* The "New Server" embed actually shows the server owner's name and not "undefined" 
-* Posting to Discord stats sites works again, with the exception of dbl as their integration with Cloudflare crashes the bot
+## 3.0.0 - 02/08/2022
+* Converted from prefixed commands to slash commands
+* NPM package updates
+* New event handler
+* Folder structure changed to be nicer looking
+* Pretty it all up
+* ESLint fixes
+* Combined all config commands into one command
+* Bot owner slash commands are only deployed to the test guild
+* Command deployment is done seperately from the main bot (to avoid API spam)
+* Settings template has been updated with the new required variables
+* Fixed reminders
+* Discord v14 Update
 
 ## 2.2.3 - 27/01/2022
 * Updates to latest NPM versions - includes security fixes

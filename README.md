@@ -27,7 +27,7 @@ This repository is the home of StenBot. It's where all its files are stored and 
 To invite the bot to your Discord server, please follow one of the below links. (The second one is there as a backup if any issues occur with the custom one.) 
 - [First Link](https://sbinvite.benwhybrow.com)
 - [Second Link](http://bit.ly/2MDLj7hh)
-> The help command is **sb!help** to get started or refer to the documentation section just below.
+> The help command is **/help** to get started or refer to the documentation section just below.
 
 <!-- Documentation -->
 ## Documentation

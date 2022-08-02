@@ -1,0 +1,10 @@
+# External JS for Website
+/Main/Website/js/*.js
+
+# Disabled and Old Commands
+/commands-back/**/*.js
+/disabled-commands/*.js
+
+# Other Files/Folders
+.github/*
+.vscode/*
