@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.0.0
+## 3.0.0 - 02/08/2022
 * Converted from prefixed commands to slash commands
 * NPM package updates
 * New event handler
