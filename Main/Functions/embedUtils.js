@@ -210,7 +210,7 @@ const helpEmbed = (command, bot) => {
 const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
   return new Promise((resolve, reject) => {
 
-    const date = new Date()
+    const date = new Date();
 
     let embedTemplate = {
       embeds: [{
