@@ -4,6 +4,7 @@ module.exports = {
   async execute(bot) {
 
     const fs = require('fs');
+    const { ActivityType } = require('discord-api-types/v10');
 
     const utils = require('../../Functions/utilities.js');
     // let token;
@@ -27,13 +28,8 @@ module.exports = {
       // token = bot.settings.connections.token;
 
       //Starting Status
-      bot.user.setPresence({
-        activities: [{
-          name: '/help',
-          type: 'WATCHING'
-        }],
-        status: 'online'
-      });
+      bot.user.setActivity('/help', { type: ActivityType.Watching });
+      bot.user.setStatus('online');
 
       //Changing Status
       let l = 1;
@@ -47,35 +43,35 @@ module.exports = {
         // let statuses = [`/help`, `on ${totalGuilds} servers`, `with ${totalUsers} users`];
         let statuses = [{
           name: '/help',
-          type: 'WATCHING'
+          type: 'Watching'
         }, {
           name: `on ${totalGuilds} servers!`,
-          type: 'PLAYING'
+          type: 'Playing'
         }, {
           name: `with ${totalUsers} users!`,
-          type: 'PLAYING'
+          type: 'Playing'
         }, {
           name: 'wiki.benwhybrow.com',
-          type: 'PLAYING'
+          type: 'Playing'
         }, {
           name: '/invite',
-          type: 'WATCHING'
+          type: 'Watching'
         }, {
           name: `on Version ${packageJSON.version}`,
-          type: 'PLAYING'
+          type: 'Playing'
+        }, {
+          name: 'with slash commands!',
+          type: 'Playing'
+        }, {
+          name: 'twitch.tv/stentoriantv',
+          type: 'Watching'
         }];
 
         //Pick from array
         let status = statuses[l];
 
         //Set as presence
-        bot.user.setPresence({
-          activities: [{
-            name: status.name,
-            type: status.type
-          }],
-          status: 'online'
-        });
+        bot.user.setActivity(status.name, { type: ActivityType[status.type] });
 
         //Incrementation and Reset
         l++;
@@ -94,13 +90,8 @@ module.exports = {
 
       //Status
       let date = new Date();
-      bot.user.setPresence({
-        activities: [{
-          name: 'In Development Mode',
-          type: 'PLAYING'
-        }],
-        status: 'dnd'
-      });
+      bot.user.setActivity('with code!', { type: ActivityType.Playing });
+      bot.user.setStatus('dnd');
 
       //Console Log
       bot.log.post('success', `${bot.user.username} Started Successfully in Development Mode | Date: ${date}`);
