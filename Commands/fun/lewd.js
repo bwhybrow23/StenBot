@@ -11,7 +11,7 @@ module.exports = {
 
     const fetch = require('node-fetch');
 
-    if (interaction.channel.channel.nsfw === false) {
+    if (interaction.channel.nsfw === false) {
       return interaction.reply('Run this command in an **NSFW** channel.');
     }
 

@@ -17,9 +17,7 @@ const playerReport = (bot, reObj, rObj, gObj, reason, evidence, rDate) => {
     let playerEmbed = new Discord.EmbedBuilder()
       .setColor(bot.settings.color.yellow)
       .setTitle('New Player Report')
-      .addField('Reporter Information', `Username: ${reObj.tag}\nUser ID: ${reObj.id}\nFrom Server ID: ${gObj.id}\nDate Reported: ${rDate}`)
-      .addField('Reported Information', `User: ${rObj}\nUser ID: ${rObj.id}`)
-      .addField('Report Information', `Reason: ${reason}\nEvidence: ${evidence}`)
+      .addFields([ { name: 'Reporter Information', value: `Username: ${reObj.tag}\nUser ID: ${reObj.id}\nFrom Server ID: ${gObj.id}\nDate Reported: ${rDate}` }, { name: 'Reported Information', value: `User: ${rObj}\nUser ID: ${rObj.id}` }, { name: 'Report Information', value: `Reason: ${reason}\nEvidence: ${evidence}` } ])
       .setTimestamp();
   
     //Resolve Embed
@@ -45,9 +43,7 @@ const serverReport = (bot, reObj, gObj, reason, evidence, rDate) => {
     let serverEmbed = new Discord.EmbedBuilder()
       .setColor(bot.settings.color.yellow)
       .setTitle('New Server Report')
-      .addField('Reporter Information', `Username: ${reObj.tag}\nUser ID: ${reObj.id}\nDate Reported: ${rDate}`)
-      .addField('Server Information', `Name: ${gObj.name}\nID: ${gObj.id}`)
-      .addField('Report Information', `Reason: ${reason}\nEvidence: ${evidence}`)
+      .addFields([ { name: 'Reporter Information', value: `Username: ${reObj.tag}\nUser ID: ${reObj.id}\nDate Reported: ${rDate}` }, { name: 'Server Information', value: `Name: ${gObj.name}\nID: ${gObj.id}` }, { name: 'Report Information', value: `Reason: ${reason}\nEvidence: ${evidence}` } ])
       .setTimestamp();
   
     //Resolve Embed
@@ -74,8 +70,7 @@ const bugReport = (bot, reObj, gObj, info, steps, evidence, rDate) => {
     let bugEmbed = new Discord.EmbedBuilder()
       .setColor(bot.settings.color.yellow)
       .setTitle('New Bug Report')
-      .addField('Reporter Information', `Username: ${reObj.tag}\nUser ID: ${reObj.id}\nFrom Server: ${gObj.name}\nDate Reported: ${rDate}`)
-      .addField('Bug Information', `Info: ${info}\nSteps to Reproduce: ${steps}\nEvidence: ${evidence}`)
+      .addFields([ { name: 'Reporter Information', value: `Username: ${reObj.tag}\nUser ID: ${reObj.id}\nFrom Server: ${gObj.name}\nDate Reported: ${rDate}` }, { name: 'Bug Information', value: `Info: ${info}\nSteps to Reproduce: ${steps}\nEvidence: ${evidence}` } ])
       .setTimestamp();
   
     //Resolve Embed

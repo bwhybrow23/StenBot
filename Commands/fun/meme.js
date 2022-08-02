@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const Discord = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -20,19 +21,20 @@ module.exports = {
         return interaction.reply({ content: 'An error occured while generating a meme. This could be because the API is down. Please try again later and if the issue persists, contact the bot owner.', ephemeral: 'true' });
       });
 
-    let embed = [{
-      'title': `r/${meme.subreddit} - ${meme.title}`,
-      'url': meme.postLink,
-      'color': 'RANDOM',
-      'image': {
-        'url': meme.url
-      },
-      'footer': {
-        'text': `👍 ${meme.ups.toString()}`
-      }
-    }];
+    //Generate random RGB color
+    let num = Math.round(0xffffff * Math.random());
+    let r = num >> 16;
+    let g = num >> 8 & 255;
+    let b = num & 255;
 
-    interaction.reply({ embeds: embed });
+    let embed = new Discord.EmbedBuilder()
+      .setTitle(`r/${meme.subreddit} - ${meme.title}`)
+      .setURL(meme.postLink)
+      .setColor([r, g, b])
+      .setImage(meme.url)
+      .setFooter({ text: `👍 ${meme.ups.toString()}` });
+
+    interaction.reply({ embeds: [embed] });
 
   },
 };

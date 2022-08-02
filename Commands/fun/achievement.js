@@ -11,13 +11,11 @@ module.exports = {
   options: { permission: 'EVERYONE', enabled: true, cooldown: 5, guildOnly: false },
   run: async (bot, interaction) => {
 
-    const Discord = require('discord.js');
     const achievement = interaction.options.getString('achievement');
 
     let string = 'https://minecraftskinstealer.com/achievement/13/Achievement%20unlocked/' + achievement;
-    let attachment = new Discord.MessageAttachment(string, 'achievement.png');
 
-    interaction.reply({ files: [attachment] });
+    interaction.reply({ files: [{ attachment: string, name: 'achievement.png' }] });
 
   },
 };

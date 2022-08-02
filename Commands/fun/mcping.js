@@ -53,11 +53,7 @@ module.exports = {
       let onlineEmbed = new Discord.EmbedBuilder()
         .setColor(1295876)
         .setTitle('Server Status:')
-        .addField('IP:', `${address}`, true)
-        .addField('Status:', 'Online', true)
-        .addField('Player Count:', `${players}/${res.players.max}`, true)
-        .addField('Server Version:', res.server.name, true)
-        .addField('MOTD:', `\`\`\`${motd}\`\`\``, false)
+        .addFields([ { name: 'IP:', value: `${address}`, inline: true }, { name: 'Status:', value: 'Online', inline: true }, { name: 'Player Count:', value: `${players}/${res.players.max}`, inline: true }, { name: 'Server Version:', value: res.server.name, inline: true }, { name: 'MOTD:', value: `\`\`\`${motd}\`\`\``, inline: true } ])
         .setFooter({ text: interaction.guild.name, iconURL: interaction.guild.iconURL() });
       interaction.reply({ embeds: [onlineEmbed.toJSON()] });
     }

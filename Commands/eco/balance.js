@@ -15,7 +15,6 @@ module.exports = {
     let person = interaction.options.getUser('user') || interaction.user;
 
     await ecoUtils.getUser(person.id).then(async (user) => {
-      console.log(user);
       return bot.createEmbed('info', '', `${person} has **${user.balance}** credits.`, [], '', interaction)
         .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post('error', error));

@@ -11,17 +11,12 @@ module.exports = {
 
     const Discord = require('discord.js');
 
-    let bicon = bot.user.avatarURL;
+    let bicon = bot.user.avatarURL();
 
     let inviteEmbed = new Discord.EmbedBuilder()
       .setDescription('Invite StenBot to your Discord Server')
       .setColor(bot.settings.color.blue)
-      .addField('Default Help Command', '`/help`')
-      .addField('How to Invite', 'Click the link below to go to Discord\'s invite page where you can choose which server you want StenBot to be added to. Make sure to give the bot all permissions so it can function properly.')
-      .addField('Invite Link 1', 'https://sbinvite.benwhybrow.com')
-      .addField('Invite Link 2', 'http://bit.ly/2MDLj7hh')
-      .addField('Support Server', 'https://discord.benwhybrow.com')
-      .addField('Donation Link', 'https://paypal.me/benwhybrow')
+      .addFields([ { name: 'Default Help Command', value: '`/help`'}, { name: 'How to Invite', value: 'Click the link below to go to Discord\'s invite page where you can choose which server you want StenBot to be added to. Make sure to give the bot all permissions so it can function properly.'}, { name: 'Invite Link 1', value: 'https://sbinvite.benwhybrow.com'}, { name: 'Invite Link 2', value: 'http://bit.ly/2MDLj7hh'}, { name: 'Support Server', value: 'https://discord.benwhybrow.com'}, { name: 'Donation Link', value: 'https://paypal.me/benwhybrow'} ])
       .setThumbnail(bicon)
       .setFooter({ text: `${interaction.guild.name}`, iconURL: 'https://i.imgur.com/klY5xCe.png' });
 

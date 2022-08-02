@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { ChannelType } = require('discord-api-types/v10');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -67,8 +68,9 @@ module.exports = {
     function createChan(element) {
       if (element.constructor.name === 'CategoryChannel') {
         if (element.name === 'Tickets') {
-          interaction.guild.channels.create(`ticket-${tnum}`, {
-            type: 'GUILD_TEXT'
+          interaction.guild.channels.create({
+            name: `ticket-${tnum}`,
+            type: ChannelType.GuildText
           })
             .then((channel) => {
               channel.setParent(element.id);
@@ -76,22 +78,22 @@ module.exports = {
 
               //Channel permissions
               channel.permissionOverwrites.create(interaction.guild.roles.everyone, {
-                SEND_MESSAGES: false,
-                VIEW_CHANNEL: false
-              });
+                SendMessages: false,
+                ViewChannel: false
+              }, { reason: 'Ticket Creation' });
 
-              channel.permissionOverwrites.create(
-                interaction.guild.roles.cache.get(config.moderation.staff_role), {
-                  SEND_MESSAGES: true,
-                  VIEW_CHANNEL: true,
-                  MANAGE_MESSAGES: true
-                }
-              );
+              channel.permissionOverwrites.create(interaction.guild.roles.cache.get(config.moderation.staff_role), {
+                SendMessages: true,
+                ViewChannel: true,
+                ManageMessages: true
+              }, { reason: 'Ticket Creation' });
 
               channel.permissionOverwrites.create(interaction.user, {
-                SEND_MESSAGES: true,
-                VIEW_CHANNEL: true
-              });
+                SendMessages: true,
+                ViewChannel: true,
+                EmbedLinks: true,
+                AttachFiles: true
+              }, { reason: 'Ticket Creation' });
 
               //Fill in the placeholders
               var tMessage = [];
@@ -114,8 +116,9 @@ module.exports = {
               interaction.reply({
                 embeds: [{
                   color: bot.settings.color.green,
-                  description: `Your ticket ${channel} has been created, ${interaction.member.displayName}`,
+                  description: `Your ticket ${channel} has been created!`,
                 }],
+                ephemeral: true
               });
 
               //Check if logging enabled
@@ -126,7 +129,7 @@ module.exports = {
                   interaction.guild.channels.cache.get(config.logging.channel).send({
                     embeds: [{
                       color: bot.settings.color.yellow,
-                      description: `**Ticket Created**\n**Created By:** ${interaction.user.tag}\n**Channel:** ${channel.name}\n**Id:** ${channel.id}\n\n**Reason:** ${reason}`,
+                      description: `**Ticket Created**\n**Created By:** ${interaction.user.tag}\n**Channel:** <#${channel.name}>\n**Id:** ${channel.id}\n\n**Reason:** ${reason}`,
                     }],
                   });
                 }

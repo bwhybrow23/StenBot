@@ -3,7 +3,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('stealpic').setDescription('Steal a user\'s avatar.')
-    .addUserOption(option => option.setName('user').setDescription('The user to steal the avatar from.')),
+    .addUserOption(option => option.setName('user').setDescription('The user to steal the avatar from.').setRequired(true)),
   category: 'fun',
   usage: '<@USER>',
   example: '@Jake#4012',

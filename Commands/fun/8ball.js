@@ -23,8 +23,7 @@ module.exports = {
 
     let ballEmbed = new Discord.EmbedBuilder()
       .setColor(bot.settings.color.yellow)
-      .addField('Question', question)
-      .addField('Answer', result.response)
+      .addFields([ { name: 'Question', value: question }, { name: 'Answer', value: result.response } ])
       .setImage(result.url)
       .setFooter({ text: `${interaction.guild.name}`, iconURL: 'https://i.imgur.com/klY5xCe.png' });
 

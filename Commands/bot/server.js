@@ -59,14 +59,7 @@ module.exports = {
     let embed = new Discord.EmbedBuilder()
       .setColor(bot.settings.color.blue)
       .setThumbnail(guild.iconURL())
-      .addField('Name:', `${guild.name}`, true)
-      .addField('Owner:', `${bot.users.cache.get(guild.ownerId).tag}`, true)
-      .addField('ID:', `${guild.id}`, true)
-      .addField('Text Channels:', `${txtChannelCount}`, true)
-      .addField('Voice Channels:', `${vcChannelCount}`, true)
-      .addField('Roles:', `${guild.roles.cache.size}`, true)
-      .addField('Member Count:', `${guild.memberCount}`, true)
-      .addField('Bot Count:', `${guild.members.cache.filter(member => member.user.bot).size}`, true)
+      .addFields([ { name: 'Name:', value: `${guild.name}`, inline: true}, { name: 'Owner:', value: `${bot.users.cache.get(guild.ownerId).tag}`, inline: true}, { name: 'ID:', value: `${guild.id}`, inline: true}, { name: 'Text Channels:', value: `${txtChannelCount}`, inline: true}, { name: 'Voice Channels:', value: `${vcChannelCount}`, inline: true}, { name: 'Roles:', value: `${guild.roles.cache.size}`, inline: true}, { name: 'Member Count:', value: `${guild.memberCount}`, inline: true}, { name: 'Bot Count:', value: `${guild.members.cache.filter(member => member.user.bot).size}`, inline: true} ])
       .setFooter({ text: 'Created' })
       .setTimestamp(guild.createdAt);
 

@@ -28,7 +28,7 @@ module.exports = {
     const lbEmbed = new Discord.EmbedBuilder()
       .setTitle('**INVITE LIST**')
       .setColor(bot.settings.color.yellow)
-      .addField('Invites', `\`\`\`${possibleinvites.join('\n')}\`\`\``)
+      .addFields([ { name: 'Invites', value: `\`\`\`${possibleinvites.join('\n')}\`\`\`` } ])
       .setFooter({ text: `${interaction.guild.name}`, iconURL: 'https://i.imgur.com/klY5xCe.png' });
 
     interaction.reply({ embeds: [lbEmbed.toJSON()] });

@@ -28,8 +28,7 @@ module.exports = {
       let embed = new Discord.EmbedBuilder()
         .setTitle('Evaluate')
         .setColor(bot.settings.color.yellow)
-        .addField(':inbox_tray: Input', `\`\`\`js\n${codein}\`\`\``)
-        .addField(':outbox_tray: Output', `\`\`\`js\n${code}\n\`\`\``)
+        .addFields([ { name: ':inbox_tray: Input', value: `\`\`\`js\n${codein}\`\`\`` }, { name: ':outbox_tray: Output', value: `\`\`\`js\n${code}\n\`\`\`` } ])
         .setFooter({ text: 'Eval Command', iconURL: bot.user.avatarURL() })
         .setTimestamp();
       interaction.reply({ embeds: [embed.toJSON()], ephemeral: true });

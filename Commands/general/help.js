@@ -3,13 +3,12 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('help')
-    .setDescription(
-      'Returns a list of commands, or a specific command\'s information.'
-    )
+    .setDescription('Returns a list of commands, or a specific command\'s information.')
     .addStringOption((option) =>
       option
         .setName('category')
         .setDescription('A category to give a list of commands for.')
+        .addChoices({ name: 'admin', value: 'admin'}, { name: 'bot', value: 'bot'}, { name: 'eco', value: 'eco'}, { name: 'fun', value: 'fun'}, { name: 'general', value: 'general'}, { name: 'mod', value: 'mod'}, { name: 'ticketing', value: 'ticketing' } )
     ),
   category: 'general',
   usage: '[CATEGORY]',
@@ -43,13 +42,10 @@ module.exports = {
       //Get Commands
       bot.commands.forEach((cmd) => {
         if (cmd.category != category) return;
-        embed.addField(
-          `\`${prefix}${cmd.data.name} ${cmd.usage}\``,
-          `${cmd.data.description}`
-        );
+        embed.addFields([{ name: `\`${prefix}${cmd.data.name} ${cmd.usage}\``, value: `${cmd.data.description}` }]);
       });
 
-      if (embed.fields.length == 0 || category === 'botowner') {
+      if (!embed.fields || category === 'botowner') {
         embed.setDescription('No commands found under that category.');
       }
 
@@ -62,14 +58,7 @@ module.exports = {
         .setTitle('All Commands')
         .setDescription(`Prefix: \`${prefix}\``)
         .setColor(bot.settings.color.blue)
-        .addField('Admin Commands', `\`${prefix}help admin\``, true)
-        .addField('Bot Commands', `\`${prefix}help bot\``, true)
-        .addField('Config Commands', `\`${prefix}help config\``, true)
-        .addField('Economy Commands', `\`${prefix}help eco\``, true)
-        .addField('Fun Commands', `\`${prefix}help fun\``, true)
-        .addField('General Commands', `\`${prefix}help general\``, true)
-        .addField('Moderation Commands', `\`${prefix}help mod\``, true)
-        .addField('Ticketing Commands', `\`${prefix}help ticketing\``, true)
+        .addFields([ { name: 'Admin Commands', value: `\`${prefix}help admin\``, inline: true}, { name: 'Bot Commands', value: `\`${prefix}help bot\``, inline: true}, { name: 'Config Commands', value: `\`${prefix}help config\``, inline: true}, { name: 'Economy Commands', value: `\`${prefix}help eco\``, inline: true}, { name: 'Fun Commands', value: `\`${prefix}help fun\``, inline: true}, { name: 'General Commands', value: `\`${prefix}help general\``, inline: true}, { name: 'Moderation Commands', value: `\`${prefix}help mod\``, inline: true}, { name: 'Ticketing Commands', value: `\`${prefix}help ticketing\``, inline: true} ])
         .setFooter({ text: 'Help Command', iconURL: bot.user.avatarURL() })
         .setTimestamp();
 

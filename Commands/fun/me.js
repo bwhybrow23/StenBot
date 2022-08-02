@@ -22,7 +22,7 @@ module.exports = {
     }
 
     let userStatus;
-    if (!member.presence.status) userStatus = 'N/A';
+    if (!member.guild.presences.status) userStatus = 'N/A';
     switch (member.presence.status) {
     case 'dnd':
       userStatus = 'Do Not Disturb';
@@ -69,14 +69,7 @@ module.exports = {
     let meEmbed = new Discord.EmbedBuilder()
       .setThumbnail(user.displayAvatarURL())
       .setColor(14672927)
-      .addField('Full Username', `${user.tag}`, true)
-      .addField('ID', user.id, true)
-      .addField('Nickname', `${member.nickname !== null ? `Nickname: ${member.nickname}` : 'None'}`, true)
-      .addField('Roles', `${roles.length} in total.`, true)
-      .addField('Account Created', `${user.createdAt.toDateString()}`, true)
-      .addField('Joined Guild', `${member.joinedAt.toDateString()}`, true)
-      .addField('Status', userStatus)
-      .addField('Activities', activities.join('\n'))
+      .addFields([ { name: 'Full Username', value: user.tag, inline: true}, { name: 'ID', value: user.id, inline: true}, { name: 'Nickname', value: member.nickname !== null ? `Nickname: ${member.nickname}` : 'None', inline: true}, { name: 'Roles', value: `${roles.length} in total.`, inline: true}, { name: 'Account Created', value: user.createdAt.toDateString(), inline: true}, { name: 'Joined Guild', value: member.joinedAt.toDateString(), inline: true}, { name: 'Status', value: userStatus, inline: true}, { name: 'Activities', value: activities.join('\n'), inline: true} ])
       .setFooter({ text: `Information about ${user.username}` })
       .setTimestamp();
 
