@@ -1,41 +1,41 @@
 module.exports = {
-  name: "leaderboard",
-  category: "eco",
-  description: "Check your place on the global leaderboard.",
-  usage: "sb!leaderboard",
-  permission: "EVERYONE",
-  run: async (bot, message, args) => {
-    const Discord = require("discord.js");
-    const fs = require("fs");
+    name: 'leaderboard',
+    category: 'eco',
+    description: 'Check your place on the global leaderboard.',
+    usage: 'sb!leaderboard',
+    permission: 'EVERYONE',
+    run: async (bot, message, args) => {
+        const Discord = require('discord.js');
+        const fs = require('fs');
 
-    message.reply(
-      `This command is under maintenance. Sorry for the inconvenience.`
-    );
+        message.reply(
+            'This command is under maintenance. Sorry for the inconvenience.'
+        );
 
-    // 	if (message.mentions.users.first()) {
+        // 	if (message.mentions.users.first()) {
 
-    // 		var output = await eco.Leaderboard({
-    // 			filter: x => x.balance > 50,
-    // 			search: message.mentions.users.first().id
-    // 		})
-    // 		message.channel.send(`The user ${message.mentions.users.first().tag} is number ${output} on my leaderboard!`);
+        // 		var output = await eco.Leaderboard({
+        // 			filter: x => x.balance > 50,
+        // 			search: message.mentions.users.first().id
+        // 		})
+        // 		message.channel.send(`The user ${message.mentions.users.first().tag} is number ${output} on my leaderboard!`);
 
-    // 	} else {
+        // 	} else {
 
-    // 		eco.Leaderboard({
-    // 			limit: 10, //Only takes top 10 ( Totally Optional )
-    // 		}).then(async users => { //make sure it is async
+        // 		eco.Leaderboard({
+        // 			limit: 10, //Only takes top 10 ( Totally Optional )
+        // 		}).then(async users => { //make sure it is async
 
-    // 			if (users[0]) var first = await bot.fetchUser(users[0].userid)
-    // 			if (users[1]) var second = await bot.fetchUser(users[1].userid)
-    // 			if (users[2]) var third = await bot.fetchUser(users[2].userid)
-    // 			if (users[3]) var fourth = await bot.fetchUser(users[3].userid)
-    // 			if (users[4]) var fifth = await bot.fetchUser(users[4].userid)
-    // 			if (users[5]) var sixth = await bot.fetchUser(users[5].userid)
-    // 			if (users[6]) var seventh = await bot.fetchUser(users[6].userid)
-    // 			if (users[7]) var eigth = await bot.fetchUser(users[7].userid)
-    // 			if (users[8]) var ninth = await bot.fetchUser(users[8].userid)
-    // 			if (users[9]) var tenth = await bot.fetchUser(users[9].userid)
+        // 			if (users[0]) var first = await bot.fetchUser(users[0].userid)
+        // 			if (users[1]) var second = await bot.fetchUser(users[1].userid)
+        // 			if (users[2]) var third = await bot.fetchUser(users[2].userid)
+        // 			if (users[3]) var fourth = await bot.fetchUser(users[3].userid)
+        // 			if (users[4]) var fifth = await bot.fetchUser(users[4].userid)
+        // 			if (users[5]) var sixth = await bot.fetchUser(users[5].userid)
+        // 			if (users[6]) var seventh = await bot.fetchUser(users[6].userid)
+        // 			if (users[7]) var eigth = await bot.fetchUser(users[7].userid)
+        // 			if (users[8]) var ninth = await bot.fetchUser(users[8].userid)
+        // 			if (users[9]) var tenth = await bot.fetchUser(users[9].userid)
 
     // 			message.channel.send(`StenBot Leaderboard:
     //     \`\`\`
@@ -51,5 +51,5 @@ module.exports = {
     // 10 - ${tenth && tenth.tag || 'Nobody Yet'} : ${users[9] && users[9].balance || 'None'} \`\`\` `)
     // 		})
     // 	}
-  },
+    },
 };
