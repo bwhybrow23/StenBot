@@ -137,8 +137,8 @@ app.use(express.urlencoded({
 }));
 app.use(cors());
   
-app.use('/assets', express.static('main/Website/assets'));
-app.set('views', path.join(__dirname, 'main/Website/views'));
+app.use('/assets', express.static('Main/Website/assets'));
+app.set('views', path.join(__dirname, 'Main/Website/views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
   
