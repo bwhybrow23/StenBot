@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.0.1 - 02/09/2022
+* Added the gallery feature - /image
+* Updated docker to use latest node.js
+* Fixed statuses so they work now
+* Fixed the website as it was still using old directory structure
+* Fixed an issue where ticket channels weren't being given the correct permissions and therefore being open to everyone
+* Updated NPM packages
+* Command deploying is now built into the Docker container
+
 ## 3.0.0 - 02/08/2022
 * Converted from prefixed commands to slash commands
 * NPM package updates

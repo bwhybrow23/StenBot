@@ -1,4 +1,4 @@
-FROM node:16.13.1
+FROM node:16.17.0
 
 # Install Nano
 RUN ["apt-get", "update"]
@@ -18,5 +18,8 @@ COPY . .
 # Expose to Port
 EXPOSE 3001
 
-# Start App
+# Deploy commands
+CMD [ "npm", "run", "deploy" ]
+
+# Start StenBot
 CMD [ "node", "app.js" ]

@@ -59,12 +59,12 @@ module.exports = {
   
       if(interaction.replied === false) {
         interaction.reply({
-          content: 'An error occured whilst running that command',
+          content: 'An error occured whilst running that command. Please try running it again. If the error persists, please contact the bot owner.',
           ephemeral: true
         });
       } else if(interaction.replied === true) {
         interaction.editReply({
-          content: 'An error occured whilst running that command',
+          content: 'An error occured whilst running that command. Please try running it again. If the error persists, please contact the bot owner.',
           ephemeral: true
         });
       }
