@@ -1,5 +1,5 @@
 //Needed stuff
-const User = require('../Models/User');
+const User = require('../Models/user');
 
 /**
  * Create a user in the database

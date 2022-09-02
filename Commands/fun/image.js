@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('image').setDescription('View/Manage your image storage. (30s cooldown)')
+    .setName('image').setDescription('View/Manage your image storage. (15s cooldown)')
     .addSubcommand(subCommand => 
       subCommand.setName('add').setDescription('Add an image to your gallery. (ToS Compliant)')
         .addStringOption(option => option.setName('name').setDescription('The name of the image to be stored').setRequired(true))
