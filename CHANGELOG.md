@@ -8,6 +8,7 @@
 * Fixed an issue where ticket channels weren't being given the correct permissions and therefore being open to everyone
 * Updated NPM packages
 * Command deploying is now built into the Docker container
+* Fixed cooldown message not display command name properly
 
 ## 3.0.0 - 02/08/2022
 * Converted from prefixed commands to slash commands

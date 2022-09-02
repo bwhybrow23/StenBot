@@ -23,7 +23,7 @@ module.exports = {
   usage: '<SUBCOMMAND> [ACTION]',
   example: 'view steveharvey',
   description: 'View/Manage your image storage.',
-  options: { permission: 'EVERYONE', enabled: true, cooldown: 30, guildOnly: false },
+  options: { permission: 'EVERYONE', enabled: true, cooldown: 15, guildOnly: false },
   run: async (bot, interaction) => {
 
     //Global variables
@@ -134,7 +134,7 @@ module.exports = {
 
         //Find image
         let imageObj = user.images.filter((image) => image.name === name);
-        if(!imageObj) return interaction.reply({ content: 'I cannot find this image in your gallery. Please ensure you used the correct name.'});
+        if(!imageObj[0]) return interaction.reply({ content: 'I cannot find this image in your gallery. Please ensure you used the correct name.'});
 
         //Construct embed
         let imageEmbed = new Discord.EmbedBuilder()
