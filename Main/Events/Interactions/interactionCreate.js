@@ -23,15 +23,15 @@ module.exports = {
   
     //Check Cooldown
     if (command.options.cooldown) {
-      if (!bot.cooldowns.has(command.name)) {
-        bot.cooldowns.set(command.name, new Discord.Collection());
+      if (!bot.cooldowns.has(interaction.commandName)) {
+        bot.cooldowns.set(interaction.commandName, new Discord.Collection());
       }
   
       //Ignore bot owner
       if (interaction.user.id !== bot.settings.ids.botOwner) {
   
         const now = Date.now();
-        const timestamps = bot.cooldowns.get(command.name);
+        const timestamps = bot.cooldowns.get(interaction.commandName);
         const cooldownAmount = (command.options.cooldown || 3) * 1000;
   
         if (timestamps.has(interaction.user.id)) {
@@ -39,7 +39,7 @@ module.exports = {
   
           if (now < expirationTime) {
             const timeLeft = (expirationTime - now) / 1000;
-            return interaction.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+            return interaction.reply(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${interaction.commandName}\` command.`);
           }
         }
   
@@ -59,12 +59,12 @@ module.exports = {
   
       if(interaction.replied === false) {
         interaction.reply({
-          content: 'An error occured whilst running that command',
+          content: 'An error occured whilst running that command. Please try running it again. If the error persists, please contact the bot owner.',
           ephemeral: true
         });
       } else if(interaction.replied === true) {
         interaction.editReply({
-          content: 'An error occured whilst running that command',
+          content: 'An error occured whilst running that command. Please try running it again. If the error persists, please contact the bot owner.',
           ephemeral: true
         });
       }

@@ -8,15 +8,22 @@ const userSchema = new mongoose.Schema({
   },
   token: {
     type: String,
-    required: [true, 'An authorization token is required.']
+    // required: [true, 'An authorization token is required.']
   },
-  tokens: [{
-    token: {
+  images: [{
+    url: {
       type: String,
       required: true
-    }
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    serverId: {
+      type: String,
+      required: true
+    },
   }],
-
 }, {
   timestamps: true
 });

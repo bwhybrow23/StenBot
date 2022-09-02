@@ -1,5 +1,5 @@
 //AUTHENTICATION
-const mutils = require('../Functions/mongoUtils');
+const userUtils = require('../Functions/userUtils');
 const bot = require('../../app.js');
 
 const discord = async (req, res, next) => {
@@ -8,7 +8,7 @@ const discord = async (req, res, next) => {
 
   try {
     token = req.header('Authorization').replace('Bearer ', '');
-  } catch {
+  } catch (e) {
     res.status(401).json({
       error: 'true',
       message: 'Unauthorised: No token provided'
@@ -16,7 +16,7 @@ const discord = async (req, res, next) => {
   }
 
   try {
-    await mutils.checkToken(token).then(discordID => {
+    await userUtils.checkToken(token).then(discordID => {
       if (!discordID) {
         res.status(401).json({
           error: true,
