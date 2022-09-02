@@ -77,9 +77,12 @@ module.exports = {
               channel.setTopic(`${interaction.user.tag}'s Ticket`);
 
               //Channel permissions
-              channel.permissionOverwrites.create(interaction.guild.roles.everyone, {
-                SendMessages: false,
-                ViewChannel: false
+
+              channel.permissionOverwrites.create(interaction.user, {
+                SendMessages: true,
+                ViewChannel: true,
+                EmbedLinks: true,
+                AttachFiles: true
               }, { reason: 'Ticket Creation' });
 
               channel.permissionOverwrites.create(interaction.guild.roles.cache.get(config.moderation.staff_role), {
@@ -88,6 +91,12 @@ module.exports = {
                 ManageMessages: true
               }, { reason: 'Ticket Creation' });
 
+              channel.permissionOverwrites.create(interaction.guild.roles.everyone, {
+                SendMessages: false,
+                ViewChannel: false
+              }, { reason: 'Ticket Creation' });
+
+              //Discord is so fucked u need two of the same permission overwrites
               channel.permissionOverwrites.create(interaction.user, {
                 SendMessages: true,
                 ViewChannel: true,
