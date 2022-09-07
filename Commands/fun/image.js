@@ -2,6 +2,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const userUtils = require('../../Main/Functions/userUtils');
 const Discord = require('discord.js');
+const fetch = require('node-fetch');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -51,11 +52,26 @@ module.exports = {
       user = await userUtils.getUser(interaction.user.id);
       if(!user) return interaction.reply({ content: 'I cannot find you on the database.', ephemeral: true});
 
+      //Upload image to imgbb
+      let imageURL, imageDeleteURL;
+      let params = new URLSearchParams();
+      params.append('image', image.url);
+      await fetch(`https://api.imgbb.com/1/upload?key=${bot.settings.connections.imgbb}`, {
+        method: 'POST',
+        body: params
+      })
+        .then(res => res.json())
+        .then(json => {
+          imageURL = json.data.url;
+          imageDeleteURL = json.data.delete_url;
+        });
+
       //Turn data into object
       let data = {
-        url: image.url,
+        url: imageURL,
         name: name,
-        serverId: interaction.guild.id
+        serverId: interaction.guild.id,
+        imageDeleteURL: imageDeleteURL
       };
 
       //Verification Embed to StenBot Discord
@@ -69,11 +85,19 @@ module.exports = {
             value: interaction.user.tag
           },
           {
+            name: 'Image name:',
+            value: name
+          },
+          {
             name: 'Image URL',
-            value: image.url
+            value: imageURL
+          },
+          {
+            name: 'Image Delete URL',
+            value: imageDeleteURL
           }
         ])
-        .setImage(image.url)
+        .setImage(imageURL)
         .setTimestamp();
 
       await bot.channels.cache.get('1013225940056285229').send({ embeds: [ newimageEmbed ]});
@@ -104,6 +128,11 @@ module.exports = {
       user = await userUtils.getUser(interaction.user.id);
       if(!user) return interaction.reply({ content: 'I cannot find you on the database.', ephemeral: true});
 
+      //Check if image exists
+      let imageData = user.images.find(image => image.name.toLowerCase() === name.toLowerCase());
+      if(!imageData) return interaction.reply({ content: 'I cannot find that image in your gallery.', ephemeral: true });
+      imageDeleteURL = imageData.imageDeleteURL;
+
       //Find and remove object from array
       user.images.splice(user.images.findIndex(image => image.name === name), 1);
       
@@ -114,7 +143,7 @@ module.exports = {
       let deletedEmbed = new Discord.EmbedBuilder()
         .setColor(bot.settings.color.green)
         .setTitle('Your image has been deleted!')
-        .setDescription('Your image has now been succesfully removed from StenBot\'s gallery. Please keep in mind that this does not remove the original image. To do this, please find it and remove it manually.');
+        .setDescription(`Your image has now been succesfully removed from StenBot's gallery. Please keep in mind that this does not remove the original image. To do this, please visit ${imageDeleteURL} and click "Delete"`);
 
       interaction.reply({ embeds: [ deletedEmbed ], ephemeral: true });
 
@@ -159,7 +188,7 @@ module.exports = {
         //Construct embed
         let imageList = [];
         await user.images.forEach((image) => {
-          imageList.push(`**${image.name}** || ${image.url}`);
+          imageList.push(`**${image.name}** » ${image.url}`);
         });
 
         //Split arrays to every N amount
