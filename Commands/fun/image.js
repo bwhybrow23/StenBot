@@ -53,7 +53,7 @@ module.exports = {
       if(!user) return interaction.reply({ content: 'I cannot find you on the database.', ephemeral: true});
 
       //Upload image to imgbb
-      let imageURL, imageDeleteURL;
+      let res;
       let params = new URLSearchParams();
       params.append('image', image.url);
       await fetch(`https://api.imgbb.com/1/upload?key=${bot.settings.connections.imgbb}`, {
@@ -61,14 +61,14 @@ module.exports = {
         body: params
       })
         .then(res => res.json())
-        .then(json => {
-          imageURL = json.data.url;
-          imageDeleteURL = json.data.delete_url;
-        });
+        .then(json => res = json);
+
+      let imageLink = res.data.url;
+      let imageDeleteURL = res.data.delete_url;
 
       //Turn data into object
       let data = {
-        url: imageURL,
+        url: imageLink,
         name: name,
         serverId: interaction.guild.id,
         imageDeleteURL: imageDeleteURL
@@ -90,14 +90,14 @@ module.exports = {
           },
           {
             name: 'Image URL',
-            value: imageURL
+            value: imageLink
           },
           {
             name: 'Image Delete URL',
             value: imageDeleteURL
           }
         ])
-        .setImage(imageURL)
+        .setImage(imageLink)
         .setTimestamp();
 
       await bot.channels.cache.get('1013225940056285229').send({ embeds: [ newimageEmbed ]});
