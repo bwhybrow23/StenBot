@@ -59,7 +59,7 @@ module.exports = {
         },
         tickets: {
           enabled: false,
-          interaction: '**User:** {user}\n**Reason:** {reason}'
+          message: '**User:** {user}\n**Reason:** {reason}'
         }
       };
   
