@@ -1,0 +1,145 @@
+/* Fonts */
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('../fonts/FiraSans-Light.eot');
+  src: local('Fira Sans Light'),
+    url('../fonts/FiraSans-Light.eot') format('embedded-opentype'),
+    url('../fonts/FiraSans-Light.woff') format('woff'),
+    url('../fonts/FiraSans-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('../fonts/FiraSans-Regular.eot');
+  src: local('Fira Sans Regular'),
+    url('../fonts/FiraSans-Regular.eot') format('embedded-opentype'),
+    url('../fonts/FiraSans-Regular.woff') format('woff'),
+    url('../fonts/FiraSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'Fira Sans';
+  src: url('../fonts/FiraSans-Bold.eot');
+  src: local('Fira Sans Bold'),
+    url('../fonts/FiraSans-Bold.eot') format('embedded-opentype'),
+    url('../fonts/FiraSans-Bold.woff') format('woff'),
+    url('../fonts/FiraSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Main */
+body {
+  background-color: #40055c;
+  padding: 20px;
+  margin: 0;
+  font-family: 'Fira Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgb(255, 255, 255);
+  text-align: left;
+}
+
+br {
+  display: block;
+  margin: 10px 0;
+}
+
+ul {
+  list-style-type: square;
+}
+
+/* Headers */
+h1 {
+  font-size: 42px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Paragraph Classes */
+p.in-short {
+  font-style: italic;
+}
+
+/* Table */
+/* From https://www.tablesgenerator.com/html_tables */
+.tg {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 20px 0 20px 0;
+}
+
+.tg td {
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+  padding: 8px 5px;
+  word-break: normal;
+}
+
+.tg th {
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  overflow: hidden;
+  padding: 8px 5px;
+  word-break: normal;
+}
+
+.tg .tg-wcmm {
+  background-color: #40055c;
+  border-color: #ffffff;
+  color: #ffffff;
+  font-family: inherit;
+  font-weight: bold;
+  text-align: left;
+  vertical-align: top
+}
+
+.tg .tg-rxrw {
+  background-color: #40055c;
+  border-color: #ffffff;
+  color: #ffffff;
+  font-family: inherit;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: top
+}
+
+.tg .tg-i1lr {
+  background-color: #40055c;
+  border-color: #ffffff;
+  color: #ffffff;
+  font-family: inherit;
+  text-align: left;
+  vertical-align: top
+}
+
+.tg .tg-786l {
+  background-color: #40055c;
+  border-color: #ffffff;
+  color: #ffffff;
+  font-family: inherit;
+  text-align: center;
+  vertical-align: top
+}

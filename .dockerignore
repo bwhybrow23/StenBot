@@ -16,4 +16,5 @@ build/Release
 .env.test
 
 # Stuff
+.vscode
 .vs
