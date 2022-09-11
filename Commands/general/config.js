@@ -203,7 +203,7 @@ module.exports = {
       case 'enabled':
 
         //Enable
-        if (interaction.options.getBooleanOption('enabled') === true) {
+        if (interaction.options.getBoolean('enabled') === true) {
 
           if (config.gatekeeper.welcome_enabled) {
             return bot.createEmbed('error', '', 'Error! Welcomer is already enabled!', [], `${interaction.guild.name}`, interaction)
@@ -216,7 +216,7 @@ module.exports = {
             .then((embed) => interaction.reply({ embeds: embed }))
             .catch((error) => bot.log.post('error', error));
 
-        } else if (interaction.options.getBooleanOption('enabled') === false) {
+        } else if (interaction.options.getBoolean('enabled') === false) {
           //Disable
           if (!config.gatekeeper.welcome_enabled) {
             return bot.createEmbed('error', '', 'Error! Welcomer is already disabled!', [], `${interaction.guild.name}`, interaction)
@@ -369,7 +369,7 @@ module.exports = {
       case 'enabled':
 
         //Enable
-        if (interaction.options.getBooleanOption('enabled') === true) {
+        if (interaction.options.getBoolean('enabled') === true) {
 
           if (config.gatekeeper.leave_enabled) {
             return bot.createEmbed('error', '', 'Error! Leave is already enabled!', [], `${interaction.guild.name}`, interaction)
@@ -382,7 +382,7 @@ module.exports = {
             .then((embed) => interaction.reply({ embeds: embed }))
             .catch((error) => bot.log.post('error', error));
 
-        } else if (interaction.options.getBooleanOption('enabled') === false) {
+        } else if (interaction.options.getBoolean('enabled') === false) {
           //Disable
           if (!config.gatekeeper.leave_enabled) {
             return bot.createEmbed('error', '', 'Error! Leave is already disabled!', [], `${interaction.guild.name}`, interaction)
@@ -530,7 +530,7 @@ module.exports = {
 
       case 'enabled':
 
-        if (interaction.options.getBooleanOption('enabled') === true) {
+        if (interaction.options.getBoolean('enabled') === true) {
           //Enable
           if (config.userjoin.enabled === true) {
             return bot.createEmbed('error', '', 'Error! Userjoin is already enabled.', [], `${interaction.guild.name}`, interaction)
@@ -543,7 +543,7 @@ module.exports = {
             .then((embed) => interaction.reply({ embeds: embed }))
             .catch((error) => bot.log.post('error', error));
 
-        } else if (interaction.options.getBooleanOption('enabled') === false) {
+        } else if (interaction.options.getBoolean('enabled') === false) {
           //Disable
           if (config.userjoin.enabled === false) {
             return bot.createEmbed('error', '', 'Error! Userjoin is already disabled!', [], `${interaction.guild.name}`, interaction)
