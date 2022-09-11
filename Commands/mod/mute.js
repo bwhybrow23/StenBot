@@ -52,8 +52,8 @@ module.exports = {
           //Overwrite permisisons
           interaction.guild.channels.cache.forEach(async (channel) => {
             await channel.permissionOverwrites.create(muteRole, {
-              SEND_MESSAGES: false,
-              ADD_REACTIONS: false
+              SendMessages: false,
+              AddReactions: false
             });
           });
 

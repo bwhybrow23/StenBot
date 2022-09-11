@@ -30,7 +30,7 @@ module.exports = {
           //Check if the bot has perms to welcome
           let botasmember = member.guild.members.cache.get(bot.user.id);
           if (
-            botasmember.permissionsIn(member.guild.channels.cache.get('' + config.gatekeeper.leave_channel + '')).has('SEND_MESSAGES') === true
+            botasmember.permissionsIn(member.guild.channels.cache.get('' + config.gatekeeper.leave_channel + '')).has('SendMessages') === true
           ) {
             //Get the current time
             const date = new Date();

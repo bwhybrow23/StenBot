@@ -20,6 +20,17 @@ router.get('/', (req, res) => {
   }
 });
 
+router.get('/privacy', (req, res) => {
+  try {
+    res.render('privacy.html');
+  } catch (error) {
+    res.status(500).send({
+      error: true,
+      data: error.message
+    });
+  }
+});
+
 // Redirect /api to the basic info page
 router.get('/api', (req, res) => {
   res.redirect('/api/info/');

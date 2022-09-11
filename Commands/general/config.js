@@ -314,7 +314,7 @@ module.exports = {
         }
         //Check if the bot has perms to send messages in that channel
         let botmember = interaction.guild.members.cache.get(bot.user.id);
-        if (botmember.permissionsIn(interaction.guild.channels.cache.get('' + config.gatekeeper.welcome_channel + '')).has('SEND_MESSAGES') === false) {
+        if (botmember.permissionsIn(interaction.guild.channels.cache.get('' + config.gatekeeper.welcome_channel + '')).has('SendMessages') === false) {
           return bot.createEmbed('error', '', 'Error! Your configuration didn\'t work. This is because the bot is unable to send messages in the configured channel you have set.', [], `${interaction.guild.name}`, interaction)
             .then((embed) => interaction.reply({ embeds: embed }))
             .catch((error) => bot.log.post('error', error));
@@ -477,7 +477,7 @@ module.exports = {
         }
         //Check if the bot has perms to send messages in that channel
         let botmember = interaction.guild.members.cache.get(bot.user.id);
-        if (botmember.permissionsIn(interaction.guild.channels.cache.get('' + config.gatekeeper.leave_channel + '')).has('SEND_MESSAGES') === false) {
+        if (botmember.permissionsIn(interaction.guild.channels.cache.get('' + config.gatekeeper.leave_channel + '')).has('SendMessages') === false) {
           return bot.createEmbed('error', '', 'Error! Your configuration didn\'t work. This is because the bot is unable to send messages in the configured channel you have set.', [], `${interaction.guild.name}`, interaction)
             .then((embed) => interaction.reply({ embeds: embed }))
             .catch((error) => bot.log.post('error', error));
