@@ -15,21 +15,19 @@ module.exports = {
     const config = await bot.mutils.getGuildById(interaction.guild.id);
 
     function errsend(msg) {
-      interaction.reply({
-        embeds: [{
-          color: bot.settings.color.red,
-          description: `Error! ${msg}`,
-          timestamp: Date.now(),
-          footer: {
-            icon_url: 'https://i.imgur.com/klY5xCe.png',
-            text: `${interaction.guild.name}`,
-          },
-        }],
-      });
+
+      let errEmbed = new Discord.EmbedBuilder()
+        .setColor(bot.settings.color.red)
+        .setDescription(`Error! ${msg}`)
+        .setTimestamp()
+        .setFooter({ text: `${interaction.guild.name}`, icon_url: 'https://i.imgur.com/klY5xCe.png' });
+
+      interaction.reply({ embeds: [errEmbed] });
+
     }
 
     //Check if tickets are enabled
-    if (!config.tickets.enabled) {
+    if (!config.tickets.enabled === true) {
       return errsend('Tickets are not enabled in the servers config.');
     }
 
