@@ -30,9 +30,9 @@ module.exports = {
       interaction.reply({ embeds: [errEmbed] });
 
     }
-
+    
     //Check if tickets are enabled
-    if (!config.tickets.enabled === false) {
+    if (config.tickets.enabled === false) {
       return errsend('Tickets are not enabled in the servers config.');
     }
 
