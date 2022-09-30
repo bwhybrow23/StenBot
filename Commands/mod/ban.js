@@ -5,7 +5,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('ban').setDescription('Permanently ban a user from the server')
     .addUserOption(option => option.setName('user').setDescription('The user to ban.'))
-    .addIntegerOption(option => option.setName('user-id').setDescription('The user ID of the person to ban (if they are no longer on the server)'))
+    .addNumberOption(option => option.setName('user-id').setDescription('The user ID of the person to ban (if they are no longer on the server)'))
     .addStringOption(option => option.setName('reason').setDescription('The reason for the ban.'))
     .setDefaultMemberPermissions(PermissionFlagsBits.BanMembers),
   category: 'mod',
@@ -29,10 +29,10 @@ module.exports = {
     } else {
       //Try looking up ID
       try {
-        targetuser = await bot.users.fetch(interaction.options.getInteger('user-id'), { force: true });
+        targetuser = await bot.users.fetch(interaction.options.getNumber('user-id'), { force: true });
       } catch (error) {
         //No user found
-        return bot.createEmbed('error', '', `Error! Unable to find user with ID ${interaction.options.getInteger('user-id')}`, [], `${interaction.guild.name}`, interaction)
+        return bot.createEmbed('error', '', `Error! Unable to find user with ID ${interaction.options.getNumber('user-id')}`, [], `${interaction.guild.name}`, interaction)
           .then((embed) => interaction.reply({ embeds: embed }))
           .catch((error) => bot.log.post('error', error));
       }
