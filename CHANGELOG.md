@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.0.2 - 30/09/2022
+* NPM package updates
+* Ban command looks for a number and not a singular integer
+* Image command now uses the ImgBB API rather than relying on Discord
+* Fixed issues where some permissions were still in SCREAMING_CASE, rather than NormalCase
+* A privacy policy has been added
+* Fixed an issue where a value in the config was accidently changed from "message" to "interaction" in v3.0.0
+* Fixed issue where tickets were still being created, even with the config option disabled
+
 ## 3.0.1 - 02/09/2022
 * Added the gallery feature - /image
 * Updated docker to use latest node.js
