@@ -52,7 +52,7 @@
     "path": "^0.12.7",
     "string-template": "^1.0.0",
     "superagent": "^7.1.5",
-    "util": "^0.12.4"
+    "util": "^0.12.5"
   },
   "devDependencies": {
     "eslint": "^8.23.1",
