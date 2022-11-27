@@ -159,7 +159,7 @@ form .checkbox input[type=checkbox] {
   /*background:  url(../images/.jpg) fixed;*/
   /* background-size: cover; */
   /* min-height: 100vh; */
-  padding-bottom: 130px;
+  padding-bottom: 100px;
   color: #fff;
 }
 
@@ -220,7 +220,7 @@ form .checkbox input[type=checkbox] {
 
 /* Footer */
 footer {
-  padding: 20px 0 16px 0;
+  padding: 10px 0 16px 0;
   text-align: center;
   /* background: #fff; */
 }
