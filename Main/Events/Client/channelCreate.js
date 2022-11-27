@@ -17,7 +17,7 @@ module.exports = {
         channel.guild.channels.cache.forEach(async (channel) => {
           await channel.permissionOverwrites.create(muteRole, {
             SendMessages: false,
-            Add_Reactions: false
+            AddReactions: false
           });
         });
       } catch (e) {
