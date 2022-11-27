@@ -15,16 +15,10 @@
   // 	],
   // 	"description": "Log output to console"
   // }
-  "New StenBot Command": {
-    "scope": "javascript",
-    "prefix": ["new-cmd", "cmd"],
-    "body": ["module.exports = {", "\tname: \"${1:name}\",", "\tcategory: \"${2:category}\",", "\tdescription: \"${3:description}\",", "\tusage: \"${4:usage}\",", "\texample: \"${5:example}\",", "\toptions: { permission: \"${6:EVERYONE}\", enabled: true, cooldown: ${7:0}, guildOnly: ${8:true} },", "\trun: async (bot, message, args) => {", "\t\t${0}", "\t},", "}"],
-    "description": "Code for a new StenBot command"
-  },
   "New Slash Command": {
     "scope": "javascript",
-    "prefix": ["slash-cmd", "slash"],
-    "body": ["data: new SlashCommandBuilder()", "\t.setName('${1:name}').setDescription('${2:description}'),"],
-    "description": "New Slash command"
+    "prefix": ["slash", "slash-cmd"],
+    "body": ["const { SlashCommandBuilder } = require('@discordjs/builders');", "\t\t", "module.exports = {", "\tdata: new SlashCommandBuilder()", "\t\t.setName('${1:name}').setDescription('${2:description}'),", "\tcategory: '${3:category}',", "\tusage: '${4:usage}',", "\texample: '${5:example}',", "\toptions: { permission: '${6:EVERYONE}', enabled: true, cooldown: ${7:0}, guildOnly: ${8:true} },", "\trun: async (bot, interaction) => {", "\t\t${0}", "\t},", "};"],
+    "description": "Create a new Slash Command"
   }
 }
