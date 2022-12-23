@@ -42,7 +42,7 @@
     "express": "^4.18.1",
     "glob": "^8.0.3",
     "is-url": "^1.2.4",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.37",
     "mongoose": "^6.6.1",
