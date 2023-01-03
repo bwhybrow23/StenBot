@@ -33,6 +33,10 @@ To invite the bot to your Discord server, please follow one of the below links. 
 ## Documentation
 Please refer to the [wiki site](https://wiki.benwhybrow.com) for more on how to use StenBot and set it up for your server. If you experience any issues, be sure to ask for help by refering to the Support section at the bottom of this ReadMe. If you would like to help contribute to the wiki, please contact me on Discord using the Support links at the bottom of this ReadMe. 
 
+<!-- Running the Bot -->
+## Running the Bot
+If you would like to run the bot yourself, please refer to this [wiki page](https://wiki.benwhybrow.com/hosted-instance) for more information.
+
 <!-- License & Contributing -->
 ## License and Contributing
 The current license for this project is **Don't Be a Dick (DBAD)**. You can see the official license [here](https://github.com/bwhybrow23/StenBot/blob/master/LICENSE.md)

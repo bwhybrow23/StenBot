@@ -14,7 +14,7 @@ module.exports = {
     try {
       serverstats = bot.mutils.getGuildById(guild.id);
     } catch (err) {
-      return bot.log.post('error', err);
+      bot.log.post('error', err);
     }
 
     //Leave the guild if its blacklisted
@@ -35,43 +35,11 @@ module.exports = {
        * MONGO STORAGE 
        * 
        */
-      await bot.mutils.createGuild({
-        info: {
-          id: guild.id,
-          name: guild.name,
-          owner_id: guild.ownerId,
-          blacklisted: false
-        },
-        gatekeeper: {
-          welcome_enabled: false,
-          welcome_channel: '0',
-          welcome_message: 'Welcome {user} to {server}',
-          leave_enabled: false,
-          leave_channel: '0',
-          leave_message: 'Goodbye {user} from {server}'
-        },
-        userjoin: {
-          enabled: false,
-          role: '0',
-          nickname: 'None'
-        },
-        moderation: {
-          staff_role: '0',
-          link_block: false,
-          filter: [],
-          mute_role: ''
-        },
-        logging: {
-          enabled: false,
-          channel: '0',
-          level: 'medium',
-          ignore: []
-        },
-        tickets: {
-          enabled: false,
-          message: '**User:** {user}\n**Reason:** {reason}'
-        }
-      });
+      let { defaultConfig } = require('../../../Data/Global/defaultConfig.js');
+      defaultConfig.info.id = guild.id;
+      defaultConfig.info.name = guild.name;
+      defaultConfig.info.owner_id = guild.ownerId;
+      await bot.mutils.createGuild(defaultConfig);
     }
 
     if (!Punishment.findOne({ guildId: guild.id })) {
