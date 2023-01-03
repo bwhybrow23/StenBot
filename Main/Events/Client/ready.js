@@ -6,9 +6,6 @@ module.exports = {
     const fs = require('fs');
     const { ActivityType } = require('discord-api-types/v10');
 
-    const utils = require('../../Functions/utilities.js');
-    // let token;
-
     //Mode Checker
     const packageJSON = require('../../../package.json');
 
@@ -95,11 +92,6 @@ module.exports = {
 
       //Console Log
       bot.log.post('success', `${bot.user.username} Started Successfully in Development Mode | Date: ${date}`);
-    }
-
-    //VERIFICATION FOR SUPPORT DISCORD
-    if (bot.settings.options.verifEnabled) {
-      utils.resetVerif(bot);
     }
 
     /**

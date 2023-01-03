@@ -94,8 +94,17 @@ module.exports = {
         .catch((error) => bot.log.post('error', error));
     }
 
-    //Useful Variables
+    //Find config or create if one doesn't exist
     let config = await bot.mutils.getGuildById(interaction.guild.id);
+    if(!config) async() => {
+      let { defaultConfig } = require('../../../Data/Global/defaultConfig.js');
+      defaultConfig.info.id = interaction.guild.id;
+      defaultConfig.info.name = interaction.guild.name;
+      defaultConfig.info.owner_id = interaction.guild.ownerId;
+      await bot.mutils.createGuild(defaultConfig);
+    };
+
+    //Get server name
     let servertag = interaction.guild.name;
 
     //View config
