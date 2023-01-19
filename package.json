@@ -51,7 +51,7 @@
     "node-fetch": "^2.6.7",
     "path": "^0.12.7",
     "string-template": "^1.0.0",
-    "superagent": "^7.1.5",
+    "superagent": "^8.0.8",
     "util": "^0.12.5"
   },
   "devDependencies": {
