@@ -9,25 +9,11 @@ module.exports = {
     let gOwner = await guild.fetchOwner();
 
     //When bot joins new server, create that servers file system.
-    //Check if the server is blacklisted
-    var serverstats;
-    try {
-      serverstats = bot.mutils.getGuildById(guild.id);
-    } catch (err) {
-      bot.log.post('error', err);
-    }
+    //Check if a server config exists
+    let serverstats = await bot.mutils.getGuildById(guild.id);
 
-    //Leave the guild if its blacklisted
-    if (serverstats) {
-      if (serverstats.info.blacklisted === true) {
-        bot.createEmbed('error', '', `I'm afraid that StenBot cannot join your server **${guild.name}** as your server is blacklisted from the bot. If you believe this is an error, please contact **Stentorian#6969** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${guild.name}`, bot)
-          .then(embed => gOwner.send(embed))
-          .catch(error => bot.log.post('error', error));
-        guild.leave();
-        return bot.log.post('info', `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
-      }
-    } else {
-
+    //If no server config exists, create one.
+    if (!serverstats) {
       bot.log.post('info', `Joined guild ${guild.name} | ${guild.id}`);
 
       /**
@@ -35,11 +21,22 @@ module.exports = {
        * MONGO STORAGE 
        * 
        */
-      let { defaultConfig } = require('../../../Data/Global/defaultConfig.js');
+      let defaultConfig = require('../../../Data/Global/defaultConfig.js');
       defaultConfig.info.id = guild.id;
       defaultConfig.info.name = guild.name;
       defaultConfig.info.owner_id = guild.ownerId;
       await bot.mutils.createGuild(defaultConfig);
+
+    } else {
+      //If server config exists, check if server is blacklisted
+      if (serverstats.info.blacklisted === true) {
+        bot.createEmbed('error', '', `I'm afraid that StenBot cannot join your server **${guild.name}** as your server is blacklisted from the bot. If you believe this is an error, please contact **Stentorian#6969** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${guild.name}`, bot)
+          .then(embed => gOwner.send(embed))
+          .catch(error => bot.log.post('error', error));
+        //Leave the server
+        guild.leave();
+        return bot.log.post('info', `Left guild: ${guild.name} | ${guild.id} because this server was blacklisted!`);
+      }
     }
 
     if (!Punishment.findOne({ guildId: guild.id })) {
@@ -73,6 +70,7 @@ module.exports = {
     //StenBot Server Updates
     let totalGuilds = bot.guilds.cache.size;
     let totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
+    let date = new Date();
     await bot.channels.cache.get('839509992041218049').send({
       embeds: [{
         'title': 'Joined Guild!',
@@ -84,7 +82,7 @@ module.exports = {
           'text': guild.id
         },
         'color': 982784,
-        'timestamp': Date.now(),
+        'timestamp': date.toISOString(),
         'fields': [{
           name: 'Server Name',
           value: guild.name,
@@ -92,7 +90,7 @@ module.exports = {
         },
         {
           name: 'Server Owner',
-          value: `${gOwner.tag} || ${gOwner.id}`,
+          value: `${gOwner.user.tag} || ${gOwner.id}`,
           inline: true
         },
         {

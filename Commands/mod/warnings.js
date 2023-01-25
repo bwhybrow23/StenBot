@@ -26,9 +26,10 @@ module.exports = {
         warnings = punishments.warns;
       });
 
+    let date = new Date();
     let embed = {
       'color': 4325423,
-      'timestamp': Date.now(),
+      'timestamp': date.toISOString(),
       'footer': {
         'text': `${Object.keys(warnings).length} total warn(s)`
       },

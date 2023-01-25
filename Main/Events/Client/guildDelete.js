@@ -29,6 +29,7 @@ module.exports = {
       gOwner = { user: { tag: 'N/A' } };
     }
 
+    let date = new Date();
     await bot.channels.cache.get('839509992041218049').send({
       embeds: [{
         'title': 'Left Guild!',
@@ -40,7 +41,7 @@ module.exports = {
           'text': guild.id
         },
         'color': 16711680,
-        'timestamp': Date.now(),
+        'timestamp': date.toISOString(),
         'fields': [{
           name: 'Server Name',
           value: guild.name,
