@@ -19,7 +19,8 @@ module.exports = {
 
     //Begin execution of command
     const exec = require('child_process').exec;
-    var StartTime = Date.now();
+    let StartTime = Date.now();
+    let date = new Date();
     await interaction.reply('Getting results...');
     exec(input, {}, (error, stdout) => {
       if (!stdout) {
@@ -47,7 +48,7 @@ module.exports = {
             text: interaction.guild.name,
             icon_url: 'https://i.imgur.com/klY5xCe.png'
           },
-          timestamp: Date.now()
+          timestamp: date.toISOString()
         }],
         content: 'Output:'
       });

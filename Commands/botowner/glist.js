@@ -32,7 +32,7 @@ module.exports = {
         name: 'Guilds',
         value: `\`\`\`${array.join('\n')}\`\`\``
       }], `Page ${page}`, interaction)
-        .then((embed) => interaction.reply(embed))
+        .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post('error', error));
       page++;
     });
