@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const bot = require('../../app.js');
 
-const Auth = require('../Middleware/auth');
-
 const settings = require('../settings.json');
 const botdata = require('../../Data/Global/bot-data.json');
 const packageJSON = require('../../package.json');
@@ -60,23 +58,6 @@ router.get('/api/stats', (req, res) => {
 //Dependencies
 router.get('/api/dependencies', (req, res) => {
   res.status(200).json(packageJSON.dependencies);
-});
-
-//Test Token and Output
-router.get('/api/test', Auth.discord, (req, res) => {
-
-  var ip = req.headers['x-forwarded-for'] ||
-            req.socket.remoteAddress ||
-            null;
-
-  res.status(200).json({
-    message: 'Test completed successfully, please see data below and confirm it is valid.',
-    data: {
-      token: req.token,
-      discordID: req.discordID,
-      ip: ip
-    }
-  });
 });
 
 module.exports = router;

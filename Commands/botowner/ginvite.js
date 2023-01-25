@@ -23,8 +23,8 @@ module.exports = {
         .catch((error) => bot.log.post('error', error));
     }
 
-    let invitechannels = guild.channels.cache.filter((c) =>
-      c.permissionsFor(guild.me).has('CREATE_INSTANT_INVITE')
+    let invitechannels = guild.channels.cache.filter((channel) =>
+      channel.permissionsFor(bot.application.id).has('CREATE_INSTANT_INVITE')
     );
 
     if (!invitechannels) {
