@@ -48,7 +48,7 @@
     "util": "^0.12.5"
   },
   "devDependencies": {
-    "eslint": "^8.32.0",
+    "eslint": "^8.35.0",
     "esprima": "^4.0.1"
   }
 }
