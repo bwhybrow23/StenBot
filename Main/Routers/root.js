@@ -42,22 +42,12 @@ router.get('/api/info', (req, res) => {
     'mode': settings.mode,
     'botName': botdata.info.botName,
     'botID': botdata.info.botID,
+    'totalGuilds': bot.guilds.cache.size,
+    'totalUsers': bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0),
     'hotel': 'trivago',
     'theGame': 'lost'
   };
   res.status(200).json(info);
-});
-
-//Statistics
-router.get('/api/stats', (req, res) => {
-  botdata.stats.totalGuilds = bot.guilds.cache.size;
-  botdata.stats.totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
-  res.status(200).json(botdata.stats);
-});
-
-//Dependencies
-router.get('/api/dependencies', (req, res) => {
-  res.status(200).json(packageJSON.dependencies);
 });
 
 module.exports = router;

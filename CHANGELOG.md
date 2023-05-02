@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.1.0 - 02/05/2022
+### FINAL UPDATE
+* NPM updates & clean-up
+* Fixed a problem where the wrong variable was used for blocking people with the "muted" role from reacting in a new channel
+* Fixed website scaling issues
+* Fixed issue when joining a new guild in which a config wouldn't be created
+* Fixed an issue in which the timestamp date was in the wrong format for recent Discord.JS updates
+* Removed category option from txtcreate as it's buggy
+* Fixed issue with join and leave embeds not sending into the main server
+* Removed API (parts that use auth) - Was planned for a StenBot Dashboard, however, it's open to abuse and not used
+* Updated privacy policy contact email
+* Fixed various commands that weren't working
+* Removed old handler code from messageCreate event
+* Moved stats API endpoint to the main info endpoint
+
 ## 3.0.2 - 30/09/2022
 * NPM package updates
 * Ban command looks for a number and not a singular integer
