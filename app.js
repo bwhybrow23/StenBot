@@ -7,7 +7,7 @@ const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js'
 const settings = require('./Main/settings.json');
 const fs = require('fs');
 const mongoose = require('mongoose');
-const bot = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildBans, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildPresences, GatewayIntentBits.DirectMessages], partials: [Partials.User, Partials.Message, Partials.Channel, Partials.ThreadMember, Partials.GuildMember] });
+const bot = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildModeration, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildPresences, GatewayIntentBits.DirectMessages], partials: [Partials.User, Partials.Message, Partials.Channel, Partials.ThreadMember, Partials.GuildMember] });
   
 /**
    *
