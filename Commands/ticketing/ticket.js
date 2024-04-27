@@ -1,6 +1,6 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { ChannelType } = require('discord-api-types/v10');
-const Discord = require('discord.js');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { ChannelType } from 'discord-api-types/v10';
+import Discord from 'discord.js';
 
 module.exports = {
   data: new SlashCommandBuilder()

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -10,7 +10,7 @@ module.exports = {
   options: { permission: 'BOTOWNER', enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
 
-    const Discord = require('discord.js');
+    import Discord from 'discord.js';
 
     //Permission Check
     if (interaction.user.id !== bot.settings.ids.botOwner) {

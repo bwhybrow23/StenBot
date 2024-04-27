@@ -3,10 +3,10 @@
  * Definitions
  *
  */
-const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js');
+import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
 const settings = require('./Main/settings.json');
-const fs = require('fs');
-const mongoose = require('mongoose');
+import * as fs from 'fs';
+import mongoose from 'mongoose';
 const bot = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildModeration, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildPresences, GatewayIntentBits.DirectMessages], partials: [Partials.User, Partials.Message, Partials.Channel, Partials.ThreadMember, Partials.GuildMember] });
   
 /**
@@ -129,10 +129,10 @@ bot.mutils = mutils;
    * API & WEBSITE
    *
    */
-const express = require('express');
+import express from 'express';
 const app = express();
-const cors = require('cors');
-const path = require('path');
+import cors from 'cors';
+import path from 'path';
 const port = bot.settings.options.apiPort;
   
 //Middleware

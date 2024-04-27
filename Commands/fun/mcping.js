@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -10,7 +10,7 @@ module.exports = {
   options: { permission: 'EVERYONE', aliases: ['mc'], enabled: true, cooldown: 5, guildOnly: false },
   run: async (bot, interaction) => {
 
-    const Discord = require('discord.js');
+    import Discord from 'discord.js';
     const fetch = require('node-fetch');
     const url = 'https://mcapi.us/server/status?ip=';
 

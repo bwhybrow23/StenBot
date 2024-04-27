@@ -1,6 +1,6 @@
 //Requirements
-const fs = require('fs');
-const ascii = require('ascii-table');
+import * as fs from 'fs';
+import ascii from 'ascii-table3';
 
 // Table for tracking commands
 const table = new ascii().setHeading('Command', 'Load status');

@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -43,7 +43,7 @@ module.exports = {
   options: { permission: 'EVERYONE', enabled: true, cooldown: 3, guildOnly: true },
   run: async (bot, interaction) => {
 
-    const Discord = require('discord.js');
+    import Discord from 'discord.js';
 
     const nekos = require('nekos.life');
     const neko = new nekos();

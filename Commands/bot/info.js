@@ -1,4 +1,6 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
+import * as fs from 'fs';
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -8,9 +10,6 @@ module.exports = {
   example: '',
   options: { permission: 'EVERYONE', aliases: ['ping', 'status', 'stats', 'uptime'], enabled: true, cooldown: 10, guildOnly: false },
   run: async (bot, interaction) => {
-
-    const Discord = require('discord.js');
-    const fs = require('fs');
 
     const memusage = JSON.parse(fs.readFileSync('./Data/Global/bot-data.json', 'utf8'));
     const packageJSON = require('../../package.json');

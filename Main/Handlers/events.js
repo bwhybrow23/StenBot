@@ -1,6 +1,6 @@
 const { Events } = require('../../Data/Global/eventNames.js');
-const ascii = require('ascii-table');
-const fs = require('fs');
+import ascii from 'ascii-table3';
+import * as fs from 'fs';
 
 const table = new ascii().setHeading('Event', 'Load status');
 

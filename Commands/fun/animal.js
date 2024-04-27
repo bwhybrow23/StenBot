@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -16,7 +16,7 @@ module.exports = {
   options: { permission: 'EVERYONE', enabled: true, cooldown: 10, guildOnly: false },
   run: async (bot, interaction) => {
 
-    const Discord = require('discord.js');
+    import Discord from 'discord.js';
     const fetch = require('node-fetch');
 
     let animal = interaction.options.getSubcommand();

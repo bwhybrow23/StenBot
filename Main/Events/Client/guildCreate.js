@@ -3,7 +3,7 @@ module.exports = {
   once: false,
   async execute(bot, guild) {
 
-    const fs = require('fs');
+    import * as fs from 'fs';
     const Punishment = require('../../Models/punishment.js');
 
     let gOwner = await guild.fetchOwner();

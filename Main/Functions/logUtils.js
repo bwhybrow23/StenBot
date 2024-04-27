@@ -1,6 +1,6 @@
-const chalk = require('chalk');
-const Path = require('path');
-const fs = require('fs');
+import chalk from 'chalk';
+import { Path } from 'path';
+import * as fs from 'fs';
 const moment = require('moment');
 
 //Get the current time

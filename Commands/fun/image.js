@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
 const userUtils = require('../../Main/Functions/userUtils');
-const Discord = require('discord.js');
+import Discord from 'discord.js';
 const fetch = require('node-fetch');
 
 module.exports = {

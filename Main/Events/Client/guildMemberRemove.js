@@ -3,11 +3,11 @@ module.exports = {
   once: false,
   async execute(bot, member) {
 
-    const Discord = require('discord.js');
+    import Discord from 'discord.js';
     const config = await bot.mutils.getGuildById(member.guild.id);
     if (!config) return;
     var format = require('string-template');
-    const fs = require('fs');
+    import * as fs from 'fs';
 
     if (member.user === bot.user) return;
 

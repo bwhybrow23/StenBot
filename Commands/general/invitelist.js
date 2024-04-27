@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -9,7 +9,7 @@ module.exports = {
   options: { permission: 'EVERYONE', enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
 
-    const Discord = require('discord.js');
+    import Discord from 'discord.js';
 
     let invites = await interaction.guild.invites.fetch().catch(() => {
       return interaction.reply({ content: 'Sorry, I don\'t have the proper permissions to view invites!', ephemeral: true });

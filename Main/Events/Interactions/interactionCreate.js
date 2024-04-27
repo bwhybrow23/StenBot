@@ -3,8 +3,8 @@ module.exports = {
   once: false,
   async execute(bot, interaction) {
   
-    const Discord = require('discord.js');
-    const fs = require('fs');
+    import Discord from 'discord.js';
+    import * as fs from 'fs';
   
     //Check if interaction exists and if it's a command
     if (!interaction) return;

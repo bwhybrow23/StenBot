@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionFlagsBits } = require('discord-api-types/v10');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
 
 module.exports = {
   data: new SlashCommandBuilder()

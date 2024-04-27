@@ -3,7 +3,7 @@ module.exports = {
   once: false,
   async execute(bot, guild) {
 
-    const fs = require('fs');
+    import * as fs from 'fs';
 
     bot.log.post('info', `Left guild ${guild.name} | ${guild.id}`);
 

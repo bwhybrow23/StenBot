@@ -3,8 +3,8 @@ module.exports = {
   once: true,
   async execute(bot) {
 
-    const fs = require('fs');
-    const { ActivityType } = require('discord-api-types/v10');
+    import * as fs from 'fs';
+    import { ActivityType } from 'discord-api-types/v10';
 
     //Mode Checker
     const packageJSON = require('../../../package.json');
