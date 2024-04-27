@@ -1,10 +1,10 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const bot = require('../../app.js');
+import * as bot from '../../app.js';
 
-const settings = require('../settings.json');
-const botdata = require('../../Data/Global/bot-data.json');
-const packageJSON = require('../../package.json');
+import * as settings from './Main/settings.json';
+import * as botdata from ('../../Data/Global/bot-data.json');
+import * as packageJSON from ('../../package.json');
 
 // MAIN WEBSITE
 router.get('/', (req, res) => {
@@ -50,4 +50,4 @@ router.get('/api/info', (req, res) => {
   res.status(200).json(info);
 });
 
-module.exports = router;
+export default router;

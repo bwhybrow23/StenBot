@@ -9,7 +9,7 @@ const table = new ascii().setHeading('Command', 'Load status');
 const botData = require('../../Data/Global/bot-data.json');
 
 //Actual Code
-module.exports = (bot) => {
+export function commandHandler(bot) {
   //Read "commands" directory
   fs.readdirSync('./Commands/').forEach((dir) => {
 

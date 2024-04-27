@@ -4,7 +4,7 @@
  *
  */
 import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
-const settings = require('./Main/settings.json');
+import * as settings from './Main/settings.js';
 import * as fs from 'fs';
 import mongoose from 'mongoose';
 const bot = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildModeration, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildPresences, GatewayIntentBits.DirectMessages], partials: [Partials.User, Partials.Message, Partials.Channel, Partials.ThreadMember, Partials.GuildMember] });
@@ -163,7 +163,7 @@ fs.promises.readdir(path.join(__dirname, './Main/Routers'))
   });
   
 //EXPORT BOT MODULE (DONT PUT ANYTHING BELOW THIS)
-module.exports = bot;
+export default bot;
   
 /**
    *
