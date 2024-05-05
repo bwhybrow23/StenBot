@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('gsay').setDescription('Sends a message to all the owners of the servers that the bot is in.')
     .addStringOption(option => option.setName('message').setDescription('The message to send').setRequired(true)),

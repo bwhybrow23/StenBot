@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import * as ecoUtils from '../../Main/Functions/ecoUtils.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('pay').setDescription('Give some money to another user.')
     .addUserOption(option => option.setName('user').setDescription('The user to give money to.').setRequired(true))
@@ -10,8 +11,6 @@ module.exports = {
   example: '@Steve#6942 100',
   options: { permission: 'EVERYONE', enabled: true, cooldown: 10, guildOnly: true },
   run: async (bot, interaction) => {
-
-    const ecoUtils = require('../../Main/Functions/ecoUtils');
 
     let toBePaid = await ecoUtils.getUser(interaction.options.getUser('user').id);
 

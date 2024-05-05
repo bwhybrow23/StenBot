@@ -1,10 +1,10 @@
 /* eslint-disable no-case-declarations */
 import { SlashCommandBuilder } from '@discordjs/builders';
-const userUtils = require('../../Main/Functions/userUtils');
+import * as userUtils from '../../Main/Functions/userUtils.js';
 import Discord from 'discord.js';
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('image').setDescription('View/Manage your image storage. (15s cooldown)')
     .addSubcommand(subCommand => 

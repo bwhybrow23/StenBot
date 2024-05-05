@@ -1,58 +1,42 @@
-//Requirements
-import * as fs from 'fs';
-import ascii from 'ascii-table3';
+import fs from 'fs';
+import { AsciiTable3 } from 'ascii-table3';
+const botData = JSON.parse(fs.readFileSync('./Data/Global/bot-data.json', 'utf8'));
 
-// Table for tracking commands
-const table = new ascii().setHeading('Command', 'Load status');
+const table = new AsciiTable3().setHeading('Command', 'Load status');
 
-//Bot Data (obviously)
-const botData = require('../../Data/Global/bot-data.json');
+export async function commandHandler(bot) {
+  try {
+    const commandDirs = await fs.promises.readdir('./Commands/');
+    for (const dir of commandDirs) {
+      const commands = await fs.promises.readdir(`./Commands/${dir}/`);
+      for (const file of commands) {
+        if (file.endsWith('.js')) {
+          const commandModule = await import(`../../Commands/${dir}/${file}`);
+          const command = commandModule.default;
 
-//Actual Code
-export function commandHandler(bot) {
-  //Read "commands" directory
-  fs.readdirSync('./Commands/').forEach((dir) => {
+          if (!command.options.enabled) continue;
 
-    //Find all .js files in each directory
-    const commands = fs.readdirSync(`./Commands/${dir}/`).filter((f) =>
-      f.endsWith('.js')
-    );
+          const { category, data } = command;
+          const { name } = data;
 
-    //For each file, do this
-    commands.forEach((file) => {
+          if (!botData.stats.commands[category][name]) {
+            botData.stats.commands[category][name] = 0;
+            fs.writeFileSync('./Data/Global/bot-data.json', JSON.stringify(botData, null, 4));
+          }
 
-      let command = require(`../../Commands/${dir}/${file}`);
-      // if(command.category === 'botowner') return;
-
-      //Check if enabled
-      if (command.options.enabled === false) return;
-
-      //Check if stats tracking exists for it
-      if (!botData.stats.commands[command.category][command.data.name]) {
-        botData.stats.commands[command.category][command.data.name] = 0;
-        fs.writeFileSync('./Data/Global/bot-data.json', JSON.stringify(botData, null, 4));
+          const commandData = data.toJSON();
+          if (name) {
+            bot.commandsArray.push(commandData);
+            bot.commands.set(name, command);
+            table.addRow(file, '✅');
+          } else {
+            table.addRow(file, '❌ -> Missing Something??');
+          }
+        }
       }
-
-      let commandData = command.data.toJSON();
-
-      //If not guild only, allow in DMs
-      // if(commandData.options.guildOnly === false) {
-      //   commandData.dm_permission = true;
-      // }
-
-      //Check if command has a name
-      if(command.data.name) {
-        //Push to array and to bot
-        bot.commandsArray.push(commandData);
-        bot.commands.set(command.data.name, command);
-        table.addRow(file, '✅');
-      } else {
-        return table.addRow(file, '❌ -> Missing Something??');
-      }
-
-    });
-
-  });
-
-  console.log(table.toString());
-};
+    }
+    console.log(table.toString());
+  } catch (error) {
+    console.error('Error in commandHandler:', error);
+  }
+}

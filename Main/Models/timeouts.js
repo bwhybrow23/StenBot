@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const timeoutsSchema = new mongoose.Schema({
 
@@ -30,4 +30,5 @@ const timeoutsSchema = new mongoose.Schema({
 });
 
 const Timeouts = mongoose.model('Timeouts', timeoutsSchema);
-module.exports = Timeouts;
+
+export default Timeouts;

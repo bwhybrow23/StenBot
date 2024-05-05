@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('me').setDescription('Find out some information the bot knows about you or another person.')
     .addUserOption(option => option.setName('user').setDescription('The user to check the information of.')),
@@ -9,8 +10,6 @@ module.exports = {
   example: '@Danny#7013',
   options: { permission: 'EVERYONE', aliases: ['user', 'whois'], enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
-
-    import Discord from 'discord.js';
 
     let member, user;
     if (interaction.options.getUser('user')) {

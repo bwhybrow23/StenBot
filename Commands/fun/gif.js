@@ -1,6 +1,8 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
+import fetch from 'node-fetch';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('gif').setDescription('Search for a specific GIF')
     .addStringOption(option => option.setName('query').setDescription('The query to search for.').setRequired(true)),
@@ -9,9 +11,6 @@ module.exports = {
   example: 'monkeys',
   options: { permission: 'EVERYONE', enabled: true, cooldown: 3, guildOnly: false },
   run: async (bot, interaction) => {
-
-    let Discord = require('discord.js');
-    let fetch = require('node-fetch');
 
     let query = interaction.options.getString('query');
 

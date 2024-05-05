@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { Path } from 'path';
 import * as fs from 'fs';
-const moment = require('moment');
+import moment from 'moment';
 
 //Get the current time
 const date = new Date();
@@ -127,6 +127,6 @@ const _toConsole = (type, colour, message) => {
   });
 };
 
-module.exports = {
+export default {
   post
 };

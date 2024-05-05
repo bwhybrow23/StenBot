@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('tempmute').setDescription('Temporarily mute a user for a period of time.')
     .addUserOption(option => option.setName('user').setDescription('The user to mute.').setRequired(true))

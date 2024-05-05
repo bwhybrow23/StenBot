@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('delchannel').setDescription('Deletes a mentioned channel')
     .addChannelOption(option => option.setName('channel').setDescription('The channel to delete').setRequired(true))

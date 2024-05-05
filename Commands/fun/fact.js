@@ -1,6 +1,8 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
+import fetch from 'node-fetch';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('fact').setDescription('Get a random fact!'),
   category: 'fun',
@@ -8,9 +10,6 @@ module.exports = {
   example: '',
   options: { permission: 'EVERYONE', enabled: true, cooldown: 10, guildOnly: false },
   run: async (bot, interaction) => {
-
-    let Discord = require('discord.js');
-    let fetch = require('node-fetch');
 
     let fact;
     await fetch('https://nekos.life/api/v2/fact')

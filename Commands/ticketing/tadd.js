@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('tadd').setDescription('Add a user to an ongoing ticket.')
     .addUserOption(option => option.setName('user').setDescription('The user to add to the ticket.').setRequired(true)),
@@ -9,8 +10,6 @@ module.exports = {
   example: '@Lana#1505',
   options: { permission: 'EVERYONE', enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
-
-    import Discord from 'discord.js';
 
     const config = await bot.mutils.getGuildById(interaction.guild.id);
 

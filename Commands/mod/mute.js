@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('mute').setDescription('Mute a user to block them from sending messages.')
     .addUserOption(option => option.setName('user').setDescription('The user to mute.').setRequired(true))

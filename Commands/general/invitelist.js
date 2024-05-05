@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('invitelist').setDescription('Get a list of all the invites in the Discord server.'),
   category: 'general',
@@ -8,8 +9,6 @@ module.exports = {
   example: '',
   options: { permission: 'EVERYONE', enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
-
-    import Discord from 'discord.js';
 
     let invites = await interaction.guild.invites.fetch().catch(() => {
       return interaction.reply({ content: 'Sorry, I don\'t have the proper permissions to view invites!', ephemeral: true });

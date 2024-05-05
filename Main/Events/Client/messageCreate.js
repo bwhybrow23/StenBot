@@ -1,5 +1,7 @@
 /* eslint-disable no-inner-declarations */
-module.exports = {
+import * as checker from 'is-url';
+
+export default {
   name: 'messageCreate',
   once: false,
   async execute(bot, message) {
@@ -14,7 +16,6 @@ module.exports = {
         if (!config) return;
         //Check if its an url
         if (config.moderation.link_block) {
-          var checker = require('is-url');
           if (checker(message.content)) {
             if (message.member.permissions.has('ADMINISTRATOR') === true) return;
             message.delete();

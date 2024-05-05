@@ -1,7 +1,7 @@
 /* eslint-disable no-async-promise-executor */
-const Punishment = require('../Models/punishment.js');
-const moment = require('moment');
-const ms = require('ms');
+import * as Punishment from '../Models/punishment.js';
+import * as moment from 'moment';
+import * as ms from 'ms';
 
 /** Punishment Logs
  * 
@@ -486,6 +486,6 @@ class PunishmentUtils {
 
 }
 
-module.exports = {
+export default {
   PunishmentUtils
 };

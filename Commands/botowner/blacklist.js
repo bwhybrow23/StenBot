@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 import { SlashCommandBuilder } from '@discordjs/builders';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('blacklist').setDescription('Blacklist a server or user from StenBot')
     .addSubcommand(subcommand => subcommand.setName('server').setDescription('Blacklist a server from StenBot')

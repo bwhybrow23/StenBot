@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('achievement').setDescription('Create your own Minecraft achievement!')
     .addStringOption(option => option.setName('achievement').setDescription('The text for the achievement.').setRequired(true)),

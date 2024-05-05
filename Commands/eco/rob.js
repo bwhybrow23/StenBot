@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import * as ecoUtils from '../../Main/Functions/ecoUtils.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('rob').setDescription('Attempt to rob a user of some money.')
     .addUserOption(option => option.setName('user').setDescription('The user to rob.').setRequired(true)),
@@ -9,8 +10,6 @@ module.exports = {
   example: '@Jessica#1391',
   options: { permission: 'EVERYONE', enabled: false, guildOnly: true },
   run: async (bot, interaction) => {
-
-    const ecoUtils = require('../../Main/Functions/ecoUtils');
 
     const robber = interaction.user;
     const victim = interaction.options.getUser('user');

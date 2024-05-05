@@ -1,7 +1,10 @@
 /* eslint-disable no-case-declarations */
 import { SlashCommandBuilder } from '@discordjs/builders';
+import Timeout from '../../Main/Models/timeouts.js';
+import moment from 'moment';
+import ms from 'ms';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('reminder').setDescription('Manage StenBot reminders')
     .addSubcommand(subcommand => subcommand.setName('add').setDescription('Add a reminder')
@@ -16,10 +19,6 @@ module.exports = {
   example: 'list',
   options: { permission: 'EVERYONE', enabled: true, cooldown: 3, guildOnly: true },
   run: async (bot, interaction) => {
-
-    const Timeout = require('../../Main/Models/timeouts');
-    const moment = require('moment');
-    const ms = require('ms');
 
     //Capitalize function
     const capitalize = (s) => {

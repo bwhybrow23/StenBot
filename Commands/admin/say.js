@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('say').setDescription('Get StenBot to say whatever you want')
     .addStringOption(option => option.setName('message').setDescription('The message that you want the bot to say').setRequired(true))

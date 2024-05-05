@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('stealpic').setDescription('Steal a user\'s avatar.')
     .addUserOption(option => option.setName('user').setDescription('The user to steal the avatar from.').setRequired(true)),
@@ -9,8 +10,6 @@ module.exports = {
   example: '@Jake#4012',
   options: { permission: 'EVERYONE', enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
-
-    import Discord from 'discord.js';
 
     let stolen = interaction.options.getUser('user');
     let stolenPic = stolen.avatarURL();

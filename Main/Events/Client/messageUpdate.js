@@ -1,9 +1,9 @@
-module.exports = {
+import * as checker from 'is-url';
+
+export default {
   name: 'messageUpdate',
   once: false,
   async execute(bot, oldMessage, newMessage) {
-
-    const checker = require('is-url');
 
     if (newMessage.type === 'DM') return;
     if (!newMessage) return;

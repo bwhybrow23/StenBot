@@ -1,21 +1,19 @@
-module.exports = {
+import * as fs from 'fs';
+import { ActivityType } from 'discord-api-types/v10';
+const packageJSON = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
+const botData = JSON.parse(fs.readFileSync('./Data/Global/bot-data.json', 'utf8'));
+
+export default {
   name: 'ready',
   once: true,
   async execute(bot) {
 
-    import * as fs from 'fs';
-    import { ActivityType } from 'discord-api-types/v10';
-
-    //Mode Checker
-    const packageJSON = require('../../../package.json');
-
     //Update bot-data.json
-    let botdata = require('../../../Data/Global/bot-data.json');
-    botdata.info.botName = bot.user.tag;
-    botdata.info.botID = bot.user.id;
-    botdata.stats.totalGuilds = bot.guilds.cache.size;
-    botdata.stats.totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
-    fs.writeFileSync('./Data/Global/bot-data.json', JSON.stringify(botdata, null, 4), (err) => {
+    botData.info.botName = bot.user.tag;
+    botData.info.botID = bot.user.id;
+    botData.stats.totalGuilds = bot.guilds.cache.size;
+    botData.stats.totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
+    fs.writeFileSync('./Data/Global/bot-data.json', JSON.stringify(botData, null, 4), (err) => {
       if (err) return bot.log.post('error', err);
     });
 

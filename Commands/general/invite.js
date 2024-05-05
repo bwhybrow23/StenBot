@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('invite').setDescription('Information on how to invite the bot to your Discord server!'),
   category: 'general',
@@ -8,8 +9,6 @@ module.exports = {
   example: '',
   options: { permission: 'EVERYONE', enabled: true, guildOnly: false },
   run: async (bot, interaction) => {
-
-    import Discord from 'discord.js';
 
     let bicon = bot.user.avatarURL();
 

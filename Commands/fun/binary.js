@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('binary').setDescription('Convert text to binary.')
     .addStringOption(option => option.setName('text').setDescription('The text to convert to binary.').setRequired(true)),

@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import * as Punishment from '../../Main/Models/punishment.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('sync').setDescription('Checks all guilds for configs and creates if they\'re outdated or missing.'),
   category: 'botowner',
@@ -8,8 +9,6 @@ module.exports = {
   example: '',
   options: { permission: 'BOTOWNER', enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
-
-    const Punishment = require('../../Main/Models/punishment');
 
     //Permission Check
     if (interaction.user.id !== bot.settings.ids.botOwner) {

@@ -1,6 +1,8 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
+import { inspect } from 'util';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('eval').setDescription('Run JavaScript code from within the bot.')
     .addStringOption(option => option.setName('code').setDescription('The code to run').setRequired(true)),
@@ -9,8 +11,6 @@ module.exports = {
   example: 'message.channel.send("Hello World!")',
   options: { permission: 'BOTOWNER', enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
-
-    import Discord from 'discord.js';
 
     //Permission Check
     if (interaction.user.id !== bot.settings.ids.botOwner) {
@@ -22,7 +22,7 @@ module.exports = {
       let code = eval(codein);
 
       if (typeof code !== 'string')
-        code = require('util').inspect(code, {
+        code = inspect(code, {
           depth: 0,
         });
       let embed = new Discord.EmbedBuilder()
