@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { Path } from 'path';
+import path from 'path';
 import * as fs from 'fs';
 import moment from 'moment';
 

@@ -1,8 +1,8 @@
-import { Events } from '../../Data/Global/eventNames.js';
-import ascii from 'ascii-table3';
+import events from '../../Data/Global/eventNames.js';
+import { AsciiTable3 } from 'ascii-table3';
 import fs from 'fs/promises';
 
-const table = new ascii().setHeading('Event', 'Load status');
+const table = new AsciiTable3().setHeading('Event', 'Load status');
 
 export async function eventHandler(bot) {
   try {

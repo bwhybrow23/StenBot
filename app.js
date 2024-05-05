@@ -17,8 +17,8 @@ const bot = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.G
    *
    */
 //Logger
-import * as logUtils from './Main/Functions/logUtils.js';
-bot.log = logUtils;
+import logUtilModule from './Main/Functions/logUtils.js';
+bot.log = logUtilModule;
   
 //Settings File
 bot.settings = settings;
@@ -35,12 +35,14 @@ import * as efunctions from './Main/Functions/eventUtils.js';
 bot.efunctions = efunctions;
   
 //Timeout Utilities
-import { TimeoutUtils } from './Main/Functions/timeoutUtils.js';
+import TimeoutModule from './Main/Functions/timeoutUtils.js';
+const { TimeoutUtils } = TimeoutModule;
 const timeouts = new TimeoutUtils(bot);
 bot.timeouts = timeouts;
   
 //Punishment Utilities
-import { PunishmentUtils } from './Main/Functions/punishmentUtils.js';
+import PunishmentModule from './Main/Functions/punishmentUtils.js';
+const { PunishmentUtils } = PunishmentModule;
 const punishments = new PunishmentUtils(bot);
 bot.punishments = punishments;
 

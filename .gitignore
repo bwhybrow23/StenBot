@@ -7,7 +7,7 @@ node_modules/
 .env.test
 
 # Stuff
-Main/settings.js
+Main/settings.json
 Relevant-Info.txt
 StenBot Trello.url
 StenBot.zip
