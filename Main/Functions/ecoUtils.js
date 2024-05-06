@@ -1,4 +1,4 @@
-import * as Economy from '../Models/economy.js';
+import Economy from '../Models/economy.js';
 
 const createUser = async (userid, balance) => {
   const user = await new Economy({

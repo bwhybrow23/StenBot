@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { SlashCommandBuilder } from '@discordjs/builders';
-import * as userUtils from '../../Main/Functions/userUtils.js';
+import userUtils from '../../Main/Functions/userUtils.js';
 import Discord from 'discord.js';
 import fetch from 'node-fetch';
 

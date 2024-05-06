@@ -1,5 +1,5 @@
 //Needed stuff
-import * as User from '../Models/user.js';
+import User from '../Models/user.js';
 
 /**
  * Create a user in the database

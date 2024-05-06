@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import * as Punishment from '../../Main/Models/punishment.js';
+import Punishment from '../../Main/Models/punishment.js';
 
 export default {
   data: new SlashCommandBuilder()

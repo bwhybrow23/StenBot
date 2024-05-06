@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import fs from 'fs';
 import Punishment from '../../Models/punishment.js';
 import defaultConfig from '../../../Data/Global/defaultConfig.js';
 

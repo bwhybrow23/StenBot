@@ -1,4 +1,4 @@
-import * as checker from 'is-url';
+import checker from 'is-url';
 
 export default {
   name: 'messageUpdate',

@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import path from 'path';
-import * as fs from 'fs';
+import fs from 'fs';
 import moment from 'moment';
 
 //__dirname

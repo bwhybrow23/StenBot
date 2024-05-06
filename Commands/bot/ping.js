@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
 import Discord from 'discord.js';
-import * as fs from 'fs';
+import fs from 'fs';
 const packageJSON = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 const botData = JSON.parse(fs.readFileSync('./Data/Global/bot-data.json', 'utf8'));
 

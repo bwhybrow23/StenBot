@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import * as bot from '../../app.js';
+import bot from '../../app.js';
 import fs from 'fs';
 
 const settings = JSON.parse(fs.readFileSync('./Main/settings.json', 'utf8'));

@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import * as ecoUtils from '../../Main/Functions/ecoUtils.js';
+import ecoUtils from '../../Main/Functions/ecoUtils.js';
 
 export default {
   data: new SlashCommandBuilder()

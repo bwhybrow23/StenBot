@@ -1,5 +1,5 @@
 import { ModalBuilder, TextInputBuilder, ActionRowBuilder, ButtonBuilder } from 'discord.js';
-import * as reportUtils from '../../Functions/reportUtils.js';
+import reportUtils from '../../Functions/reportUtils.js';
 
 export default {
   name: 'interactionCreate',

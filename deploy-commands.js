@@ -1,8 +1,9 @@
 import { REST } from '@discordjs/rest';
 import { Routes } from 'discord-api-types/v10';
 import { Collection } from 'discord.js';
+import fs from 'fs';
 
-import settings from './Main/settings.js';
+const settings = JSON.parse(fs.readFileSync('./Main/settings.json', 'utf8'));
 
 let token;
 let bot = {};

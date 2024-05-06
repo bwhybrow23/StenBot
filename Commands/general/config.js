@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 import { SlashCommandBuilder } from '@discordjs/builders';
 import { PermissionFlagsBits } from 'discord-api-types/v10';
-import * as format from 'string-template';
+import format from 'string-template';
 import defaultConfig from '../../Data/Global/defaultConfig.js';
 
 export default {

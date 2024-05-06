@@ -4,7 +4,7 @@
  *
  */
 import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
-import * as fs from 'fs';
+import fs from 'fs';
 import mongoose from 'mongoose';
 
 const settings = JSON.parse(fs.readFileSync('./Main/settings.json', 'utf8'));
@@ -24,14 +24,14 @@ bot.log = logUtilModule;
 bot.settings = settings;
   
 //Embed Functions
-import * as embedUtils from './Main/Functions/embedUtils.js';
+import embedUtils from './Main/Functions/embedUtils.js';
 bot.createEmbed = embedUtils.createEmbed;
 bot.noPermsEmbed = embedUtils.noPermsEmbed;
 bot.helpEmbed = embedUtils.helpEmbed;
 bot.eventEmbed = embedUtils.eventEmbed;
   
 //Event Functions
-import * as efunctions from './Main/Functions/eventUtils.js';
+import efunctions from './Main/Functions/eventUtils.js';
 bot.efunctions = efunctions;
   
 //Timeout Utilities
@@ -47,7 +47,7 @@ const punishments = new PunishmentUtils(bot);
 bot.punishments = punishments;
 
 //General Utilities
-import * as utilities from './Main/Functions/utilities.js';
+import utilities from './Main/Functions/utilities.js';
 bot.utils = utilities;
   
 /**
@@ -123,7 +123,7 @@ mongoose.connect(connectionURL).then(() => {
 }).catch(error => bot.log.post('error', `MongoDB connection unsuccessful: ${error}`));
   
 //Globally
-import * as mutils from './Main/Functions/mongoUtils.js';
+import mutils from './Main/Functions/mongoUtils.js';
 bot.mutils = mutils;
   
 /**

@@ -1,5 +1,5 @@
 import Discord from 'discord.js';
-import * as fs from 'fs';
+import fs from 'fs';
 import format from 'string-template';
 const botData = JSON.parse(fs.readFileSync('./Data/Global/bot-data.json', 'utf8'));
 

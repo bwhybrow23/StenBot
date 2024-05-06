@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import fs from 'fs';
 const botData = JSON.parse(fs.readFileSync('./Data/Global/bot-data.json', 'utf8'));
 
 export default {

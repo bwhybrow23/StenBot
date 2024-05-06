@@ -1,5 +1,5 @@
-import * as Guild from '../Models/guild.js';
-import * as UserBlacklist from '../Models/userblacklist.js';
+import Guild from '../Models/guild.js';
+import UserBlacklist from '../Models/userblacklist.js';
 
 /** 
   GUILD FUNCTIONS
