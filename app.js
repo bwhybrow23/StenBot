@@ -118,7 +118,7 @@ const connectionURL = `mongodb://${mongo.user}:${mongo.password}@${mongo.host}:$
 bot.log.post('info', `Creating MongoDB connection at ${mongo.host}:${mongo.port}`);
 
 mongoose.set('strictQuery', false);
-mongoose.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+mongoose.connect(connectionURL).then(() => {
   bot.log.post('success', 'MongoDB connection successful');
 }).catch(error => bot.log.post('error', `MongoDB connection unsuccessful: ${error}`));
   
@@ -137,6 +137,11 @@ import cors from 'cors';
 import path from 'path';
 const port = bot.settings.options.apiPort;
 import { renderFile } from 'ejs';
+import { readdir } from 'fs/promises';
+
+//__dirname
+import { fileURLToPath } from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
   
 //Middleware
 app.use(express.json());
@@ -156,10 +161,10 @@ app.listen(port, () => {
   bot.log.post('success', `Webserver server started on port ${port}`);
 });
   
-//Routers
+// Routers
 const loadRouters = async () => {
   try {
-    const files = await fs.readdir(path.join(__dirname, './Main/Routers'));
+    const files = await readdir(path.join(__dirname, './Main/Routers'));
     files.forEach(async (file) => {
       if (file.split('.')[1] === 'js') {
         const router = await import(`./Main/Routers/${file}`);
