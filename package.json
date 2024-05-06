@@ -1,6 +1,6 @@
 {
   "name": "stenbot",
-  "version": "4.0.0",
+  "version": "3.2.0",
   "type": "module",
   "description": "StenBot is a free to use public Discord bot made by Ben Whybrow (Stentorian)",
   "main": "app.js",
