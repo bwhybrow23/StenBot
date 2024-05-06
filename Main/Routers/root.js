@@ -1,10 +1,11 @@
 import express from 'express';
 const router = express.Router();
 import * as bot from '../../app.js';
+import fs from 'fs';
 
 const settings = JSON.parse(fs.readFileSync('./Main/settings.json', 'utf8'));
-const botData = JSON.parse(fs.readFileSync('../../Data/Global/bot-data.json', 'utf8'));
-const packageJSON = JSON.parse(fs.readFileSync('../../package.json', 'utf8'));
+const botData = JSON.parse(fs.readFileSync('./Data/Global/bot-data.json', 'utf8'));
+const packageJSON = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 
 // MAIN WEBSITE
 router.get('/', (req, res) => {
