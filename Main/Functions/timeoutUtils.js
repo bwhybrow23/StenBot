@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-case-declarations */
 /* eslint-disable no-async-promise-executor */
-import * as Timeout from '../Models/timeouts.js';
+import Timeout from '../Models/timeouts.js';
 import moment from 'moment';
 
 class TimeoutUtils {

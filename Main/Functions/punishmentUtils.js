@@ -1,7 +1,7 @@
 /* eslint-disable no-async-promise-executor */
-import * as Punishment from '../Models/punishment.js';
-import * as moment from 'moment';
-import * as ms from 'ms';
+import Punishment from '../Models/punishment.js';
+import moment from 'moment';
+import ms from 'ms';
 
 /** Punishment Logs
  * 
