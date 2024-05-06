@@ -1,10 +1,13 @@
-module.exports = {
+import fs from 'fs';
+import Punishment from '../../Models/punishment.js';
+import defaultConfig from '../../../Data/Global/defaultConfig.js';
+
+const botData = JSON.parse(fs.readFileSync('./Data/Global/bot-data.json', 'utf8'));
+
+export default {
   name: 'guildCreate',
   once: false,
   async execute(bot, guild) {
-
-    const fs = require('fs');
-    const Punishment = require('../../Models/punishment.js');
 
     let gOwner = await guild.fetchOwner();
 
@@ -21,7 +24,6 @@ module.exports = {
        * MONGO STORAGE 
        * 
        */
-      let defaultConfig = require('../../../Data/Global/defaultConfig.js');
       defaultConfig.info.id = guild.id;
       defaultConfig.info.name = guild.name;
       defaultConfig.info.owner_id = guild.ownerId;
@@ -53,10 +55,9 @@ module.exports = {
     }
 
     //Update bot-data.json
-    let botdata = require('../../../Data/Global/bot-data.json');
-    botdata.stats.totalGuilds = bot.guilds.cache.size;
-    botdata.stats.totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
-    fs.writeFileSync('./Data/Global/bot-data.json', JSON.stringify(botdata, null, 4), (err) => {
+    botData.stats.totalGuilds = bot.guilds.cache.size;
+    botData.stats.totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
+    fs.writeFileSync('./Data/Global/bot-data.json', JSON.stringify(botData, null, 4), (err) => {
       if (err) return bot.log.post('error', err);
     });
 

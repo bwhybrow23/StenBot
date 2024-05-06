@@ -332,7 +332,7 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
   });
 };
 
-module.exports = {
+export default {
   createEmbed,
   noPermsEmbed,
   helpEmbed,

@@ -1,4 +1,4 @@
-const Economy = require('../Models/economy');
+import Economy from '../Models/economy.js';
 
 const createUser = async (userid, balance) => {
   const user = await new Economy({
@@ -35,7 +35,7 @@ const updateUser = async (userid, balance) => {
   return user;
 };
 
-module.exports = {
+export default {
   createUser,
   getUser,
   updateUser

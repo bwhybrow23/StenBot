@@ -1,6 +1,7 @@
-const { ModalBuilder, TextInputBuilder, ActionRowBuilder, ButtonBuilder } = require('discord.js');
+import { ModalBuilder, TextInputBuilder, ActionRowBuilder, ButtonBuilder } from 'discord.js';
+import reportUtils from '../../Functions/reportUtils.js';
 
-module.exports = {
+export default {
   name: 'interactionCreate',
   once: false,
   async execute(bot, interaction) {
@@ -111,8 +112,6 @@ module.exports = {
       interaction.showModal(bugModal);
     }
 
-    //Modals
-    const reportUtils = require('../../Functions/reportUtils.js');
     //Date to readable format
     const formatter = new Intl.DateTimeFormat('en', {
       timeStyle: 'medium',

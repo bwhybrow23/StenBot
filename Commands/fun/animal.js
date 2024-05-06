@@ -1,7 +1,10 @@
 /* eslint-disable no-case-declarations */
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
+import fetch from 'node-fetch';
+import nekos from 'nekos.life';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('animal')
     .setDescription('Get a random image of an animal from a list')
@@ -16,18 +19,14 @@ module.exports = {
   options: { permission: 'EVERYONE', enabled: true, cooldown: 10, guildOnly: false },
   run: async (bot, interaction) => {
 
-    const Discord = require('discord.js');
-    const fetch = require('node-fetch');
-
     let animal = interaction.options.getSubcommand();
     let url;
 
-    const nekos = require('nekos.life');
     const neko = new nekos();
 
     // Fetch function
     async function apiFetch(action) {
-      await neko.sfw[action]()
+      await neko[action]()
         .then(data => url = data.url);
     }
 

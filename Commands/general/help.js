@@ -1,6 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('help')
     .setDescription('Returns a list of commands, or a specific command\'s information.')
@@ -15,7 +16,7 @@ module.exports = {
   example: 'eco',
   options: { permission: 'EVERYONE', enabled: true, guildOnly: false },
   run: async (bot, interaction) => {
-    const Discord = require('discord.js');
+
     let prefix = '/';
 
     //Capitalize function

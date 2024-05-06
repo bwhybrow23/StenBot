@@ -1,6 +1,8 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
+import fetch from 'node-fetch';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('8ball').setDescription('Ask a question to the magic 8 ball!')
     .addStringOption(option => option.setName('question').setDescription('The question to ask the magic 8 ball.').setRequired(true)),
@@ -9,9 +11,6 @@ module.exports = {
   example: 'Will I ever stop losing the game?',
   options: { permission: 'EVERYONE', enabled: true, cooldown: 5, guildOnly: false },
   run: async (bot, interaction) => {
-
-    const Discord = require('discord.js');
-    const fetch = require('node-fetch');
 
     let question = interaction.options.getString('question');
 

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const guildSchema = new mongoose.Schema({
   info: {
@@ -118,4 +118,5 @@ const guildSchema = new mongoose.Schema({
 });
 
 const Guild = mongoose.model('Guild', guildSchema);
-module.exports = Guild;
+
+export default Guild;

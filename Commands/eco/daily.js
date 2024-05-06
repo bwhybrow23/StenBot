@@ -1,6 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import ecoUtils from '../../Main/Functions/ecoUtils.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('daily').setDescription('Claim your daily reward!'),
   category: 'eco',
@@ -8,8 +9,6 @@ module.exports = {
   example: '',
   options: { permission: 'EVERYONE', enabled: false, cooldown: 60, guildOnly: false },
   run: async (bot, interaction) => {
-
-    const ecoUtils = require('../../Main/Functions/ecoUtils');
 
     const person = interaction.user;
 

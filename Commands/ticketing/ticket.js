@@ -1,8 +1,10 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { ChannelType } = require('discord-api-types/v10');
-const Discord = require('discord.js');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { ChannelType } from 'discord-api-types/v10';
+import Discord from 'discord.js';
+import format from 'string-template';
+import eventFunctions from '../../Main/Functions/eventUtils.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('ticket').setDescription('Create a ticket')
     .addStringOption(option => option.setName('reason').setDescription('The reason for the ticket.').setRequired(true)),
@@ -16,7 +18,6 @@ module.exports = {
 
     var reason = interaction.options.getString('reason');
 
-    var format = require('string-template');
     var tnum = Math.floor(Math.random() * 1000001);
 
     function errsend(msg) {
@@ -130,8 +131,6 @@ module.exports = {
               });
 
               //Check if logging enabled
-              const eventFunctions = require('../../Main/Functions/eventUtils.js');
-
               if (config.logging.enabled) {
                 if (eventFunctions.checkChannel(config.logging.channel, bot)) {
                   interaction.guild.channels.cache.get(config.logging.channel).send({

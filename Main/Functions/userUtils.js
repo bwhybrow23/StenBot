@@ -1,5 +1,5 @@
 //Needed stuff
-const User = require('../Models/user');
+import User from '../Models/user.js';
 
 /**
  * Create a user in the database
@@ -114,7 +114,7 @@ const genAuthToken = async function() {
 };
 
 
-module.exports = {
+export default {
   createUser,
   getUser,
   updateUser,

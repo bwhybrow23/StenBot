@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
+import Discord from 'discord.js';
+
 const playerReport = (bot, reObj, rObj, gObj, reason, evidence, rDate) => {
-  const Discord = require('discord.js');
-  
   return new Promise((resolve, reject) => {
   
     /* Passed Objects
@@ -27,8 +27,6 @@ const playerReport = (bot, reObj, rObj, gObj, reason, evidence, rDate) => {
 };
   
 const serverReport = (bot, reObj, gObj, reason, evidence, rDate) => {
-  const Discord = require('discord.js');
-  
   return new Promise((resolve, reject) => {
   
     /* Passed Objects
@@ -53,8 +51,6 @@ const serverReport = (bot, reObj, gObj, reason, evidence, rDate) => {
 };
   
 const bugReport = (bot, reObj, gObj, info, steps, evidence, rDate) => {
-  const Discord = require('discord.js');
-  
   return new Promise((resolve, reject) => {
   
     /* Passed Objects
@@ -79,7 +75,7 @@ const bugReport = (bot, reObj, gObj, info, steps, evidence, rDate) => {
   });
 };
   
-module.exports = {
+export default {
   playerReport,
   serverReport,
   bugReport

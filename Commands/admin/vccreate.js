@@ -1,7 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionFlagsBits, ChannelType } = require('discord-api-types/v10');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { PermissionFlagsBits, ChannelType } from 'discord-api-types/v10';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('vccreate').setDescription('Create a voice channel')
     .addStringOption(option => option.setName('name').setDescription('The name of the channel you want to create').setRequired(true))

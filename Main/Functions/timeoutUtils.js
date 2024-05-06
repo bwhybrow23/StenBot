@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-case-declarations */
 /* eslint-disable no-async-promise-executor */
-const Timeout = require('../Models/timeouts');
-const moment = require('moment');
+import Timeout from '../Models/timeouts.js';
+import moment from 'moment';
 
 class TimeoutUtils {
   constructor(bot) {
@@ -291,6 +291,6 @@ class TimeoutUtils {
 
 }
 
-module.exports = {
+export default {
   TimeoutUtils
 };

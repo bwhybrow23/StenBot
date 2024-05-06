@@ -1,6 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { exec } from 'child_process';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('bash').setDescription('Runs a command in a bash terminal from within StenBot.')
     .addStringOption(option => option.setName('command').setDescription('The command to run').setRequired(true)),
@@ -18,7 +19,6 @@ module.exports = {
     let input = interaction.options.getString('command');
 
     //Begin execution of command
-    const exec = require('child_process').exec;
     let StartTime = Date.now();
     let date = new Date();
     await interaction.reply('Getting results...');

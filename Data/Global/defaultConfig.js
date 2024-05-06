@@ -36,4 +36,4 @@ const defaultConfig = {
   }
 };
 
-module.exports = defaultConfig;
+export default defaultConfig;

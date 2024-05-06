@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   name: 'guildBanRemove',
   once: false,
   async execute(bot, guild, user) {

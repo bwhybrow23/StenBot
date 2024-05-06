@@ -1,7 +1,9 @@
 /* eslint-disable no-case-declarations */
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
+import nekos from 'nekos.life';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('action')
     .setDescription('Do various actions such as hug or kiss to yourself or another person')
@@ -43,9 +45,6 @@ module.exports = {
   options: { permission: 'EVERYONE', enabled: true, cooldown: 3, guildOnly: true },
   run: async (bot, interaction) => {
 
-    const Discord = require('discord.js');
-
-    const nekos = require('nekos.life');
     const neko = new nekos();
 
     const subc = interaction.options.getSubcommand();
@@ -244,7 +243,7 @@ module.exports = {
 
     // Fetch function
     async function apiFetch(action) {
-      await neko.sfw[action]()
+      await neko[action]()
         .then(data => url = data.url);
     }
   },

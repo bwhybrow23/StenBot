@@ -1,11 +1,12 @@
-module.exports = {
+import Discord from 'discord.js';
+import fs from 'fs';
+const botData = JSON.parse(fs.readFileSync('./Data/Global/bot-data.json', 'utf8'));
+
+export default {
   name: 'interactionCreate',
   once: false,
   async execute(bot, interaction) {
-  
-    const Discord = require('discord.js');
-    const fs = require('fs');
-  
+
     //Check if interaction exists and if it's a command
     if (!interaction) return;
   
@@ -72,7 +73,6 @@ module.exports = {
   
     //Log to stats json
     function logToStats(cmdName, cmdCategory) {
-      let botData = require('../../../Data/Global/bot-data.json');
       botData.stats.commands[cmdCategory][cmdName]++;
       botData.stats.commands[cmdCategory].total++;
       botData.stats.commands.total++;

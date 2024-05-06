@@ -1,6 +1,6 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('ship').setDescription('Calculate the love between two people.')
     .addStringOption(option => option.setName('person1').setDescription('The first person to ship.').setRequired(true))

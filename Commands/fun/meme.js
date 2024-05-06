@@ -1,16 +1,15 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const Discord = require('discord.js');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
+import fetch from 'node-fetch';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('meme').setDescription('Generate a random Reddit meme.'),
   category: 'fun',
   usage: '',
   example: '',
-  options: { permission: 'EVERYONE', enabled: true, cooldown: 2, guildOnly: false },
+  options: { permission: 'EVERYONE', enabled: false, cooldown: 2, guildOnly: false },
   run: async (bot, interaction) => {
-
-    let fetch = require('node-fetch');
 
     let meme;
     await fetch('https://meme-api.herokuapp.com/gimme')

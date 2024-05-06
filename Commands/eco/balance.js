@@ -1,6 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import ecoUtils from '../../Main/Functions/ecoUtils.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('balance').setDescription('Check yours or another user\'s balance.')
     .addUserOption(option => option.setName('user').setDescription('The user to check the balance of.')),
@@ -9,8 +10,6 @@ module.exports = {
   example: '@Steve#1234',
   options: { permission: 'EVERYONE', aliases: ['bal', 'money'], enabled: true, cooldown: 5, guildOnly: false },
   run: async (bot, interaction) => {
-
-    const ecoUtils = require('../../Main/Functions/ecoUtils');
 
     let person = interaction.options.getUser('user') || interaction.user;
 

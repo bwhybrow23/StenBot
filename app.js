@@ -3,10 +3,12 @@
  * Definitions
  *
  */
-const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js');
-const settings = require('./Main/settings.json');
-const fs = require('fs');
-const mongoose = require('mongoose');
+import { Client, Collection, GatewayIntentBits, Partials } from 'discord.js';
+import fs from 'fs';
+import mongoose from 'mongoose';
+
+const settings = JSON.parse(fs.readFileSync('./Main/settings.json', 'utf8'));
+
 const bot = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildModeration, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildPresences, GatewayIntentBits.DirectMessages], partials: [Partials.User, Partials.Message, Partials.Channel, Partials.ThreadMember, Partials.GuildMember] });
   
 /**
@@ -15,39 +17,37 @@ const bot = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.G
    *
    */
 //Logger
-const logUtils = require('./Main/Functions/logUtils.js');
-bot.log = logUtils;
+import logUtilModule from './Main/Functions/logUtils.js';
+bot.log = logUtilModule;
   
 //Settings File
 bot.settings = settings;
   
 //Embed Functions
-const embedUtils = require('./Main/Functions/embedUtils.js');
+import embedUtils from './Main/Functions/embedUtils.js';
 bot.createEmbed = embedUtils.createEmbed;
 bot.noPermsEmbed = embedUtils.noPermsEmbed;
 bot.helpEmbed = embedUtils.helpEmbed;
 bot.eventEmbed = embedUtils.eventEmbed;
   
 //Event Functions
-const efunctions = require('./Main/Functions/eventUtils.js');
+import efunctions from './Main/Functions/eventUtils.js';
 bot.efunctions = efunctions;
   
 //Timeout Utilities
-const {
-  TimeoutUtils
-} = require('./Main/Functions/timeoutUtils');
+import TimeoutModule from './Main/Functions/timeoutUtils.js';
+const { TimeoutUtils } = TimeoutModule;
 const timeouts = new TimeoutUtils(bot);
 bot.timeouts = timeouts;
   
 //Punishment Utilities
-const {
-  PunishmentUtils
-} = require('./Main/Functions/punishmentUtils.js');
+import PunishmentModule from './Main/Functions/punishmentUtils.js';
+const { PunishmentUtils } = PunishmentModule;
 const punishments = new PunishmentUtils(bot);
 bot.punishments = punishments;
 
 //General Utilities
-const utilities = require('./Main/Functions/utilities.js');
+import utilities from './Main/Functions/utilities.js';
 bot.utils = utilities;
   
 /**
@@ -61,8 +61,10 @@ bot.cooldowns = new Collection();
 bot.categories = fs.readdirSync('./Commands/');
 bot.commandsArray = [];
   
-require('./Main/Handlers/commands.js')(bot);
-require('./Main/Handlers/events.js')(bot);
+import { commandHandler } from './Main/Handlers/commands.js';
+await commandHandler(bot);
+import { eventHandler } from './Main/Handlers/events.js';
+await eventHandler(bot);
   
 /**
    *
@@ -116,12 +118,12 @@ const connectionURL = `mongodb://${mongo.user}:${mongo.password}@${mongo.host}:$
 bot.log.post('info', `Creating MongoDB connection at ${mongo.host}:${mongo.port}`);
 
 mongoose.set('strictQuery', false);
-mongoose.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+mongoose.connect(connectionURL).then(() => {
   bot.log.post('success', 'MongoDB connection successful');
 }).catch(error => bot.log.post('error', `MongoDB connection unsuccessful: ${error}`));
   
 //Globally
-const mutils = require('./Main/Functions/mongoUtils');
+import mutils from './Main/Functions/mongoUtils.js';
 bot.mutils = mutils;
   
 /**
@@ -129,11 +131,17 @@ bot.mutils = mutils;
    * API & WEBSITE
    *
    */
-const express = require('express');
+import express from 'express';
 const app = express();
-const cors = require('cors');
-const path = require('path');
+import cors from 'cors';
+import path from 'path';
 const port = bot.settings.options.apiPort;
+import { renderFile } from 'ejs';
+import { readdir } from 'fs/promises';
+
+//__dirname
+import { fileURLToPath } from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
   
 //Middleware
 app.use(express.json());
@@ -144,26 +152,34 @@ app.use(cors());
   
 app.use('/assets', express.static('Main/Website/assets'));
 app.set('views', path.join(__dirname, 'Main/Website/views'));
-app.engine('html', require('ejs').renderFile);
+app.engine('html', (filePath, options, callback) => {
+  renderFile(filePath, options, callback);
+})
 app.set('view engine', 'html');
   
 app.listen(port, () => {
   bot.log.post('success', `Webserver server started on port ${port}`);
 });
   
-//Routers
-fs.promises.readdir(path.join(__dirname, './Main/Routers'))
-  .then(files => {
-    files.forEach(file => {
+// Routers
+const loadRouters = async () => {
+  try {
+    const files = await readdir(path.join(__dirname, './Main/Routers'));
+    files.forEach(async (file) => {
       if (file.split('.')[1] === 'js') {
-        let router = require(`./Main/Routers/${file}`);
-        app.use(router);
+        const router = await import(`./Main/Routers/${file}`);
+        app.use(router.default);
       }
     });
-  });
+  } catch (error) {
+    console.error('Error loading routers:', error);
+  }
+};
+
+loadRouters();
   
 //EXPORT BOT MODULE (DONT PUT ANYTHING BELOW THIS)
-module.exports = bot;
+export default bot;
   
 /**
    *

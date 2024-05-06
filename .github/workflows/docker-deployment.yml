@@ -2,10 +2,12 @@
 
 name: Docker Deployment
 
-on:
-  push: 
-    branches:
-      - 'master'
+# on:
+#   push: 
+#     branches:
+#       - 'master'
+on: 
+  workflow_dispatch
 
 jobs: 
   redeploy: 

@@ -21,7 +21,7 @@ var checkChannel = (id, client) => {
   }
 };
 
-module.exports = {
+export default {
   compare,
   checkChannel
 };

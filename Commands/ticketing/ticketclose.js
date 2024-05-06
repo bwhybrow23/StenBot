@@ -1,6 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import eventFunctions from '../../Main/Functions/eventUtils.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('ticketclose').setDescription('Close an ongoing ticket'),
   category: 'ticketing',
@@ -10,7 +11,6 @@ module.exports = {
   run: async (bot, interaction) => {
 
     const config = await bot.mutils.getGuildById(interaction.guild.id);
-    const eventFunctions = require('../../Main/Functions/eventUtils.js');
 
     if (interaction.channel.parent.name === 'Tickets') {
       if (interaction.channel.name.startsWith('ticket-')) {

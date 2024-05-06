@@ -1,8 +1,10 @@
 /* eslint-disable no-case-declarations */
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionFlagsBits } = require('discord-api-types/v10');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { PermissionFlagsBits } from 'discord-api-types/v10';
+import format from 'string-template';
+import defaultConfig from '../../Data/Global/defaultConfig.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('config').setDescription('Configure StenBot to your liking!')
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
@@ -86,8 +88,6 @@ module.exports = {
   options: { permission: 'EVERYONE', enabled: true, cooldown: 0, guildOnly: true },
   run: async (bot, interaction) => {
 
-    const format = require('string-template');
-
     if (interaction.member.permissions.has('ADMINISTRATOR') === false) {
       return bot.noPermsEmbed(`${interaction.guild.name}`, bot)
         .then((embed) => interaction.reply({ embeds: embed }))
@@ -97,7 +97,6 @@ module.exports = {
     //Find config or create if one doesn't exist
     let config = await bot.mutils.getGuildById(interaction.guild.id);
     if(!config) async() => {
-      let { defaultConfig } = require('../../../Data/Global/defaultConfig.js');
       defaultConfig.info.id = interaction.guild.id;
       defaultConfig.info.name = interaction.guild.name;
       defaultConfig.info.owner_id = interaction.guild.ownerId;

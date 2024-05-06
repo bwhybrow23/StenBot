@@ -1,11 +1,10 @@
-const Guild = require('../Models/guild');
-const UserBlacklist = require('../Models/userblacklist');
+import Guild from '../Models/guild.js';
+import UserBlacklist from '../Models/userblacklist.js';
 
 /** 
-
-GUILD FUNCTIONS
-
+  GUILD FUNCTIONS
 **/
+
 //Create a new guild in the database
 const createGuild = async (data) => {
   const guild = new Guild(data);
@@ -143,7 +142,7 @@ const checkBlacklist = async (user) => {
   return data;
 };
 
-module.exports = {
+export default {
   createGuild,
   getAllGuilds,
   getGuildById,

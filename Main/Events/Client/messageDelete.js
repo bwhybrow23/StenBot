@@ -1,10 +1,12 @@
-module.exports = {
+import util from 'util';
+import { readdir } from 'fs';
+
+export default {
   name: 'messageDelete',
   once: false,
   async execute(bot, message) {
 
-    const util = require('util');
-    const readdir = util.promisify(require('fs').readdir);
+    const readdirPromisify = util.promisify(readdir);
 
     if (!message) return;
 
@@ -18,7 +20,7 @@ module.exports = {
       if (config.logging.level === 'low' || config.logging.level === 'medium' || config.logging.level === 'high') {
         if (bot.efunctions.checkChannel(config.logging.channel, bot) === true) {
           if (message.author.bot) return;
-          let files = await readdir('./Commands/');
+          let files = await readdirPromisify('./Commands/');
           let possiblefilename = message.content.split(' ')[0].slice(bot.settings.prefix.length) + '.js';
           if (files.includes(possiblefilename)) return;
 

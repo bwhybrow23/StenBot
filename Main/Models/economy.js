@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const economySchema = new mongoose.Schema({
 
@@ -15,4 +15,5 @@ const economySchema = new mongoose.Schema({
 });
 
 const Economy = mongoose.model('Economy', economySchema);
-module.exports = Economy;
+
+export default Economy;

@@ -1,21 +1,22 @@
-module.exports = {
+import Discord from 'discord.js';
+import fs from 'fs';
+import format from 'string-template';
+const botData = JSON.parse(fs.readFileSync('./Data/Global/bot-data.json', 'utf8'));
+
+export default {
   name: 'guildMemberRemove',
   once: false,
   async execute(bot, member) {
 
-    const Discord = require('discord.js');
     const config = await bot.mutils.getGuildById(member.guild.id);
     if (!config) return;
-    var format = require('string-template');
-    const fs = require('fs');
 
     if (member.user === bot.user) return;
 
     //Update bot-data.json
-    let botdata = require('../../../Data/Global/bot-data.json');
-    botdata.stats.totalGuilds = bot.guilds.cache.size;
-    botdata.stats.totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
-    fs.writeFileSync('./Data/Global/bot-data.json', JSON.stringify(botdata, null, 4), (err) => {
+    botData.stats.totalGuilds = bot.guilds.cache.size;
+    botData.stats.totalUsers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
+    fs.writeFileSync('./Data/Global/bot-data.json', JSON.stringify(botData, null, 4), (err) => {
       if (err) return bot.log.post('error', err);
     });
 

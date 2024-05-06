@@ -1,6 +1,7 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import nekos from 'nekos.life';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('neko').setDescription('See a randomly generated picture of a Neko, also referred to as a Catgirl.'),
   category: 'fun',
@@ -9,11 +10,10 @@ module.exports = {
   options: { permission: 'EVERYONE', enabled: true, cooldown: 3, guildOnly: false },
   run: async (bot, interaction) => {
 
-    const nekos = require('nekos.life');
     const neko = new nekos();
 
     let url;
-    await neko.sfw.neko()
+    await neko.neko()
       .then(data => url = data.url);
 
     const nekoEmbed = {

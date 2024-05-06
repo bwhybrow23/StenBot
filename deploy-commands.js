@@ -1,8 +1,7 @@
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v10');
-const { Collection } = require('discord.js');
+import { REST, Routes, Collection } from 'discord.js';
+import fs from 'fs';
 
-const settings = require('./Main/settings.json');
+const settings = JSON.parse(fs.readFileSync('./Main/settings.json', 'utf8'));
 
 let token;
 let bot = {};
@@ -10,11 +9,9 @@ bot.value = 'value';
 bot.commands = new Collection();
 bot.commandsArray = [];
 
-require('./Main/Handlers/commands.js')(bot);
-// console.log(bot.commandsArray);
+import { commandHandler } from './Main/Handlers/commands.js';
+await commandHandler(bot);
 
-
-// let commandsArray = JSON.parse(bot.commandsArray);
 let commandsArray = bot.commandsArray;
 
 //Check if in production or development
@@ -26,7 +23,7 @@ if(settings.mode === 'production') {
   token = settings.connections.devToken;
 }
 
-const rest = new REST({ version: '9' }).setToken(token);
+const rest = new REST().setToken(token);
 
 //Function for the magic
 (async () => {

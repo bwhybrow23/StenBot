@@ -1,6 +1,11 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
+import fs from 'fs';
 
-module.exports = {
+const packageJSON = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
+const botData = JSON.parse(fs.readFileSync('./Data/Global/bot-data.json', 'utf8'));
+
+export default {
   data: new SlashCommandBuilder()
     .setName('info').setDescription('Find out about all information related to the bot\'s connection to Discord.'),
   category: 'bot',
@@ -9,18 +14,14 @@ module.exports = {
   options: { permission: 'EVERYONE', aliases: ['ping', 'status', 'stats', 'uptime'], enabled: true, cooldown: 10, guildOnly: false },
   run: async (bot, interaction) => {
 
-    const Discord = require('discord.js');
-    const fs = require('fs');
-
     const memusage = JSON.parse(fs.readFileSync('./Data/Global/bot-data.json', 'utf8'));
-    const packageJSON = require('../../package.json');
 
     let ping = Math.floor(bot.ws.ping);
     let memUsed = Math.floor(memusage.info.memoryUsage);
     let uptime = new Date(process.uptime() * 1000).toISOString().substr(11, 8);
     let totalGuilds = bot.guilds.cache.size;
     let totalMembers = bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0);
-    let totalCommands = require('../../Data/Global/bot-data.json').stats.commands.total;
+    let totalCommands = botData.stats.commands.total;
 
     let embed = new Discord.EmbedBuilder()
       .setColor(4886754)

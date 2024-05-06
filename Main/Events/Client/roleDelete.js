@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   name: 'roleDelete',
   once: false,
   async execute(bot, role) {

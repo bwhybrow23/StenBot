@@ -1,6 +1,8 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import Discord from 'discord.js';
+import fetch from 'node-fetch';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('mcping').setDescription('Ping a Minecraft server to find out more information about it')
     .addStringOption(option => option.setName('server').setDescription('The server to ping.').setRequired(true)),
@@ -10,8 +12,6 @@ module.exports = {
   options: { permission: 'EVERYONE', aliases: ['mc'], enabled: true, cooldown: 5, guildOnly: false },
   run: async (bot, interaction) => {
 
-    const Discord = require('discord.js');
-    const fetch = require('node-fetch');
     const url = 'https://mcapi.us/server/status?ip=';
 
     let address = interaction.options.getString('server').split(':');

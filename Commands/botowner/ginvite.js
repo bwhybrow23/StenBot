@@ -1,6 +1,6 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('ginvite').setDescription('Get an invite to a guild the bot is in.')
     .addStringOption(option => option.setName('guild').setDescription('The guild to get an invite to').setRequired(true)),

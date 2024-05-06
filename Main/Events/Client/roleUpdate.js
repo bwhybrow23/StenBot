@@ -1,10 +1,11 @@
-module.exports = {
+import fetch from 'node-fetch';
+
+export default {
   name: 'roleUpdate',
   once: false,
   async execute(bot, oldRole, newRole) {
 
     const ColorAPIURL = 'http://thecolorapi.com/id?format=json&hex=';
-    const fetch = require('node-fetch');
 
     let config = await bot.mutils.getGuildById(newRole.guild.id);
     if (!config) return;

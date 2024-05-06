@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const punishmentSchema = new mongoose.Schema({
   guildId: {
@@ -26,4 +26,5 @@ const punishmentSchema = new mongoose.Schema({
 });
 
 const Punishment = mongoose.model('Punishment', punishmentSchema);
-module.exports = Punishment;
+
+export default Punishment;

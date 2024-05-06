@@ -27,6 +27,6 @@ const permissionCheck = async (interaction, permission, bot) => {
 
   
 //Export Functions
-module.exports = {
+export default {
   permissionCheck
 };

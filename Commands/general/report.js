@@ -1,15 +1,14 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { ActionRowBuilder, ButtonBuilder } from 'discord.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('report').setDescription('Report a user, bug, or server to the StenBot Team to be investigated.'),
   category: 'general',
   usage: '',
   example: '',
-  options: { permission: 'EVERYONE', enabled: true, cooldown: 300, guildOnly: false },
+  options: { permission: 'EVERYONE', enabled: false, cooldown: 300, guildOnly: false },
   run: async (bot, interaction) => {
-
-    const { MessageActionRow, MessageButton } = require('discord.js');
 
     // Buttons
     const tRow = new ActionRowBuilder()

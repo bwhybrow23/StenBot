@@ -1,13 +1,14 @@
-module.exports = {
+export default {
   'env': {
-    'commonjs': true,
+    'es6': true,
     'es2021': true,
     'node': true
   },
   'extends': 'eslint:recommended',
   'parser': 'esprima',
   'parserOptions': {
-    'ecmaVersion': 'latest'
+    'ecmaVersion': 'latest',
+    'sourceType': 'module'
   },
   'rules': {
     'indent': [

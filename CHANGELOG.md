@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.2.0 - 06/05/2024
+### I'm back?
+* NPM updates
+* Fix any deprecated code from the aforementioned NPM updates
+* Migrated code to ES6
+* Fixed commands that had outdated APIs or were broken
+* Upgraded the logUtils to have better error handling if the command itself breaks (a fallback)
+* Disabled the `report` command as it is broken and will be re-written
+* Disabled the `lewd` command as the API is no longer available
+
 ## 3.1.0 - 02/05/2022
 ### FINAL UPDATE
 * NPM updates & clean-up
