@@ -7,7 +7,7 @@ export default {
   category: 'general',
   usage: '',
   example: '',
-  options: { permission: 'EVERYONE', enabled: true, cooldown: 300, guildOnly: false },
+  options: { permission: 'EVERYONE', enabled: false, cooldown: 300, guildOnly: false },
   run: async (bot, interaction) => {
 
     // Buttons

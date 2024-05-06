@@ -62,9 +62,9 @@ bot.categories = fs.readdirSync('./Commands/');
 bot.commandsArray = [];
   
 import { commandHandler } from './Main/Handlers/commands.js';
-commandHandler(bot);
+await commandHandler(bot);
 import { eventHandler } from './Main/Handlers/events.js';
-eventHandler(bot);
+await eventHandler(bot);
   
 /**
    *

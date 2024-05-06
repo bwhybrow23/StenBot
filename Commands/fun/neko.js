@@ -13,7 +13,7 @@ export default {
     const neko = new nekos();
 
     let url;
-    await neko.sfw.neko()
+    await neko.neko()
       .then(data => url = data.url);
 
     const nekoEmbed = {

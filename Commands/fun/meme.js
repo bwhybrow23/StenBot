@@ -8,7 +8,7 @@ export default {
   category: 'fun',
   usage: '',
   example: '',
-  options: { permission: 'EVERYONE', enabled: true, cooldown: 2, guildOnly: false },
+  options: { permission: 'EVERYONE', enabled: false, cooldown: 2, guildOnly: false },
   run: async (bot, interaction) => {
 
     let meme;

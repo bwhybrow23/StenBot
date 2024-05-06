@@ -37,6 +37,6 @@ export async function commandHandler(bot) {
     }
     console.log(table.toString());
   } catch (error) {
-    console.error('Error in commandHandler:', error);
+    console.error('Error in Command Handler:', error);
   }
 }

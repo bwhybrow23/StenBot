@@ -7,7 +7,7 @@ export default {
   category: 'fun',
   usage: '',
   example: '',
-  options: { permission: 'EVERYONE', enabled: true, cooldown: 3, guildOnly: true },
+  options: { permission: 'EVERYONE', enabled: false, cooldown: 3, guildOnly: true },
   run: async (bot, interaction) => {
 
     if (interaction.channel.nsfw === false) {
@@ -15,9 +15,9 @@ export default {
     }
 
     let url;
-    await fetch('http://api.nekos.fun:8080/api/lewd')
+    await fetch('https://nekos.life/api/v2/img/lewd')
       .then(res => res.json())
-      .then(json => url = json.image);
+      .then(json => url = json.url);
 
     const lewdEmbed = {
       'title': 'Here you go, you filthy animal:',
@@ -26,7 +26,7 @@ export default {
       },
       'color': bot.settings.color.yellow,
       'footer': {
-        'text': 'Powered by nekos.fun'
+        'text': 'Powered by nekos.life'
       }
     };
 

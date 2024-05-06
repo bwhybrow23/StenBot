@@ -243,7 +243,7 @@ export default {
 
     // Fetch function
     async function apiFetch(action) {
-      await neko.sfw[action]()
+      await neko[action]()
         .then(data => url = data.url);
     }
   },

@@ -1,6 +1,4 @@
-import { REST } from '@discordjs/rest';
-import { Routes } from 'discord-api-types/v10';
-import { Collection } from 'discord.js';
+import { REST, Routes, Collection } from 'discord.js';
 import fs from 'fs';
 
 const settings = JSON.parse(fs.readFileSync('./Main/settings.json', 'utf8'));
@@ -12,7 +10,7 @@ bot.commands = new Collection();
 bot.commandsArray = [];
 
 import { commandHandler } from './Main/Handlers/commands.js';
-commandHandler(bot);
+await commandHandler(bot);
 
 let commandsArray = bot.commandsArray;
 
@@ -25,7 +23,7 @@ if(settings.mode === 'production') {
   token = settings.connections.devToken;
 }
 
-const rest = new REST({ version: '9' }).setToken(token);
+const rest = new REST().setToken(token);
 
 //Function for the magic
 (async () => {
