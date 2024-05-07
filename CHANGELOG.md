@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.2.1 - 07/05/2024
+* Fixed the `report` command and re-enabled it
+* Fixed the `lewd` command and re-enabled it
+* Fixed the `rob` and `daily` commands and re-enabled them
+* Added purge function to the logUtils and make it remove any logs older than 60 days
+* NPM updates
+
 ## 3.2.0 - 06/05/2024
 ### I'm back?
 * NPM updates
@@ -10,7 +17,7 @@
 * Disabled the `report` command as it is broken and will be re-written
 * Disabled the `lewd` command as the API is no longer available
 
-## 3.1.0 - 02/05/2022
+## 3.1.0 - 02/05/2023
 ### FINAL UPDATE
 * NPM updates & clean-up
 * Fixed a problem where the wrong variable was used for blocking people with the "muted" role from reacting in a new channel

@@ -7,7 +7,7 @@ export default {
   category: 'eco',
   usage: '',
   example: '',
-  options: { permission: 'EVERYONE', enabled: false, cooldown: 60, guildOnly: false },
+  options: { permission: 'EVERYONE', enabled: true, cooldown: 60, guildOnly: false },
   run: async (bot, interaction) => {
 
     const person = interaction.user;
@@ -31,13 +31,14 @@ export default {
       let newBal = user.balance + reward;
       ecoUtils.updateUser(person.id, newBal).then(async () => {
         // Create a new daily for the user
-        await bot.timeouts.new(person.id, 'daily');
+        await bot.timeouts.new(person.id, 'daily')
+          .catch((error) => bot.log.post('error', error));
+        
         return bot.createEmbed('success', '', `You have claimed your daily reward of **${reward}**. Come back in 24 hours to claim it again!`, [], '', interaction)
           .then((embed) => interaction.reply({ embeds: embed }))
           .catch((error) => bot.log.post('error', error));
-      });
-    });
-
+      
+      })});
 
   }
 };

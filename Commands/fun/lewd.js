@@ -7,7 +7,7 @@ export default {
   category: 'fun',
   usage: '',
   example: '',
-  options: { permission: 'EVERYONE', enabled: false, cooldown: 3, guildOnly: true },
+  options: { permission: 'EVERYONE', enabled: true, cooldown: 3, guildOnly: true },
   run: async (bot, interaction) => {
 
     if (interaction.channel.nsfw === false) {
@@ -15,9 +15,10 @@ export default {
     }
 
     let url;
-    await fetch('https://nekos.life/api/v2/img/lewd')
+    await fetch('https://akaneko.cuteasfubuki.xyz/api/lewdneko')
       .then(res => res.json())
-      .then(json => url = json.url);
+      .then(json => url = json.url)
+      .then(url => { if(!url) return interaction.reply('An error occurred. Please try again.') });
 
     const lewdEmbed = {
       'title': 'Here you go, you filthy animal:',

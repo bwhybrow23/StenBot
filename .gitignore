@@ -1,13 +1,9 @@
 # Node
 node_modules/
-.npm
 
-# dotenv environment variables file
-.env
-.env.test
+# VSCode
+.vscode
+.vs
 
-# Stuff
-Main/settings.json
-Relevant-Info.txt
-StenBot Trello.url
-StenBot.zip
+# Settings
+settings.json

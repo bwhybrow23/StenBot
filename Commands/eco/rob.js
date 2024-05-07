@@ -8,7 +8,7 @@ export default {
   category: 'eco',
   usage: '<@USER>',
   example: '@Jessica#1391',
-  options: { permission: 'EVERYONE', enabled: false, guildOnly: true },
+  options: { permission: 'EVERYONE', enabled: true, guildOnly: true },
   run: async (bot, interaction) => {
 
     const robber = interaction.user;
@@ -73,7 +73,6 @@ export default {
         .then((embed) => interaction.reply({ embeds: embed }))
         .catch((error) => bot.log.post('error', error));
     }
-
 
   }
 };

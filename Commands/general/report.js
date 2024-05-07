@@ -7,7 +7,7 @@ export default {
   category: 'general',
   usage: '',
   example: '',
-  options: { permission: 'EVERYONE', enabled: false, cooldown: 300, guildOnly: false },
+  options: { permission: 'EVERYONE', enabled: true, cooldown: 300, guildOnly: false },
   run: async (bot, interaction) => {
 
     // Buttons
@@ -30,7 +30,7 @@ export default {
 
     //Interactive Version
     bot.createEmbed('warning', 'New StenBot Report', 'Please specify the type of report:\n`User, Server or Bug`', [], `${interaction.user.tag}`, interaction)
-      .then(embed => interaction.reply({ embeds: embed, components: [tRow] }))
+      .then(embed => interaction.reply({ embeds: embed, components: [tRow], ephemeral: false }))
       .catch(error => bot.log.post('error', error));
 
     //Edit message if no interaction after 10s

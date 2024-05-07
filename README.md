@@ -3,30 +3,27 @@
 
 <!-- Badges -->
 <p align="center">
-    <a href="https://shields.io/" target="_blank">
-        <img src="https://img.shields.io/github/languages/top/bwhybrow23/StenBot?color=brightgreenn" alt="Main Lang"/>
+  <a href="https://github.com/bwhybrow23" target="_blank">
+    <img src="https://img.shields.io/badge/GitHub-bwhybrow23-blue.svg?logo=github&logoColor=FFF" alt="GitHub"/>
   </a>
-     <a href="https://github.com/bwhybrow23" target="_blank">
-        <img src="https://img.shields.io/badge/GitHub-bwhybrow23-blue.svg?logo=github&logoColor=FFF" alt="GitHub"/>
-  </a>
-    <a href="http://discord.benwhybrow.com/" target="_blank">
+  <a href="http://discord.benwhybrow.com/" target="_blank">
     <img src="https://img.shields.io/discord/455782308293771264?color=blueviolet&label=Discord" alt="Discord" />
   </a>
-    <a href="https://www.codacy.com/gh/bwhybrow23/StenBot/dashboard?tm_source=github.com&amp;utm_medium=referral&amp;utm_content=bwhybrow23/StenBot&amp;utm_campaign=Badge_Grade">
-    <img src="https://app.codacy.com/project/badge/Grade/6fed3e02b701434cbe629c37e3c11f26"/></a>
+  <a href="https://www.codacy.com/gh/bwhybrow23/StenBot/dashboard?tm_source=github.com&amp;utm_medium=referral&amp;utm_content=bwhybrow23/StenBot&amp;utm_campaign=Badge_Grade">
+    <img src="https://app.codacy.com/project/badge/Grade/6fed3e02b701434cbe629c37e3c11f26"/>
+  </a>
 </p>
 
 <!-- Content -->
-## Hello
-This repository is the home of StenBot. It's where all its files are stored and where you can explore it all! If you do decide to modify or use the code, please follow the guidelines of the license (see below for more information) and do not claim this code as your own. :)
+## Welcome!
+Welcome to the GitHub repository for StenBot, a public Discord bot written in NodeJS. This bot is designed to be a multi-purpose bot with a variety of features. The bot is designed to be user-friendly and easy to use. The bot is also designed to be easy to host and run on your own server. However, if you would like to use the public version, you can invite the bot to your server using the links below.
 <br>
 <img src="https://github-readme-stats.vercel.app/api/pin/?username=bwhybrow23&repo=StenBot&theme=react">
 
 <!-- Inviting -->
 ## Inviting the Bot
-To invite the bot to your Discord server, please follow one of the below links. (The second one is there as a backup if any issues occur with the custom one.) 
+To invite the bot to your Discord server, please the below link. You can also invite the bot by heading to it's profile on Discord and clicking ["Add App"](https://i.imgur.com/WGlibRS.png)
 - [First Link](https://sbinvite.benwhybrow.com)
-- [Second Link](http://bit.ly/2MDLj7hh)
 > The help command is **/help** to get started or refer to the documentation section just below.
 
 <!-- Documentation -->
@@ -47,7 +44,6 @@ You can basically do whatever you want with the code, just don't be a dick. By t
 If you would like to contribute, please use your common sense. Make sure you submit working code and credit will be given. If there's an issue and you don't know how to fix it, use the [GitHub Issues](https://github.com/bwhybrow23/StenBot/issues) page on this repository so I can attempt to fix it myself. All feedback (negative or positive) is appreciated and can be given via the Issues page or via the Support links at the bottom of this ReadMe. 
 
 ## Donating
-
 You can also help me, the project out and future projects out by contributing by [buying me a "coffee"](http://buymeacoff.ee/benwhybrow).
 <br>
 Donations will help fund things like hosting but may also fund an occasional coffee whilst working on projects.
@@ -59,8 +55,7 @@ Donations will help fund things like hosting but may also fund an occasional cof
 
 <!-- Discussion & Support -->
 ## Discussion, Support and Issues
-
-Need support with this project, have found an issue or want to chat with others about contributing to the project?
+Need support with this project, have found an issue, or want to chat with others about contributing to the project?
 > Please check the project's issues page first for support & bugs!
 
 Not found what you need here?
