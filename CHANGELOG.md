@@ -3,6 +3,7 @@
 ## 3.2.1 - 07/05/2024
 * Fixed the `report` command and re-enabled it
 * Fixed the `lewd` command and re-enabled it
+* Fixed the `rob` and `daily` commands and re-enabled them
 
 ## 3.2.0 - 06/05/2024
 ### I'm back?
