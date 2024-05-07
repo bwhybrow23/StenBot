@@ -4,6 +4,7 @@
 * Fixed the `report` command and re-enabled it
 * Fixed the `lewd` command and re-enabled it
 * Fixed the `rob` and `daily` commands and re-enabled them
+* Added purge function to the logUtils and make it remove any logs older than 60 days
 
 ## 3.2.0 - 06/05/2024
 ### I'm back?

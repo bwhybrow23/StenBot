@@ -16,10 +16,16 @@ const bot = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.G
    * GLOBAL VALUES
    *
    */
-//Logger
+//Logging Functions
 import logUtilModule from './Main/Functions/logUtils.js';
 bot.log = logUtilModule;
-  
+//Purge logs older than 60 days on startup
+await bot.log.purge(60).then(() => bot.log.post('success', 'Logs purged successfully from the past 60 days')).catch((error) => bot.log.post('error', error));
+//Purge logs older than 60 days every 24 hours
+setInterval(async () => {
+  await bot.log.purge(60).then(() => bot.log.post('success', 'Logs purged successfully from the past 60 days')).catch((error) => bot.log.post('error', error));
+}, 86400000);
+
 //Settings File
 bot.settings = settings;
   
@@ -141,6 +147,7 @@ import { readdir } from 'fs/promises';
 
 //__dirname
 import { fileURLToPath } from 'url';
+import { time } from 'console';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
   
 //Middleware

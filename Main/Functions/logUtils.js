@@ -7,8 +7,6 @@ import moment from 'moment';
 import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-//Get the current time
-const date = new Date();
 //Convert to a readable format
 const formatter = new Intl.DateTimeFormat('en', {
   dateStyle: 'short',
@@ -126,7 +124,34 @@ const _toConsole = (type, color, message) => {
   });
 };
 
+//Purge all logs from before the specified amount of days
+const purge = (days) => {
+  return new Promise(async (resolve, reject) => {
+    fs.readdir(path.join(__dirname, '../../Data/Logs'), (error, files) => {
+      if (error) {
+        reject(error.message);
+      } else {
+        files.forEach(file => {
+          let fileTimestamp = file.split('.')[0];
+          let fileDate = moment(fileTimestamp, 'YYYY-MM-DD');
+          let currentDate = moment();
+          let diff = currentDate.diff(fileDate, 'days');
+
+          if (diff > days) {
+            fs.unlink(path.join(__dirname, `../../Data/Logs/${file}`), (error) => {
+              if (error) {
+                reject(error.message);
+              }
+            });
+          }
+        });
+        resolve('Logs purged');
+      }
+    });
+  });
+}
 
 export default {
-  post
+  post,
+  purge
 };
