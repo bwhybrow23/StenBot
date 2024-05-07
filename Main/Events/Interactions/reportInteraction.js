@@ -121,12 +121,12 @@ export default {
 
     if (interaction.customId === 'userModal') {
 
-      if (interaction.type != InteractionType.ModalSubmit) return;
+      if (interaction.type != 5) return;
 
       //User Report
       const rObj = bot.users.cache.get(interaction.fields.getTextInputValue('userId'));
       if (!rObj) {
-        interaction.editReply({ content: 'A user with this ID cannot be found. Please refer to [this guide](http://bit.ly/getdiscordid) for more information.', ephemeral: true });
+        interaction.reply({ content: 'A user with this ID cannot be found. Please refer to [this guide](http://bit.ly/getdiscordid) for more information.', ephemeral: true });
         return;
       }
 
@@ -143,13 +143,12 @@ export default {
 
     } else if (interaction.customId === 'serverModal') {
 
-      if (interaction.type != InteractionType.ModalSubmit) return;
+      if (interaction.type != 5) return;
 
       //Server Report
       const gObj = bot.guilds.cache.get(interaction.fields.getTextInputValue('serverId'));
       if (!gObj) {
-        interaction.deferReply();
-        interaction.followUp({ content: 'A user with this ID cannot be found. Please refer to [this guide](http://bit.ly/getdiscordid) for more information.', ephemeral: true });
+        interaction.reply({ content: 'A server with this ID cannot be found. Please refer to [this guide](http://bit.ly/getdiscordid) for more information.', ephemeral: true });
         return;
       }
 
@@ -166,7 +165,7 @@ export default {
 
     } else if (interaction.customId === 'bugModal') {
 
-      if (interaction.type != InteractionType.ModalSubmit) return;
+      if (interaction.type != 5) return;
 
       //Bug Report
       reportUtils.bugReport(bot, interaction.user, interaction.guild, interaction.fields.getTextInputValue('bugSummary'), interaction.fields.getTextInputValue('bugSteps'), interaction.fields.getTextInputValue('bugEvidence'), rDate)

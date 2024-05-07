@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.1 - 07/05/2024
+* Fixed the `report` command and re-enabled it
+
+
 ## 3.2.0 - 06/05/2024
 ### I'm back?
 * NPM updates
