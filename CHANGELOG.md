@@ -10,7 +10,7 @@
 * Disabled the `report` command as it is broken and will be re-written
 * Disabled the `lewd` command as the API is no longer available
 
-## 3.1.0 - 02/05/2022
+## 3.1.0 - 02/05/2023
 ### FINAL UPDATE
 * NPM updates & clean-up
 * Fixed a problem where the wrong variable was used for blocking people with the "muted" role from reacting in a new channel
