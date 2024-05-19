@@ -16,8 +16,8 @@ jobs:
       id: extract_changelog
       run: |
         # Extract the release title and remove 'Version ' prefix
-        title=${{ github.event.release.name }}
-        version=${title#Version }
+        title="${{ github.event.release.name }}"
+        version="${title#Version }"
         # Extract changelog for the current version
         changelog=$(awk "/## \\[${version}\\]/,/^## \\[/" CHANGELOG.md | sed '$d')
         # Format the changelog
