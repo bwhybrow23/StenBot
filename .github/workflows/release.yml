@@ -17,13 +17,18 @@ jobs:
       run: |
         version=${{ github.event.release.tag_name }}
         changelog=$(awk "/## \\[${version}\\]/,/^## \\[/" CHANGELOG.md | sed '$d')
-        formatted_changelog=$(echo "$changelog" | sed -e "s/## \\[${version}\\].*/**__Version ${version}__**\n/" -e "s/^### \\(.*\\)$/\n**\1**\n/g" -e "s/^- /* /" -e "/\*\*\\(Added\\|Changed\\|Fixed\\|Removed\\|Security\\|Deprecated\\)\*\*/i\\")
-        echo "::set-output name=changelog::$formatted_changelog"
+        formatted_changelog=$(echo "$changelog" | sed -e "s/## \\[${version}\\].*/**__Version ${version}__**\n/" -e "s/^### \\(.*\\)$/\n**\1**\n/g" -e "s/^- /* /" -e "s/\\*\*\\(Added\\|Changed\\|Fixed\\|Removed\\|Security\\|Deprecated\\)\\*\*/\\n\\0\\n/g")
+        echo "formatted_changelog=$formatted_changelog" >> $GITHUB_ENV
 
     - name: Post to Discord
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        CHANGELOG_CONTENT: ${{ env.formatted_changelog }}
       run: |
+        if [ -z "$CHANGELOG_CONTENT" ]; then
+          echo "No changelog content found."
+          exit 1
+        fi
         curl -H "Content-Type: application/json" \
-             -d "{\"content\": \"${{ steps.extract_changelog.outputs.changelog }}\"}" \
+             -d "{\"content\": \"$CHANGELOG_CONTENT\"}" \
              $DISCORD_WEBHOOK_URL
