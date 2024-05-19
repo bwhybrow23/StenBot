@@ -12,18 +12,46 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Display CHANGELOG.md
+      run: cat CHANGELOG.md
+
     - name: Extract Changelog
       id: extract_changelog
       run: |
-        version=${{ github.event.release.tag_name }}
-        changelog=$(awk "/## \\[${version}\\]/,/^## \\[/" CHANGELOG.md | sed '$d')
-        formatted_changelog=$(echo "$changelog" | sed -e "s/## \\[${version}\\].*/**__Version ${version}__**\n/" -e "s/^### \\(.*\\)$/\n**\1**\n/g" -e "s/^- /* /" -e "/\*\*\\(Added\\|Changed\\|Fixed\\|Removed\\|Security\\|Deprecated\\)\*\*/i\\")
-        echo "::set-output name=changelog::$formatted_changelog"
+        # Extract the release title and remove 'Version ' prefix
+        title="${{ github.event.release.name }}"
+        version="${title#Version }"
+        echo "Release title: $title"
+        echo "Extracted version: $version"
+
+        # Use grep and sed to extract changelog for the current version
+        changelog=$(grep -Pzo "(?s)## \[$version\].*?(?=## \[|$)" CHANGELOG.md)
+        echo "Changelog section for version $version:"
+        echo "$changelog"
+
+        # Format the changelog
+        formatted_changelog=$(echo "$changelog" | sed -e "s/## \\[$version\\].*/**__Version ${version}__**/" -e "s/^### \\(.*\\)$/\n**\1**/" -e "s/^- /* /")
+        
+        # Ensure the changelog is not empty
+        if [ -z "$formatted_changelog" ]; then
+          echo "No changelog content found for version ${version}."
+          exit 1
+        fi
+
+        # Escape newlines and double quotes for JSON
+        formatted_changelog_escaped=$(echo "$formatted_changelog" | jq -R -s '.')
+
+        echo "formatted_changelog=$formatted_changelog_escaped" >> $GITHUB_ENV
 
     - name: Post to Discord
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        CHANGELOG_CONTENT: ${{ env.formatted_changelog }}
       run: |
+        if [ -z "$CHANGELOG_CONTENT" ]; then
+          echo "No changelog content found."
+          exit 1
+        fi
         curl -H "Content-Type: application/json" \
-             -d "{\"content\": \"${{ steps.extract_changelog.outputs.changelog }}\"}" \
+             -d "{\"content\": $CHANGELOG_CONTENT}" \
              $DISCORD_WEBHOOK_URL
