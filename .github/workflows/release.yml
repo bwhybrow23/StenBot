@@ -15,9 +15,18 @@ jobs:
     - name: Extract Changelog
       id: extract_changelog
       run: |
-        version=${{ github.event.release.tag_name }}
+        # Extract the release title and remove 'Version ' prefix
+        title=${{ github.event.release.name }}
+        version=${title#Version }
+        # Extract changelog for the current version
         changelog=$(awk "/## \\[${version}\\]/,/^## \\[/" CHANGELOG.md | sed '$d')
+        # Format the changelog
         formatted_changelog=$(echo "$changelog" | sed -e "s/## \\[${version}\\].*/**__Version ${version}__**\n/" -e "s/^### \\(.*\\)$/\n**\1**\n/g" -e "s/^- /* /" -e "s/\\*\*\\(Added\\|Changed\\|Fixed\\|Removed\\|Security\\|Deprecated\\)\\*\*/\\n\\0\\n/g")
+        # Ensure the changelog is not empty
+        if [ -z "$formatted_changelog" ]; then
+          echo "No changelog content found for version ${version}."
+          exit 1
+        fi
         echo "formatted_changelog=$formatted_changelog" >> $GITHUB_ENV
 
     - name: Post to Discord
