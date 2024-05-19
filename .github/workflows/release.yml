@@ -38,17 +38,16 @@ jobs:
           exit 1
         fi
 
-        # Encode the formatted changelog to handle newlines
-        formatted_changelog_base64=$(echo "$formatted_changelog" | base64)
-        echo "formatted_changelog=$formatted_changelog_base64" >> $GITHUB_ENV
+        # Properly handle multiline environment variables
+        echo "formatted_changelog<<EOF" >> $GITHUB_ENV
+        echo "$formatted_changelog" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
 
     - name: Post to Discord
       env:
         DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         CHANGELOG_CONTENT: ${{ env.formatted_changelog }}
       run: |
-        # Decode the changelog content
-        CHANGELOG_CONTENT=$(echo "$CHANGELOG_CONTENT" | base64 --decode)
         if [ -z "$CHANGELOG_CONTENT" ]; then
           echo "No changelog content found."
           exit 1
