@@ -4,15 +4,16 @@ import fetch from 'node-fetch';
 
 export default {
   data: new SlashCommandBuilder()
-    .setName('meme').setDescription('Generate a random Reddit meme.'),
+    .setName('meme').setDescription('Fetch a random meme from Reddit.'),
   category: 'fun',
   usage: '',
   example: '',
-  options: { permission: 'EVERYONE', enabled: false, cooldown: 2, guildOnly: false },
+  options: { permission: 'EVERYONE', enabled: true, cooldown: 2, guildOnly: false },
   run: async (bot, interaction) => {
 
     let meme;
-    await fetch('https://meme-api.herokuapp.com/gimme')
+
+    await fetch('https://meme-api.com/gimme')
       .then(res => res.json())
       .then(json => meme = json)
       .catch((error) => {
@@ -27,11 +28,12 @@ export default {
     let b = num & 255;
 
     let embed = new Discord.EmbedBuilder()
+      .setAuthor({ name: meme.author })
       .setTitle(`r/${meme.subreddit} - ${meme.title}`)
       .setURL(meme.postLink)
       .setColor([r, g, b])
       .setImage(meme.url)
-      .setFooter({ text: `👍 ${meme.ups.toString()}` });
+      .setFooter({ text: `Powered by memi-api.com` });
 
     interaction.reply({ embeds: [embed] });
 

@@ -1,0 +1,29 @@
+name: Post Changelog to Discord
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  post-changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Extract Changelog
+      id: extract_changelog
+      run: |
+        version=${{ github.event.release.tag_name }}
+        changelog=$(awk "/## \\[${version}\\]/,/^## \\[/" CHANGELOG.md | sed '$d')
+        formatted_changelog=$(echo "$changelog" | sed -e "s/## \\[${version}\\].*/**__Version ${version}__**\n/" -e "s/^### \\(.*\\)$/\n**\1**\n/g" -e "s/^- /* /" -e "/\*\*\\(Added\\|Changed\\|Fixed\\|Removed\\|Security\\|Deprecated\\)\*\*/i\\")
+        echo "::set-output name=changelog::$formatted_changelog"
+
+    - name: Post to Discord
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      run: |
+        curl -H "Content-Type: application/json" \
+             -d "{\"content\": \"${{ steps.extract_changelog.outputs.changelog }}\"}" \
+             $DISCORD_WEBHOOK_URL
