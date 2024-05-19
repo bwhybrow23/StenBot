@@ -12,6 +12,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Display CHANGELOG.md
+      run: cat CHANGELOG.md
+
     - name: Extract Changelog
       id: extract_changelog
       run: |
@@ -20,17 +23,21 @@ jobs:
         version="${title#Version }"
         echo "Release title: $title"
         echo "Extracted version: $version"
-        # Extract changelog for the current version
-        changelog=$(awk "/## \\[${version}\\]/,/^## \\[/" CHANGELOG.md | sed '$d')
+
+        # Use grep and sed to extract changelog for the current version
+        changelog=$(grep -Pzo "(?s)## \[$version\].*?(?=## \[|$)" CHANGELOG.md)
         echo "Changelog section for version $version:"
         echo "$changelog"
+
         # Format the changelog
-        formatted_changelog=$(echo "$changelog" | sed -e "s/## \\[${version}\\].*/**__Version ${version}__**\n/" -e "s/^### \\(.*\\)$/\n**\1**\n/g" -e "s/^- /* /" -e "s/\\*\*\\(Added\\|Changed\\|Fixed\\|Removed\\|Security\\|Deprecated\\)\\*\*/\\n\\0\\n/g")
+        formatted_changelog=$(echo "$changelog" | sed -e "s/## \\[$version\\].*/**__Version ${version}__**\n/" -e "s/^### \\(.*\\)$/\n**\1**\n/g" -e "s/^- /* /" -e "s/\\*\*\\(Added\\|Changed\\|Fixed\\|Removed\\|Security\\|Deprecated\\)\\*\*/\\n\\0\\n/g")
+        
         # Ensure the changelog is not empty
         if [ -z "$formatted_changelog" ]; then
           echo "No changelog content found for version ${version}."
           exit 1
         fi
+
         echo "formatted_changelog=$formatted_changelog" >> $GITHUB_ENV
 
     - name: Post to Discord
