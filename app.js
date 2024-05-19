@@ -137,53 +137,53 @@ bot.mutils = mutils;
    * API & WEBSITE
    *
    */
-import express from 'express';
-const app = express();
-import cors from 'cors';
-import path from 'path';
-const port = bot.settings.options.apiPort;
-import { renderFile } from 'ejs';
-import { readdir } from 'fs/promises';
+// import express from 'express';
+// const app = express();
+// import cors from 'cors';
+// import path from 'path';
+// const port = bot.settings.options.apiPort;
+// import { renderFile } from 'ejs';
+// import { readdir } from 'fs/promises';
 
-//__dirname
-import { fileURLToPath } from 'url';
-import { time } from 'console';
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// //__dirname
+// import { fileURLToPath } from 'url';
+// import { time } from 'console';
+// const __dirname = path.dirname(fileURLToPath(import.meta.url));
   
-//Middleware
-app.use(express.json());
-app.use(express.urlencoded({
-  extended: false
-}));
-app.use(cors());
+// //Middleware
+// app.use(express.json());
+// app.use(express.urlencoded({
+//   extended: false
+// }));
+// app.use(cors());
   
-app.use('/assets', express.static('Main/Website/assets'));
-app.set('views', path.join(__dirname, 'Main/Website/views'));
-app.engine('html', (filePath, options, callback) => {
-  renderFile(filePath, options, callback);
-})
-app.set('view engine', 'html');
+// app.use('/assets', express.static('Main/Website/assets'));
+// app.set('views', path.join(__dirname, 'Main/Website/views'));
+// app.engine('html', (filePath, options, callback) => {
+//   renderFile(filePath, options, callback);
+// })
+// app.set('view engine', 'html');
   
-app.listen(port, () => {
-  bot.log.post('success', `Webserver server started on port ${port}`);
-});
+// app.listen(port, () => {
+//   bot.log.post('success', `Webserver server started on port ${port}`);
+// });
   
-// Routers
-const loadRouters = async () => {
-  try {
-    const files = await readdir(path.join(__dirname, './Main/Routers'));
-    files.forEach(async (file) => {
-      if (file.split('.')[1] === 'js') {
-        const router = await import(`./Main/Routers/${file}`);
-        app.use(router.default);
-      }
-    });
-  } catch (error) {
-    console.error('Error loading routers:', error);
-  }
-};
+// // Routers
+// const loadRouters = async () => {
+//   try {
+//     const files = await readdir(path.join(__dirname, './Main/Routers'));
+//     files.forEach(async (file) => {
+//       if (file.split('.')[1] === 'js') {
+//         const router = await import(`./Main/Routers/${file}`);
+//         app.use(router.default);
+//       }
+//     });
+//   } catch (error) {
+//     console.error('Error loading routers:', error);
+//   }
+// };
 
-loadRouters();
+// loadRouters();
   
 //EXPORT BOT MODULE (DONT PUT ANYTHING BELOW THIS)
 export default bot;

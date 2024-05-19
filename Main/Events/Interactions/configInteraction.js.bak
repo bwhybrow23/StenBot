@@ -1,0 +1,15 @@
+//Once button clicked on original message, update message with new buttons
+import { ModalBuilder, TextInputBuilder, ActionRowBuilder, ButtonBuilder } from 'discord.js';
+
+
+export default {
+  name: 'interactionCreate',
+  once: false,
+  async execute(bot, interaction) {
+
+    if(!interaction) return;
+
+
+
+  }
+};
