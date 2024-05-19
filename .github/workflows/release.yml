@@ -38,10 +38,10 @@ jobs:
           exit 1
         fi
 
-        # Properly handle multiline environment variables
-        echo "formatted_changelog<<EOF" >> $GITHUB_ENV
-        echo "$formatted_changelog" >> $GITHUB_ENV
-        echo "EOF" >> $GITHUB_ENV
+        # Escape newlines and double quotes for JSON
+        formatted_changelog_escaped=$(echo "$formatted_changelog" | jq -R -s '.')
+
+        echo "formatted_changelog=$formatted_changelog_escaped" >> $GITHUB_ENV
 
     - name: Post to Discord
       env:
@@ -53,5 +53,5 @@ jobs:
           exit 1
         fi
         curl -H "Content-Type: application/json" \
-             -d "{\"content\": \"$CHANGELOG_CONTENT\"}" \
+             -d "{\"content\": $CHANGELOG_CONTENT}" \
              $DISCORD_WEBHOOK_URL
