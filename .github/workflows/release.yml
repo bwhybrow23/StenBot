@@ -30,7 +30,7 @@ jobs:
         echo "$changelog"
 
         # Format the changelog
-        formatted_changelog=$(echo "$changelog" | sed -e "s/## \\[$version\\].*/**__Version ${version}__**\n/" -e "s/^### \\(.*\\)$/\n**\1**\n/g" -e "s/^- /* /" -e "s/\\*\*\\(Added\\|Changed\\|Fixed\\|Removed\\|Security\\|Deprecated\\)\\*\*/\\n\\0\\n/g")
+        formatted_changelog=$(echo "$changelog" | sed -e "s/## \\[$version\\].*/**__Version ${version}__**/" -e "s/^### \\(.*\\)$/\n**\1**/" -e "s/^- /* /")
         
         # Ensure the changelog is not empty
         if [ -z "$formatted_changelog" ]; then
