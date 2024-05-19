@@ -18,8 +18,12 @@ jobs:
         # Extract the release title and remove 'Version ' prefix
         title="${{ github.event.release.name }}"
         version="${title#Version }"
+        echo "Release title: $title"
+        echo "Extracted version: $version"
         # Extract changelog for the current version
         changelog=$(awk "/## \\[${version}\\]/,/^## \\[/" CHANGELOG.md | sed '$d')
+        echo "Changelog section for version $version:"
+        echo "$changelog"
         # Format the changelog
         formatted_changelog=$(echo "$changelog" | sed -e "s/## \\[${version}\\].*/**__Version ${version}__**\n/" -e "s/^### \\(.*\\)$/\n**\1**\n/g" -e "s/^- /* /" -e "s/\\*\*\\(Added\\|Changed\\|Fixed\\|Removed\\|Security\\|Deprecated\\)\\*\*/\\n\\0\\n/g")
         # Ensure the changelog is not empty
