@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 
-## [# Changelog] - 
+## [# Changelog]
 
 ## [3.2.2] - 2024-05-08
 ### Added
