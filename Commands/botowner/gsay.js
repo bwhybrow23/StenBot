@@ -16,24 +16,23 @@ export default {
     }
 
     let msg = interaction.options.getString('message');
+    let formattedMsg = msg.replace(/\\n/g, '\n');
+
+    let guildsSent = [];
 
     bot.guilds.cache.forEach(async (guild) => {
-      bot.createEmbed('info', 'interaction from StenBot Owner', `You have been sent this interaction by the owner of StenBot (Stentorian#6969) to inform you. The bot has seen that you are the server owner of **${guild.name}** so it has been sent to you. Feel free to communicate the below interaction to other people.`, [{
-        name: 'Server Name',
-        value: `${guild.name}`
-      }, {
-        name: 'interaction',
-        value: `${msg}`
-      }], `${interaction.guild.name}`, interaction)
+      bot.createEmbed('info', 'Message from StenBot\'s Owner', formattedMsg, [], `You have been sent this message as you are the server owner of ${guild.name}.`, interaction)
         .then(async (embed) => {
-          await bot.users.cache.get(guild.ownerId).send(embed);
+          await bot.users.cache.get(guild.ownerId).send({ embeds: embed });
         })
         .catch((error) => bot.log.post('error', error));
 
-      interaction.reply(`Your interaction has been sent to **${guild.name}** succesfully.`);
+      guildsSent.push(guild.name);
 
       await sleep(3000);
     });
+
+    await interaction.reply({ content: `Sent the message to the owners of the following servers:\n- ${guildsSent.join('\n- ')}`, ephemeral: true });
 
     function sleep(ms) {
       return new Promise((resolve) => {
