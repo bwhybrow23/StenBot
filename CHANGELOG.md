@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 
 ## [# Changelog]
 
+## [3.2.3] - 2024-08-11
+### Added
+
+### Changed
+- Updated node version to 20.15.0
+- Updated NPM packages to latest versions
+- Made changes to the gsay command for better formatting
+### Removed
+- Removed Code of Conduct as not applicable and outdated
+
 ## [3.2.2] - 2024-05-08
 ### Added
 -  Added a TODO list (TODO.md)
