@@ -90,7 +90,7 @@ export default {
     case 'user':
   
       //Get user and reason and check them
-      var targetuser = interaction.options.getUserOption('user');
+      var targetuser = interaction.options.getUser('user');
 
       // eslint-disable-next-line no-redeclare
       var reason = interaction.options.getString('reason');
