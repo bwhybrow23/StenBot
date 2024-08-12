@@ -7,10 +7,12 @@ export default {
     .addSubcommand(subcommand => subcommand.setName('server').setDescription('Blacklist a server from StenBot')
       .addStringOption(option => option.setName('server').setDescription('The server to blacklist').setRequired(true))
       .addStringOption(option => option.setName('reason').setDescription('The reason for blacklisting the server'))
+      .addBooleanOption(option => option.setName('dmowner').setDescription('Whether StenBot should DM the owner of the server about the blacklist').setRequired(true))
     )
     .addSubcommand(subcommand => subcommand.setName('user').setDescription('Blacklist a user from StenBot')
       .addUserOption(option => option.setName('user').setDescription('The user to blacklist').setRequired(true))
       .addStringOption(option => option.setName('reason').setDescription('The reason for blacklisting the server'))
+      .addBooleanOption(option => option.setName('dmuser').setDescription('Whether StenBot should DM the user about their blacklist').setRequired(true))
     ),
   category: 'botowner',
   usage: '<SERVER|USER> <SERVER ID|@USER> <REASON>',
@@ -73,9 +75,11 @@ export default {
           .catch((error) => bot.log.post('error', error));
   
         //DM Guild Owner
-        await bot.createEmbed('error', '', `I'm afraid that your server **${targetguild.name}** has been blacklisted from StenBot for the reason **${reason}**. If you believe this is an error, please contact **Stentorian#6969** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${interaction.guild.name}`, interaction)
-          .then((embed) => targetguild.owner.send(embed))
-          .catch((error) => bot.log.post('error', error));
+        if (interaction.options.getBoolean('dmowner') === true) {
+          await bot.createEmbed('error', '', `I'm afraid that your server **${targetguild.name}** has been blacklisted from StenBot for the reason **${reason}**. If you believe this is an error, please contact **Stentorian#6969** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${interaction.guild.name}`, interaction)
+            .then((embed) => targetguild.owner.send(embed))
+            .catch((error) => bot.log.post('error', error));
+        }
   
         //Leave the blacklisted guild
         targetguild.leave();
@@ -86,7 +90,7 @@ export default {
     case 'user':
   
       //Get user and reason and check them
-      var targetuser = interaction.getUserOption('user');
+      var targetuser = interaction.options.getUserOption('user');
 
       // eslint-disable-next-line no-redeclare
       var reason = interaction.options.getString('reason');
@@ -113,17 +117,19 @@ export default {
           .then((embed) => bot.guilds.cache.get('455782308293771264').channels.cache.get('565273737201713153').send(embed))
           .catch((error) => bot.log.post('error', error));
   
-        //DM Guild Owner
-        await bot.createEmbed('error', '', `I'm afraid that you have been blacklisted from using StenBot for the reason **${reason}**. If you believe this is an error, please contact **Stentorian#6969** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${interaction.guild.name}`, interaction)
-          .then((embed) => {
-            try {
-              targetuser.send(embed);
-            } catch (e) {
-              return;
-            }
-          })
-          .catch((error) => bot.log.post('error', error));
-      });
+        //DM User
+        if (interaction.options.getBoolean('dmuser') === true) {
+          await bot.createEmbed('error', '', `I'm afraid that you have been blacklisted from using StenBot for the reason **${reason}**. If you believe this is an error, please contact **Stentorian#6969** or join the **[Discord](https://discord.benwhybrow.com)**.`, [], `${interaction.guild.name}`, interaction)
+            .then((embed) => {
+              try {
+                targetuser.send(embed);
+              } catch (e) {
+                return;
+              }
+            })
+            .catch((error) => bot.log.post('error', error));
+          }
+        });
   
   
       break;
