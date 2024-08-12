@@ -6,12 +6,12 @@ export default {
     .setName('blacklist').setDescription('Blacklist a server or user from StenBot')
     .addSubcommand(subcommand => subcommand.setName('server').setDescription('Blacklist a server from StenBot')
       .addStringOption(option => option.setName('server').setDescription('The server to blacklist').setRequired(true))
-      .addStringOption(option => option.setName('reason').setDescription('The reason for blacklisting the server'))
+      .addStringOption(option => option.setName('reason').setDescription('The reason for blacklisting the server').setRequired(true))
       .addBooleanOption(option => option.setName('dmowner').setDescription('Whether StenBot should DM the owner of the server about the blacklist').setRequired(true))
     )
     .addSubcommand(subcommand => subcommand.setName('user').setDescription('Blacklist a user from StenBot')
       .addUserOption(option => option.setName('user').setDescription('The user to blacklist').setRequired(true))
-      .addStringOption(option => option.setName('reason').setDescription('The reason for blacklisting the server'))
+      .addStringOption(option => option.setName('reason').setDescription('The reason for blacklisting the server').setRequired(true))
       .addBooleanOption(option => option.setName('dmuser').setDescription('Whether StenBot should DM the user about their blacklist').setRequired(true))
     ),
   category: 'botowner',
