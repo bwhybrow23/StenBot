@@ -1,4 +1,4 @@
-FROM node:20.15.0
+FROM node:22.14.0
 
 # Install Nano
 RUN ["apt-get", "update"]
@@ -19,7 +19,4 @@ COPY . .
 EXPOSE 3001
 
 # Deploy commands
-CMD [ "npm", "run", "deploy" ]
-
-# Start StenBot
-CMD [ "node", "app.js" ]
+CMD npm run deploy && node app.js
