@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 
 ## [# Changelog]
 
+## [3.2.4] - 2025-03-01
+### Changed
+- Updated Node and NPM packages to latest versions
+
 ## [3.2.3] - 2024-08-11
 ### Changed
 - Updated node version to 20.15.0
