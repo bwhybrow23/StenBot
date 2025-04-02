@@ -292,7 +292,7 @@ const eventEmbed = (colour, author, title, desc, fields, footer, bot) => {
       if(author.avatar) {
         iconURL = `https://cdn.discordapp.com/avatars/${author.id}/${author.avatar}.jpg`;
       } else {
-        iconURL = `${author.displayAvatarURL({ dynamic: true, format: 'png' })}`;
+        iconURL = `${author.displayAvatarURL({ extension: 'png' })}`;
       }
       embedTemplate.embeds[0].author.icon_url = `${iconURL}`;
       //Title
