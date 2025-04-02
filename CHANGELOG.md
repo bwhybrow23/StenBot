@@ -2,8 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-
 ## [# Changelog]
+
+## [3.2.5] - 2025-04-02
+### Changed
+- Updated NPM packages to latest versions
+### Fixed
+- Fixed references to the Display Avatar URL
 
 ## [3.2.4] - 2025-03-01
 ### Changed
