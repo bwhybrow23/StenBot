@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [# Changelog]
 
-## [3.2.5] - 2025-04-02
+## [3.2.5] - 2025-04-05
 ### Added
 - Added daily bot tracking to check usage
 ### Removed
