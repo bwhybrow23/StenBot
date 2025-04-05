@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - Fixed references to the Display Avatar URL
 - Updated all deprecated ephemeral responses to use message flags instead
+- Fixed server command that was using the old channel type
 
 ## [3.2.4] - 2025-03-01
 ### Changed
