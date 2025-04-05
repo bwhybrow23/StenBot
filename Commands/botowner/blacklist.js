@@ -54,7 +54,7 @@ export default {
       //Get the target guilds guild object
       const targetguild = bot.guilds.cache.get(targetserver);
       if (!targetguild) {
-        return interaction.reply({ content: 'Error! The bot isn\'t in a guild with that ID.', ephemeral: true });
+        return interaction.reply({ content: 'Error! The bot isn\'t in a guild with that ID.', flags: 64 });
       }
   
       //Blacklist server

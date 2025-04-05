@@ -20,7 +20,7 @@ export default {
       .then(json => response = json)
       .catch(error => {
         bot.log.post('error', error);
-        interaction.reply({ content: 'An error occured, please contact support if this continues to happen.', ephemeral: true });
+        interaction.reply({ content: 'An error occured, please contact support if this continues to happen.', flags: 64 });
       });
 
     let toBeUsed = response.data[Math.floor(Math.random() * response.data.length)];

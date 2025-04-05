@@ -127,7 +127,7 @@ export default {
                   color: bot.settings.color.green,
                   description: `Your ticket ${channel} has been created!`,
                 }],
-                ephemeral: true
+                flags: 64
               });
 
               //Check if logging enabled

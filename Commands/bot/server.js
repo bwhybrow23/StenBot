@@ -50,8 +50,8 @@ export default {
     let txtChannelCount = 0;
     let vcChannelCount = 0;
     guild.channels.cache.forEach(channel => {
-      if (channel.type === 'GUILD_TEXT') return txtChannelCount++;
-      if (channel.type === 'GUILD_VOICE' || channel.type === 'GUILD_STAGE_VOICE') return vcChannelCount++;
+      if (channel.type === 0) return txtChannelCount++;
+      if (channel.type === 2 || channel.type === 'GUILD_STAGE_VOICE') return vcChannelCount++;
     });
 
     //Final Embed

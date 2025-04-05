@@ -18,7 +18,7 @@ export default {
       .then(json => meme = json)
       .catch((error) => {
         bot.log.post('error', error);
-        return interaction.reply({ content: 'An error occured while generating a meme. This could be because the API is down. Please try again later and if the issue persists, contact the bot owner.', ephemeral: 'true' });
+        return interaction.reply({ content: 'An error occured while generating a meme. This could be because the API is down. Please try again later and if the issue persists, contact the bot owner.', flags: 64 });
       });
 
     //Generate random RGB color

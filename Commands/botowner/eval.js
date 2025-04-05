@@ -31,7 +31,7 @@ export default {
         .addFields([ { name: ':inbox_tray: Input', value: `\`\`\`js\n${codein}\`\`\`` }, { name: ':outbox_tray: Output', value: `\`\`\`js\n${code}\n\`\`\`` } ])
         .setFooter({ text: 'Eval Command', iconURL: bot.user.avatarURL() })
         .setTimestamp();
-      interaction.reply({ embeds: [embed.toJSON()], ephemeral: true });
+      interaction.reply({ embeds: [embed.toJSON()], flags: 64 });
     } catch (e) {
       interaction.reply(`\`\`\`js\n${e}\n\`\`\``);
     }

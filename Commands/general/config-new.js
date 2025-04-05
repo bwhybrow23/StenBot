@@ -180,7 +180,7 @@ export default {
           .setStyle(ButtonStyle.Primary),
       );
     
-    interaction.reply({ embeds: [embed], components: [row], ephemeral: true })
+    interaction.reply({ embeds: [embed], components: [row], flags: 64 })
       .catch((error) => bot.log.post('error', error));
 
   },

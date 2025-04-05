@@ -30,7 +30,7 @@ export default {
 
     //Interactive Version
     bot.createEmbed('warning', 'New StenBot Report', 'Please specify the type of report:\n`User, Server or Bug`', [], `${interaction.user.tag}`, interaction)
-      .then(embed => interaction.reply({ embeds: embed, components: [tRow], ephemeral: false }))
+      .then(embed => interaction.reply({ embeds: embed, components: [tRow]}))
       .catch(error => bot.log.post('error', error));
 
     //Edit message if no interaction after 10s

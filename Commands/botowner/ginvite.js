@@ -35,7 +35,7 @@ export default {
 
     invitechannels.random().createInvite()
       .then((invite) =>
-        interaction.reply({ content: `Server name: **${guild.name}**\nInvite: https://discord.gg/${invite.code}`, ephemeral: true })
+        interaction.reply({ content: `Server name: **${guild.name}**\nInvite: https://discord.gg/${invite.code}`, flags: 64 })
       );
   },
 };

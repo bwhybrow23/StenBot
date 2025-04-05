@@ -131,7 +131,7 @@ export default {
 
       await interaction.reply({
         embeds: [addEmbed],
-        ephemeral: true
+        flags: 64
       });
 
       break;

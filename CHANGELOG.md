@@ -4,11 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## [# Changelog]
 
-## [3.2.5] - 2025-04-02
+## [3.2.5] - 2025-04-05
+### Added
+- Added daily bot tracking to check usage
+### Removed
+- Removed Lewd command as API no longer available
 ### Changed
 - Updated NPM packages to latest versions
 ### Fixed
 - Fixed references to the Display Avatar URL
+- Updated all deprecated ephemeral responses to use message flags instead
+- Fixed server command that was using the old channel type
 
 ## [3.2.4] - 2025-03-01
 ### Changed
