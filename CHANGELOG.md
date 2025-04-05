@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - Updated NPM packages to latest versions
 ### Fixed
 - Fixed references to the Display Avatar URL
+- Updated all deprecated ephemeral responses to use message flags instead
 
 ## [3.2.4] - 2025-03-01
 ### Changed

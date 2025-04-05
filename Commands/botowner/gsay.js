@@ -32,7 +32,7 @@ export default {
       await sleep(3000);
     });
 
-    await interaction.reply({ content: `Sent the message to the owners of the following servers:\n- ${guildsSent.join('\n- ')}`, ephemeral: true });
+    await interaction.reply({ content: `Sent the message to the owners of the following servers:\n- ${guildsSent.join('\n- ')}`, flags: MessageFlags.Ephemeral });
 
     function sleep(ms) {
       return new Promise((resolve) => {

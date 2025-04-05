@@ -126,7 +126,7 @@ export default {
       //User Report
       const rObj = bot.users.cache.get(interaction.fields.getTextInputValue('userId'));
       if (!rObj) {
-        interaction.reply({ content: 'A user with this ID cannot be found. Please refer to [this guide](http://bit.ly/getdiscordid) for more information.', ephemeral: true });
+        interaction.reply({ content: 'A user with this ID cannot be found. Please refer to [this guide](http://bit.ly/getdiscordid) for more information.', flags: MessageFlags.Ephemeral });
         return;
       }
 
@@ -136,7 +136,7 @@ export default {
 
       //Success message
       bot.createEmbed('success', 'User Report Sent', 'Your user report has been sent and will be reviewed by the Staff Team of StenBot. Thank you for your help.', [], `${interaction.user.tag}`, interaction)
-        .then(embed => interaction.reply({ embeds: embed, ephemeral: true }))
+        .then(embed => interaction.reply({ embeds: embed, flags: MessageFlags.Ephemeral }))
         .catch(error => bot.log.post('error', error));
 
       return;
@@ -148,7 +148,7 @@ export default {
       //Server Report
       const gObj = bot.guilds.cache.get(interaction.fields.getTextInputValue('serverId'));
       if (!gObj) {
-        interaction.reply({ content: 'A server with this ID cannot be found. Please refer to [this guide](http://bit.ly/getdiscordid) for more information.', ephemeral: true });
+        interaction.reply({ content: 'A server with this ID cannot be found. Please refer to [this guide](http://bit.ly/getdiscordid) for more information.', flags: MessageFlags.Ephemeral });
         return;
       }
 
@@ -158,7 +158,7 @@ export default {
 
       //Success message
       bot.createEmbed('success', 'Server Report Sent', 'Your server report has been sent and will be reviewed by the Staff Team of StenBot. Thank you for your help.', [], `${interaction.user.tag}`, interaction)
-        .then(embed => interaction.reply({ embeds: embed, ephemeral: true }))
+        .then(embed => interaction.reply({ embeds: embed, flags: MessageFlags.Ephemeral }))
         .catch(error => bot.log.post('error', error));
 
       return;
@@ -174,7 +174,7 @@ export default {
 
       //Success message
       bot.createEmbed('success', 'Bug Report Sent', 'Your bug report has been sent and will be reviewed by the Staff Team of StenBot. Thank you for your help.', [], `${interaction.user.tag}`, interaction)
-        .then(embed => interaction.reply({ embeds: embed, ephemeral: true }))
+        .then(embed => interaction.reply({ embeds: embed, flags: MessageFlags.Ephemeral }))
         .catch(error => bot.log.post('error', error));
 
       return;

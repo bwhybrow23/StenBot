@@ -127,7 +127,7 @@ export default {
                   color: bot.settings.color.green,
                   description: `Your ticket ${channel} has been created!`,
                 }],
-                ephemeral: true
+                flags: MessageFlags.Ephemeral
               });
 
               //Check if logging enabled
