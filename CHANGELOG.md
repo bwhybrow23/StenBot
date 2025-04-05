@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 ## [3.2.5] - 2025-04-02
 ### Added
 - Added daily bot tracking to check usage
+### Removed
+- Removed Lewd command as API no longer available
 ### Changed
 - Updated NPM packages to latest versions
 ### Fixed
