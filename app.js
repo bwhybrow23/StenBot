@@ -11,7 +11,7 @@ import mongoose from 'mongoose';
 const settings = JSON.parse(fs.readFileSync('./Main/settings.json', 'utf8'));
 
 const bot = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildModeration, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildPresences, GatewayIntentBits.DirectMessages], partials: [Partials.User, Partials.Message, Partials.Channel, Partials.ThreadMember, Partials.GuildMember] });
-  
+
 /**
    *
    * GLOBAL VALUES

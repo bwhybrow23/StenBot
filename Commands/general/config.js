@@ -362,7 +362,7 @@ export default {
 
       default:
 
-        interaction.reply({ content: 'Error! Please use a valid subcommand!', flags: MessageFlags.Ephemeral });
+        interaction.reply({ content: 'Error! Please use a valid subcommand!', flags: 64 });
 
         break;
 
@@ -524,7 +524,7 @@ export default {
 
       default:
 
-        interaction.reply({ content: 'Error! Please use a valid subcommand!', flags: MessageFlags.Ephemeral });
+        interaction.reply({ content: 'Error! Please use a valid subcommand!', flags: 64 });
 
         break;
 
@@ -636,7 +636,7 @@ export default {
 
       default:
 
-        interaction.reply({ content: 'Error! Please use a valid subcommand!', flags: MessageFlags.Ephemeral });
+        interaction.reply({ content: 'Error! Please use a valid subcommand!', flags: 64 });
 
         break;
 
@@ -763,7 +763,7 @@ export default {
 
       default:
 
-        interaction.reply({ content: 'Error! Please use a valid subcommand!', flags: MessageFlags.Ephemeral });
+        interaction.reply({ content: 'Error! Please use a valid subcommand!', flags: 64 });
 
         break;
 
@@ -943,7 +943,7 @@ export default {
 
       default:
 
-        interaction.reply({ content: 'Error! Please use a valid subcommand!', flags: MessageFlags.Ephemeral });
+        interaction.reply({ content: 'Error! Please use a valid subcommand!', flags: 64 });
 
         break;
 
@@ -1032,7 +1032,7 @@ export default {
 
       default:
 
-        interaction.reply({ content: 'Error! Please use a valid subcommand!', flags: MessageFlags.Ephemeral });
+        interaction.reply({ content: 'Error! Please use a valid subcommand!', flags: 64 });
 
         break;
 

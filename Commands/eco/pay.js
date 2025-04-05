@@ -23,7 +23,7 @@ export default {
     // }
 
     if (payee.balance < amount) {
-      return interaction.reply({ content: 'You do not have enough money to pay that amount.', flags: MessageFlags.Ephemeral });
+      return interaction.reply({ content: 'You do not have enough money to pay that amount.', flags: 64 });
     }
 
     await ecoUtils.updateUser(payee.discordID, payee.balance - amount).then(async () => {

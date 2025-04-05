@@ -11,7 +11,7 @@ export default {
   run: async (bot, interaction) => {
 
     let invites = await interaction.guild.invites.fetch().catch(() => {
-      return interaction.reply({ content: 'Sorry, I don\'t have the proper permissions to view invites!', flags: MessageFlags.Ephemeral });
+      return interaction.reply({ content: 'Sorry, I don\'t have the proper permissions to view invites!', flags: 64 });
     });
 
     let possibleinvites = [];

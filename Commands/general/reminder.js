@@ -131,7 +131,7 @@ export default {
 
       await interaction.reply({
         embeds: [addEmbed],
-        flags: MessageFlags.Ephemeral
+        flags: 64
       });
 
       break;

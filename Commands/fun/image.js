@@ -46,11 +46,11 @@ export default {
       image = interaction.options.getAttachment('image');
 
       //Check if attachment is a video, if so, don't save
-      if(isImage(image.url) === false) return interaction.reply({ content: 'Please only upload images/GIFs.', flags: MessageFlags.Ephemeral });
+      if(isImage(image.url) === false) return interaction.reply({ content: 'Please only upload images/GIFs.', flags: 64 });
 
       //Get user from DB
       user = await userUtils.getUser(interaction.user.id);
-      if(!user) return interaction.reply({ content: 'I cannot find you on the database.', flags: MessageFlags.Ephemeral});
+      if(!user) return interaction.reply({ content: 'I cannot find you on the database.', flags: 64});
 
       //Upload image to imgbb
       let res;
@@ -115,7 +115,7 @@ export default {
         .setTitle('Image added to gallery!')
         .setDescription('Hi there! Thank you for submitting your image to your gallery. You can now use it by running the command `/image view NAME`, replacing `NAME` with the custom name you chose.\n\n**Disclaimer:** StenBot is not responsible for the content uploaded to the gallery. An image can be removed at any time without notification to the user. Please ensure you follow Discord\'s Terms of Service when using StenBot.\n\n**PLEASE NOTE:** StenBot\'s gallery system relies on the original image being available at all times. If the original image is removed, so will your gallery entry.');
 
-      interaction.reply({ embeds: [ confirmationEmbed ], flags: MessageFlags.Ephemeral });
+      interaction.reply({ embeds: [ confirmationEmbed ], flags: 64 });
 
       break;
 
@@ -126,11 +126,11 @@ export default {
 
       //Get user from DB
       user = await userUtils.getUser(interaction.user.id);
-      if(!user) return interaction.reply({ content: 'I cannot find you on the database.', flags: MessageFlags.Ephemeral});
+      if(!user) return interaction.reply({ content: 'I cannot find you on the database.', flags: 64});
 
       //Check if image exists
       let imageData = user.images.find(image => image.name.toLowerCase() === name.toLowerCase());
-      if(!imageData) return interaction.reply({ content: 'I cannot find that image in your gallery.', flags: MessageFlags.Ephemeral });
+      if(!imageData) return interaction.reply({ content: 'I cannot find that image in your gallery.', flags: 64 });
       imageDeleteURL = imageData.imageDeleteURL;
 
       //Find and remove object from array
@@ -145,7 +145,7 @@ export default {
         .setTitle('Your image has been deleted!')
         .setDescription(`Your image has now been succesfully removed from StenBot's gallery. Please keep in mind that this does not remove the original image. To do this, please visit ${imageDeleteURL} and click "Delete"`);
 
-      interaction.reply({ embeds: [ deletedEmbed ], flags: MessageFlags.Ephemeral });
+      interaction.reply({ embeds: [ deletedEmbed ], flags: 64 });
 
       break;
     
@@ -153,7 +153,7 @@ export default {
 
       //Get user from DB
       user = await userUtils.getUser(interaction.user.id);
-      if(!user) return interaction.reply({ content: 'I cannot find you on the database.', flags: MessageFlags.Ephemeral});
+      if(!user) return interaction.reply({ content: 'I cannot find you on the database.', flags: 64});
 
       //If image is provided, show image
       if(interaction.options.getString('name') != undefined || null) {
@@ -182,7 +182,7 @@ export default {
           // eslint-disable-next-line no-unused-vars
           image = null;
         } catch (error) {
-          return interaction.reply({ content: 'You don\'t have any saved images on your gallery.', flags: MessageFlags.Ephemeral });
+          return interaction.reply({ content: 'You don\'t have any saved images on your gallery.', flags: 64 });
         }
 
         //Construct embed
@@ -215,7 +215,7 @@ export default {
 
     default:
 
-      interaction.reply({ content: 'This command requires a subcommand.', flags: MessageFlags.Ephemeral });
+      interaction.reply({ content: 'This command requires a subcommand.', flags: 64 });
 
       break;
     }
