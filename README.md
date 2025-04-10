@@ -9,7 +9,7 @@
   <a href="http://discord.benwhybrow.com/" target="_blank">
     <img src="https://img.shields.io/discord/455782308293771264?color=blueviolet&label=Discord" alt="Discord" />
   </a>
-  <a href="https://www.codacy.com/gh/bwhybrow23/StenBot/dashboard?tm_source=github.com&amp;utm_medium=referral&amp;utm_content=bwhybrow23/StenBot&amp;utm_campaign=Badge_Grade">
+  <a href="https://app.codacy.com/gh/bwhybrow23/StenBot/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade">
     <img src="https://app.codacy.com/project/badge/Grade/6fed3e02b701434cbe629c37e3c11f26"/>
   </a>
 </p>
