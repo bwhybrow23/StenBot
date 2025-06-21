@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## [# Changelog]
 
+## [3.2.6] - 2025-06-21
+### Changed
+- Updated Node and NPM packages to latest versions
+
 ## [3.2.5] - 2025-04-05
 ### Added
 - Added daily bot tracking to check usage
