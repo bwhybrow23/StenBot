@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@discordjs/rest": "^2.5.1",
-    "ascii-table3": "^0.9.0",
+    "ascii-table3": "^1.0.1",
     "chalk": "^5.4.1",
     "cors": "^2.8.5",
     "discord-api-types": "^0.37.120",
