@@ -30,7 +30,7 @@
     "url": "https://github.com/sponsors/bwhybrow23"
   },
   "dependencies": {
-    "@discordjs/rest": "^2.5.1",
+    "@discordjs/rest": "^2.6.0",
     "ascii-table3": "^0.9.0",
     "chalk": "^5.4.1",
     "cors": "^2.8.5",
