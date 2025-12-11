@@ -56,6 +56,9 @@ bot.punishments = punishments;
 //General Utilities
 import utilities from './Main/Functions/utilities.js';
 bot.utils = utilities;
+
+import { createGithubIssue } from './Main/Functions/githubUtils.js';
+bot.createGithubIssue = createGithubIssue;
   
 /**
    *
@@ -185,6 +188,25 @@ const loadRouters = async () => {
 };
 
 loadRouters();
+
+/**
+ * 
+ * Error Handling
+ * 
+ */
+process.on("unhandledRejection", (reason) => {
+  bot.log.post('error', reason);
+  createGithubIssue(reason, {
+    additonalInfo: "unhandledRejection",
+  });
+});
+
+process.on("uncaughtException", (error) => {
+  bot.log.post('error', error);
+  createGithubIssue(error, {
+    additonalInfo: "uncaughtException",
+  });
+});
   
 //EXPORT BOT MODULE (DONT PUT ANYTHING BELOW THIS)
 export default bot;

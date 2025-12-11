@@ -9,7 +9,12 @@
             "dbl": "",
             "topgg": ""
         },
-        "imgbb": ""
+        "imgbb": "",
+        "github": {
+          "token": "",
+          "owner": "",
+          "repo": ""
+        }
     },
     "ids": {
         "botOwner": "",
