@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 ## [# Changelog]
 
+## [3.2.7] - 2025-12-11
+### Added
+- Added error handling to automatically create GitHub issues on the repo
+### Changed
+- Changed the ready function to clientReady following the deprecation in v15 of Discord.js
+- Updated Node and NPM packages to latest version
+- Moved slash commands deployment function to correct folder
+
 ## [3.2.6] - 2025-06-21
 ### Changed
 - Updated Node and NPM packages to latest versions

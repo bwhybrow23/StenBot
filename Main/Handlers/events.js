@@ -29,5 +29,11 @@ export async function eventHandler(bot) {
     console.log(table.toString());
   } catch (error) {
     bot.log.post('error', error);
+    
+    // Report to GitHub
+    bot.createGithubIssue(error, {
+      fileName: "events.js", 
+      additonalInfo: "Event Handler"
+    });
   }
 }

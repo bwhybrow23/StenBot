@@ -4,7 +4,7 @@ const packageJSON = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 const botData = JSON.parse(fs.readFileSync('./Data/Global/bot-data.json', 'utf8'));
 
 export default {
-  name: 'ready',
+  name: 'clientReady',
   once: true,
   async execute(bot) {
 

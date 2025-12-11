@@ -2,6 +2,7 @@ import chalk from 'chalk';
 import path from 'path';
 import fs from 'fs';
 import moment from 'moment';
+import { createGithubIssue } from '../Functions/githubUtils.js';
 
 //__dirname
 import { fileURLToPath } from 'url';
@@ -55,6 +56,7 @@ const post = (type, message) => {
             _toFile(type, message)
               .then(resolve)
               .catch(() => reject('Failed to log to file'));
+            createGithubIssue(message, {});
           })
           .catch(() => console.log(message)); // Log to console if console logging fails
         break;

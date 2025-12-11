@@ -38,5 +38,12 @@ export async function commandHandler(bot) {
     console.log(table.toString());
   } catch (error) {
     console.error('Error in Command Handler:', error);
+
+    // Report to GitHub
+    bot.createGithubIssue(error, {
+      fileName: "commands.js", 
+      additonalInfo: "Command Handler"
+    });
+
   }
 }
