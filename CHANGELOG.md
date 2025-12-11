@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Changed the ready function to clientReady following the deprecation in v15 of Discord.js
 - Updated Node and NPM packages to latest version
-- Moved deployCommands to the Functions folder
+- Moved slash commands deployment function to correct folder
 
 ## [3.2.6] - 2025-06-21
 ### Changed
