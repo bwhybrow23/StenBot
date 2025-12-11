@@ -8,7 +8,7 @@
     "run": "node app.js",
     "dev": "nodemon app.js",
     "lint": "eslint . --fix",
-    "deploy": "node deploy-commands.js",
+    "deploy": "node ./Main/Functions/deployCommands.js",
     "build": "docker build -t bwhybrow23/stenbot . && docker run -d -v /srv/StenBot:/srv/StenBot -p 3001:3001 --restart unless-stopped --name=StenBot bwhybrow23/stenbot"
   },
   "repository": {

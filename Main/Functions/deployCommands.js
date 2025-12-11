@@ -9,7 +9,7 @@ bot.value = 'value';
 bot.commands = new Collection();
 bot.commandsArray = [];
 
-import { commandHandler } from './Main/Handlers/commands.js';
+import { commandHandler } from '../Handlers/commands.js';
 await commandHandler(bot);
 
 let commandsArray = bot.commandsArray;
