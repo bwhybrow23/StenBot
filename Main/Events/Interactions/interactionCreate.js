@@ -62,6 +62,13 @@ export default {
       logToDailyStats(command.data.name, command.category);
     } catch (error) {
       if (error) bot.log.post('error', error);
+
+      // Report to GitHub
+      bot.createGithubIssue(error, {
+        commandName: interaction.commandName,
+        username: interaction.user.username,
+        additionalInfo: `Interaction ID: ${interaction.id}`
+      });
   
       if(interaction.replied === false) {
         interaction.reply({ content: 'An error occured whilst running that command. Please try running it again. If the error persists, please contact the bot owner.', flags: 64 });
