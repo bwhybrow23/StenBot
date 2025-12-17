@@ -15,8 +15,6 @@ export default {
       if (config.logging.ignore.includes(oldMessage.channel.id)) return;
       if (config.logging.level === 'low' || config.logging.level === 'medium' || config.logging.level === 'high') {
         if (bot.efunctions.checkChannel(config.logging.channel, bot) === true) {
-          if (!oldMessage.author) return;
-          if (oldMessage.author.bot) return;
           if (
             oldMessage.createdTimestamp === newMessage.createdTimestamp &&
             checker(oldMessage)

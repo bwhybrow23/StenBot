@@ -19,7 +19,6 @@ export default {
       if (config.logging.ignore.includes(message.channel.id)) return;
       if (config.logging.level === 'low' || config.logging.level === 'medium' || config.logging.level === 'high') {
         if (bot.efunctions.checkChannel(config.logging.channel, bot) === true) {
-          if (message.author.bot) return;
           let files = await readdirPromisify('./Commands/');
           let possiblefilename = message.content.split(' ')[0].slice(bot.settings.prefix.length) + '.js';
           if (files.includes(possiblefilename)) return;
