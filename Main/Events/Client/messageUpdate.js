@@ -6,8 +6,10 @@ export default {
   async execute(bot, oldMessage, newMessage) {
 
     if (newMessage.type === 'DM') return;
-    if (!newMessage) return;
+    if (!newMessage || newMessage === null) return;
     if (!newMessage.guild) return;
+    if (newMessage.author?.bot) return;
+
     let config = await bot.mutils.getGuildById(newMessage.guild.id);
     if (!config) return;
 

@@ -1,16 +1,13 @@
-import util from 'util';
-import { readdir } from 'fs';
-
 export default {
   name: 'messageDelete',
   once: false,
   async execute(bot, message) {
 
-    const readdirPromisify = util.promisify(readdir);
-
-    if (!message) return;
+    if (!message || message === null) return;
 
     if ((message.channel.type === 'DM')) return;
+    if (!message.guild) return;
+    if (message.author?.bot) return;
 
     let config = await bot.mutils.getGuildById(message.guild.id);
     if (!config) return;
