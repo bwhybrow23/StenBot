@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [# Changelog]
 
+## [3.2.8] - 2026-01-25
+### Added
+- Added auto-deploy on release
+### Removed
+- Removed checking for commands in message delete (pre-slash commands)
+
 ## [3.2.7] - 2025-12-11
 ### Added
 - Added error handling to automatically create GitHub issues on the repo
