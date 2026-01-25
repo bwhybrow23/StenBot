@@ -10,4 +10,4 @@
 - [ ] Go through every reply that the bot sends and decide if it should be ephemeral or not
 
 ## Deployment
-- [ ] Set up a continuous integration and deployment pipeline - most likely with webhooks
+- [X] Set up a continuous integration and deployment pipeline - most likely with webhooks
