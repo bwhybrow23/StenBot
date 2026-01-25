@@ -1,0 +1,22 @@
+name: Deploy on Release
+
+on:
+  release:
+    types: [published]
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, linux, x64, prod]
+
+    steps:
+      - name: Deploy the published release tag
+        run: |
+          set -e
+          TAG='${{ github.event.release.tag_name }}'
+          echo "Deploying $TAG"
+          sudo /opt/myapp/deploy.sh "$TAG"
+          echo "Deployment of $TAG completed"
